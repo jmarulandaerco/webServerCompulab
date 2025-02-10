@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="interface">Select internet interface:</label>
+            <input type="text" id="interface" name="interface" required>
+        </div>
+
+        <div class="form-group">
+            <label for="connection">Connection name:</label>
+            <input type="text" id="connection" name="connection" required>
+        </div>
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

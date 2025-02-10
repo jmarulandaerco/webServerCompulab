@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Sora Light';
+    src: url('../fonts/Sora-Light.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+  } 
+
+#sidebar a.active {
+    background-color: #00AB00; /* Un tono más oscuro */
+    color: #ffffff; /* Mantener el texto en blanco */
+}
+
+a {
+    font-family: 'Sora Light';
+    font-size: 12px;
+
+}
+#sidebar {
+    width: 200px;
+    position: fixed;
+    height: 90%;
+    background: #2e3b47; /* Color oscuro pero no negro, que combina con el footer y header */
+    padding-top: 0px;
+    transition: width 0.3s; /* Para animar el cambio de tamaño en el sidebar */
+}
+
+#sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff; /* Color blanco para el texto */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#sidebar a:hover {
+    background-color: #444f61; /* Un color gris oscuro al pasar el mouse */
+    color: #f0f0f0; /* Color claro al pasar el mouse */
+}
+
+/* Estilo del ícono SVG */
+#sidebar a img {
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+    width: 20px; /* Ajusta el tamaño del ícono */
+    height: 20px;
+    fill: #fff; /* Color blanco para los íconos */
+}
+
+/* Estilo responsive */
+@media screen and (max-width: 768px) {
+    #sidebar {
+        width: 100px; /* Reduce el tamaño en pantallas pequeñas */
+    }
+
+    #sidebar a {
+        font-size: 14px; /* Reduce el tamaño de la fuente */
+    }
+}

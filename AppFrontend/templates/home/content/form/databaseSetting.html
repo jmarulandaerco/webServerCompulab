@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="day">old_days:</label>
+            <input type="text" id="day" name="day" required>
+        </div>
+
+        <div class="form-group">
+            <label for="await">await_to_while:</label>
+            <input type="text" id="await" name="await" required>
+        </div>
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

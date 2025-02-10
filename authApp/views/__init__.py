@@ -1,0 +1,1 @@
+from .userDetailView import UserDetailView 

@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="zone">Timezone:</label>
+            <input type="text" id="zone" name="zone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="modbus">Sampling Modbus:</label>
+            <input type="text" id="modbus" name="modbus" required>
+        </div>
+
+        <div class="form-group">
+            <label for="start">Start hour:</label>
+            <input type="text" id="start" name="start" required>
+        </div>
+
+        <div class="form-group">
+            <label for="stop">Stop hour:</label>
+            <input type="text" id="stop" name="stop" required>
+        </div>
+
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

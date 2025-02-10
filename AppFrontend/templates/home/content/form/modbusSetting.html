@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="debug">set log_debug:</label>
+            <select id="debug" name="Server" required>
+                <option value="INFO">INFO</option>
+                <option value="DEBUG">DEBUG</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="attempts">set max_attempts:</label>
+            <input type="text" id="attempts" name="attempts" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeout">set timeout_attempts:</label>
+            <input type="text" id="timeout" name="timeout" required>
+        </div>
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

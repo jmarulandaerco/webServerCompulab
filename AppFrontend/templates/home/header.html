@@ -1,0 +1,21 @@
+<div id="header">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+    <div class="header-content">
+        <div class="logo">
+            <img src="{% static 'images/logo.svg' %}" alt="Logo">
+        </div>
+        
+        <button id="logoutBtn" class="logout-btn">
+            <img src="{% static 'images/logout.svg' %}" alt="Logout" width="40px" height="40px">
+        </button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.removeItem('access_token');
+        window.location.href = "{% url 'index' %}";  // Redirige a la página de inicio
+    });
+</script>

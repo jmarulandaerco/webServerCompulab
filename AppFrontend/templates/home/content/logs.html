@@ -1,0 +1,10 @@
+{% load static %}
+
+    <div class="container">
+        <link rel="stylesheet" href="{% static 'css/logs.css' %}">
+
+        <h1>Logs del Servidor</h1>
+        <button id="refreshButton" onclick="fetchLogs()">Actualizar Logs</button>
+        <div class="log-container" id="log-container">
+        </div>
+    </div>

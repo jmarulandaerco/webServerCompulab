@@ -1,0 +1,60 @@
+/* Aseguramos que el header use flexbox para alinear los elementos */
+#header {
+    width: 100%;
+    background-color: #222;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between; /* Alinea el logo a la izquierda y logout a la derecha */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;  /* Centra el contenido */
+}
+
+.logo {
+    flex: 1;  /* Esto asegura que el logo se quede a la izquierda */
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;  /* Asegura que el botón esté bien alineado */
+    color: white;
+}
+
+.logout-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Estilos para hacer el header responsive */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 10px;
+    }
+
+    .logo img {
+        height: 35px;  /* Ajusta el tamaño del logo en pantallas pequeñas */
+    }
+
+    .logout-btn img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        height: 30px;  /* Ajusta aún más el tamaño del logo */
+    }
+
+    .logout-btn img {
+        width: 30px;
+        height: 30px;
+    }
+}

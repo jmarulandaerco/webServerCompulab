@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="container">
+    <link rel="stylesheet" href="{% static 'css/menuButton.css' %}">
+
+    <button class="button" onclick="loadContentHttp('jojo.html')">Modem Checker</button>
+    <button class="button" onclick="loadContentHttp('page3.html')">Signal Checker</button>
+    <button class="button" onclick="loadContentHttp('page4.html')">Server Checker</button>
+</div>
+<div class="container" id="content4"></div>
+

@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="form-container" style="overflow-y: visible;">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        <!-- Campo de texto normal -->
+        <div class="form-group">
+            <label for="mode">Modbus operation mode:</label>
+            <input type="text" id="mode" name="mode" required>
+        </div>
+
+        <!-- Radio buttons para Active limitation -->
+        <div class="form-group">
+            <label>Active limitation:</label>
+            <div class="radio-group">
+                <input type="radio" id="limitation_yes" name="limitation" value="Yes" required>
+                <label for="limitation_yes">Yes</label>
+                <input type="radio" id="limitation_no" name="limitation" value="No" required>
+                <label for="limitation_no">No</label>
+            </div>
+        </div>
+
+        <!-- Radio buttons para Reactive compensation -->
+        <div class="form-group">
+            <label>Reactive compensation:</label>
+            <div class="radio-group">
+                <input type="radio" id="compensation_yes" name="compensation" value="Yes" required>
+                <label for="compensation_yes">Yes</label>
+                <input type="radio" id="compensation_no" name="compensation" value="No" required>
+                <label for="compensation_no">No</label>
+            </div>
+        </div>
+
+        <!-- Campos de texto adicionales -->
+        <div class="form-group">
+            <label for="sampling_limitation">Time sampling active limitation:</label>
+            <input type="text" id="sampling_limitation" name="sampling_limitation" required>
+        </div>
+
+        <div class="form-group">
+            <label for="sampling_compensation">Time sampling reactive compensation:</label>
+            <input type="text" id="sampling_compensation" name="sampling_compensation" required>
+        </div>
+
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+</script>

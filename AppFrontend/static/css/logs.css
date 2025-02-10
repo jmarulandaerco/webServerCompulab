@@ -1,0 +1,52 @@
+body {
+
+    color: #000;
+    overflow-y: hidden;
+
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #f5a623;
+}
+
+button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #d4881f;
+}
+
+.log-container {
+    background-color: #fff;
+    padding: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #444;
+}
+
+.log-line {
+    font-family: monospace;
+    padding: 2px;
+    border-bottom: 1px solid #444;
+    white-space: pre-wrap;
+}

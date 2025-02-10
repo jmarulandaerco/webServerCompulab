@@ -1,0 +1,65 @@
+{% load static %}
+
+<div class="container" style="overflow-y: visible !important;">
+    <link rel="stylesheet" href="{% static 'css/menuButton.css' %}">
+</div>
+
+<div class="container" id="content2">
+    <div class="form-container">
+        <link rel="stylesheet" href="{% static 'css/form_large.css' %}">
+    
+        <form id="myForm" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Energy Meter 3p:</label>
+                <div class="radio-group">
+                    <input type="radio" id="meter_yes" name="energy_meter" value="Yes" required>
+                    <label for="meter_yes">Yes</label>
+                    <input type="radio" id="meter_no" name="energy_meter" value="No" required>
+                    <label for="meter_no">No</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="meter_ids">Energy Meter IDs:</label>
+                <input type="text" id="meter_ids" name="meter_ids" required>
+            </div>
+
+            <div class="form-group">
+                <label for="inverter_ids">Inverter IDs:</label>
+                <input type="text" id="inverter_ids" name="inverter_ids" required>
+            </div>
+
+            <div class="form-group">
+                <label for="porcentage">Active Power Percentage:</label>
+                <input type="text" id="porcentage" name="porcentage" required>
+            </div>
+
+            <div class="form-group">
+                <label for="grid_min">Active Power Grid Min:</label>
+                <input type="text" id="grid_min" name="grid_min" required>
+            </div>
+
+            <div class="form-group">
+                <label for="grid_max">Active Power Grid Max:</label>
+                <input type="text" id="grid_max" name="grid_max" required>
+            </div>
+
+            <div class="form-group">
+                <label for="inverter_min">Active Power Inverter Min IDs:</label>
+                <input type="text" id="inverter_min" name="inverter_min" required>
+            </div>
+
+            <div class="form-group">
+                <label for="inverterMax">Active Power Inverter Max:</label>
+                <input type="text" id="inverterMax" name="inverterMax" required>
+            </div>
+
+            <div class="form-group">
+                <button class="buttonClass" type="submit">Guardar</button>
+            </div>
+
+        </form>
+    </div>
+</div>

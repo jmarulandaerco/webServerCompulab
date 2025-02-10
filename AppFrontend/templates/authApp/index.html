@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Login Form</title>
+  {% load static %}
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <section>
+    <div class="signin">
+      <div class="content">
+        {% load static %}
+        <img src="{% static 'images/logo.svg' %}" alt="Sign In">        <div class="form">
+          
+          
+          <form method="POST" action="{% url 'login' %}" id="loginForm">
+            {% csrf_token %}
+            <div class="inputBox">
+              <input type="text" name="username" id="username" required autocomplete="off">
+              <i>Username</i>
+            </div>
+
+            <div class="inputBox">
+              <input type="password" name="password" id="password" required autocomplete="off">
+              <i>Password</i>
+            </div>
+
+            <div class="inputBox">
+              <input type="submit" value="Login">
+            </div>
+          </form>
+
+         
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const token = localStorage.getItem('access_token');
+      if(token){
+        window.location.href = "{% url 'home' %}";
+      }
+    // Captura el formulario y maneja el evento de envío
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita el envío tradicional del formulario
+
+        
+      
+      // Obtén los datos del formulario
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Realiza una solicitud POST con los datos del formulario
+      fetch("{% url 'login' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}', // Se agrega el token CSRF
+        },
+        body: `username=${username}&password=${password}`, // Datos enviados al backend
+      })
+      .then(response => response.json()) // Espera una respuesta JSON
+        .then(data => {
+        if (data.access) {
+            
+            localStorage.setItem('access_token', data.access); // Guarda el token de acceso en el almacenamiento local
+            window.location.href = "{% url 'home' %}";  // Redirige a la página de inicio usando el nombre de la URL
+        } else {
+            // Si no hay token de acceso, muestra el mensaje de error
+            alert('Credenciales inválidas');
+        }
+        })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error en el servidor');
+      });
+    });
+  </script>
+</body>
+</html>

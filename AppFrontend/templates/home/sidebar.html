@@ -1,0 +1,204 @@
+{% load static %}
+
+<div id="sidebar">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+
+    <a href="#" onclick="loadContent('menu')">
+        <img src="{% static 'images/home.svg' %}" height="20" width="20" alt="Logo" />
+        Main
+    </a>
+    <a href="#" onclick="loadContent('modbus')">
+        <img src="{% static 'images/message.svg' %}" height="20" width="20" alt="Logo" />
+        Modbus
+    </a>
+    <a href="#" onclick="loadContent('form/limitation')">
+        <img src="{% static 'images/limitation.svg' %}" height="20" width="20" alt="Logo" />
+        Active Limitation
+    </a>
+    <a href="#" onclick="loadContent('form/compensation')">
+        <img src="{% static 'images/Compensation.svg' %}" height="20" width="20" alt="Logo" />
+        Compensation Reactive
+    </a>
+    <a href="#" onclick="startService()">
+        <img src="{% static 'images/start.svg' %}" height="20" width="20" alt="Logo" />
+        Start Service FW
+    </a>
+    <a href="#" onclick="stopService()">
+        <img src="{% static 'images/stop.svg' %}" height="20" width="20" alt="Logo" />
+        Stop Service FW
+    </a>
+    <a href="#" onclick="loadContent('logs')">
+        <img src="{% static 'images/log.svg' %}" height="20" width="20" alt="Logo" />
+        View Logs
+    </a>
+    <a href="#" onclick="loadContent('View Data Devices')">
+        <img src="{% static 'images/view.svg' %}" height="20" width="20" alt="Logo" />
+        View Data Devices
+    </a>
+    <a href="#" onclick="loadContent('Delete all records database')">
+        <img src="{% static 'images/delete.svg' %}" height="20" width="20" alt="Logo" />
+        Delete all records database
+    </a>
+    <a href="#" onclick="loadContent('Database *')">
+        <img src="{% static 'images/database.svg' %}" height="20" width="20" alt="Logo" />
+        Database *
+    </a>
+    <a href="#" onclick="loadContent('http')">
+        <img src="{% static 'images/http.svg' %}" height="20" width="20" alt="Logo" />
+         HTTP Data *
+    </a>
+    <a href="#" onclick="loadContent('setting')">
+        <img src="{% static 'images/setting.svg' %}" height="30" width="30" alt="Logo" />
+        Setting System
+    </a>
+    <a href="#" onclick="rebootErcoPulse()">
+        <img src="{% static 'images/system.svg' %}" height="20" width="20" alt="Logo" />
+        reboot
+    </a>
+</div>
+
+<div id="content">
+    
+</div>
+{% load static %}
+
+<script>
+    const getFormDataLimitation=  "{% url 'get_form_data_limitation' %}";
+    const getFormDataCompensation =  "{% url 'get_form_data_compensation' %}";
+</script>
+<script src="{% static 'script/menu/compensation_limitation.js' %}"></script>
+
+<script>
+
+
+    loadContent('menu');
+    function startService() {
+                if (confirm("¿Estás seguro de iniciar el servicio?")) {
+                    const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+
+                    fetch("reboot/", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        alert(data.message); // Muestra el mensaje de respuesta
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+            }
+
+    function stopService() {
+                if (confirm("¿Estás seguro de parar el servicio?")) {
+                    const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+
+                    fetch("reboot/", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        alert(data.message); // Muestra el mensaje de respuesta
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+            }
+
+
+
+    function rebootErcoPulse() {
+                if (confirm("¿Estás seguro de reinir el Erco Pulse")) {
+                    const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+
+                    fetch("reboot/", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        alert(data.message); // Muestra el mensaje de respuesta
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+            }
+    function loadContent(option) {
+        fetch(`/home/content/${option}/`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById("content").innerHTML = data;
+                
+                if (option=="form/limitation"){
+                    loadFormDataLimitation()
+
+                }else if (option == "form/compensation"){
+                    loadFormDataCompensation()
+                }
+                // Remueve la clase 'active' de todos los enlaces del sidebar
+                document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+                let intervalId = setInterval(fetchLogs, 5000);
+
+                if(option=='logs'){    
+                        document.getElementById("refreshButton").addEventListener("click", fetchLogs);
+                        
+                }else{
+                    clearInterval(intervalId); // Detiene el setInterval
+                    console.log("Actualización automática detenida");
+                }
+                // Encuentra el enlace correspondiente y agrégale la clase 'active'
+                document.querySelectorAll("#sidebar a").forEach(a => {
+                    if (a.getAttribute("onclick")?.includes(option)) {
+                        a.classList.add("active");
+                    }
+                });
+            })
+            .catch(error => {
+                console.log('Error al cargar el contenido:', error);
+                document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            });
+    }
+
+
+     
+        async function fetchLogs() {
+            try {
+                console.log("Terribel")
+                const response = await fetch("/home/api/logs/");
+                const data = await response.json();
+                const logContainer = document.getElementById("log-container");
+
+                console.log("Holaa");
+                console.log(data);
+
+                if (data.logs) {
+                    logContainer.innerHTML = data.logs
+                        .map(line => `<div class="log-line">${line}</div>`)
+                        .join("");
+                } else {
+                    logContainer.innerText = "No se encontraron logs.";
+                }
+            } catch (error) {
+                console.error("Error obteniendo los logs:", error);
+            }
+        }
+
+    
+
+    
+    </script>
