@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-w6=!o8oe^401u$3=4bjw*0#4$*y^xq^iwxb@l%i5zoxfsw_r2r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['192.168.50.182', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -110,10 +110,10 @@ DATABASES = {
         'NAME': 'device_local_database',  # Reemplaza con el nombre de tu base de datos MongoDB
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            # 'host': 'mongodb://192.168.1.36:27017',
+            # # 'host': 'mongodb://192.168.1.36:27017',
 
-            'host': 'mongodb://192.168.50.231:27017',
-            # 'host': 'mongodb://localhost:27017',  # Reemplaza con la URL de tu servidor MongoDB si es diferente
+            # 'host': 'mongodb://192.168.50.231:27017',
+            'host': 'mongodb://localhost:27017',  # Reemplaza con la URL de tu servidor MongoDB si es diferente
         }
     }
 }

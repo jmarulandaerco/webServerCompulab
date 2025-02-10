@@ -62,6 +62,7 @@ class FormDataLimitation(View):
             "inverterMax":"1000",
 
         }
+        return JsonResponse(sample_data)
 
 class FormDataCompensation(View):
     def get(self,request):
@@ -77,3 +78,4 @@ class FormDataCompensation(View):
             "factor":"0.91"
 
         }
+        return JsonResponse(sample_data)
