@@ -8,14 +8,40 @@
 
 .header-content {
     display: flex;
-    justify-content: space-between; /* Alinea el logo a la izquierda y logout a la derecha */
+    justify-content: space-between; /* Alinea los elementos */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;  /* Centra el contenido */
 }
 
 .logo {
-    flex: 1;  /* Esto asegura que el logo se quede a la izquierda */
+    flex: 1;
+}
+
+/* Indicador de estado */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+.status-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    background: blue;
+}
+
+/* Estados */
+.status-circle.active {
+    background-color: #00ff00; /* Verde cuando está activo */
+}
+
+.status-circle.inactive {
+    background-color: #ff0000; /* Rojo cuando está inactivo */
 }
 
 .logout-btn {
@@ -23,8 +49,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    display: flex;  /* Asegura que el botón esté bien alineado */
-    color: white;
+    display: flex;
 }
 
 .logout-btn img {
@@ -32,14 +57,14 @@
     height: 40px;
 }
 
-/* Estilos para hacer el header responsive */
+/* Estilos responsive */
 @media (max-width: 768px) {
     .header-content {
         padding: 0 10px;
     }
 
     .logo img {
-        height: 35px;  /* Ajusta el tamaño del logo en pantallas pequeñas */
+        height: 35px;
     }
 
     .logout-btn img {
@@ -50,7 +75,7 @@
 
 @media (max-width: 480px) {
     .logo img {
-        height: 30px;  /* Ajusta aún más el tamaño del logo */
+        height: 30px;
     }
 
     .logout-btn img {

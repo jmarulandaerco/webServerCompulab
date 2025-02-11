@@ -12,11 +12,11 @@ class Menu:
         try:
             result = os.system("systemctl is-active --quiet enrg-utilitymanager.service")
             if result == 0:
-                return "active"
+                return True
             else:
-                return "inactive"
+                return False
         except Exception as e:
-            return "unknown"
+            return False
 
     def execute_command(self, command: str) :
    

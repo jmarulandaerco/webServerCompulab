@@ -6,7 +6,13 @@
         <div class="logo">
             <img src="{% static 'images/logo.svg' %}" alt="Logo">
         </div>
-        
+
+        <!-- Indicador de estado -->
+        <div class="status-indicator">
+            <span id="statusCircle" class="status-circle active"></span>
+            <span id="statusText">Activo</span>
+        </div>
+
         <button id="logoutBtn" class="logout-btn">
             <img src="{% static 'images/logout.svg' %}" alt="Logout" width="40px" height="40px">
         </button>
@@ -14,8 +20,31 @@
 </div>
 
 <script>
+    checkServiceStatus()
+
     document.getElementById('logoutBtn').addEventListener('click', function() {
         localStorage.removeItem('access_token');
         window.location.href = "{% url 'index' %}";  // Redirige a la página de inicio
     });
+
+    function checkServiceStatus() {
+        fetch("{% url 'status_service' %}")  // Ajusta esto con la URL real de tu API
+            .then(response => response.json())
+            .then(data => {
+                const statusCircle = document.getElementById('statusCircle');
+                const statusText = document.getElementById('statusText');
+
+                if (data.active) {
+                    statusCircle.classList.remove('inactive');
+                    statusCircle.classList.add('active');
+                    statusText.innerText = 'Activo';
+                } else {
+                    statusCircle.classList.remove('active');
+                    statusCircle.classList.add('inactive');
+                    statusText.innerText = 'Inactivo';
+                }
+            })
+            .catch(error => console.error('Error al obtener el estado:', error));
+    }
+
 </script>

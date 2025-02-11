@@ -9,7 +9,7 @@ from AppFrontend.Views.menuView import FormDataCompensation, FormDataLimitation,
 from AppFrontend.Views.modbusView import FormModbusView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
-from energyAPP.views.serviceView import Reboot, StartView, StopView
+from energyAPP.views.serviceView import Reboot, StartView, StatusService, StopView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('home/start/', StartView.as_view(), name='start_service'),
     path('home/stop/', StopView.as_view(), name='stop_service'),
     path('home/reboot/', Reboot.as_view(), name='reboot_erco_pulse'),
+    path('home/status/', StatusService.as_view(), name='status_service'),
 
     path("home/logs/", LogTemplateView.as_view(), name="log_view"),
     path("home/api/logs/", GetLogsView.as_view(), name="get_logs"),
