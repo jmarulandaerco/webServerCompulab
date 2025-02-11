@@ -34,7 +34,7 @@ class StartView(generics.RetrieveAPIView):
             started= Menu()
             start = started.start_service()
             if start==True:
-                return Response({'message':'Reiniciando Sistema'})
+                return Response({'message':'Reiniciando sistema, espera 30 segundos  por favor'})
             else:
             
                 return Response({'message':'Service enrg-utilitymanager.service is in error'})
