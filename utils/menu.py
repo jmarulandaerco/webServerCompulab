@@ -41,10 +41,10 @@ class Menu:
 
         status = self.check_service_status()
         try:
-            if status == "active":
+            if status == True:
                 command = "sudo systemctl restart enrg-utilitymanager.service"
                 self.execute_command(command)
-            elif status == "inactive":
+            elif status == False:
                 command = "sudo systemctl start enrg-utilitymanager.service"
                 self.execute_command(command)
             else:
@@ -52,12 +52,12 @@ class Menu:
 
             # Check the service status after the command has finished
             new_status = self.check_service_status()
-            if new_status == "active":
+            if new_status == True:
                 print(
                     "Service enrg-utilitymanager.service started successfully."
                 )
                 return True
-            elif new_status == "failed":
+            elif new_status == False:
                 print(
                     "Service enrg-utilitymanager.service failed to start."
                 )
