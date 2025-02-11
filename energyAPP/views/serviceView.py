@@ -130,9 +130,9 @@ class StatusService(generics.RetrieveAPIView):
 
             statusService= Menu()
             status = statusService.check_service_status()
-            if status=='active':
+            if status==True:
                 return Response({'active':True})
-            elif status=='inactive':
+            elif status==False:
                 
                 return Response({'active':False})
             else:
