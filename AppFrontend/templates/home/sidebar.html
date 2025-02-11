@@ -118,7 +118,7 @@
                 if (confirm("¿Estás seguro de reinir el Erco Pulse")) {
                     const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
-                    fetch("reboot/", {
+                    fetch("{% url 'reboot_erco_pulse' %}", {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera

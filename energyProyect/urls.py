@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/inverter-data/', InverterDataView.as_view(), name='inverter-data'),
     path('home/start/', StartView.as_view(), name='start_service'),
     path('home/stop/', StopView.as_view(), name='stop_service'),
+    path('home/reboot/', StopView.as_view(), name='reboot_erco_pulse'),
 
     path("home/logs/", LogTemplateView.as_view(), name="log_view"),
     path("home/api/logs/", GetLogsView.as_view(), name="get_logs"),
