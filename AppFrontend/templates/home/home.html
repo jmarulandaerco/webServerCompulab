@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Erco Pulse</title>
+    <link rel="icon" type="image/svg+xml" sizes="64x64" href="{% static 'images/logo.svg' %}">
+
     <style>
+        link[rel="icon"] {
+    width: 64px;
+    height: 64px;
+}
         body {
             font-family: Arial, sans-serif;
             margin: 0;

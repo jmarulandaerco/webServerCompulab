@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title> Login Form</title>
   {% load static %}
+
+  <meta charset="UTF-8">
+  <title> Login Erco Pulse</title>
+  <link rel="icon" type="image/svg+xml" sizes="64x64" href="{% static 'images/logo.svg' %}">
+
+
+  <style>
+    link[rel="icon"] {
+      width: 64px;
+      height: 64px;
+    }
+  </style>
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
   <section>
     <div class="signin">
       <div class="content">
         {% load static %}
-        <img src="{% static 'images/logo.svg' %}" alt="Sign In">        <div class="form">
-          
-          
+        <img src="{% static 'images/logo.svg' %}" alt="Sign In">
+        <div class="form">
+
+
           <form method="POST" action="{% url 'login' %}" id="loginForm">
             {% csrf_token %}
             <div class="inputBox">
@@ -32,7 +45,7 @@
             </div>
           </form>
 
-         
+
         </div>
       </div>
     </div>
@@ -40,15 +53,15 @@
 
   <script>
     const token = localStorage.getItem('access_token');
-      if(token){
-        window.location.href = "{% url 'home' %}";
-      }
+    if (token) {
+      window.location.href = "{% url 'home' %}";
+    }
     // Captura el formulario y maneja el evento de envío
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Evita el envío tradicional del formulario
 
-        
-      
+
+
       // Obtén los datos del formulario
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -62,22 +75,23 @@
         },
         body: `username=${username}&password=${password}`, // Datos enviados al backend
       })
-      .then(response => response.json()) // Espera una respuesta JSON
+        .then(response => response.json()) // Espera una respuesta JSON
         .then(data => {
-        if (data.access) {
-            
+          if (data.access) {
+
             localStorage.setItem('access_token', data.access); // Guarda el token de acceso en el almacenamiento local
             window.location.href = "{% url 'home' %}";  // Redirige a la página de inicio usando el nombre de la URL
-        } else {
+          } else {
             // Si no hay token de acceso, muestra el mensaje de error
             alert('Credenciales inválidas');
-        }
+          }
         })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error en el servidor');
-      });
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Hubo un error en el servidor');
+        });
     });
   </script>
 </body>
+
 </html>
