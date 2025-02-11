@@ -85,5 +85,9 @@ class Menu:
 
         except Exception as e:
             return False
-
-
+        
+    def reboot(self):
+        try:
+            os.system("sudo reboot")
+        except Exception as e:
+            print("Error al reiniciar el equipo")
