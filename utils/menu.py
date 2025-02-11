@@ -7,7 +7,7 @@ import time
 
 @dataclass
 class Menu:
-    def check_service_status(self)-> str:
+    def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
             result = os.system("systemctl is-active --quiet enrg-utilitymanager.service")

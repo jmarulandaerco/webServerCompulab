@@ -35,6 +35,10 @@
     background: blue;
 }
 
+
+#statusText{
+    color: #fff;
+}
 /* Estados */
 .status-circle.active {
     background-color: #00ff00; /* Verde cuando está activo */
