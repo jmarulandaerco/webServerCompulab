@@ -96,7 +96,7 @@
                 if (confirm("¿Estás seguro de parar el servicio?")) {
                     const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
-                    fetch("{% url 'start_service' %}", {
+                    fetch("{% url 'stop_service' %}", {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
