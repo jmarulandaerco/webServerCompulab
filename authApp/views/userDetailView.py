@@ -81,7 +81,6 @@ class UserDetailView(generics.RetrieveAPIView):
 
         auth_header = request.headers.get('Authorization')
 
-        print("Hola")
      
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)

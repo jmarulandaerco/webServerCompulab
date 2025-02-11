@@ -76,7 +76,7 @@
                 if (confirm("¿Estás seguro de iniciar el servicio?")) {
                     const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
-                    fetch("reboot/", {
+                    fetch( "{% url 'start_service' %}", {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
@@ -96,7 +96,7 @@
                 if (confirm("¿Estás seguro de parar el servicio?")) {
                     const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
-                    fetch("reboot/", {
+                    fetch("{% url 'start_service' %}", {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera

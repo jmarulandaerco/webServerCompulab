@@ -1,29 +1,29 @@
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from django.conf import settings
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework_simplejwt.backends import TokenBackend
-from energyAPP.models import InverterData
-from energyAPP.serializers import InverterDataSerializer
+from rest_framework.permissions import IsAuthenticated
+from authApp.models.user import User
+from authApp.serializers.userSerializer import UserSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from bson import ObjectId
 
-class InverterDataView(APIView):
-    # authentication_classes = [JWTAuthentication]  # Usa JWTAuthentication
-    # permission_classes = [IsAuthenticated]
+from utils import Menu  # Necesario para trabajar con ObjectId
 
+
+class StartView(generics.RetrieveAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     def get(self, request, *args, **kwargs):
-        # 1️⃣ Obtener el encabezado 'Authorization'
         auth_header = request.headers.get('Authorization')
-        
-
+ 
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # 2️⃣ Extraer el token (lo que viene después de 'Bearer ')
         token = auth_header.split(' ')[1]
    
         try:
-            # 3️⃣ Decodificar el token manualmente
             token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
             valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
           
@@ -31,24 +31,30 @@ class InverterDataView(APIView):
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            # 5️⃣ Obtener y serializar los datos
-            inverter_data = InverterData.objects.all()
-            serializer = InverterDataSerializer(inverter_data, many=True)
-            return Response(serializer.data)
+            started= Menu()
+            start = started.start_service()
+            if start==True:
+                return Response({'message':'Reiniciando Sistema'})
+            else:
+            
+                return Response({'message':'Service enrg-utilitymanager.service is in error'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-    def delete(self, request, *args, **kwargs):
-         # 1️⃣ Obtener el encabezado 'Authorization'
+class StopView(generics.RetrieveAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
-        
+ 
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # 2️⃣ Extraer el token (lo que viene después de 'Bearer ')
         token = auth_header.split(' ')[1]
+   
         try:
             token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
             valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
@@ -57,11 +63,13 @@ class InverterDataView(APIView):
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            InverterData.objects.all().delete()
-            return Response({'detail': 'All records deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
-
+            stopper= Menu()
+            stop = stopper.stop_service()
+            if stop==True:
+                return Response({'message':'Parando Sistema'})
+            else:
             
+                return Response({'message':'Service enrg-utilitymanager.service is already stopped.'})
+
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
-
-        

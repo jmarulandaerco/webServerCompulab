@@ -5,7 +5,7 @@ from django.views import View
 
 from energyProyect import settings
 
-LOG_FILE_PATH = os.path.join(settings.BASE_DIR, "log.log")
+LOG_FILE_PATH = os.path.join(os.path.dirname(settings.BASE_DIR), "log.log")
 
 class LogTemplateView(TemplateView):
     """Vista para mostrar la plantilla de logs"""
@@ -15,8 +15,6 @@ class LogTemplateView(TemplateView):
 class GetLogsView(View):
     """API para obtener los logs como JSON"""
     def get(self, request):
-        print(os.path.exists(LOG_FILE_PATH))
-        print("prepago")
         if os.path.exists(LOG_FILE_PATH):
             with open(LOG_FILE_PATH, "r", encoding="utf-8") as file:
                 logs = file.readlines()

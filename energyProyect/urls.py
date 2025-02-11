@@ -9,7 +9,7 @@ from AppFrontend.Views.menuView import FormDataCompensation, FormDataLimitation,
 from AppFrontend.Views.modbusView import FormModbusView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
-from energyAPP.views.rebootView import RebootView
+from energyAPP.views.serviceView import StartView, StopView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -21,7 +21,9 @@ urlpatterns = [
     path('user/<str:user_id>/', UserDetailView.as_view(), name='user-detail'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/inverter-data/', InverterDataView.as_view(), name='inverter-data'),
-    path('home/reboot/', RebootView.as_view(), name='inverter-data'),
+    path('home/start/', StartView.as_view(), name='start_service'),
+    path('home/stop/', StopView.as_view(), name='stop_service'),
+
     path("home/logs/", LogTemplateView.as_view(), name="log_view"),
     path("home/api/logs/", GetLogsView.as_view(), name="get_logs"),
     path('api/get-form-data/', MeasureView.as_view(), name='get_form_data'),
@@ -32,11 +34,5 @@ urlpatterns = [
     path('api/get-form-data-setting-modbus/', FormModbusView.as_view(), name='get_form_data_setting_modbus'),
     path('api/get-form-data-limitation/', FormDataLimitation.as_view(), name='get_form_data_limitation'),
     path('api/get-form-data-compensation/', FormDataCompensation.as_view(), name='get_form_data_compensation'),
-
-
-
-
-
-
 
 ]
