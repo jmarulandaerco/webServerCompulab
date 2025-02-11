@@ -18,7 +18,7 @@ class Menu:
         except Exception as e:
             return "unknown"
 
-    def execute_command(self, command: str, title: str) :
+    def execute_command(self, command: str) :
    
         def run_command():
             os.system(command)
@@ -42,13 +42,11 @@ class Menu:
         status = self.check_service_status()
         try:
             if status == "active":
-                title = "Restarting enrg-utilitymanager.service"
                 command = "sudo systemctl restart enrg-utilitymanager.service"
-                self.execute_command(command, title)
+                self.execute_command(command)
             elif status == "inactive":
-                title = "Starting enrg-utilitymanager.service"
                 command = "sudo systemctl start enrg-utilitymanager.service"
-                self.execute_command(command, title)
+                self.execute_command(command)
             else:
                 return False
 
@@ -56,8 +54,7 @@ class Menu:
             new_status = self.check_service_status()
             if new_status == "active":
                 print(
-                    "Service enrg-utilitymanager.service started successfully.",
-                    title="Service Started",
+                    "Service enrg-utilitymanager.service started successfully."
                 )
                 return True
             elif new_status == "failed":
@@ -67,8 +64,7 @@ class Menu:
             else:
                
                 print(
-                    "Service enrg-utilitymanager.service did not start correctly.",
-                    title="Service Unknown State",
+                    "Service enrg-utilitymanager.service did not start correctly."
                 )
                 return False
 
