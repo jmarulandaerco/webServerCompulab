@@ -7,25 +7,24 @@ async function checked() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
-        // const response = await fetch(postCheckPasswordUrl, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "X-CSRFToken": csrfToken // Enviar CSRF token
-        //     },
-        //     body: JSON.stringify({ password, confirmPassword })
-        // });
+        const response = await fetch(postCheckPasswordUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ password, confirmPassword })
+        });
 
-        // const data = await response.json();
+        const data = await response.json();
       
-        if (false) {
+        if (!response.ok) {
             
-            alert("✅ " + data.error); // Muestra éxito si las contraseñas coinciden
-            throw new Error(data.error || "Error en la validación");
+            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
             
 
         }else{
-            // alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
             await loadContent('form/database')
 
         }
