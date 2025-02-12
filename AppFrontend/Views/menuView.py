@@ -79,3 +79,19 @@ class FormDataCompensation(View):
 
         }
         return JsonResponse(sample_data)
+    
+
+
+class FormDataBasePropierties(View):
+    def get(self,request):
+        sample_data= {
+            "host":"localhost",
+            "port":"27017",
+            "name":"device_local_database",
+            "timeout":"10",
+            "date":"%Y-%m-%d %H:%M:%S"
+            
+
+        }
+        return JsonResponse(sample_data)
+

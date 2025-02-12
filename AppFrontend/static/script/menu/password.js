@@ -5,30 +5,28 @@ async function checked() {
     const confirmPassword = document.getElementById("confirmPassword").value;
 
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-    console.log(password)
-    console.log(confirmPassword)
+
     try {
-        const response = await fetch(postCheckPasswordUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
-            },
-            body: JSON.stringify({ password, confirmPassword })
-        });
+        // const response = await fetch(postCheckPasswordUrl, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "X-CSRFToken": csrfToken // Enviar CSRF token
+        //     },
+        //     body: JSON.stringify({ password, confirmPassword })
+        // });
 
-        const data = await response.json();
-        console.log("Hola")
-        console.log(data)
-
-        if (!response.ok) {
+        // const data = await response.json();
+      
+        if (false) {
             
             alert("✅ " + data.error); // Muestra éxito si las contraseñas coinciden
             throw new Error(data.error || "Error en la validación");
             
 
         }else{
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            // alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            await loadContent('form/database')
 
         }
 
@@ -38,3 +36,24 @@ async function checked() {
         console.error("Error:", error);
     }
 };
+
+
+async function loadFormDataBase() {
+    try {
+        const response = await fetch(getFormDataBase);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+            const data = await response.json();
+
+            document.getElementById("host").value = data.host;
+            document.getElementById("port").value = data.port;
+            document.getElementById("name").value = data.name;
+            document.getElementById("timeout").value = data.timeout;
+            document.getElementById("date").value = data.date;
+            
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
