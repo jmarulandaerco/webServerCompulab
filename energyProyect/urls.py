@@ -3,6 +3,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from django.urls import path
 from AppFrontend.Views.checkPassWordView import CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
+from AppFrontend.Views.deleteView import DeleteCollectionView
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
@@ -39,5 +40,5 @@ urlpatterns = [
     path('api/get-form-data-compensation/', FormDataCompensation.as_view(), name='get_form_data_compensation'),
     path('api/get-form-database/', FormDataBasePropierties.as_view(), name='get_form_data_base'),
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
-
+    path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database')
 ]

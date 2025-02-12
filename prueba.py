@@ -21,13 +21,13 @@ django.setup()
 from authApp.models.user import User  # Importar modelos después de django.setup()
 
 # # Crear usuario
-# user = User.objects.create_user(username="erco_config", password="3rc04dm1n#t0")
-# print(user)
+user = User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
+print(user)
 
-try:
-    print(User.objects.get(_id=ObjectId("67a284ad5880afea109bda4d")))
+# try:
+#     print(User.objects.get(_id=ObjectId("67a284ad5880afea109bda4d")))
     
-except User.DoesNotExist:
-    print("El usuario no existe.")
-except Exception as e:
-    print(f"Error: {e}")
+# except User.DoesNotExist:
+#     print("El usuario no existe.")
+# except Exception as e:
+#     print(f"Error: {e}")
