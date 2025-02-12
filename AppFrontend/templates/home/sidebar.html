@@ -39,7 +39,7 @@
         <img src="{% static 'images/delete.svg' %}" height="20" width="20" alt="Logo" />
         Delete all records database
     </a>
-    <a href="#" onclick="loadContent('Database *')">
+    <a href="#" onclick="loadContent('form/password')">
         <img src="{% static 'images/database.svg' %}" height="20" width="20" alt="Logo" />
         Database *
     </a>
@@ -166,6 +166,7 @@
                 }else if (option == "form/compensation"){
                     loadFormDataCompensation()
                 }
+                
                 // Remueve la clase 'active' de todos los enlaces del sidebar
                 document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
                 let intervalId = setInterval(fetchLogs, 5000);
@@ -195,12 +196,11 @@
         async function fetchLogs() {
             try {
                 console.log("Terribel")
-                const response = await fetch("/home/api/logs/");
+                const response = await fetch("{% url 'get_logs' %}");
                 const data = await response.json();
                 const logContainer = document.getElementById("log-container");
 
-                console.log("Holaa");
-                console.log(data);
+              
 
                 if (data.logs) {
                     logContainer.innerHTML = data.logs

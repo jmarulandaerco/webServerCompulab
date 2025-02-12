@@ -1,6 +1,7 @@
 from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView) 
 from django.urls import path
+from AppFrontend.Views.checkPassWordView import CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
@@ -36,5 +37,6 @@ urlpatterns = [
     path('api/get-form-data-setting-modbus/', FormModbusView.as_view(), name='get_form_data_setting_modbus'),
     path('api/get-form-data-limitation/', FormDataLimitation.as_view(), name='get_form_data_limitation'),
     path('api/get-form-data-compensation/', FormDataCompensation.as_view(), name='get_form_data_compensation'),
+    path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
 
 ]
