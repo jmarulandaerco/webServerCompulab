@@ -23,7 +23,6 @@ async function loadFormDataMeasureModbus() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
-        console.log(data)
         document.getElementById("zone").value = data.zone;
         document.getElementById("modbus").value = data.modbus;
         document.getElementById("start").value = data.start;
@@ -40,9 +39,9 @@ async function loadFormDataServerSelection() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
-        
+        console.log(data)
         // Llenar los campos del formulario con los valores de ejemplo
-        document.getElementById("server").value = data.Server;
+        document.getElementById("server").value = data.server;
         document.getElementById("neu_plus").value = data.neu_plus;
         document.getElementById("telemetry").value = data.telemetry;
         document.getElementById("mqtt").value = data.mqtt;
