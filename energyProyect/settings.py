@@ -110,9 +110,9 @@ DATABASES = {
         'NAME': 'device_local_database',  # Reemplaza con el nombre de tu base de datos MongoDB
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            # # 'host': 'mongodb://192.168.1.36:27017',
+            'host': 'mongodb://192.168.1.36:27017',
 
-            'host': 'mongodb://192.168.50.231:27017',
+            # 'host': 'mongodb://192.168.50.231:27017',
             # 'host': 'mongodb://localhost:27017',  # Reemplaza con la URL de tu servidor MongoDB si es diferente
         }
     }
