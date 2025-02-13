@@ -14,7 +14,7 @@ class MeasureView(View):
             config.read(list_path_menu[0])
             sample_data = {
                 "zone": config.get('measurementmodbus', 'timezone'),
-                "modbus": config.get('measurementmodbus'),
+                "modbus": config.get('measurementmodbus','sampling_modbus'),
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }

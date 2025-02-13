@@ -23,6 +23,7 @@ async function loadFormDataMeasureModbus() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
+        console.log(data)
         document.getElementById("zone").value = data.zone;
         document.getElementById("modbus").value = data.modbus;
         document.getElementById("start").value = data.start;
