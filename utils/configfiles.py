@@ -5,12 +5,12 @@ from dataclasses import dataclass, field
 @dataclass
 class configfilepaths:
     ### configuration files default locations
-    main_config_path: str = field(default="/etc/enrg/utilitymanager/main_config.ini")
-    db_config_path: str = field(default="/etc/enrg/utilitymanager/database_config.ini")
-    modbus_config_path: str = field(default="/etc/enrg/utilitymanager/modbus_config.ini")
-    http_data_config_path: str = field(default="/etc/enrg/utilitymanager/httpdatadriver_config.ini")
-    active_limit_config_path: str = field(default="/etc/enrg/utilitymanager/activelimitation_config.ini")
-    reactive_compensation_config_path: str = field(default="/etc/enrg/utilitymanager/compensationreactive_config.ini")
+    main_config_path: str = field(default="/FW/config.ini")
+    db_config_path: str = field(default="/FW/DataBase/config.ini")
+    modbus_config_path: str = field(default="/FW/Modbus/config.ini")
+    http_data_config_path: str = field(default="/FW/HttpDataDriver/config.ini")
+    active_limit_config_path: str = field(default="/FW/ActiveLimitation/config.ini")
+    reactive_compensation_config_path: str = field(default="/FW/CompensationReactive/config.ini")
 
     def to_list(self) -> List[str]:
         return [
