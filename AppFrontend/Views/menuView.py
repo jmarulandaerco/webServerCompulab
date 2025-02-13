@@ -26,7 +26,7 @@ class FormDataServer(View):
     def get(self, request):
         try:
             sample_data = {
-                "server": config.get('server', 'server_type'),
+                "server": config.get('server', 'server_type').capitalize(),
                 "neu_plus": config.get('server', 'id_device'),
                 "telemetry": config.get('server', 'identify_id'),
                 "mqtt": config.get('server', 'sampling_mqtt'),
