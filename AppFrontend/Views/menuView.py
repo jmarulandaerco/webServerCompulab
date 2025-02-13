@@ -2,8 +2,8 @@ import configparser
 from django.http import JsonResponse
 from django.views import View
 
-from utils.configfiles import configfilepaths
-# from EnrgUtilityManager.configfiles import configfilepaths
+# from utils.configfiles import configfilepaths
+from EnrgUtilityManager.configfiles import configfilepaths
 
 
 config = configparser.ConfigParser()
