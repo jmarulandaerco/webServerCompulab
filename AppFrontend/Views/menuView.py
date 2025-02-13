@@ -1,5 +1,19 @@
+import configparser
 from django.http import JsonResponse
 from django.views import View
+
+from utils.configfiles import configfilepaths
+# from EnrgUtilityManager.configfiles import configfilepaths
+
+
+config = configparser.ConfigParser()
+cf = configfilepaths()
+list_path_menu = cf.to_list()
+list_config=[]
+# for i in range(len(list_path_menu)):
+#             config = configparser.ConfigParser()
+#             config.read(list_path_menu[i])
+#             list_config.append(config)
 
 class MeasureView(View):
     def get(self, request):
@@ -84,12 +98,13 @@ class FormDataCompensation(View):
 
 class FormDataBasePropierties(View):
     def get(self,request):
+        config.read(list_path_menu[1])
         sample_data= {
-            "host":"localhost",
-            "port":"27017",
-            "name":"device_local_database",
-            "timeout":"10",
-            "date":"%Y-%m-%d %H:%M:%S"
+            "host":config.get('DATABASE', 'host', fallback='localhost'),
+            "port":config.get('DATABASE', 'port', fallback='27017'),
+            "name":config.get('DATABASE', 'database', fallback='device_local_database'),
+            "timeout":config.get('DATABASE', 'timeout', fallback='10'),
+            "date":config.get('DATABASE', 'db_date_format', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
             
 
         }

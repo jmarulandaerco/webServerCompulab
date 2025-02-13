@@ -1,12 +1,19 @@
 
-from dataclasses import dataclass
+import configparser
+from dataclasses import dataclass, field
 import os
 import threading
 import time
+from typing import List
 
 
 @dataclass
 class Menu:
+    list_config: List[configparser.ConfigParser] = field(init=False)
+
+    def __post_init__(self):
+        self.config = configparser.ConfigParser()
+
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
