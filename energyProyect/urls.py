@@ -46,7 +46,7 @@ urlpatterns = [
 
     path('api/get-form-database/', FormDataBasePropierties.as_view(), name='get_form_data_base'),
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
-    path('api/checkPassword/',ChangePassword.as_view(),name='put_change_password'),
+    path('api/changePassword/',ChangePassword.as_view(),name='put_change_password'),
 
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database')
 ]
