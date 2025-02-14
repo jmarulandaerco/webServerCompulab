@@ -161,7 +161,25 @@
         }
     }
 
-
+    function downloadCollections() {
+        fetch("{% url 'list_colections' %}")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error en la descarga");
+                }
+                return response.blob(); // Convertimos la respuesta en un Blob
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "colecciones.txt"; // Nombre del archivo
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error("Error:", error));
+    }
     function deletelog(){
         if (confirm("¿Estás seguro de borrar los logs?")) {
             const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage

@@ -5,6 +5,7 @@ from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
+from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
@@ -47,6 +48,7 @@ urlpatterns = [
     path('api/get-form-database/', FormDataBasePropierties.as_view(), name='get_form_data_base'),
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
     path('api/changePassword/',ChangePassword.as_view(),name='put_change_password'),
+    path("api/colecciones/", ListColections.as_view(), name="list_colections"),
 
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/delete/log/',DeleteLog.as_view(),name='delete_log')
