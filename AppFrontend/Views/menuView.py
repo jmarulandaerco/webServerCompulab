@@ -136,7 +136,7 @@ class FormDataBasePropierties(View):
 class FormDataSettingLogs(View):
     def get(self, request):
         try:
-            config.read(list_path_menu[1])
+            config.read(list_path_menu[0])
             sample_data = {
                 "level": config.get('DEFAULT', 'loglevel'),
                 "stdout": config.get('DEFAULT', 'logstdout'),
