@@ -34,10 +34,10 @@ class ChangePassword(View):
     def put(self, request):
         try:
             data = json.loads(request.body)
-
+            print(data)
             password = data.get("actualPassword")
             new_password = data.get("newPassword")
-
+            
             if not password or not new_password:
                 return JsonResponse({"error": "Se requieren ambos campos"}, status=400)
 
@@ -56,5 +56,6 @@ class ChangePassword(View):
             else:
                 return JsonResponse({"message":"Contraseña no actualizada."},status=400)
 
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
+            print(e)
             return JsonResponse({"error": "Formato JSON inválido"}, status=400)

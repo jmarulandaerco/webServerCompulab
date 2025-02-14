@@ -3,7 +3,9 @@ async function changePassword(){
     const actualPassword = document.getElementById("actualPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
+    console.log("Hola")
+    console.log(actualPassword)
+    console.log(newPassword)
     try{
         const response = await fetch(changePasswordUrl, {
             method: "PUT", // Especificar el método PUT
@@ -11,11 +13,11 @@ async function changePassword(){
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ actualPassword, newPassword })
-        });
+            body: JSON.stringify({ actualPassword, newPassword }) 
+     });
 
         const data=await  response.json();
-
+        console.log(data)
         if (!response.ok) {
             
             alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
