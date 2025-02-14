@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db import connections
 from rest_framework.views import APIView
 
@@ -12,7 +12,9 @@ class ModemView(APIView):
 
             menu=Menu()
             message = menu.view_modem_info()
-            return HttpResponse(f"message:{message}")
+            print("Hola")
+            print(message)
+            return JsonResponse({"message":message})
 
         except Exception as e:
-            return HttpResponse(f"Error: {str(e)}", content_type="text/plain", status=500)
+            return JsonResponse({"message":message})
