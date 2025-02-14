@@ -17,6 +17,25 @@
         });
 }
 
+
+function loadContentSetting(option) {
+    fetch(`/home/content/form/${option}/`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content5").innerHTML = data;
+            loadFunctin(option);
+            
+        })
+        .catch(error => {
+            console.log('Error al cargar el contenido:', error);
+            document.getElementById("content2").innerHTML = "<h1>Error al cargar el contenido</h1>";
+        });
+}
 function loadContentHttp(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
@@ -227,7 +246,7 @@ async function loadFunction(option){
             loadFormDataSignalChecker();
             break;
         default:
-            console.warn('Opción no reconocida:', option);
+            break;
 
     }
     
