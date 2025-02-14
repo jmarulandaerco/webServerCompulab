@@ -16,6 +16,26 @@
             document.getElementById("content2").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
+
+function loadContentHttp(option) {
+    fetch(`/home/content/form/${option}/`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data)
+            document.getElementById("content4").innerHTML = data;
+            loadFunction(option);
+            
+        })
+        .catch(error => {
+            console.log('Error al cargar el contenido:', error);
+            document.getElementById("content4").innerHTML = "<h1>Error al cargar el contenido</h1>";
+        });
+}
 async function loadFormDataMeasureModbus() {
     try {
         const response = await fetch(getFormDataUrl);
