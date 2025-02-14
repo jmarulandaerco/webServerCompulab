@@ -2,14 +2,18 @@
 import configparser
 from dataclasses import dataclass, field
 import os
+import subprocess
 import threading
 import time
 from typing import List
+
+from utils.modem_gsm_driver import SimModem
 
 
 @dataclass
 class Menu:
     list_config: List[configparser.ConfigParser] = field(init=False)
+    modem: SimModem = field(init=False)
 
     def __post_init__(self):
         self.config = configparser.ConfigParser()
@@ -117,3 +121,59 @@ class Menu:
             os.system("sudo reboot")
         except Exception as e:
             print("Error al reiniciar el equipo")
+
+    
+    def view_modem_info(self):
+        """Displays modem, SIM, and signal information in a dialog menu."""
+        try:
+            # Verificar si el módem está presente
+            if not self.modem.is_modem_present():
+                return "Modem not present."
+
+            ip_sim = subprocess.check_output(
+                "ip a show wwan0 | awk '/inet / {print $2}' | cut -d'/' -f1",
+                shell=True,
+                text=True,
+            ).strip()
+            # Verificar si la SIM está presente
+            sim_info = None
+            if self.modem.is_sim_present():
+                sim_info = self.modem.get_sim_info()
+                if not sim_info:
+                    return "SIM is present but unable to retrieve SIM info."
+            else:
+                
+                return "SIM not present."
+
+            # Verificar si el módem está conectado
+            if not self.modem.is_modem_connected():
+                
+                return "Modem is present but not connected to a network."
+
+            # Obtener calidad de la señal
+            signal_quality = self.modem.get_signal_quality()
+            if not signal_quality:
+                
+                return "Unable to retrieve signal quality information."
+
+            # Mostrar la información del SIM y señal en un cuadro de diálogo
+            iccid, operator_id, operator_name = sim_info
+            sim_info_text = (
+                f"SIM Information:\n"
+                f"ICCID: {iccid}\n"
+                f"Operator ID: {operator_id}\n"
+                f"Operator Name: {operator_name}\n"
+                f"IP Sim: {ip_sim}\n"
+            )
+
+            signal_info_text = (
+                f"Signal Quality:\n"
+                f"Network Technology: {signal_quality.network_technology}\n"
+                f"RSSI: {signal_quality.RSSI} dBm\n"
+            )
+
+            # Mostrar un cuadro de diálogo con toda la información
+            return  f"{sim_info_text}\n{signal_info_text}"
+            
+        except Exception as e:
+            return "Error en la obtención de datos del modem"

@@ -10,6 +10,7 @@ from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusView
+from AppFrontend.Views.modemView import ModemView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
 from energyAPP.views.serviceView import Reboot, StartView, StatusService, StopView
@@ -49,6 +50,8 @@ urlpatterns = [
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
     path('api/changePassword/',ChangePassword.as_view(),name='put_change_password'),
     path("api/colecciones/", ListColections.as_view(), name="list_colections"),
+    path("api/modem/", ModemView.as_view(), name="modem"),
+
 
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/delete/log/',DeleteLog.as_view(),name='delete_log')
