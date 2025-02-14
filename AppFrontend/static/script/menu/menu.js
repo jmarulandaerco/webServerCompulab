@@ -26,7 +26,6 @@ function loadContentHttp(option) {
             return response.text();
         })
         .then(data => {
-            console.log(data)
             document.getElementById("content4").innerHTML = data;
             loadFunction(option);
             
@@ -152,7 +151,7 @@ async function loadFormDataSettingInterface() {
 }
 
 
-async function loadFormDataSignalmChecker() {
+async function loadFormDataSignalChecker() {
     try {
         const response = await fetch(getFormDataSignalChecker);
         if (!response.ok) {
@@ -222,10 +221,10 @@ async function loadFunction(option){
             loadFormDataModemChecker();
             break;
         case 'serverChecker':
-            loadFormDataSignalmChecker();
+            loadFormDataServerChecker();
             break;
         case 'signalChecker':
-            loadFormDataServerChecker();
+            loadFormDataSignalChecker();
             break;
         default:
             console.warn('Opción no reconocida:', option);
