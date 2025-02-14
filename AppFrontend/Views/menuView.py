@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from utils.configfiles import configfilepaths
+from utils.menu import Menu
 
 config = configparser.ConfigParser()
 cf = configfilepaths()
@@ -194,3 +195,11 @@ class FormDataServerChecker(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+class FormDatadeleteLog(View):
+    def delete(self,request):
+        try:
+            menu = Menu()
+            menu.delete_log()
+        except Exception as e:
+            return JsonResponse({"message":"Error al eliminar"}, status=400)

@@ -89,7 +89,15 @@ class Menu:
             print(f"Error changing password: {e}")
             return False
         
-        
+    def delete_log(self):
+        try:
+            os.system("rm /FW/log.log")
+            return True
+        except Exception as e:
+            print(f"Error delete log: {e}")
+            return False
+            
+
     def stop_service(self):
         """Stop and disable a systemd service."""
         status = self.check_service_status()

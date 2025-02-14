@@ -3,9 +3,6 @@ async function changePassword(){
     const actualPassword = document.getElementById("actualPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-    console.log("Hola")
-    console.log(actualPassword)
-    console.log(newPassword)
     try{
         const response = await fetch(changePasswordUrl, {
             method: "PUT", // Especificar el método PUT

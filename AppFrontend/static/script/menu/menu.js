@@ -18,6 +18,8 @@
 }
 
 
+
+
 function loadContentSetting(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {

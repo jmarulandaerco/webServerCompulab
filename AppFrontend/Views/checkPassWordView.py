@@ -41,9 +41,7 @@ class ChangePassword(View):
             if not password or not new_password:
                 return JsonResponse({"error": "Se requieren ambos campos"}, status=400)
 
-            if password == new_password:
-                return JsonResponse({"error": "Las contraseñas son iguales"}, status=400)
-
+        
             # Verificar la contraseña en la base de datos
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password(password):  # <- Pasar el argumento correcto
