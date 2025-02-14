@@ -31,5 +31,6 @@ class DeleteLog(APIView):
         try:
             menu = Menu()
             menu.delete_log()
+            JsonResponse({"message":"Logs eliminados"})
         except Exception as e:
             return JsonResponse({"message":"Error al eliminar"}, status=400)
