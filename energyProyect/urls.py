@@ -7,7 +7,7 @@ from AppFrontend.Views.deleteView import DeleteCollectionView
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
-from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModes, FormDataServer, FormDataSettingDataBase, FormDataSettingInterface, MeasureView
+from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModes, FormDataServer, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, MeasureView
 from AppFrontend.Views.modbusView import FormModbusView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
@@ -38,6 +38,8 @@ urlpatterns = [
     path('api/get-form-data-setting-modbus/', FormModbusView.as_view(), name='get_form_data_setting_modbus'),
     path('api/get-form-data-limitation/', FormDataLimitation.as_view(), name='get_form_data_limitation'),
     path('api/get-form-data-compensation/', FormDataCompensation.as_view(), name='get_form_data_compensation'),
+    path('api/get-form-data-setting-log/', FormDataSettingLogs.as_view(), name='get_form_data_setting_log'),
+
     path('api/get-form-database/', FormDataBasePropierties.as_view(), name='get_form_data_base'),
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database')

@@ -18,6 +18,8 @@ class MeasureView(View):
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }
+            print("Hola")
+            print(sample_data)
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
@@ -85,11 +87,11 @@ class FormDataLimitation(View):
                 "limitation": limitation,
                 "meter_ids": config.get('Active', 'energy_meter_ids', fallback="1,2"),
                 "inverter_ids": config.get('Active', 'inverter_ids', fallback="1,2"),
-                "porcentage": str(config.getfloat('Active', 'active_power_percentage', fallback=0.02)),
-                "grid_min": str(config.getfloat('Active', 'active_power_grid_min', fallback=5.0)),
-                "grid_max": str(config.getfloat('Active', 'active_power_grid_max', fallback=10.0)),
-                "inverter_min": str(config.getint('Active', 'active_power_inv_min', fallback=0)),
-                "inverterMax": str(config.getint('Active', 'active_power_inv_max', fallback=1000)),
+                "porcentage": config.getfloat('Active', 'active_power_percentage', fallback=0.02),
+                "grid_min": config.getfloat('Active', 'active_power_grid_min', fallback=5.0),
+                "grid_max": config.getfloat('Active', 'active_power_grid_max', fallback=10.0),
+                "inverter_min": config.getint('Active', 'active_power_inv_min', fallback=0),
+                "inverterMax": config.getint('Active', 'active_power_inv_max', fallback=1000),
             }
             return JsonResponse(sample_data)
         except Exception as e:
@@ -129,3 +131,26 @@ class FormDataBasePropierties(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+
+
+class FormDataSettingLogs(View):
+    def get(self, request):
+        try:
+            config.read(list_path_menu[1])
+            sample_data = {
+                "level": config.get('DEFAULT', 'loglevel'),
+                "stdout": config.get('DEFAULT', 'logstdout'),
+                "file": config.get('DEFAULT', 'logfile'),
+                "enable": config.get('DEFAULT', 'sampleslog'),
+                "log_size": config.get('DEFAULT', 'max_size_bytes'),
+                "backup": config.get('DEFAULT', 'backup_count'),
+
+
+            }
+            return JsonResponse(sample_data)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
+
+
+
+

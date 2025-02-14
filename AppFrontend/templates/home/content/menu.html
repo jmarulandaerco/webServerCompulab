@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <div class="container" style="overflow-y: visible !important;">
     <link rel="stylesheet" href="{% static 'css/menuButton.css' %}">
 
@@ -8,7 +9,11 @@
     <button class="button" onclick="loadContentMenu('databaseSetting')">Local database settings</button>
     <button class="button" onclick="loadContentMenu('operationMode')">System modbus operation modes</button>
     <button class="button" onclick="loadContentMenu('networkSettings')">Network interface settings</button>
-    <button class="button" onclick="loadContentMenu('page6.html')">Advanced</button>
+    <script>
+        let url = 'form/settingLog'
+
+    </script>
+    <button class="button" onclick="loadContentMenu('passwordLog')">Advanced</button>
 </div>
 <di class="container" id="content2">
 

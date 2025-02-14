@@ -21,7 +21,7 @@ async function checked() {
         if (!response.ok) {
             
             alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-            
+            await loadContent('form/database')
 
         }else{
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
@@ -29,12 +29,49 @@ async function checked() {
 
         }
 
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
+
+
+async function checkedPassWordLog() {
+
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        const response = await fetch(postCheckPasswordUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ password, confirmPassword })
+        });
+
+        const data = await response.json();
+      
+        if (!response.ok) {
+            
+            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            // await loadContentMenu('settingLog')
+
+        }else{
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            await loadContentMenu('settingLog')
+
+        }
 
     } catch (error) {
         alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
         console.error("Error:", error);
     }
 };
+
 
 
 async function loadFormDataBase() {

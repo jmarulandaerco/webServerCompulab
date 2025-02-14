@@ -23,10 +23,32 @@ async function loadFormDataMeasureModbus() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
+        console.log(data)
         document.getElementById("zone").value = data.zone;
         document.getElementById("modbus").value = data.modbus;
         document.getElementById("start").value = data.start;
         document.getElementById("stop").value = data.stop;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+async function loadFormDataSettingLog() {
+    try {
+        const response = await fetch(getFormDatasettingLog);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+        const data = await response.json();
+        console.log(data)
+        document.getElementById("level").value = data.level;
+        document.getElementById("stdout").value = data.stdout;
+        document.getElementById("file").value = data.file;
+        document.getElementById("enable").value = data.enable;
+        document.getElementById("log_size").value = data.log_size;
+        document.getElementById("backup").value = data.backup;
+
     } catch (error) {
         console.error("Error:", error);
     }
@@ -133,8 +155,12 @@ async function loadFunction(option){
         case 'advanced':
             loadFormDataAdvanced();
             break;
+        case 'settingLog':
+            loadFormDataSettingLog();
+            break;
         default:
             console.warn('Opción no reconocida:', option);
+
     }
     
 }
