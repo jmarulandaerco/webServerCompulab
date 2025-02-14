@@ -5,7 +5,8 @@ async function changePassword(){
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try{
-        const response = await fetch(changePasswordUrl,{
+        const response = await fetch(changePasswordUrl, {
+            method: "PUT", // Especificar el método PUT
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
