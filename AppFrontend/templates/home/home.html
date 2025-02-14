@@ -50,7 +50,9 @@
         const getFormDataUrlSettingDatabase= "{% url 'get_form_data_setting_database' %}";
         const getFormDataUrlSettingInterface= "{% url 'get_form_data_setting_interface' %}";
         const getFormDatasettingLog = "{% url 'get_form_data_setting_log' %}";
-        
+        const getFormDataModemChecker = "{% url 'get_form_data_modem_checker' %}";
+        const getFormDataSignalChecker = "{% url 'get_form_data_signal_checker' %}";
+        const getFormDataServerChecker = "{% url 'get_form_data_server' %}";
     </script>
     <script src="{% static 'script/menu/menu.js' %}"></script>
     <script>
@@ -88,16 +90,6 @@
 
 
 
-    function loadContentHttp(page) {
-        fetch(`/home/content/${page}/`)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('content4').innerHTML = html;
-            })
-            .catch(error => {
-                document.getElementById('content4').innerHTML = 'Error al cargar el contenido';
-            });
-    }
 
     function loadContentSetting(page) {
         fetch(`/home/content/${page}/`)

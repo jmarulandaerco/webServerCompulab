@@ -7,7 +7,7 @@ from AppFrontend.Views.deleteView import DeleteCollectionView
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
-from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModes, FormDataServer, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, MeasureView
+from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
@@ -35,6 +35,10 @@ urlpatterns = [
     path('api/get-form-data-modes/', FormDataModes.as_view(), name='get_form_data_modes'),
     path('api/get-form-data-setting-database/', FormDataSettingDataBase.as_view(), name='get_form_data_setting_database'),
     path('api/get-form-data-setting-interface/', FormDataSettingInterface.as_view(), name='get_form_data_setting_interface'),
+    path('api/get-form-data-modem-checker/', FormDataModemChecker.as_view(), name='get_form_data_modem_checker'),
+    path('api/get-form-data-signal-checker/', FormDataSignalChecker.as_view(), name='get_form_data_signal_checker'),
+    path('api/get-form-data-server-checker/', FormDataServerChecker.as_view(), name='get_form_data_server-checker'),
+
     path('api/get-form-data-setting-modbus/', FormModbusView.as_view(), name='get_form_data_setting_modbus'),
     path('api/get-form-data-limitation/', FormDataLimitation.as_view(), name='get_form_data_limitation'),
     path('api/get-form-data-compensation/', FormDataCompensation.as_view(), name='get_form_data_compensation'),

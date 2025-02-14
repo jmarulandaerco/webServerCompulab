@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        
+
+        <div class="form-group">
+            <label for="connection">Connection Name:</label>
+            <input type="text" id="connection" name="connection" required>
+        </div>
+
+        <div class="form-group">
+            <label for="attemts">Attempts State:</label>
+            <input type="text" id="attemts" name="attemts" required>
+        </div>
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

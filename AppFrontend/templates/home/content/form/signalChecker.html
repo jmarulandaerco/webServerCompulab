@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        
+
+        <div class="form-group">
+            <label for="onomondo">Onomondo's minimun signal quality:</label>
+            <input type="text" id="onomondo" name="onomondo" required>
+        </div>
+
+        <div class="form-group">
+            <label for="minimum">Wifi minimum signal quality:</label>
+            <input type="text" id="minimum" name="minimum" required>
+        </div>
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

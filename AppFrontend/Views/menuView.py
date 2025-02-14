@@ -153,4 +153,44 @@ class FormDataSettingLogs(View):
 
 
 
+class FormDataModemChecker(View):
+    def get(self, request):
+        try:
+            config.read(list_path_menu[3])
+            sample_data = {
+                "connection": config.get('MODEM_CHECKER', 'connection_name'),
+                "attemts": config.get('MODEM_CHECKER', 'attempts_state'),
+                
 
+            }
+            return JsonResponse(sample_data)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
+
+
+class FormDataSignalChecker(View):
+    def get(self, request):
+        try:
+            config.read(list_path_menu[3])
+            sample_data = {
+                "onomondo": config.get('SIGNAL_CHECKER', 'min_quality_gsm'),
+                "minimum": config.get('SIGNAL_CHECKER', 'min_quality_wifi'),
+                
+
+            }
+            return JsonResponse(sample_data)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
+        
+class FormDataServerChecker(View):
+    def get(self, request):
+        try:
+            config.read(list_path_menu[3])
+            sample_data = {
+                "requests": config.get('SERVER_CHECKER', 'max_attempts'),
+                
+
+            }
+            return JsonResponse(sample_data)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})

@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        
+
+        <div class="form-group">
+            <label for="requests">Maximun attempts to send requests:</label>
+            <input type="text" id="requests" name="requests" required>
+        </div>
+
+        
+        <button class="buttonClass" type="submit">Guardar</button>
+    </form>
+</div>
+
+

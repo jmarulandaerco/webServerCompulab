@@ -131,10 +131,50 @@ async function loadFormDataSettingInterface() {
     }
 }
 
-async function loadFormDataAdvanced(){
 
+async function loadFormDataSignalmChecker() {
+    try {
+        const response = await fetch(getFormDataSignalChecker);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+            const data = await response.json();
+            document.getElementById("onomondo").value = data.onomondo;
+            document.getElementById("minimum").value = data.minimum;
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
+
+
+async function loadFormDataModemChecker() {
+    try {
+        const response = await fetch(getFormDataModemChecker);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+            const data = await response.json();
+            document.getElementById("connection").value = data.connection;
+            document.getElementById("attemts").value = data.attemts;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+async function loadFormDataServerChecker() {
+    try {
+        const response = await fetch(getFormDataServerChecker);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+            const data = await response.json();
+            document.getElementById("requests").value = data.requests;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 async function loadFunction(option){
     switch (option) {
         case 'modbusMeasure':
@@ -157,6 +197,15 @@ async function loadFunction(option){
             break;
         case 'settingLog':
             loadFormDataSettingLog();
+            break;
+        case 'modemChecker':
+            loadFormDataModemChecker();
+            break;
+        case 'serverChecker':
+            loadFormDataSignalmChecker();
+            break;
+        case 'signalChecker':
+            loadFormDataServerChecker();
             break;
         default:
             console.warn('Opción no reconocida:', option);
