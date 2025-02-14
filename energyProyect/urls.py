@@ -1,7 +1,7 @@
 from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView) 
 from django.urls import path
-from AppFrontend.Views.checkPassWordView import CheckPassword
+from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
 from AppFrontend.Views.deleteView import DeleteCollectionView
 from AppFrontend.Views.homeView import HomeView
@@ -46,5 +46,7 @@ urlpatterns = [
 
     path('api/get-form-database/', FormDataBasePropierties.as_view(), name='get_form_data_base'),
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
+    path('api/checkPassword/',ChangePassword.as_view(),name='put_change_password'),
+
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database')
 ]

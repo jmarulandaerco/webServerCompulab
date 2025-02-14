@@ -79,6 +79,17 @@ class Menu:
            
             print(f"An error occurred while starting/restarting the service: {e}")
             return False
+        
+    def change_user_password(self, new_password):
+        # Cambiar la contraseña del usuario 'erco_config'
+        try:
+            os.system(f"echo 'erco_config:{new_password}' | sudo chpasswd")
+            return True
+        except Exception as e:
+            print(f"Error changing password: {e}")
+            return False
+        
+        
     def stop_service(self):
         """Stop and disable a systemd service."""
         status = self.check_service_status()

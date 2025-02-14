@@ -1,9 +1,37 @@
 
-async function checked() {
+async function changePassword(){
+    const actualPassword = document.getElementById("actualPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
+    try{
+        const response = await fetch(changePasswordUrl,{
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ actualPassword, newPassword })
+        });
+
+        const data=await  response.json();
+
+        if (!response.ok) {
+            
+            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        }else{
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+
+        }
+    }catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }   
+}
+
+async function checked() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
@@ -21,7 +49,6 @@ async function checked() {
         if (!response.ok) {
             
             alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-            await loadContent('form/database')
 
         }else{
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
