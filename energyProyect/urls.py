@@ -37,7 +37,7 @@ urlpatterns = [
     path('api/get-form-data-setting-interface/', FormDataSettingInterface.as_view(), name='get_form_data_setting_interface'),
     path('api/get-form-data-modem-checker/', FormDataModemChecker.as_view(), name='get_form_data_modem_checker'),
     path('api/get-form-data-signal-checker/', FormDataSignalChecker.as_view(), name='get_form_data_signal_checker'),
-    path('api/get-form-data-server-checker/', FormDataServerChecker.as_view(), name='get_form_data_server-checker'),
+    path('api/get-form-data-server-checker/', FormDataServerChecker.as_view(), name='get_form_data_server_checker'),
 
     path('api/get-form-data-setting-modbus/', FormModbusView.as_view(), name='get_form_data_setting_modbus'),
     path('api/get-form-data-limitation/', FormDataLimitation.as_view(), name='get_form_data_limitation'),
