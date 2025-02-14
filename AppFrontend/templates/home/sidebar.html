@@ -139,10 +139,34 @@
     }
 
     function deleteDatabase(){
-        if (confirm("¿Estás seguro de borrar las colecciones?")) {
+        if (confirm("¿Estás seguro de borrar la información en la Base de datos?")) {
             const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
             fetch("{% url 'delete_database' %}", {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    
+
+                   
+                       alert(data.message)
+                    
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    }
+
+
+    function deletelog(){
+        if (confirm("¿Estás seguro de borrar los logs?")) {
+            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+
+            fetch("{% url 'delete_log' %}", {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera

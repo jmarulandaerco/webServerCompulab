@@ -1,9 +1,11 @@
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 from pymongo import MongoClient
-from authApp.models.user import User  # Importar modelos después de django.setup()
+from authApp.models.user import User
+from utils.menu import Menu  # Importar modelos después de django.setup()
 
 
 class DeleteCollectionView(APIView):
@@ -23,3 +25,11 @@ class DeleteCollectionView(APIView):
             return Response({"status": "success", "message": "Todas las colecciones han sido eliminadas."}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"status": "error", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class DeleteLog(APIView):
+    def delete(self,request):
+        try:
+            menu = Menu()
+            menu.delete_log()
+        except Exception as e:
+            return JsonResponse({"message":"Error al eliminar"}, status=400)

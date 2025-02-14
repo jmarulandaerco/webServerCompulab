@@ -3,7 +3,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from django.urls import path
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
-from AppFrontend.Views.deleteView import DeleteCollectionView
+from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
@@ -48,5 +48,7 @@ urlpatterns = [
     path('api/checkPassword/',CheckPassword.as_view(),name='post_check_password'),
     path('api/changePassword/',ChangePassword.as_view(),name='put_change_password'),
 
-    path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database')
+    path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
+    path('api/delete/log/',DeleteLog.as_view(),name='delete_log')
+
 ]
