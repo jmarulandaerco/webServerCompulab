@@ -1,9 +1,9 @@
 import json
 import os
 from django.http import JsonResponse
-from django.views import View
+from rest_framework.views import APIView
 
-class InterfaceConnection(View):
+class InterfaceConnection(APIView):
     def post(self, request, connection_name):
         try:
             data = json.loads(request.body)
