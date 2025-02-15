@@ -15,7 +15,6 @@ class DataBaseMenu:
     
     def check_password(self,password):
         if self.passkey=="":
-            print("Hubo un erro garrafal")
             return False
             
         if password == self.passkey:

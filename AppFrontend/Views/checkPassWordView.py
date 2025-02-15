@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.views import View
-from utils.databaseHelper import DataBaseMenu
+from utils.passwordUser import DataBaseMenu
 from utils.menu import Menu
 
 
@@ -34,7 +34,6 @@ class ChangePassword(View):
     def put(self, request):
         try:
             data = json.loads(request.body)
-            print(data)
             password = data.get("actualPassword")
             new_password = data.get("newPassword")
             
@@ -55,5 +54,4 @@ class ChangePassword(View):
                 return JsonResponse({"message":"Contraseña no actualizada."},status=400)
 
         except json.JSONDecodeError as e:
-            print(e)
             return JsonResponse({"error": "Formato JSON inválido"}, status=400)

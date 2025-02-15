@@ -65,24 +65,13 @@ class Menu:
             # Check the service status after the command has finished
             new_status = self.check_service_status()
             if new_status == True:
-                print(
-                    "Service enrg-utilitymanager.service started successfully."
-                )
+                
                 return True
             elif new_status == False:
-                print(
-                    "Service enrg-utilitymanager.service failed to start."
-                )
-            else:
-               
-                print(
-                    "Service enrg-utilitymanager.service did not start correctly."
-                )
                 return False
-
-        except Exception as e:
-           
-            print(f"An error occurred while starting/restarting the service: {e}")
+            else:
+                return False
+        except Exception :
             return False
         
     def change_user_password(self, new_password):

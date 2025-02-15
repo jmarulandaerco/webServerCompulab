@@ -62,7 +62,6 @@ async function checked() {
     }
 };
 
-
 async function checkedPassWordLog() {
 
     const password = document.getElementById("password").value;
@@ -98,8 +97,6 @@ async function checkedPassWordLog() {
         console.error("Error:", error);
     }
 };
-
-
 
 async function loadFormDataBase() {
     try {

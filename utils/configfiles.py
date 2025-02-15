@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 
 @dataclass
 class configfilepaths:
-    ### configuration files default locations
     main_config_path: str = field(default="/FW/config.ini")
     db_config_path: str = field(default="/FW/DataBase/config.ini")
     modbus_config_path: str = field(default="/FW/Modbus/config.ini")

@@ -9,8 +9,6 @@ function loadContentModbus(page) {
             document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
-
-
 async function loadFormDataSettingModbus() {
     try {
         const response = await fetch(getFormDatasettingModbus);
@@ -25,9 +23,6 @@ async function loadFormDataSettingModbus() {
         console.error("Error:", error);
     }
 }
-
-
-
 async function loadFunctionModbus(option){
     switch (option) {
         case 'modbusSetting':

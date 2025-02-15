@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     {% load static %}
 
@@ -10,9 +11,10 @@
 
     <style>
         link[rel="icon"] {
-    width: 64px;
-    height: 64px;
-}
+            width: 64px;
+            height: 64px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -20,14 +22,15 @@
             overflow-x: hidden;
             overflow-y: hidden;
         }
-        
+
         #content {
-            margin-left: calc(10% + 100px); /* Ajuste proporcional al ancho de la pantalla */
+            margin-left: calc(10% + 100px);
+            /* Ajuste proporcional al ancho de la pantalla */
             padding: 20px;
         }
-        
     </style>
 </head>
+
 <body>
     <!-- Header -->
     {% include 'home/header.html' %}
@@ -43,53 +46,7 @@
     {% include 'home/footer.html' %}
 
     {% load static %}
-    <script>
-        const getFormDataUrl = "{% url 'get_form_data' %}";
-        const getFormDataUrlServerSelection = "{% url 'get_form_data_server' %}";
-        const getFormDataUrlServerModes = "{% url 'get_form_data_modes' %}";
-        const getFormDataUrlSettingDatabase= "{% url 'get_form_data_setting_database' %}";
-        const getFormDataUrlSettingInterface= "{% url 'get_form_data_setting_interface' %}";
-        const getFormDatasettingLog = "{% url 'get_form_data_setting_log' %}";
-        const getFormDataModemChecker = "{% url 'get_form_data_modem_checker' %}";
-        const getFormDataSignalChecker = "{% url 'get_form_data_signal_checker' %}";
-        const getFormDataServerChecker = "{% url 'get_form_data_server_checker' %}";
-    </script>
-    <script src="{% static 'script/menu/menu.js' %}"></script>
-    <script>
-        const getFormDatasettingModbus= "{% url 'get_form_data_setting_modbus' %}"
-    </script>
-    <script src="{% static 'script/modbus/modbus.js' %}"></script>
-    
-    <script>
-        const token = localStorage.getItem('access_token');
 
-        if (!token) {
-            alert('No se encontró el token. Redirigiendo al login...');
-            window.location.href = "{% url 'index' %}";
-        } else {
-            console.log('Token encontrado:', token);
-        }
-   
-
-      // Interceptar el evento de retroceder (usando window.onpopstate)
-    window.onpopstate = function(event) {
-        if (localStorage.getItem('access_token')) {
-            // Si el token está presente, redirigir a home si intentan volver a login
-            window.location.href = "{% url 'home' %}";
-        }
-    };
-
-    // Opción para prevenir que el usuario use la flecha atrás
-    window.history.pushState(null, null, window.location.href);
-    window.onpopstate = function () {
-        window.history.go(1);  // Este comando evita que el usuario regrese a la página anterior
-    };
-
-
-
-
-
-
-    </script>
 </body>
+
 </html>

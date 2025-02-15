@@ -62,413 +62,81 @@
 </div>
 {% load static %}
 <script>
+    const getFormDataUrl = "{% url 'get_form_data' %}";
+    const getFormDataUrlServerSelection = "{% url 'get_form_data_server' %}";
+    const getFormDataUrlServerModes = "{% url 'get_form_data_modes' %}";
+    const getFormDataUrlSettingDatabase = "{% url 'get_form_data_setting_database' %}";
+    const getFormDataUrlSettingInterface = "{% url 'get_form_data_setting_interface' %}";
+    const getFormDatasettingLog = "{% url 'get_form_data_setting_log' %}";
+    const getFormDataModemChecker = "{% url 'get_form_data_modem_checker' %}";
+    const getFormDataSignalChecker = "{% url 'get_form_data_signal_checker' %}";
+    const getFormDataServerChecker = "{% url 'get_form_data_server_checker' %}";
+    const getFormDatasettingModbus = "{% url 'get_form_data_setting_modbus' %}"
     let postCheckPasswordUrl = "{% url 'post_check_password' %}";
     let getFormDataBase = "{% url 'get_form_data_base' %}";
-
-</script>
-<script>
+    const getInterfaceConnectionOne = "{% url 'connection_one' %}";
+    const getInterfaceConnectionTwo = "{% url 'connection_two' %}";
+    const postAntennaWifi = "{% url 'antenna_wifi' %}";
+    const postAddWifi = "{% url 'add_wifi' %}";
     const changePasswordUrl = "{% url 'put_change_password' %}"
-</script>
-<script src="{% static 'script/menu/password.js' %}"></script>
-
-
-<script>
     const getFormDataLimitation = "{% url 'get_form_data_limitation' %}";
     const getFormDataCompensation = "{% url 'get_form_data_compensation' %}";
+    const start = "{% url 'start_service' %}";
+    const stop = "{% url 'stop_service' %}";
+    const deleteLog = "{% url 'delete_log' %}";
+    const fetchLog = "{% url 'get_logs' %}";
+    const modem = "{% url 'modem' %}";
+    const deleteDatabaseUrl = "{% url 'delete_database' %}";
+    const listCollection = "{% url 'list_colections' %}";
+    const reboot = "{% url 'reboot_erco_pulse' %}";
+    const postModemChecker = "{% url 'reboot_erco_pulse' %}"
 </script>
+<script src="{% static 'script/menu/loadDataPage.js' %}"></script>
+<script src="{% static 'script/modbus/modbus.js' %}"></script>
+<script src="{% static 'script/menu/logs.js' %}"></script>
+<script src="{% static 'script/menu/settingSystem.js' %}"></script>
+<script src="{% static 'script/menu/sidebar.js' %}"></script>
+<script src="{% static 'script/menu/password.js' %}"></script>
 <script src="{% static 'script/menu/compensation_limitation.js' %}"></script>
+<script src="{% static 'script/menu/service.js' %}"></script>
+<script src="{% static 'script/menu/http.js' %}"></script>
+
+
+
 <script>
-    const getInterfaceConnectionOne= "{% url 'connection_one' %}";
-    const getInterfaceConnectionTwo= "{% url 'connection_two' %}";
-    const postAntennaWifi= "{% url 'antenna_wifi' %}";
-    const postAddWifi = "{% url 'add_wifi' %}";
-    
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+        alert('No se encontró el token. Redirigiendo al login...');
+        window.location.href = "{% url 'index' %}";
+    } else {
+        console.log('Token encontrado:', token);
+    }
+
+
+    // Interceptar el evento de retroceder (usando window.onpopstate)
+    window.onpopstate = function (event) {
+        if (localStorage.getItem('access_token')) {
+            // Si el token está presente, redirigir a home si intentan volver a login
+            window.location.href = "{% url 'home' %}";
+        }
+    };
+
+    // Opción para prevenir que el usuario use la flecha atrás
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1);  // Este comando evita que el usuario regrese a la página anterior
+    };
+
+
+
+
+
+
 </script>
 <script>
 
     checkServiceStatus()
     loadContent('menu');
-    function startService() {
-        if (confirm("¿Estás seguro de iniciar el servicio?")) {
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-            fetch("{% url 'start_service' %}", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-
-
-
-                    alert(data.message); // Muestra el mensaje de respuesta
-
-                    if (data.message == "Reiniciando sistema, espera 30 segundos  por favor") {
-                        setTimeout(() => {
-                            checkServiceStatus(); // Ejecuta la función después de 5 segundos
-                        }, 20000);
-                    }
-
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-
-    function stopService() {
-        if (confirm("¿Estás seguro de parar el servicio?")) {
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-            fetch("{% url 'stop_service' %}", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    alert(data.message); // Muestra el mensaje de respuesta
-
-                    if (data.message == "Parando Sistema") {
-                        setTimeout(() => {
-                            checkServiceStatus(); // Ejecuta la función después de 5 segundos
-                        }, 2000);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-
-    function deleteDatabase() {
-        if (confirm("¿Estás seguro de borrar la información en la Base de datos?")) {
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-            fetch("{% url 'delete_database' %}", {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-
-
-
-                    alert(data.message)
-
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-
-
-    async function interfaceEthernetOne() {
-        const ip = document.getElementById("ip").value;
-        const gateway = document.getElementById("gateway").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
-        try {
-            const response =  await fetch(getInterfaceConnectionOne, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken // Enviar CSRF token
-                },
-                body: JSON.stringify({ ip, gateway })
-            });
-
-            const data =  await response.json();
-
-            if (!response.ok) {
-
-                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-
-            } else {
-                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-                 
-
-            }
-
-        } catch (error) {
-            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-            console.error("Error:", error);
-        }
-    };
-
-    async function interfaceEthernetTwo() {
-        const ip = document.getElementById("ip").value;
-        const gateway = document.getElementById("gateway").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
-        try {
-            const response =  await fetch(getInterfaceConnectionTwo, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken // Enviar CSRF token
-                },
-                body: JSON.stringify({ ip, gateway })
-            });
-
-            const data =  await response.json();
-
-            if (!response.ok) {
-
-                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-
-            } else {
-                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-                 
-
-            }
-
-        } catch (error) {
-            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-            console.error("Error:", error);
-        }
-    };
-
-
-    async function addWifi() {
-        const ssid = document.getElementById("ssid").value;
-        const password = document.getElementById("password").value;
-        const name = document.getElementById("name").value;
-
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
-        try {
-            const response =  await fetch(postAddWifi, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken // Enviar CSRF token
-                },
-                body: JSON.stringify({ ssid, password,name })
-            });
-
-            const data =  await response.json();
-
-            if (!response.ok) {
-
-                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-
-            } else {
-                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-                 
-
-            }
-
-        } catch (error) {
-            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-            console.error("Error:", error);
-        }
-    };
-    
-
-    async function antennaWifi() {
-        
-        try {
-            const response =  await fetch(postAntennaWifi, {
-                method: "GET",
-                headers: {
-                     "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                     "Content-Type": "application/json"
-                }
-            });
-
-            const data =  await response.json();
-
-            if (!response.ok) {
-
-                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-
-            } else {
-                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-                 
-
-            }
-
-        } catch (error) {
-            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-            console.error("Error:", error);
-        }
-    };
-
-
-    function downloadCollections() {
-        fetch("{% url 'list_colections' %}")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Error en la descarga");
-                }
-                return response.blob(); // Convertimos la respuesta en un Blob
-            })
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "colecciones.txt"; // Nombre del archivo
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(error => console.error("Error:", error));
-    }
-    function deletelog() {
-        if (confirm("¿Estás seguro de borrar los logs?")) {
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-            fetch("{% url 'delete_log' %}", {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-
-
-
-                    alert(data.message)
-
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-
-
-    function showModems() {
-
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-        fetch("{% url 'modem' %}", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-
-
-                alert(data.message)
-
-            })
-            .catch(error => { console.error("Error:", error); console.log(response) });
-    }
-
-
-
-    function rebootErcoPulse() {
-        if (confirm("¿Estás seguro de reinir el Erco Pulse")) {
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
-
-            fetch("{% url 'reboot_erco_pulse' %}", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    alert(data.message); // Muestra el mensaje de respuesta
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-    let intervalId;
-
-    function loadContent(option) {
-        // checkServiceStatus();
-        fetch(`/home/content/${option}/`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Error al cargar el contenido: ${response.statusText}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById("content").innerHTML = data;
-
-                switch (option) {
-                    case "form/limitation":
-                        loadFormDataLimitation();
-                        break;
-
-                    case "form/compensation":
-                        loadFormDataCompensation();
-                        break;
-
-                    case "form/database":
-                        loadFormDataBase();
-                        break;
-                }
-
-                if (option === "logs") {
-
-                    document.getElementById("refreshButton").addEventListener("click", fetchLogs);
-
-                    intervalId = setInterval(fetchLogs, 5000);
-
-                } else {
-                    if (intervalId) {
-                        clearInterval(intervalId); // Detiene el intervalo si existe
-                        intervalId = null; // Limpia la variable
-                        console.log("Actualización automática detenida");
-                    }
-                }
-
-                // Remueve la clase 'active' de todos los enlaces del sidebar
-                document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
-
-
-                // Encuentra el enlace correspondiente y agrégale la clase 'active'
-                document.querySelectorAll("#sidebar a").forEach(a => {
-                    if (a.getAttribute("onclick")?.includes(option)) {
-                        a.classList.add("active");
-                    }
-                });
-            })
-            .catch(error => {
-                console.log('Error al cargar el contenido:', error);
-                document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
-            });
-    }
-
-
-
-    async function fetchLogs() {
-        try {
-            console.log("Terribel")
-            const response = await fetch("{% url 'get_logs' %}");
-            const data = await response.json();
-            const logContainer = document.getElementById("log-container");
-
-
-
-            if (data.logs) {
-                logContainer.innerHTML = data.logs
-                    .map(line => `<div class="log-line">${line}</div>`)
-                    .join("");
-            } else {
-                logContainer.innerText = "No se encontraron logs.";
-            }
-        } catch (error) {
-            console.error("Error obteniendo los logs:", error);
-        }
-    }
-
-
-
 
 </script>

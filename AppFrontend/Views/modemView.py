@@ -12,8 +12,7 @@ class ModemView(APIView):
 
             menu=Menu()
             message = menu.view_modem_info()
-            print("Hola")
-            print(message)
+           
             return JsonResponse({"message":message})
 
         except Exception as e:

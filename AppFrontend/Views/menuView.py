@@ -1,4 +1,5 @@
 import configparser
+import json
 from django.http import JsonResponse
 from django.views import View
 
@@ -168,7 +169,23 @@ class FormDataModemChecker(View):
         except Exception as e:
             return JsonResponse({"error": str(e)})
 
+    def put(self, request):
+        try:
+            data = json.loads(request.body)
+            config.read(list_path_menu[3])
 
+            connection = data.get("connection")
+            attemts = data.get("attemts")
+            config.set(
+                                'MODEM_CHECKER', 'connection_name', connection
+                            )
+            config.set(
+                                'MODEM_CHECKER', 'attempts_state', attemts,
+                            )
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
 class FormDataSignalChecker(View):
     def get(self, request):
         try:
@@ -182,7 +199,8 @@ class FormDataSignalChecker(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
+    
 class FormDataServerChecker(View):
     def get(self, request):
         try:

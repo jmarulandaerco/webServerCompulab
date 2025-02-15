@@ -18,33 +18,18 @@
         </button>
     </div>
 </div>
+<script>
+    const statusService = "{% url 'status_service' %}";
+</script>
+<script src="{% static 'script/menu/service.js' %}"></script>
 
 <script>
     checkServiceStatus()
 
-    document.getElementById('logoutBtn').addEventListener('click', function() {
+    document.getElementById('logoutBtn').addEventListener('click', function () {
         localStorage.removeItem('access_token');
         window.location.href = "{% url 'index' %}";  // Redirige a la página de inicio
     });
 
-    function checkServiceStatus() {
-        fetch("{% url 'status_service' %}")  // Ajusta esto con la URL real de tu API
-            .then(response => response.json())
-            .then(data => {
-                const statusCircle = document.getElementById('statusCircle');
-                const statusText = document.getElementById('statusText');
-                console.log("Hecho")
-                if (data.active) {
-                    statusCircle.classList.remove('inactive');
-                    statusCircle.classList.add('active');
-                    statusText.innerText = 'Activo';
-                } else {
-                    statusCircle.classList.remove('active');
-                    statusCircle.classList.add('inactive');
-                    statusText.innerText = 'Inactivo';
-                }
-            })
-            .catch(error => console.error('Error al obtener el estado:', error));
-    }
 
 </script>
