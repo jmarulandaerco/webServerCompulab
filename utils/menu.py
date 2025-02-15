@@ -178,3 +178,19 @@ class Menu:
             
         except Exception as e:
             return f"Error en la obtención de datos del modem {e}"
+    
+    def toggle_wifi(self):
+
+        result = subprocess.run(
+            "nmcli radio wifi", shell=True, capture_output=True, text=True
+        )
+        current_status = result.stdout.strip()
+        new_status = "off" if current_status == "enabled" else "on"
+        toggle_command = f"sudo nmcli radio wifi {new_status}"
+        result = subprocess.run(toggle_command, shell=True)
+
+        if result.returncode == 0:
+            return f"Wi-Fi antenna is now {new_status}."
+        else:
+            return "Failed to change Wi-Fi antenna state."
+       

@@ -3,6 +3,8 @@ import os
 from django.http import JsonResponse
 from rest_framework.views import APIView
 
+from utils.menu import Menu
+
 class InterfaceConnection(APIView):
     def post(self, request, connection_name):
         try:
@@ -18,5 +20,15 @@ class InterfaceConnection(APIView):
             os.system(command)
             print(command)
             return JsonResponse({"message": "Configuración aplicada correctamente"}, status=200)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+
+class AntennaWifi(APIView):
+    def get(self, request, connection_name):
+        try:
+            menu = Menu()
+            status=menu.toggle_wifi()
+            return JsonResponse({"message": f"{status}"}, status=200)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)

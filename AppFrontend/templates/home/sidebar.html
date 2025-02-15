@@ -80,6 +80,9 @@
 <script>
     const getInterfaceConnectionOne= "{% url 'connection_one' %}";
     const getInterfaceConnectionTwo= "{% url 'connection_two' %}";
+    const postAntennaWifi= "{% url 'antenna_wifi' %}";
+
+    
 </script>
 <script>
 
@@ -211,6 +214,34 @@
                     "X-CSRFToken": csrfToken // Enviar CSRF token
                 },
                 body: JSON.stringify({ ip, gateway })
+            });
+
+            const data =  await response.json();
+
+            if (!response.ok) {
+
+                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+            } else {
+                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+                 
+
+            }
+
+        } catch (error) {
+            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+            console.error("Error:", error);
+        }
+    };
+
+    async function antennaWifi() {
+        
+        try {
+            const response =  await fetch(postAntennaWifi, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
             });
 
             const data =  await response.json();
