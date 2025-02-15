@@ -25,7 +25,7 @@ class InterfaceConnection(APIView):
 
 
 class AntennaWifi(APIView):
-    def get(self, request, connection_name):
+    def get(self, request):
         try:
             menu = Menu()
             status=menu.toggle_wifi()

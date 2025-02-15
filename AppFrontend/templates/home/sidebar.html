@@ -240,7 +240,8 @@
             const response =  await fetch(postAntennaWifi, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
+                     "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                     "Content-Type": "application/json"
                 }
             });
 
