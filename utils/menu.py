@@ -194,3 +194,20 @@ class Menu:
         else:
             return "Failed to change Wi-Fi antenna state."
        
+
+    def add_wifi(self,ssid,password,connection_name):
+        try:
+            result = os.system(
+                            f"sudo nmcli dev wifi con '{ssid}' password '{password}' name '{connection_name}'"
+                        )        
+            if result != 0:
+                            
+                return "Failed to connect to Wi-Fi. Please check your credentials."
+                            
+            else:
+                            
+                return f"Connected to Wi-Fi network '{ssid}' with connection name '{connection_name}'."
+                              
+        except:
+            return "Error adding wifi network"
+            

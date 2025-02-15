@@ -81,7 +81,7 @@
     const getInterfaceConnectionOne= "{% url 'connection_one' %}";
     const getInterfaceConnectionTwo= "{% url 'connection_two' %}";
     const postAntennaWifi= "{% url 'antenna_wifi' %}";
-
+    const postAddWifi = "{% url 'add_wifi' %}";
     
 </script>
 <script>
@@ -233,6 +233,43 @@
             console.error("Error:", error);
         }
     };
+
+
+    async function addWifi() {
+        const ssid = document.getElementById("ssid").value;
+        const password = document.getElementById("password").value;
+        const name = document.getElementById("name").value;
+
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        try {
+            const response =  await fetch(postAddWifi, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken // Enviar CSRF token
+                },
+                body: JSON.stringify({ ssid, password,name })
+            });
+
+            const data =  await response.json();
+
+            if (!response.ok) {
+
+                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+            } else {
+                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+                 
+
+            }
+
+        } catch (error) {
+            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+            console.error("Error:", error);
+        }
+    };
+    
 
     async function antennaWifi() {
         

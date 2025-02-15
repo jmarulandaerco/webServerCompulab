@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+     
+
+        <div class="form-group">
+            <label for="ssid">Enter the SSID of the Wi-Fi network:</label>
+            <input type="text" id="ssid" name="ssid" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Enter the password for the Wi-Fi network:</label>
+            <input type="text" id="password" name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Enter the name for the Wi-Fi network:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <button class="buttonClass" type="button" onclick="addWifi()">Guardar</button>
+    </form>
+</div>
+
+
