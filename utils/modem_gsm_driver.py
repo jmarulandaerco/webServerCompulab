@@ -4,7 +4,6 @@ import netifaces
 from typing import Union, Dict
 from dataclasses import dataclass, field
 from .enumerations import InternetInterfaceEnum, ModemSignalQualityEnum
-import logging
 
 @dataclass
 class ModemSignalQuality:

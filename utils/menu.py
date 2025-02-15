@@ -17,7 +17,7 @@ class Menu:
 
     def __post_init__(self):
         self.config = configparser.ConfigParser()
-        self.modem = SimModem(connection_name="Red-Onomondo", logger=self.logger)
+        self.modem = SimModem(connection_name="Red-Onomondo")
 
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
