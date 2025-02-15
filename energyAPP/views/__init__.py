@@ -1,2 +1,2 @@
 from .inverterDataView import InverterDataSerializer
-from .serviceView import RebootView
+from .serviceView import Reboot

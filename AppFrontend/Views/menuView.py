@@ -183,8 +183,8 @@ class FormDataModemChecker(View):
                                 'MODEM_CHECKER', 'attempts_state', attemts,
                             )
             
-            with open(list_path_menu[3], "w") as configfile:
-               config.write(configfile)
+            with open(list_path_menu[3], "w") as configfileChecked:
+               config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
@@ -218,7 +218,7 @@ class FormDataSignalChecker(View):
                                 'SIGNAL_CHECKER', 'min_quality_gsm', onomondo
                             )
             config.set(
-                                "MODEM_CHECKER", "attempts_state", minimum,
+                                "SIGNAL_CHECKER", "min_quality_wifi", minimum,
                             )
             with open(list_path_menu[3], "w") as configfile:
                config.write(configfile)
