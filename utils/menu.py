@@ -176,4 +176,4 @@ class Menu:
             return  f"{sim_info_text}\n{signal_info_text}"
             
         except Exception as e:
-            return "Error en la obtención de datos del modem"
+            return f"Error en la obtención de datos del modem {e}"
