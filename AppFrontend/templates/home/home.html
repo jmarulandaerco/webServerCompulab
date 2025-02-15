@@ -75,7 +75,6 @@
     window.onpopstate = function(event) {
         if (localStorage.getItem('access_token')) {
             // Si el token está presente, redirigir a home si intentan volver a login
-            console.log("Lo logre")
             window.location.href = "{% url 'home' %}";
         }
     };
