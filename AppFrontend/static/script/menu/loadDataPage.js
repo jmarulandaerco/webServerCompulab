@@ -1,4 +1,5 @@
 let intervalId;
+
 function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
