@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+     
+
+        <div class="form-group">
+            <label for="ip">Enter the IP address for Wired connection 1 (e.g., 10.6.20.5/24):</label>
+            <input type="text" id="ip" name="ip" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gateway">Enter the gateway for Wired connection 1 (leave empty if not needed):</label>
+            <input type="text" id="gateway" name="gateway">
+        </div>
+        <button class="buttonClass" type="button" onclick="interfaceEthernetOne()">Guardar</button>
+    </form>
+</div>
+
+

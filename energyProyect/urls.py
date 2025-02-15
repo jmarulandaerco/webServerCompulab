@@ -5,6 +5,7 @@ from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
+from AppFrontend.Views.interfaceConnectionView import InterfaceConnection
 from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
@@ -51,7 +52,8 @@ urlpatterns = [
     path('api/changePassword/',ChangePassword.as_view(),name='put_change_password'),
     path("api/colecciones/", ListColections.as_view(), name="list_colections"),
     path("api/modem/", ModemView.as_view(), name="modem"),
-
+    path('interface-1/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 1'},name="connection_one"),
+    path('interface-2/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 2'},name="connection_two"),
 
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/delete/log/',DeleteLog.as_view(),name='delete_log')

@@ -30,12 +30,11 @@ function loadContentSetting(option) {
         })
         .then(data => {
             document.getElementById("content5").innerHTML = data;
-            loadFunctin(option);
             
         })
         .catch(error => {
             console.log('Error al cargar el contenido:', error);
-            document.getElementById("content2").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content5").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
 function loadContentHttp(option) {

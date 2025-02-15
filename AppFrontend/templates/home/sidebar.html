@@ -64,10 +64,10 @@
 <script>
     let postCheckPasswordUrl = "{% url 'post_check_password' %}";
     let getFormDataBase = "{% url 'get_form_data_base' %}";
-    
+
 </script>
 <script>
-    const changePasswordUrl= "{% url 'put_change_password' %}"
+    const changePasswordUrl = "{% url 'put_change_password' %}"
 </script>
 <script src="{% static 'script/menu/password.js' %}"></script>
 
@@ -77,7 +77,10 @@
     const getFormDataCompensation = "{% url 'get_form_data_compensation' %}";
 </script>
 <script src="{% static 'script/menu/compensation_limitation.js' %}"></script>
-
+<script>
+    const getInterfaceConnectionOne= "{% url 'connection_one' %}";
+    const getInterfaceConnectionTwo= "{% url 'connection_two' %}";
+</script>
 <script>
 
 
@@ -138,7 +141,7 @@
         }
     }
 
-    function deleteDatabase(){
+    function deleteDatabase() {
         if (confirm("¿Estás seguro de borrar la información en la Base de datos?")) {
             const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
@@ -151,15 +154,83 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    
 
-                   
-                       alert(data.message)
-                    
+
+
+                    alert(data.message)
+
                 })
                 .catch(error => console.error("Error:", error));
         }
     }
+
+
+    function interfaceEthernetOne() {
+        const ip = document.getElementById("ip").value;
+        const gateway = document.getElementById("gateway").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        try {
+            const response =  fetch(getInterfaceConnectionOne, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken // Enviar CSRF token
+                },
+                body: JSON.stringify({ ip, gateway })
+            });
+
+            const data =  response.json();
+
+            if (!response.ok) {
+
+                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+            } else {
+                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+                 
+
+            }
+
+        } catch (error) {
+            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+            console.error("Error:", error);
+        }
+    };
+
+    function interfaceEthernetTwo() {
+        const ip = document.getElementById("ip").value;
+        const gateway = document.getElementById("gateway").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        try {
+            const response =  fetch(getInterfaceConnectionTwo, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken // Enviar CSRF token
+                },
+                body: JSON.stringify({ ip, gateway })
+            });
+
+            const data =  response.json();
+
+            if (!response.ok) {
+
+                alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+            } else {
+                alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+                 
+
+            }
+
+        } catch (error) {
+            alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+            console.error("Error:", error);
+        }
+    };
+
 
     function downloadCollections() {
         fetch("{% url 'list_colections' %}")
@@ -180,7 +251,7 @@
             })
             .catch(error => console.error("Error:", error));
     }
-    function deletelog(){
+    function deletelog() {
         if (confirm("¿Estás seguro de borrar los logs?")) {
             const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
 
@@ -193,38 +264,38 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    
 
-                   
-                       alert(data.message)
-                    
+
+
+                    alert(data.message)
+
                 })
                 .catch(error => console.error("Error:", error));
         }
     }
 
 
-    function showModems(){
-     
-            const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+    function showModems() {
 
-            fetch("{% url 'modem' %}", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                    "Content-Type": "application/json"
-                }
+        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+
+        fetch("{% url 'modem' %}", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+
+
+                alert(data.message)
+
             })
-                .then(response => response.json())
-                .then(data => {
+            .catch(error => { console.error("Error:", error); console.log(response) });
+    }
 
-                   
-                       alert(data.message)
-                    
-                })
-                .catch(error => {console.error("Error:", error); console.log(response)});
-        }
-       
 
 
     function rebootErcoPulse() {
@@ -280,10 +351,10 @@
                     intervalId = setInterval(fetchLogs, 5000);
 
                 } else {
-                        if (intervalId) {
-                            clearInterval(intervalId); // Detiene el intervalo si existe
-                            intervalId = null; // Limpia la variable
-                            console.log("Actualización automática detenida");
+                    if (intervalId) {
+                        clearInterval(intervalId); // Detiene el intervalo si existe
+                        intervalId = null; // Limpia la variable
+                        console.log("Actualización automática detenida");
                     }
                 }
 
