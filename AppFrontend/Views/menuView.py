@@ -182,6 +182,9 @@ class FormDataModemChecker(View):
             config.set(
                                 'MODEM_CHECKER', 'attempts_state', attemts,
                             )
+            
+            with open(list_path_menu[3], "w") as configfile:
+               config.write(configfile)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
@@ -217,6 +220,8 @@ class FormDataSignalChecker(View):
             config.set(
                                 "MODEM_CHECKER", "attempts_state", minimum,
                             )
+            with open(list_path_menu[3], "w") as configfile:
+               config.write(configfile)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
@@ -242,14 +247,16 @@ class FormDataServerChecker(View):
         
     def put(self, request):
         try:
-            data = json.loads(request.body)
             config.read(list_path_menu[3])
+
+            data = json.loads(request.body)
 
             requests = data.get("requests")
             config.set(
                                 'SERVER_CHECKER', 'max_attempts', requests,
                             )
-            
+            with open(list_path_menu[3], "w") as configfile:
+               config.write(configfile)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
@@ -258,4 +265,5 @@ class FormDataServerChecker(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": "Error al actualizar los datos, {e}"}, status=400)
+        
         
