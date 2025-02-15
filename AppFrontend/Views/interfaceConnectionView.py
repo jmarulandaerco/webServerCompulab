@@ -16,7 +16,7 @@ class InterfaceConnection(APIView):
             command += " ipv4.method 'manual'"
 
             os.system(command)
-
+            print(command)
             return JsonResponse({"message": "Configuración aplicada correctamente"}, status=200)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
