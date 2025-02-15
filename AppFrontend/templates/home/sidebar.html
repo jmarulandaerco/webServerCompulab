@@ -86,7 +86,7 @@
 </script>
 <script>
 
-checkServiceStatus()
+    checkServiceStatus()
     loadContent('menu');
     function startService() {
         if (confirm("¿Estás seguro de iniciar el servicio?")) {
@@ -389,7 +389,7 @@ checkServiceStatus()
     let intervalId;
 
     function loadContent(option) {
-        checkServiceStatus();
+        // checkServiceStatus();
         fetch(`/home/content/${option}/`)
             .then(response => {
                 if (!response.ok) {
