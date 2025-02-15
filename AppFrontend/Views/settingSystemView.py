@@ -35,7 +35,7 @@ class AntennaWifi(APIView):
 
 
 class AddWifi(APIView):
-    def post(self, request, connection_name):
+    def post(self, request):
         try:
             data = json.loads(request.body)
             ssid = data.get("ssid")
