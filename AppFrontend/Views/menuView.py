@@ -185,7 +185,11 @@ class FormDataModemChecker(View):
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
+            
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": "Error al actualizar los datos, {e}"}, status=400) 
 class FormDataSignalChecker(View):
     def get(self, request):
         try:
@@ -199,6 +203,28 @@ class FormDataSignalChecker(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+    def put(self, request):
+        try:
+            data = json.loads(request.body)
+            config.read(list_path_menu[3])
+
+            onomondo = data.get("onomondo")
+            minimum = data.get("minimum")
+            config.set(
+                                'SIGNAL_CHECKER', 'min_quality_gsm', onomondo
+                            )
+            config.set(
+                                "MODEM_CHECKER", "attempts_state", minimum,
+                            )
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": "Error al actualizar los datos, {e}"}, status=400)
 
     
 class FormDataServerChecker(View):
@@ -213,4 +239,23 @@ class FormDataServerChecker(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+    def put(self, request):
+        try:
+            data = json.loads(request.body)
+            config.read(list_path_menu[3])
+
+            requests = data.get("requests")
+            config.set(
+                                'SERVER_CHECKER', 'max_attempts', requests,
+                            )
+            
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": "Error al actualizar los datos, {e}"}, status=400)
         
