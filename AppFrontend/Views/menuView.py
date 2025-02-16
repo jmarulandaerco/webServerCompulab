@@ -139,6 +139,7 @@ class FormDataBasePropierties(View):
 
         try:
             data = json.loads(request.body)
+            config = configparser.ConfigParser(interpolation=None) 
             config.read(list_path_menu[1])
 
             host = data.get("host")
