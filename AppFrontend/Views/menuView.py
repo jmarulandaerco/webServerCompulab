@@ -20,11 +20,46 @@ class MeasureView(View):
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }
-            print("Hola")
-            print(sample_data)
+            
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
+
+            data = json.loads(request.body)
+            zone = data.get("zone")
+            modbus = data.get("modbus")
+            start = data.get("start")
+            stop = data.get("stop")
+
+            config.set(
+                                "measurementmodbus", "timezone", zone
+                            )
+            config.set(
+                                "measurementmodbus",
+                                "sampling_modbus",
+                                modbus,
+                            )
+            config.set(
+                                "measurementmodbus", "start_hour", start
+                            )
+            config.set(
+                                "measurementmodbus", "stop_hour", stop
+                            )
+            
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormDataServer(View):
     def get(self, request):
@@ -39,6 +74,43 @@ class FormDataServer(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
+
+            data = json.loads(request.body)
+            server = data.get("server")
+            neu_plus = data.get("neu_plus")
+            telemetry = data.get("telemetry")
+            mqtt = data.get("mqtt")
+            storage = data.get("storage")
+
+
+            config.set("server", "server_type", server)
+            config.set("server", "id_device", neu_plus)
+            config.set(
+                                    "server", "identify_id", telemetry
+                                )
+            config.set(
+                                    "server", "sampling_mqtt", mqtt
+                                )
+            config.set(
+                                    "server",
+                                    "sampling_storage_plus",
+                                    storage,
+                                )
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormDataModes(View):
     def get(self, request):
@@ -56,7 +128,66 @@ class FormDataModes(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
 
+            data = json.loads(request.body)
+            mode = data.get("mode")
+            limitation = data.get("limitation")
+            compensation = data.get("compensation")
+            sampling_limitation = data.get("sampling_limitation")
+            sampling_compensation = data.get("sampling_compensation")
+
+
+            config.set("functioning", "work_mode", mode)
+            if limitation == "Yes":
+                config.set(
+                                "functioning",
+                                "enable_active_limitation",
+                                str(False),
+                            )
+            else:
+                config.set(
+                                "functioning",
+                                "enable_active_limitation",
+                                str(False),
+                            )
+                
+            if compensation=="Yes":
+                config.set(
+                                "functioning",
+                                "enable_reactive_compensation",
+                                str(True),
+                            )   
+            else:
+                config.set(
+                                "functioning",
+                                "enable_reactive_compensation",
+                                str(False),
+                            ) 
+
+            config.set(
+                                "functioning",
+                                "time_active_power",
+                                sampling_limitation,
+                            )  
+            config.set(
+                                "functioning",
+                                "time_reactive_power",
+                                sampling_compensation,
+                            )
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 class FormDataSettingDataBase(View):
     def get(self, request):
         try:
@@ -68,6 +199,34 @@ class FormDataSettingDataBase(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+    
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
+
+            data = json.loads(request.body)
+            day = data.get("day")
+            awaitTime = data.get("awaitTime")
+           
+
+
+            config.set("database", "old_days", day)
+            config.set(
+                                "database", "await_to_while", awaitTime
+                            )
+            
+                                
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormDataSettingInterface(View):
     def get(self, request):
@@ -290,6 +449,38 @@ class FormDataSettingLogs(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
+
+            data = json.loads(request.body)
+            level = data.get("level")
+            stdout = data.get("stdout")
+            file = data.get("file")
+            enable = data.get("enable")
+            log_size = data.get("log_size")
+            backup = data.get("backup")
+
+
+            config.set("DEFAULT", "loglevel", level)
+           
+            config.set("DEFAULT", "logstdout", stdout) 
+
+            config.set("DEFAULT", "logfile", file)
+            config.set("DEFAULT", "sampleslog", enable)
+            config.set("DEFAULT", "max_size_bytes", log_size)
+            config.set("DEFAULT", "backup_count", backup)
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 
 

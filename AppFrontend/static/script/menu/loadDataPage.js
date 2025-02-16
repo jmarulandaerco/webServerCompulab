@@ -53,22 +53,7 @@ function loadContentHttp(option) {
             document.getElementById("content4").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
-async function loadFormDataMeasureModbus() {
-    try {
-        const response = await fetch(getFormDataUrl);
-        if (!response.ok) {
-            throw new Error("Error al cargar los datos");
-        }
-        const data = await response.json();
-        console.log(data)
-        document.getElementById("zone").value = data.zone;
-        document.getElementById("modbus").value = data.modbus;
-        document.getElementById("start").value = data.start;
-        document.getElementById("stop").value = data.stop;
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
+
 async function loadFormDataSettingLog() {
     try {
         const response = await fetch(getFormDatasettingLog);
@@ -88,51 +73,45 @@ async function loadFormDataSettingLog() {
         console.error("Error:", error);
     }
 }
-async function loadFormDataServerSelection() {
+async function updateInformationDataSettingLog() {
+    const level = document.getElementById("level").value;
+    const stdout = document.getElementById("stdout").value;
+    const file = document.getElementById("file").value;
+    const enable = document.getElementById("enable").value;
+    const log_size = document.getElementById("log_size").value;
+    const backup = document.getElementById("backup").value;
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
     try {
-        const response = await fetch(getFormDataUrlServerSelection);
+        console.log(getFormDataModemChecker)
+        const response =  await fetch(getFormDatasettingLog, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ level,stdout,file,enable,log_size,backup })
+        });
+
+        const data =  await response.json();
+
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+             
+
         }
-        const data = await response.json();
-        console.log(data)
-        // Llenar los campos del formulario con los valores de ejemplo
-        document.getElementById("server").value = data.server;
-        document.getElementById("neu_plus").value = data.neu_plus;
-        document.getElementById("telemetry").value = data.telemetry;
-        document.getElementById("mqtt").value = data.mqtt;
-        document.getElementById("storage").value = data.storage;
+
     } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
         console.error("Error:", error);
     }
-}
-async function loadFormDataModes() {
-    try {
-        const response = await fetch(getFormDataUrlServerModes);
-        if (!response.ok) {
-            throw new Error("Error al cargar los datos");
-        }
-        const data = await response.json();
+};
 
-        document.getElementById("mode").value = data.mode;
-
-        const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
-        if (limitationRadio) {
-            limitationRadio.checked = true;
-        }
-
-        const compensationRadio = document.querySelector(`input[name="compensation"][value="${data.compensation}"]`);
-        if (compensationRadio) {
-            compensationRadio.checked = true;
-        }
-
-        // Llenar los campos de sampling
-        document.getElementById("sampling_limitation").value = data.sampling_limitation;
-        document.getElementById("sampling_compensation").value = data.sampling_compensation;
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
 async function loadFormDataSettingDatabase() {
     try {
         const response = await fetch(getFormDataUrlSettingDatabase);
@@ -141,11 +120,47 @@ async function loadFormDataSettingDatabase() {
         }
         const data = await response.json();
         document.getElementById("day").value = data.day;
-        document.getElementById("await").value = data.await;
+        document.getElementById("awaitTime").value = data.awaitTime;
     } catch (error) {
         console.error("Error:", error);
     }
 }
+
+async function updateSettingDatabase() {
+    const day = document.getElementById("day").value;
+    const awaitTime = document.getElementById("awaitTime").value;
+   
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDataModemChecker)
+        const response =  await fetch(getFormDataUrlSettingDatabase, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ day,awaitTime })
+        });
+
+        const data =  await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+             
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
 async function loadFormDataSettingInterface() {
     try {
         const response = await fetch(getFormDataUrlSettingInterface);
@@ -253,12 +268,71 @@ function loadContent(option) {
             document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
+
+
+async function loadFormDataServerSelection() {
+    try {
+        const response = await fetch(getFormDataUrlServerSelection);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+        const data = await response.json();
+        console.log(data)
+        // Llenar los campos del formulario con los valores de ejemplo
+        document.getElementById("server").value = data.server;
+        document.getElementById("neu_plus").value = data.neu_plus;
+        document.getElementById("telemetry").value = data.telemetry;
+        document.getElementById("mqtt").value = data.mqtt;
+        document.getElementById("storage").value = data.storage;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+async function updateServerSelection() {
+    const server = document.getElementById("server").value;
+    const neu_plus = document.getElementById("neu_plus").value;
+    const telemetry = document.getElementById("telemetry").value;
+    const mqtt = document.getElementById("mqtt").value;
+    const storage = document.getElementById("storage").value;
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDataModemChecker)
+        const response =  await fetch(getFormDataUrlServerSelection, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ server,neu_plus,telemetry,mqtt,storage })
+        });
+
+        const data =  await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+             
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
+
 async function loadFunction(option) {
     switch (option) {
         case 'modbusMeasure':
             loadFormDataMeasureModbus();
             break;
-        case 'serverSelection':
+        case 'serverSelectionModbus':
             loadFormDataServerSelection();
             break;
         case 'operationModeModbus':
