@@ -102,7 +102,7 @@ class FormDataLimitation(View):
     def put(self, request):
         
         try:
-            config.read(list_path_menu[5])
+            config.read(list_path_menu[4])
 
             data = json.loads(request.body)
 
@@ -131,7 +131,7 @@ class FormDataLimitation(View):
             config.set('Active', 'active_power_inv_max', inverterMax)
             
            
-            with open(list_path_menu[1], "w") as configfileChecked:
+            with open(list_path_menu[4], "w") as configfileChecked:
                config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
@@ -216,7 +216,7 @@ class FormDataCompensation(View):
                                 "Reactive", "time_active_power", time
                             )
             config.set("Reactive", "pf_min", factor)
-            with open(list_path_menu[1], "w") as configfileChecked:
+            with open(list_path_menu[5], "w") as configfileChecked:
                config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
