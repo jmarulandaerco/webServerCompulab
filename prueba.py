@@ -12,7 +12,9 @@
 
 import os
 import django
-from bson import ObjectId  # Necesario para trabajar con ObjectId
+from bson import ObjectId
+
+from utils.menu import Menu  # Necesario para trabajar con ObjectId
 
 # Configurar Django antes de importar modelos
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'energyProyect.settings')
@@ -20,14 +22,9 @@ django.setup()
 
 from authApp.models.user import User  # Importar modelos después de django.setup()
 
-# # Crear usuario
-user = User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
-print(user)
-
-# try:
-#     print(User.objects.get(_id=ObjectId("67a284ad5880afea109bda4d")))
-    
-# except User.DoesNotExist:
-#     print("El usuario no existe.")
-# except Exception as e:
-#     print(f"Error: {e}")
+username = "erco_to"
+password = "3rc04dm1n#t0"
+username2 = "configTo"
+password2 = "3rc04dm1n#t0"
+menu = Menu()
+menu.create_user_if_not_exists(username=username,password=password)

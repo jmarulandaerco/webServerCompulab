@@ -6,6 +6,7 @@ import subprocess
 import threading
 import time
 from typing import List
+from authApp.models.user import User  # Importar modelos después de django.setup()
 
 from utils.modem_gsm_driver import SimModem
 
@@ -201,3 +202,10 @@ class Menu:
             return "Error adding wifi network"
     
     
+    def create_user_if_not_exists(self, username, password):
+        # Verificar si el usuario ya existe
+        if not User.objects.filter(username=username).exists():
+            user = User.objects.create_user(username=username, password=password)
+            print(f"✅ Usuario '{username}' creado correctamente.")
+        else:
+            print(f"⚠️ El usuario '{username}' ya existe.")
