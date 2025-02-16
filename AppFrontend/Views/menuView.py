@@ -135,11 +135,11 @@ class FormDataBasePropierties(View):
             return JsonResponse({"error": str(e)})
         
     def put(self, request):
-        config.read(list_path_menu[1])
-
+        
         try:
-            data = json.loads(request.body)
             config.read(list_path_menu[1])
+
+            data = json.loads(request.body)
 
             host = data.get("host")
             port = data.get("port")
