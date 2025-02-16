@@ -25,8 +25,6 @@ async function loadFormDataLimitation() {
         console.error("Error:", error);
     }
 }
-
-
 async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
@@ -55,4 +53,84 @@ async function loadFormDataCompensation() {
         console.error("Error:", error);
     }
 }
+async function updateInformationLimitation() {
+    const selectedValue = document.querySelector('input[name="energy_meter"]:checked')?.value;
+    const meter_ids = document.getElementById("meter_ids").value;
+    const inverter_ids = document.getElementById("inverter_ids").value;
+    const porcentage = document.getElementById("porcentage").value;
+    const grid_min = document.getElementById("grid_min").value;
+    const grid_max = document.getElementById("grid_max").value;
+    const inverter_min = document.getElementById("inverter_min").value;
+    const inverterMax = document.getElementById("inverterMax").value;
 
+    
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDataModemChecker)
+        const response =  await fetch(getFormDataLimitation, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ selectedValue,meter_ids,inverter_ids,porcentage,grid_min,grid_max,inverter_min,inverterMax })
+        });
+
+        const data =  await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+             
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
+async function updateInformationCompensation() {
+    const selectedValue = document.querySelector('input[name="reactive_power"]:checked')?.value;
+    const meter_ids = document.getElementById("meter_ids").value;
+    const smart_logger = document.getElementById("smart_logger").value;
+    const high = document.getElementById("high").value;
+    const low = document.getElementById("low").value;
+    const reactive = document.getElementById("reactive").value;
+    const active = document.getElementById("active").value;
+    const time = document.getElementById("time").value;
+    const factor = document.getElementById("factor").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDataModemChecker)
+        const response =  await fetch(getFormDataCompensation, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ selectedValue,meter_ids,smart_logger,high,low,reactive,active,time,factor })
+        });
+
+        const data =  await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+             
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};

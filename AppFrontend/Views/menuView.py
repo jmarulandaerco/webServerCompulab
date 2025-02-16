@@ -98,6 +98,49 @@ class FormDataLimitation(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[5])
+
+            data = json.loads(request.body)
+
+            selectedValue = data.get("selectedValue")
+            meter_ids = data.get("meter_ids")
+            inverter_ids = data.get("inverter_ids")
+            porcentage = data.get("porcentage")
+            grid_min = data.get("grid_min")
+            grid_max = data.get("grid_max")
+            inverter_min = data.get("inverter_min")
+            inverterMax = data.get("inverterMax")
+            
+            if selectedValue == "Yes":
+                config.set('Active', 'energy_meter_3p', str(True))
+
+            else:
+               config.set('Active', 'energy_meter_3p', str(False))
+            
+            config.set('Active', 'energy_meter_ids', meter_ids)
+
+            config.set('Active', 'inverter_ids', inverter_ids)
+            config.set('Active', 'active_power_percentage', porcentage)
+            config.set('Active', 'active_power_grid_min', grid_min)
+            config.set('Active', 'active_power_grid_max', grid_max)
+            config.set('Active', 'active_power_inv_min', inverter_min)
+            config.set('Active', 'active_power_inv_max', inverterMax)
+            
+           
+            with open(list_path_menu[1], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormDataCompensation(View):
     def get(self, request):
@@ -118,6 +161,71 @@ class FormDataCompensation(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+        
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[5])
+
+            data = json.loads(request.body)
+
+            selectedValue = data.get("selectedValue")
+            meter_ids = data.get("meter_ids")
+            smart_logger = data.get("smart_logger")
+            high = data.get("high")
+            low = data.get("low")
+            reactive = data.get("reactive")
+            active = data.get("active")
+            time = data.get("time")
+            factor = data.get("factor")
+            
+            if selectedValue == "Yes":
+                config.set(
+                            "Reactive", "reactive_power_limiter", str(True)
+                        )
+
+            else:
+               config.set(
+                            "Reactive", "reactive_power_limiter", str(False)
+                        )
+            
+            config.set("Reactive", "energy_meter_ids", meter_ids)
+            config.set(
+                                "Reactive", "smartlogger_id", smart_logger
+                            )
+            config.set(
+                                "Reactive",
+                                "reactive_power_percentage_high",
+                                high,
+                            )
+            config.set(
+                                "Reactive",
+                                "reactive_power_percentage_low",
+                                low,
+                            )
+                            
+            config.set(
+                                "Reactive", "reactive_offset", reactive
+                            )
+            
+            config.set(
+                                "Reactive", "active_offset", active
+                            )
+            
+            config.set(
+                                "Reactive", "time_active_power", time
+                            )
+            config.set("Reactive", "pf_min", factor)
+            with open(list_path_menu[1], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormDataBasePropierties(View):
     def get(self, request):
