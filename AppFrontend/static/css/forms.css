@@ -45,6 +45,7 @@ input {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .buttonClass:hover {
@@ -70,6 +71,7 @@ input {
 
 .checkbox-group {
     display: flex;
+    width: 100%;
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
