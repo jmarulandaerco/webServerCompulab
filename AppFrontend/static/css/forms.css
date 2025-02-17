@@ -82,6 +82,11 @@ input {
     align-items: start;
 }
 
+checkbox-item input{
+    width: 10%;
+    height: 20px;
+}
 .checkbox-item input {
     margin-right: 10px;
 }
+
