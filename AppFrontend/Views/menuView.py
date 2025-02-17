@@ -140,7 +140,6 @@ class FormDataModes(View):
             sampling_limitation = data.get("sampling_limitation")
             sampling_compensation = data.get("sampling_compensation")
             
-            print(li)
             config.set("functioning", "work_mode", mode)
             if limitation == "Yes":
                 config.set(
