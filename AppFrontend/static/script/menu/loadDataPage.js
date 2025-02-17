@@ -316,25 +316,23 @@ async function updateServerSelection() {
 };
 
 
-async function loadFormDataDevices() {
-    try {
-        const response = await fetch(viewDevices);
-        if (!response.ok) {
-            throw new Error("Error al cargar los datos");
-        }
-        const data = await response.json();
-        console.log(data)
-        // // Llenar los campos del formulario con los valores de ejemplo
-        // document.getElementById("server").value = data.server;
-        // document.getElementById("neu_plus").value = data.neu_plus;
-        // document.getElementById("telemetry").value = data.telemetry;
-        // document.getElementById("mqtt").value = data.mqtt;
-        // document.getElementById("storage").value = data.storage;
-    } catch (error) {
-        
-        console.error("Error:", error);
-    }
+function loadDevices() {
+    fetch(viewDevices)  // Llamamos a la vista de Django
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById("deviceContainer").innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error al cargar los dispositivos:", error);
+            document.getElementById("deviceContainer").innerHTML = "<p>Error al cargar los dispositivos</p>";
+        });
 }
+
 
 
 function loadContentModbus(option) {
@@ -355,6 +353,9 @@ function loadContentModbus(option) {
             document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
+
+
+
 async function loadFunction(option) {
     switch (option) {
         case 'modbusMeasure':
