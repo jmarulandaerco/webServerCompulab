@@ -318,7 +318,7 @@ async function updateServerSelection() {
 
 async function loadFormDataDevices() {
     try {
-        const response = await fetch(view_devices);
+        const response = await fetch(viewDevices);
         if (!response.ok) {
             throw new Error("Error al cargar los datos");
         }
@@ -331,6 +331,7 @@ async function loadFormDataDevices() {
         // document.getElementById("mqtt").value = data.mqtt;
         // document.getElementById("storage").value = data.storage;
     } catch (error) {
+        
         console.error("Error:", error);
     }
 }
