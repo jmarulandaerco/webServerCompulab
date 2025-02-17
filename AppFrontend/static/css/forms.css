@@ -35,7 +35,14 @@ input {
     border-radius: 4px;
     font-size: 14px;
 }
-
+.input_checkbox{
+    width: 10%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    height: 20px;
+    border-radius: 4px;
+    font-size: 14px;
+}
 .buttonClass {
     width: 100%;
     padding: 10px;
@@ -82,10 +89,6 @@ input {
     align-items: start;
 }
 
-checkbox-item input{
-    width: 10%;
-    height: 20px;
-}
 .checkbox-item input {
     margin-right: 10px;
 }
