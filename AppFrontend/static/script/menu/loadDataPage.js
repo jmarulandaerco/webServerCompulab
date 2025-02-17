@@ -334,6 +334,26 @@ async function loadFormDataDevices() {
         console.error("Error:", error);
     }
 }
+
+
+function loadContentModbus(option) {
+    fetch(`/home/content/form/${option}/`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content3").innerHTML = data;
+            loadFunction(option);
+
+        })
+        .catch(error => {
+            console.log('Error al cargar el contenido:', error);
+            document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+        });
+}
 async function loadFunction(option) {
     switch (option) {
         case 'modbusMeasure':
