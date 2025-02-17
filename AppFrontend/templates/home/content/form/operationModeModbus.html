@@ -8,7 +8,13 @@
         <!-- Campo de texto normal -->
         <div class="form-group">
             <label for="mode">Modbus operation mode:</label>
-            <input type="text" id="mode" name="mode" required>
+            <!-- <input type="text" id="mode" name="mode" required> -->
+            <select id="mode" name="mode" required>
+                <option value="READ_ONLY">READ_ONLY</option>
+                <option value="READ_STORAGE_ONLY">READ_STORAGE_ONLY</option>
+                <option value="READ_STORAGE_SEND">READ_STORAGE_SEND</option>
+            </select>
+
         </div>
 
         <!-- Radio buttons para Active limitation -->

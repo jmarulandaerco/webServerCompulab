@@ -85,66 +85,16 @@ async function updateInformationDataSettingLog() {
 
     try {
         console.log(getFormDataModemChecker)
-        const response =  await fetch(getFormDatasettingLog, {
+        const response = await fetch(getFormDatasettingLog, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ level,stdout,file,enable,log_size,backup })
+            body: JSON.stringify({ level, stdout, file, enable, log_size, backup })
         });
 
-        const data =  await response.json();
-
-        if (!response.ok) {
-
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-
-        } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-             
-
-        }
-
-    } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-        console.error("Error:", error);
-    }
-};
-
-async function loadFormDataSettingDatabase() {
-    try {
-        const response = await fetch(getFormDataUrlSettingDatabase);
-        if (!response.ok) {
-            throw new Error("Error al cargar los datos");
-        }
         const data = await response.json();
-        document.getElementById("day").value = data.day;
-        document.getElementById("awaitTime").value = data.awaitTime;
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
-async function updateSettingDatabase() {
-    const day = document.getElementById("day").value;
-    const awaitTime = document.getElementById("awaitTime").value;
-   
-
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
-    try {
-        console.log(getFormDataModemChecker)
-        const response =  await fetch(getFormDataUrlSettingDatabase, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
-            },
-            body: JSON.stringify({ day,awaitTime })
-        });
-
-        const data =  await response.json();
 
         if (!response.ok) {
 
@@ -152,7 +102,7 @@ async function updateSettingDatabase() {
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-             
+
 
         }
 
@@ -161,6 +111,8 @@ async function updateSettingDatabase() {
         console.error("Error:", error);
     }
 };
+
+
 async function loadFormDataSettingInterface() {
     try {
         const response = await fetch(getFormDataUrlSettingInterface);
@@ -174,6 +126,42 @@ async function loadFormDataSettingInterface() {
         console.error("Error:", error);
     }
 }
+
+async function updateSettingInterface() {
+    const interface = document.getElementById("interface").value;
+    const connection = document.getElementById("connection").value;
+
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDataModemChecker)
+        const response = await fetch(getFormDataUrlSettingInterface, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ interface, connection})
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
 async function loadFormDataSignalChecker() {
     try {
         const response = await fetch(getFormDataSignalChecker);
@@ -300,16 +288,16 @@ async function updateServerSelection() {
 
     try {
         console.log(getFormDataModemChecker)
-        const response =  await fetch(getFormDataUrlServerSelection, {
+        const response = await fetch(getFormDataUrlServerSelection, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ server,neu_plus,telemetry,mqtt,storage })
+            body: JSON.stringify({ server, neu_plus, telemetry, mqtt, storage })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
@@ -317,7 +305,7 @@ async function updateServerSelection() {
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-             
+
 
         }
 

@@ -194,7 +194,7 @@ class FormDataSettingDataBase(View):
             config.read(list_path_menu[0])
             sample_data = {
                 "day": config.get('database', 'old_days'),
-                "await": config.get('database', 'await_to_while'),
+                "awaitTime": config.get('database', 'await_to_while'),
             }
             return JsonResponse(sample_data)
         except Exception as e:
@@ -239,6 +239,39 @@ class FormDataSettingInterface(View):
         except Exception as e:
             return JsonResponse({"error": str(e)})
 
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[0])
+
+            data = json.loads(request.body)
+            interface = data.get("interface")
+            connection = data.get("connection")
+           
+
+
+            config.set(
+                                "internet_interfaces",
+                                "internet_interface",
+                                interface,
+                            )
+            config.set(
+                                "internet_interfaces",
+                                "connection_name",
+                                connection,
+                            )
+            
+                                
+            with open(list_path_menu[0], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 class FormDataLimitation(View):
     def get(self, request):
         try:

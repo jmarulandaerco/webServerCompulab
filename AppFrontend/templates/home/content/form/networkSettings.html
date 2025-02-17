@@ -7,14 +7,20 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="interface">Select internet interface:</label>
-            <input type="text" id="interface" name="interface" required>
+            <!-- <input type="text" id="interface" name="interface" required> -->
+            <select id="interface" name="interface" required>
+                <option value="eth0">ETHERNET0 (eth0)</option>
+                <option value="eth1">ETHERNET1 (eth1)</option>
+                <option value="wlan0">WIFI (wlan0)</option>
+                <option value="wwan0">GRPS (wwan0)</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="connection">Connection name:</label>
             <input type="text" id="connection" name="connection" required>
         </div>
-        <button class="buttonClass" type="submit">Guardar</button>
+        <button class="buttonClass" type="button" onclick="updateSettingInterface()">Guardar</button>
     </form>
 </div>
 
