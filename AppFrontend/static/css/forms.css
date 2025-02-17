@@ -77,7 +77,7 @@ input {
 
 .checkbox-item {
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .checkbox-item input {
