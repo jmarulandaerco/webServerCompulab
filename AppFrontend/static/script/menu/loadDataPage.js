@@ -325,11 +325,11 @@ function loadDevices() {
             return response.text();
         })
         .then(html => {
-            document.getElementById("deviceContainer").innerHTML = html;
+            document.getElementById("content3").innerHTML = html;
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
-            document.getElementById("deviceContainer").innerHTML = "<p>Error al cargar los dispositivos</p>";
+            document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
         });
 }
 

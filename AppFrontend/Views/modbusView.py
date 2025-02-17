@@ -47,7 +47,7 @@ class FormModbusDevicesView(View):
         listDevices = current_devices
         listSelectedDevices = enabled_devices
         
-        return render(request, '/home/content/form/configuredDevices.html', {
+        return render(request, 'home/content/form/seeDevices.html', {
             'listDevices': listDevices,
             'listSelectedDevices': listSelectedDevices
         })
