@@ -139,14 +139,14 @@ class FormDataModes(View):
             compensation = data.get("compensation")
             sampling_limitation = data.get("sampling_limitation")
             sampling_compensation = data.get("sampling_compensation")
-
-
+            
+            print(li)
             config.set("functioning", "work_mode", mode)
             if limitation == "Yes":
                 config.set(
                                 "functioning",
                                 "enable_active_limitation",
-                                str(False),
+                                str(True),
                             )
             else:
                 config.set(
