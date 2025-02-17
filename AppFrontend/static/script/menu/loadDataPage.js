@@ -315,6 +315,25 @@ async function updateServerSelection() {
     }
 };
 
+
+async function loadFormDataDevices() {
+    try {
+        const response = await fetch(view_devices);
+        if (!response.ok) {
+            throw new Error("Error al cargar los datos");
+        }
+        const data = await response.json();
+        console.log(data)
+        // // Llenar los campos del formulario con los valores de ejemplo
+        // document.getElementById("server").value = data.server;
+        // document.getElementById("neu_plus").value = data.neu_plus;
+        // document.getElementById("telemetry").value = data.telemetry;
+        // document.getElementById("mqtt").value = data.mqtt;
+        // document.getElementById("storage").value = data.storage;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 async function loadFunction(option) {
     switch (option) {
         case 'modbusMeasure':

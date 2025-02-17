@@ -10,7 +10,7 @@ from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
-from AppFrontend.Views.modbusView import FormModbusView
+from AppFrontend.Views.modbusView import FormModbusDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
@@ -56,7 +56,7 @@ urlpatterns = [
     path('interface-2/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 2'},name="connection_two"),
     path('api/antenna-wifi/', AntennaWifi.as_view(),name="antenna_wifi"),
     path('api/add-wifi/', AddWifi.as_view(),name="add_wifi"),
-
+    path('api/modbus/view-devices/',FormModbusDevicesView.as_view(),name='view_devices'),
 
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/delete/log/',DeleteLog.as_view(),name='delete_log')
