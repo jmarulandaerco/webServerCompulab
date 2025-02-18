@@ -95,6 +95,7 @@ function loadAddDevices() {
 
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0]; 
+                console.log("Electricidad")
                 handleSelectChange(); 
             }
         })
