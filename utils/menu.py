@@ -214,7 +214,7 @@ class Menu:
         try:
             folders_devices=[]
             choices=[]
-            path_modbus = os.path.abspath(os.path.join(os.path.dirname(__file__), '../Modbus/modbusmaps'))
+            path_modbus = "/FW/Modbus/modbusmaps"
             print("Locurita")
             print(path_modbus)
             if os.path.exists(path_modbus):
