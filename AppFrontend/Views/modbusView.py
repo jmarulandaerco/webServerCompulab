@@ -1,4 +1,5 @@
 import configparser
+import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
@@ -22,20 +23,6 @@ class FormModbusView(View):
     
 
 class FormModbusDevicesView(View):
-    # def get(self,request):
-    #     config.read(list_path_menu[2])
-        
-    #     current_devices = config.sections()
-    #     current_devices.remove("Default")
-    #     enabled_devices = config.get(
-    #             "Default", "devices_config", fallback=""
-    #         ).split(",")
-    #     print(current_devices)
-    #     print(enabled_devices)
-    #     return JsonResponse({"listDevices":current_devices, "listSelectedDevices":enabled_devices})
-
-    
-    
     def get(self, request):
         config.read(list_path_menu[2])
         menu =Menu()
@@ -61,6 +48,10 @@ class FormModbusDevicesView(View):
 class FormModbusGetDevicesView(View):
     def get(self, request):
         menu =Menu()
-        a =menu.setup_folder_path()
+        optionsModbusMap =menu.setup_folder_path()
         print(a[0])
-        return JsonResponse({"modbus_map":a[0]})
+        return JsonResponse({"modbus_map":optionsModbusMap[0]})
+
+    def post(self,request):
+        data = json.loads(request.body)
+        url =data.get("url")

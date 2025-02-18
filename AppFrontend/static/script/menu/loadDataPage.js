@@ -1,4 +1,38 @@
 let intervalId;
+function handleSelectChange(event) {
+    const selectedValue = event.target.value;  // El valor de la opción seleccionada
+    console.log("Opción seleccionada:", selectedValue);
+
+    // Aquí puedes hacer algo con el valor seleccionado
+    // Por ejemplo, llamar a otra función con el valor seleccionado
+    // doSomethingWithSelectedValue(selectedValue);
+    fetch(start, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ selectedValue })
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+
+
+                alert(data.message); // Muestra el mensaje de respuesta
+
+                if (data.message == "Reiniciando sistema, espera 30 segundos  por favor") {
+                    setTimeout(() => {
+                        checkServiceStatus(); // Ejecuta la función después de 5 segundos
+                    }, 20000);
+                }
+
+            })
+}
+
+
 function loadContentModbus(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
@@ -45,6 +79,8 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
+            modbusMapFolderSelect.addEventListener("change", handleSelectChange);
+
             console.log(modbusMapList)
         })
         .catch(error => {
