@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="form-container">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <form id="deviceForm">
+        {% csrf_token %}
+
+        <h3>Selecciona los dispositivos: A borrar</h3>
+        <div id="deviceList" class="checkbox-group">
+            {% for device in listDevices %}
+                <div class="checkbox-item">
+                    <input class="input_checkbox" type="checkbox" id="{{ device }}" name="devices" value="{{ device }}">
+                    <label for="{{ device }}">{{ device }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="buttonClass" type="button" >Borrar </button>
+    </form>
+</div>
