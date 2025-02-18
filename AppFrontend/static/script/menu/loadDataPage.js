@@ -9,8 +9,8 @@ function handleSelectChange(event) {
     fetch(viewAddDevices, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
             },
             body: JSON.stringify({ selectedValue })
 
@@ -79,7 +79,6 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-            modbusMapFolderSelect.addEventListener("change", handleSelectChange);
 
             console.log(modbusMapList)
         })
