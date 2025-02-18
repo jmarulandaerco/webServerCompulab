@@ -73,48 +73,6 @@ function handleSelectChange(event) {
             });
 }
 
-function SelectChange(valueInput) {
-    
-    const selectedValue = valueInput;  
-   
-    fetch(viewAddDevices, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-                
-            },
-            body: JSON.stringify({ selectedValue })
-
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Holaaa")
-                console.log(data)
-
-
-                const modbusMapList = data.data;  // Aquí obtenemos la lista de opciones
-
-                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
-                
-                // Limpiar las opciones previas (si existen)
-                modbusMapFolderSelect.innerHTML = "";
-    
-                // Crear y agregar un "option" por cada dispositivo en la lista
-                modbusMapList.forEach(option => {
-                    const optionElement = document.createElement("option");
-                    optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                    optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
-                    modbusMapFolderSelect.appendChild(optionElement);
-                });
-
-            }).catch(error => {
-                console.log('Error al cargar el contenido:', error);
-                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-            });
-}
-
-
-
 function loadAddDevices() {
     fetch(viewAddDevices)  // Llamamos a la vista de Django
         .then(response => {
@@ -139,12 +97,10 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-            console.log("La cruel realidad")
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
                 console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
 
-                // Disparar evento change
                 modbusMapFolderSelect.dispatchEvent(new Event("change"));
                 console.log("🚀 Evento 'change' disparado.");
             }
