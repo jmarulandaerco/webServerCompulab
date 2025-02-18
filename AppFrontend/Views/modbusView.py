@@ -64,4 +64,4 @@ class FormModbusGetDevicesView(APIView):
         
         files_json = [archivo for archivo in os.listdir(path_modbus) if archivo.endswith('.json')]
         print(files_json)
-        return JsonResponse({"message":files_json})
+        return JsonResponse({"data":files_json})

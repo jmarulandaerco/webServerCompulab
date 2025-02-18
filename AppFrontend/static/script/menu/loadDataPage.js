@@ -20,14 +20,23 @@ function handleSelectChange(event) {
                 console.log(data)
 
 
+                const modbusMapList = data.data;  // Aquí obtenemos la lista de opciones
 
-                alert(data.message); // Muestra el mensaje de respuesta
-
-                if (data.message == "Reiniciando sistema, espera 30 segundos  por favor") {
-                    setTimeout(() => {
-                        checkServiceStatus(); // Ejecuta la función después de 5 segundos
-                    }, 20000);
-                }
+                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
+                
+                // Limpiar las opciones previas (si existen)
+                modbusMapFolderSelect.innerHTML = "";
+    
+                // Crear y agregar un "option" por cada dispositivo en la lista
+                modbusMapList.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
+                    optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                    modbusMapFolderSelect.appendChild(optionElement);
+                });
+    
+                console.log(modbusMapList)
+               
 
             })
 }
