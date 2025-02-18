@@ -224,5 +224,5 @@ class Menu:
                 
             return[folders_devices,choices]
         except Exception as ex:
-            return[]
             print(ex)
+            return[]
