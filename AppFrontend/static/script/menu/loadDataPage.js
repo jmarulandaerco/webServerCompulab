@@ -6,7 +6,7 @@ function handleSelectChange(event) {
     // Aquí puedes hacer algo con el valor seleccionado
     // Por ejemplo, llamar a otra función con el valor seleccionado
     // doSomethingWithSelectedValue(selectedValue);
-    fetch(start, {
+    fetch(viewAddDevices, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
