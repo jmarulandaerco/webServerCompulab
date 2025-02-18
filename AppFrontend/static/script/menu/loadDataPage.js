@@ -17,7 +17,7 @@ function handleSelectChange(event) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("Holaa")
+                console.log("Holaaa")
                 console.log(data)
 
 
@@ -69,31 +69,34 @@ function loadContentModbus(option) {
 
 
 function loadAddDevices() {
-    fetch(viewAddDevices)  // Llamamos a la vista de Django
+    fetch(viewAddDevices)  
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            return response.json();  // Asumimos que la respuesta es un JSON
+            return response.json(); 
         })
         .then(data => {
-            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
-            const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
+           
+            const modbusMapList = data.modbus_map;  
 
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
             
-            // Limpiar las opciones previas (si existen)
+            
             modbusMapFolderSelect.innerHTML = "";
 
-            // Crear y agregar un "option" por cada dispositivo en la lista
+            
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
-                optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                optionElement.value = option;  
+                optionElement.textContent = option;  
                 modbusMapFolderSelect.appendChild(optionElement);
             });
 
-            console.log(modbusMapList)
+            if (modbusMapList.length > 0) {
+                modbusMapFolderSelect.value = modbusMapList[0]; 
+                handleSelectChange(); 
+            }
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
