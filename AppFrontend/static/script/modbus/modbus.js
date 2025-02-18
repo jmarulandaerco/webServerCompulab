@@ -139,6 +139,7 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
+            console.log("La cruel realidad")
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
                 console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
