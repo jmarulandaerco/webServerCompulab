@@ -333,58 +333,9 @@ function loadDevices() {
         });
 }
 
-function loadAddDevices() {
-    fetch(viewAddDevices)  // Llamamos a la vista de Django
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            return response.json();  // Asumimos que la respuesta es un JSON
-        })
-        .then(data => {
-            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
-            const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
-
-            const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-            
-            // Limpiar las opciones previas (si existen)
-            modbusMapFolderSelect.innerHTML = "";
-
-            // Crear y agregar un "option" por cada dispositivo en la lista
-            modbusMapList.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
-                modbusMapFolderSelect.appendChild(optionElement);
-            });
-            console.log(modbusMapList)
-        })
-        .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
-        });
-}
 
 
 
-function loadContentModbus(option) {
-    fetch(`/home/content/form/${option}/`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById("content3").innerHTML = data;
-            console.log("Pase por aca?")
-            loadFunction(option);
-
-        })
-        .catch(error => {
-            console.log('Error al cargar el contenido:', error);
-            document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-        });
-}
 
 
 
