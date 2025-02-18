@@ -115,44 +115,6 @@ function SelectChange(valueInput) {
 
 
 
-function loadAddDevices() {
-    fetch(viewAddDevices)  // Llamamos a la vista de Django
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            return response.json();  // Asumimos que la respuesta es un JSON
-        })
-        .then(data => {
-            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
-            const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
-
-            const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-            
-            // Limpiar las opciones previas (si existen)
-            modbusMapFolderSelect.innerHTML = "";
-
-            // Crear y agregar un "option" por cada dispositivo en la lista
-            modbusMapList.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
-                modbusMapFolderSelect.appendChild(optionElement);
-            });
-            console.log("La cruel realidad")
-            if (modbusMapList.length > 0) {
-                modbusMapFolderSelect.value = modbusMapList[0];
-                console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
-
-                // Disparar evento change
-                modbusMapFolderSelect.dispatchEvent(new Event("change"));
-                console.log("🚀 Evento 'change' disparado.");
-            }
-        })
-        .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
-        });
-}
 
 
 async function loadFormDataMeasureModbus() {
