@@ -333,7 +333,6 @@ function loadDevices() {
         });
 }
 
-
 function loadAddDevices() {
     fetch(viewAddDevices)  // Llamamos a la vista de Django
         .then(response => {
@@ -358,9 +357,7 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-
-            // Mostrar mensaje de éxito
-            document.getElementById("content3").innerHTML = "<p>Dispositivos cargados correctamente</p>";
+            console.log(modbusMapList)
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
