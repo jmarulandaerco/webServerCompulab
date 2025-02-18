@@ -376,6 +376,7 @@ function loadContentModbus(option) {
         })
         .then(data => {
             document.getElementById("content3").innerHTML = data;
+            console.log("Pase por aca?")
             loadFunction(option);
 
         })
