@@ -56,3 +56,11 @@ class FormModbusDevicesView(View):
             'listDevices': listDevices,
             'listSelectedDevices': listSelectedDevices
         })
+        
+
+class FormModbusGetDevicesView(View):
+    def get(self, request):
+        menu =Menu()
+        a =menu.setup_folder_path()
+        print(a[0])
+        return JsonResponse({"modbus_map":a[0]})
