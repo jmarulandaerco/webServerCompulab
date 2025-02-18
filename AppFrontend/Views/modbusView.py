@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
 
 from utils.configfiles import configfilepaths
 from utils.menu import Menu
@@ -46,7 +47,7 @@ class FormModbusDevicesView(View):
         })
         
 
-class FormModbusGetDevicesView(View):
+class FormModbusGetDevicesView(APIView):
     def get(self, request):
         menu =Menu()
         optionsModbusMap =menu.setup_folder_path()
