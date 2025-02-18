@@ -210,7 +210,7 @@ class Menu:
         else:
             print(f"⚠️ El usuario '{username}' ya existe.")
             
-    def setup_folder_path():
+    def setup_folder_path(self):
         try:
             path_modbus = os.path.abspath(os.path.join(os.path.dirname(__file__), '../Modbus/modbusmaps'))
             print("Locurita")
