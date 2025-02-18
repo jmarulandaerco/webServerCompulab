@@ -10,12 +10,10 @@ function loadContentModbus(option) {
         })
         .then(data => {
             document.getElementById("content3").innerHTML = data;
-            console.log("Pase por aca?")
             loadFunction(option);
 
         })
         .catch(error => {
-            console.log('Error al cargar el contenido:', error);
             document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
@@ -72,7 +70,6 @@ function loadContentHttp(option) {
 
         })
         .catch(error => {
-            console.log('Error al cargar el contenido:', error);
             document.getElementById("content4").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
@@ -84,7 +81,6 @@ async function loadFormDataSettingLog() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
-        console.log(data)
         document.getElementById("level").value = data.level;
         document.getElementById("stdout").value = data.stdout;
         document.getElementById("file").value = data.file;
@@ -158,7 +154,6 @@ async function updateSettingInterface() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
-        console.log(getFormDataModemChecker)
         const response = await fetch(getFormDataUrlSettingInterface, {
             method: "PUT",
             headers: {
@@ -259,7 +254,6 @@ function loadContent(option) {
                 if (intervalId) {
                     clearInterval(intervalId); // Detiene el intervalo si existe
                     intervalId = null; // Limpia la variable
-                    console.log("Actualización automática detenida");
                 }
             }
 
@@ -275,7 +269,7 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-            console.log('Error al cargar el contenido:', error);
+
             document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
@@ -288,7 +282,7 @@ async function loadFormDataServerSelection() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
-        console.log(data)
+
         // Llenar los campos del formulario con los valores de ejemplo
         document.getElementById("server").value = data.server;
         document.getElementById("neu_plus").value = data.neu_plus;
@@ -310,7 +304,6 @@ async function updateServerSelection() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
-        console.log(getFormDataModemChecker)
         const response = await fetch(getFormDataUrlServerSelection, {
             method: "PUT",
             headers: {
@@ -395,7 +388,9 @@ async function loadFunction(option) {
             loadFormDataSignalChecker();
             break;
         case 'registerDeviceRtu':
-            console.log("Pase por aca")
+            loadAddDevices();
+            break;
+        case 'registerDeviceTcp':
             loadAddDevices();
         default:
             break;
