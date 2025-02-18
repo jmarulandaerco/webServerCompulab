@@ -77,7 +77,7 @@ async function loadFunctionModbus(option){
     
 }
 
-}
+
 
 function loadAddDevices() {
     fetch(viewAddDevices)  // Llamamos a la vista de Django
