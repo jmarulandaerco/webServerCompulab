@@ -3,6 +3,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 
 from utils.configfiles import configfilepaths
 from utils.menu import Menu
@@ -51,7 +52,9 @@ class FormModbusGetDevicesView(View):
         optionsModbusMap =menu.setup_folder_path()
         print(optionsModbusMap[0])
         return JsonResponse({"modbus_map":optionsModbusMap[0]})
-
+    @csrf_exempt  # Esto desactiva la verificación CSRF para esta vista
     def post(self,request):
         data = json.loads(request.body)
         url =data.get("url")
+        print(url)
+        return JsonResponse({"message":url})
