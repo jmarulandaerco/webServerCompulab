@@ -1,5 +1,6 @@
 import configparser
 import json
+import os
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
@@ -58,4 +59,10 @@ class FormModbusGetDevicesView(APIView):
         data = json.loads(request.body)
         url =data.get("selectedValue")
         print(url)
-        return JsonResponse({"message":url})
+        menu =Menu()
+
+        optionsModbusMap =menu.setup_folder_path()
+        jsons_option=optionsModbusMap+"/"+url
+        files_json = [archivo for archivo in os.listdir(jsons_option) if archivo.endswith('.json')]
+        print(files_json)
+        return JsonResponse({"message":files_json})
