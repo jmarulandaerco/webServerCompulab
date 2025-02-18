@@ -2,10 +2,6 @@ let intervalId;
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
-
-    // Aquí puedes hacer algo con el valor seleccionado
-    // Por ejemplo, llamar a otra función con el valor seleccionado
-    // doSomethingWithSelectedValue(selectedValue);
     fetch(viewAddDevices, {
             method: "POST",
             headers: {
@@ -21,18 +17,16 @@ function handleSelectChange(event) {
                 console.log(data)
 
 
-                const modbusMapList = data.data;  // Aquí obtenemos la lista de opciones
+                const modbusMapList = data.data;  
 
                 const modbusMapFolderSelect = document.getElementById("modbus_map_json");
                 
-                // Limpiar las opciones previas (si existen)
                 modbusMapFolderSelect.innerHTML = "";
     
-                // Crear y agregar un "option" por cada dispositivo en la lista
                 modbusMapList.forEach(option => {
                     const optionElement = document.createElement("option");
-                    optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                    optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                    optionElement.value = option;  
+                    optionElement.textContent = option; 
                     modbusMapFolderSelect.appendChild(optionElement);
                 });
     
@@ -47,11 +41,8 @@ function handleSelectChange(event) {
 
 function SelectChange(valueInput) {
     
-    const selectedValue = valueInput;  // Obtener el valor seleccionad
-
-    // Aquí puedes hacer algo con el valor seleccionado
-    // Por ejemplo, llamar a otra función con el valor seleccionado
-    // doSomethingWithSelectedValue(selectedValue);
+    const selectedValue = valueInput;  
+   
     fetch(viewAddDevices, {
             method: "POST",
             headers: {
@@ -129,7 +120,6 @@ function loadAddDevices() {
             
             
             modbusMapFolderSelect.innerHTML = "";
-            SelectChange(modbusMapList[0])
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;  
@@ -137,9 +127,6 @@ function loadAddDevices() {
                 modbusMapFolderSelect.appendChild(optionElement);
             });
 
-            // if (modbusMapList.length > 0) {
-            //     modbusMapFolderSelect.value = modbusMapList[0]; 
-            //     modbusMapFolderSelect.dispatchEvent(new Event("change"));            }
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
