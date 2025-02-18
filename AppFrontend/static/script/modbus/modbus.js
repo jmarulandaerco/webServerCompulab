@@ -139,7 +139,14 @@ function loadAddDevices() {
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-            console.log(modbusMapList)
+            if (modbusMapList.length > 0) {
+                modbusMapFolderSelect.value = modbusMapList[0];
+                console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
+
+                // Disparar evento change
+                modbusMapFolderSelect.dispatchEvent(new Event("change"));
+                console.log("🚀 Evento 'change' disparado.");
+            }
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
