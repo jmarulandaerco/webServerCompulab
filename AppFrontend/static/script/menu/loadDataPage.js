@@ -1,83 +1,4 @@
 let intervalId;
-function handleSelectChange(event) {
-    const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-    const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
-    fetch(viewAddDevices, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-                
-            },
-            body: JSON.stringify({ selectedValue })
-
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Holaaa")
-                console.log(data)
-
-
-                const modbusMapList = data.data;  
-
-                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
-                
-                modbusMapFolderSelect.innerHTML = "";
-    
-                modbusMapList.forEach(option => {
-                    const optionElement = document.createElement("option");
-                    optionElement.value = option;  
-                    optionElement.textContent = option; 
-                    modbusMapFolderSelect.appendChild(optionElement);
-                });
-    
-                console.log(modbusMapList)
-               
-
-            }).catch(error => {
-                console.log('Error al cargar el contenido:', error);
-                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-            });
-}
-
-function SelectChange(valueInput) {
-    
-    const selectedValue = valueInput;  
-   
-    fetch(viewAddDevices, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-                
-            },
-            body: JSON.stringify({ selectedValue })
-
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Holaaa")
-                console.log(data)
-
-
-                const modbusMapList = data.data;  // Aquí obtenemos la lista de opciones
-
-                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
-                
-                // Limpiar las opciones previas (si existen)
-                modbusMapFolderSelect.innerHTML = "";
-    
-                // Crear y agregar un "option" por cada dispositivo en la lista
-                modbusMapList.forEach(option => {
-                    const optionElement = document.createElement("option");
-                    optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                    optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
-                    modbusMapFolderSelect.appendChild(optionElement);
-                });
-
-            }).catch(error => {
-                console.log('Error al cargar el contenido:', error);
-                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-            });
-}
 
 function loadContentModbus(option) {
     fetch(`/home/content/form/${option}/`)
@@ -101,35 +22,7 @@ function loadContentModbus(option) {
 
 
 
-function loadAddDevices() {
-    fetch(viewAddDevices)  
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            return response.json(); 
-        })
-        .then(data => {
-           
-            const modbusMapList = data.modbus_map;  
 
-            const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-            
-            
-            modbusMapFolderSelect.innerHTML = "";
-            modbusMapList.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;  
-                optionElement.textContent = option;  
-                modbusMapFolderSelect.appendChild(optionElement);
-            });
-            console.log("Eyyyyyy")               
-
-        })
-        .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
-        });
-}
 function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
