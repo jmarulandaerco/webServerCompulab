@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views import View
 
 from utils.configfiles import configfilepaths
+from utils.menu import Menu
 
 
 config = configparser.ConfigParser(interpolation=None)
@@ -37,7 +38,11 @@ class FormModbusDevicesView(View):
     
     def get(self, request):
         config.read(list_path_menu[2])
-        
+        menu =Menu()
+        a =menu.setup_folder_path()
+        print("Holiii")
+        print(a[0])
+        print(a[1])
         current_devices = config.sections()
         current_devices.remove("Default")
         enabled_devices = config.get(

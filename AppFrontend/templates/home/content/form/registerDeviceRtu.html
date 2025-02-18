@@ -1,0 +1,151 @@
+{% load static %}
+
+<div class="container">
+    <link rel="stylesheet" href="{% static 'css/menuButton.css' %}">
+</div>
+
+<div class="container form-wrapper">
+    <div class="form-container">
+        <link rel="stylesheet" href="{% static 'css/form_three_columns.css' %}">
+
+        <form id="myForm" method="post">
+            {% csrf_token %}
+
+            <div class="form-columns">
+                <!-- Primera columna -->
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="name">Enter new device name  (e.g. Huawei_Inv):</label>
+                        <input type="text" id="name" name="name" value="Huawei" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="port">Choose serial port:</label>
+                        <select id="port" name="port" required>
+                            <option value="/dev/ttymxc0">Serial port 0</option>
+                            <option value="/dev/ttymxc1">Serial port 1</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="baudrate">Choose baudrate:</label>
+                        <select id="baudrate" name="baudrate" required>
+                            <option value="4800">4800 bps</option>
+                            <option value="9600">9600 bps</option>
+                            <option value="19200">19200 bps</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="initial">Enter initial slave ID:</label>
+                        <input type="text" id="initial" name="initial" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end">Enter end slave ID:</label>
+                        <input type="text" id="end" name="end" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modbus_function">Choose modbus function:</label>
+                        <select id="modbus_function" name="modbus_function" required>
+                            <option value="3">Holding register</option>
+                            <option value="4">Input register</option>
+                            <option value="6">Write register</option>
+                            <option value="10">Write multiple registers</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="initial_address">Enter initial address:</label>
+                        <input type="text" id="initial_address" name="initial_address" value="3208" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total_registers">Enter total number of registers:</label>
+                        <input type="text" id="total_registers" name="total_registers" value="100" required>
+                    </div>
+                    
+                    
+                </div>
+
+                <!-- Segunda columna -->
+                <div class="form-column">
+                    
+
+                    
+
+        
+
+                    <div class="form-group">
+                        <label for="modbus_map_folder">Choose modbus map folder::</label>
+                        <select id="modbus_map_folder" name="modbus_map_folder" required>
+                            <option value="3">Holding register</option>
+                            <option value="4">Input register</option>
+                            <option value="6">Write register</option>
+                            <option value="10">Write multiple registers</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modbus_map_folder">Choose json:</label>
+                        <select id="modbus_map_folder" name="modbus_map_folder" required>
+                            <option value="3">Holding register</option>
+                            <option value="4">Input register</option>
+                            <option value="6">Write register</option>
+                            <option value="10">Write multiple registers</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modbus_mode">Choose modbus mode:</label>
+                        <select id="modbus_mode" name="modbus_mode" required>
+                            <option value="ModbusMode.READ">Read</option>
+                            <option value="ModbusMode.WRITE">Write</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="device_type">Choose device type:</label>
+                        <select id="device_type" name="device_type" required>
+                            <option value="1">Inverter</option>
+                            <option value="2">Weather station</option>
+                            <option value="3">Pyranometer</option>
+                            <option value="4">Ambient temperature sensor</option>
+                            <option value="5">Module temperature</option>
+                            <option value="6">Power analyzer telemetry</option>
+                            <option value="7">Soiling sensor</option>
+                            <option value="8">Humidity sensor</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="save_db">Choose if you want to save data in database:</label>
+                        <select id="save_db" name="save_db" required>
+                            <option value="True">Insert to DB</option>
+                            <option value="False">Do not insert to DB</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="save_db">Choose if you want to send to server:</label>
+                        <select id="save_db" name="save_db" required>
+                            <option value="True">Insert to DB</option>
+                            <option value="False">Do not insert to DB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tercera columna -->
+                <div class="form-column">
+                    
+                </div>
+            </div>
+
+            <div class="form-group button-container">
+                <button class="buttonClass" type="button">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

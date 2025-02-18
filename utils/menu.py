@@ -209,3 +209,16 @@ class Menu:
             print(f"✅ Usuario '{username}' creado correctamente.")
         else:
             print(f"⚠️ El usuario '{username}' ya existe.")
+            
+    def setup_folder_path():
+        path_modbus = os.path.abspath(os.path.join(os.path.dirname(__file__), '../Modbus/modbusmaps'))
+        print("Locurita")
+        print(path_modbus)
+        if os.path.exists(path_modbus):
+            folders_devices = [name for name in os.listdir(path_modbus) if os.path.isdir(os.path.join(path_modbus, name))]
+            
+        if folders_devices:
+            choices=[(str(i + 1), folder)
+                     for i, folder in enumerate(folders_devices)],
+            
+        return[folders_devices,choices]
