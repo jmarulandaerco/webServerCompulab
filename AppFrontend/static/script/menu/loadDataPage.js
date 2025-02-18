@@ -84,7 +84,7 @@ function loadAddDevices() {
             
             
             modbusMapFolderSelect.innerHTML = "";
-
+console.log("Electricidad")
             
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
