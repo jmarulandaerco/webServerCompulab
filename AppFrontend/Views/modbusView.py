@@ -58,11 +58,10 @@ class FormModbusGetDevicesView(APIView):
     def post(self,request):
         data = json.loads(request.body)
         url =data.get("selectedValue")
-        print(url)
-        menu =Menu()
+        path_modbus = "/FW/Modbus/modbusmaps"+"/"+url
 
-        optionsModbusMap =menu.setup_folder_path()
-        jsons_option=optionsModbusMap+"/"+url
-        files_json = [archivo for archivo in os.listdir(jsons_option) if archivo.endswith('.json')]
+        
+        
+        files_json = [archivo for archivo in os.listdir(path_modbus) if archivo.endswith('.json')]
         print(files_json)
         return JsonResponse({"message":files_json})
