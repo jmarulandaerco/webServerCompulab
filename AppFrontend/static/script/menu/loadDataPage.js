@@ -17,6 +17,7 @@ function handleSelectChange(event) {
         })
             .then(response => response.json())
             .then(data => {
+                console.log("Holaa")
                 console.log(data)
 
 
@@ -38,7 +39,10 @@ function handleSelectChange(event) {
                 console.log(modbusMapList)
                
 
-            })
+            }).catch(error => {
+                console.log('Error al cargar el contenido:', error);
+                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            });
 }
 
 
