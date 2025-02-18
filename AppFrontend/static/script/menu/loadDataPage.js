@@ -364,7 +364,6 @@ function loadAddDevices() {
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
-            document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
         });
 }
 
@@ -424,6 +423,7 @@ async function loadFunction(option) {
             loadFormDataSignalChecker();
             break;
         case 'registerDeviceRtu':
+            console.log("Pase por aca")
             loadAddDevices();
         default:
             break;
