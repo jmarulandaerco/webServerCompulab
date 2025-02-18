@@ -45,6 +45,51 @@ function handleSelectChange(event) {
             });
 }
 
+function SelectChange(valueInput) {
+    
+    const selectedValue = valueInput;  // Obtener el valor seleccionad
+
+    // Aquí puedes hacer algo con el valor seleccionado
+    // Por ejemplo, llamar a otra función con el valor seleccionado
+    // doSomethingWithSelectedValue(selectedValue);
+    fetch(viewAddDevices, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+                
+            },
+            body: JSON.stringify({ selectedValue })
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Holaaa")
+                console.log(data)
+
+
+                const modbusMapList = data.data;  // Aquí obtenemos la lista de opciones
+
+                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
+                
+                // Limpiar las opciones previas (si existen)
+                modbusMapFolderSelect.innerHTML = "";
+    
+                // Crear y agregar un "option" por cada dispositivo en la lista
+                modbusMapList.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
+                    optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                    modbusMapFolderSelect.appendChild(optionElement);
+                });
+    
+                console.log(modbusMapList)
+               
+
+            }).catch(error => {
+                console.log('Error al cargar el contenido:', error);
+                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            });
+}
 
 function loadContentModbus(option) {
     fetch(`/home/content/form/${option}/`)
@@ -84,20 +129,17 @@ function loadAddDevices() {
             
             
             modbusMapFolderSelect.innerHTML = "";
-            console.log("Electricidad");
-            
+            SelectChange(modbusMapList[0])
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;  
                 optionElement.textContent = option;  
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-            console.log("Electricidad");
 
-            if (modbusMapList.length > 0) {
-                modbusMapFolderSelect.value = modbusMapList[0]; 
-                console.log("Electricidad");
-                modbusMapFolderSelect.dispatchEvent(new Event("change"));            }
+            // if (modbusMapList.length > 0) {
+            //     modbusMapFolderSelect.value = modbusMapList[0]; 
+            //     modbusMapFolderSelect.dispatchEvent(new Event("change"));            }
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
