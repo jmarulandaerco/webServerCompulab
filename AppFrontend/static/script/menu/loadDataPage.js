@@ -84,7 +84,7 @@ function loadAddDevices() {
             
             
             modbusMapFolderSelect.innerHTML = "";
-console.log("Electricidad")
+            console.log("Electricidad");
             
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
@@ -92,13 +92,12 @@ console.log("Electricidad")
                 optionElement.textContent = option;  
                 modbusMapFolderSelect.appendChild(optionElement);
             });
-            console.log("Electricidad")
+            console.log("Electricidad");
 
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0]; 
-                console.log("Electricidad")
-                handleSelectChange(); 
-            }
+                console.log("Electricidad");
+                modbusMapFolderSelect.dispatchEvent(new Event("change"));            }
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
