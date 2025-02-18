@@ -213,6 +213,7 @@ class Menu:
     def setup_folder_path(self):
         try:
             folders_devices=[]
+            choices=[]
             path_modbus = os.path.abspath(os.path.join(os.path.dirname(__file__), '../Modbus/modbusmaps'))
             print("Locurita")
             print(path_modbus)
