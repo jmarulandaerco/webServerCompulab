@@ -72,9 +72,6 @@ function SelectChange(valueInput) {
                     optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                     modbusMapFolderSelect.appendChild(optionElement);
                 });
-    
-                console.log(modbusMapList)
-               
 
             }).catch(error => {
                 console.log('Error al cargar el contenido:', error);
@@ -126,6 +123,7 @@ function loadAddDevices() {
                 optionElement.textContent = option;  
                 modbusMapFolderSelect.appendChild(optionElement);
             });
+            console.log("Eyyyyyy")               
 
         })
         .catch(error => {
