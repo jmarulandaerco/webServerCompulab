@@ -41,8 +41,7 @@ class FormModbusDevicesView(View):
         menu =Menu()
         a =menu.setup_folder_path()
         print("Holiii")
-        print(a[0])
-        print(a[1])
+        print(a)
         current_devices = config.sections()
         current_devices.remove("Default")
         enabled_devices = config.get(
