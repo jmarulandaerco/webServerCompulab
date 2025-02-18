@@ -56,6 +56,6 @@ class FormModbusGetDevicesView(APIView):
     @csrf_exempt  # Esto desactiva la verificación CSRF para esta vista
     def post(self,request):
         data = json.loads(request.body)
-        url =data.get("url")
+        url =data.get("selectedValue")
         print(url)
         return JsonResponse({"message":url})
