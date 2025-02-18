@@ -1,7 +1,7 @@
 let intervalId;
 function handleSelectChange(event) {
-    const selectedValue = event.target.value;  // El valor de la opción seleccionada
-    console.log("Opción seleccionada:", selectedValue);
+    const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
+    const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
 
     // Aquí puedes hacer algo con el valor seleccionado
     // Por ejemplo, llamar a otra función con el valor seleccionado
