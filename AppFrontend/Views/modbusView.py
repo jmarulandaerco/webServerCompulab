@@ -49,7 +49,7 @@ class FormModbusGetDevicesView(View):
     def get(self, request):
         menu =Menu()
         optionsModbusMap =menu.setup_folder_path()
-        print(a[0])
+        print(optionsModbusMap[0])
         return JsonResponse({"modbus_map":optionsModbusMap[0]})
 
     def post(self,request):
