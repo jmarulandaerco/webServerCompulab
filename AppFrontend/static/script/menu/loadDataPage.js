@@ -10,7 +10,7 @@ function handleSelectChange(event) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrf_token // Enviar CSRF token
             },
             body: JSON.stringify({ selectedValue })
 
