@@ -55,7 +55,7 @@ class FormModbusDevicesView(View):
         template_name = f'home/content/form/{device_param}.html'
 
         try:
-             return render(request, 'home/content/form/seeDevices.html', {
+             return render(request, f'home/content/form/{device_param}.html', {
             'listDevices': listDevices,
             'listSelectedDevices': listSelectedDevices
         })
