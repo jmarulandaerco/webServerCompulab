@@ -258,41 +258,46 @@ class FormModbusDeviceRtuView(View):
         try:
             device_param = request.GET.get('device', '')  
 
+            # Validar que el parámetro no está vacío
+            if not device_param:
+                return JsonResponse({"message": "El parámetro 'device' es requerido."}, status=400)
+
+            # Crear y leer el archivo de configuración
+            config = configparser.ConfigParser()
             config.read(list_path_menu[2])
-            
+
+            # Verificar si la sección existe
+            if device_param not in config:
+                return JsonResponse({"message": f"La sección '{device_param}' no existe en la configuración."}, status=400)
+
+            # Obtener datos de la sección de configuración
             data = config[device_param]
-            
+
+            # Ruta del archivo Modbus
             path = "valores/FW/Modbus/modbusmaps/HUAWEI/HUAWEI_INV.json"
-
-            # Dividir el string por "/"
             parts = path.split("/")
+            map_folder = parts[-2]  # "HUAWEI"
+            map_json = parts[-1]    # "HUAWEI_INV.json"
 
-            # Obtener los últimos dos elementos
-            last_two_elements = parts[-2:]  
-
-            map_forder = last_two_elements[0]  # "HUAWEI"
-            map_json = last_two_elements[1] # "HUAWEI_INV.json"
-            print("Esto esta cuca")
-            print(data)
-            information={
+            # Crear diccionario con la información
+            information = {
                 "nameRtu": device_param,
-                "portRtu":data.serial_port,
-                "baudrateRtu":data.baudrate,
-                "initialRtu":data.slave_id_start,
-                "endRtu":data.slave_id_end,
-                "modbus_function_rtu":data.address_init,
-                "initial_address_rtudata":data.total_registers,
-                "total_registers_rtu":data.modbus_map_file,
-                "modbus_map_folder_rtu":map_forder,
-                "modbus_map_json_rtu":map_json,
-                "modbus_mode_rtu":data.address_offset,
-                "device_type_rtu":data.storage_db,
-                "save_db_rtu":data.send_server,
-                "server_send_rtu":data.attempts_wait
+                "portRtu": data.get("serial_port", ""),
+                "baudrateRtu": data.get("baudrate", ""),
+                "initialRtu": data.get("slave_id_start", ""),
+                "endRtu": data.get("slave_id_end", ""),
+                "modbus_function_rtu": data.get("address_init", ""),
+                "initial_address_rtudata": data.get("total_registers", ""),
+                "total_registers_rtu": data.get("modbus_map_file", ""),
+                "modbus_map_folder_rtu": map_folder,
+                "modbus_map_json_rtu": map_json,
+                "modbus_mode_rtu": data.get("address_offset", ""),
+                "device_type_rtu": data.get("storage_db", ""),
+                "save_db_rtu": data.get("send_server", ""),
+                "server_send_rtu": data.get("attempts_wait", "")
             }
-            
+
             return JsonResponse(information)
+
         except Exception as ex:
-            return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
-        
-    
+            return JsonResponse({"message": f"Error al actualizar los datos: {str(ex)}"}, status=400)
