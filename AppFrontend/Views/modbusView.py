@@ -48,6 +48,32 @@ class FormModbusDevicesView(View):
         })
         
 
+class FormModbusDevicesDeleteView(View):
+    def get(self, request):
+        device_param = request.GET.get('device', '')  # Obtener el string "device"
+
+        config.read(list_path_menu[2])
+        menu =Menu()
+        a =menu.setup_folder_path()
+        print("Holiii")
+        print(a)
+        current_devices = config.sections()
+        current_devices.remove("Default")
+        enabled_devices = config.get(
+                "Default", "devices_config", fallback=""
+            ).split(",")
+        
+        listDevices = current_devices
+        listSelectedDevices = enabled_devices
+        print(listDevices)
+        print(listSelectedDevices)
+        return render(request, f'home/content/form/{device_param}.html', {
+            'listDevices': listDevices,
+           
+        })
+        
+
+
 class FormModbusGetDevicesView(APIView):
     def get(self, request):
         menu =Menu()

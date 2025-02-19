@@ -332,8 +332,9 @@ async function updateServerSelection() {
 };
 
 
-function loadDevices() {
-    fetch(viewDevices)  // Llamamos a la vista de Django
+function loadDevices(page) {
+    const fullUrl = `/api/modbus/view-devices/?device=${encodeURIComponent(page)}`; 
+    fetch(fullUrl)  // Llamamos a la vista de Django
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
@@ -349,24 +350,6 @@ function loadDevices() {
         });
 }
 
-
-
-function loadDevicesDelete() {
-    fetch(viewDevices)  // Llamamos a la vista de Django
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById("content3").innerHTML = html;
-        })
-        .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
-            document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
-        });
-}
 
 
 
