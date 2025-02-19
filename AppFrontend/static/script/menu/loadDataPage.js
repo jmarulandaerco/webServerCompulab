@@ -350,7 +350,57 @@ function loadDevices(page) {
         });
 }
 
+async function saveChangesEnableDisableDevices() {
+    // Selecciona todos los checkboxes marcados
+    const selectedDevices = Array.from(document.querySelectorAll('input[name="devices"]:checked'))
+                                .map(checkbox => checkbox.value);
 
+   
+    // Aquí puedes hacer algo con los valores, por ejemplo, enviarlos a un backend con fetch
+    
+    // fetch(viewDevices, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value  // Token CSRF para Django
+    //     },
+    //     body: JSON.stringify({  selectedDevices })
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log('Respuesta del servidor:', data))
+    // .catch(error => {
+    //     console.error("Error al cargar los dispositivos:", error);
+    //     document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
+    // });
+
+    try {
+        const response = await fetch(viewDevices, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ selectedDevices })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+    
+}
 
 
 

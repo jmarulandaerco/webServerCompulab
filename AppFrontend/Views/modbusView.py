@@ -62,6 +62,28 @@ class FormModbusDevicesView(View):
         except:
             return HttpResponseNotFound(f"Error: La plantilla {template_name} no existe.")
         
+    def put(self, request):
+        
+        try:
+            config.read(list_path_menu[2])
+
+            data = json.loads(request.body)
+            devices = data.get("selectedDevices")
+            
+            config.set("Default", "devices_config", ",".join(devices))
+
+           
+                                
+            with open(list_path_menu[2], "w") as configfileChecked:
+               config.write(configfileChecked)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 
 
