@@ -115,17 +115,18 @@ class FormModbusAddDeviceRtu(View):
             data = json.loads(request.body)
             print("Hola")
             print(data)
+            print(data.nameDevice)
             config.read(list_path_menu[2])
-            name_device="Modbus-RTU-"+data.nameDevice
+            new_name_device="Modbus-RTU-"+data.nameDevice
             
             current_devices = self.config.get("Default", "devices_config")
             current_sections = self.config.sections()
-            if name_device in current_sections:
+            if new_name_device in current_sections:
                 return JsonResponse({"message": f"Error el Dispositivo ya existe, {e}"}, status=400)
             updated_device_list = (
-                            current_devices + "," + name_device
+                            current_devices + "," + new_name_device
                             if current_devices
-                            else name_device
+                            else new_name_device
                         )
 
             config.set(
@@ -137,7 +138,7 @@ class FormModbusAddDeviceRtu(View):
             
             print(f"/FW/Modbus/modbusmaps/{data.modbus_map_folder}/{data.modbus_map_json}")
             
-            config[name_device] = {
+            config[new_name_device] = {
                         "serial_port": data.portDevice,
                         "baudrate": data.baudrate,
                         "slave_id_start": data.initial,
