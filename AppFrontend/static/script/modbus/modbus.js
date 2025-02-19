@@ -341,16 +341,14 @@ async function deleteDevice(device) {
         const result = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error en la validación: " + data.message);
+            alert("❌ Error en la validación: " + result.message);
         }else{
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
         }
 
         console.log("Dispositivo eliminado:", result);
-        return result;
     } catch (error) {
         console.error("Error en la eliminación:", error.message);
-        return { error: error.message };
     }
 }
