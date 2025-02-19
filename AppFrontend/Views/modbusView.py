@@ -115,6 +115,24 @@ class FormModbusAddDeviceRtu(View):
             data = json.loads(request.body)
             config.read(list_path_menu[2])
             name_device="Modbus-RTU-"+data.nameDevice
+            
+            current_devices = self.config.get("Default", "devices_config")
+            current_sections = self.config.sections()
+            if name_device in current_sections:
+                return JsonResponse({"message": f"Error el Dispositivo ya existe, {e}"}, status=400)
+            updated_device_list = (
+                            current_devices + "," + name_device
+                            if current_devices
+                            else name_device
+                        )
+
+            config.set(
+                            "Default", "devices_config", updated_device_list
+                        )
+            
+            with open(list_path_menu[2], "w") as configfile:
+                config.write(configfile)
+                
             config[name_device] = {
                         "serial_port": data.portDevice,
                         "baudrate": data.baudrate,
