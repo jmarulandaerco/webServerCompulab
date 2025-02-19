@@ -329,8 +329,6 @@ async function addDeviceTcp() {
 
 
 async function deleteDevice(device) {
-    const url = "https://tu-api.com/delete"; // Reemplaza con la URL real de tu API
-
     try {
         const response = await fetch(mapFolder, {
             method: "DELETE",
