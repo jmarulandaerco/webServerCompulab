@@ -1,7 +1,7 @@
 import configparser
 import json
 import os
-from django.http import JsonResponse
+from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -27,51 +27,41 @@ class FormModbusView(View):
 
 class FormModbusDevicesView(View):
     def get(self, request):
+        device_param = request.GET.get('device', '')  # Obtener el string "device"
+        print(f"Device recibido: {device_param}")
+
+        if not device_param:  # Manejo si no se recibe el parámetro
+            return HttpResponseNotFound("Error: No se especificó un dispositivo.")
+
         config.read(list_path_menu[2])
-        menu =Menu()
-        a =menu.setup_folder_path()
+        menu = Menu()
+        a = menu.setup_folder_path()
         print("Holiii")
         print(a)
+
         current_devices = config.sections()
-        current_devices.remove("Default")
-        enabled_devices = config.get(
-                "Default", "devices_config", fallback=""
-            ).split(",")
-        
+        if "Default" in current_devices:
+            current_devices.remove("Default")
+
+        enabled_devices = config.get("Default", "devices_config", fallback="").split(",")
+
         listDevices = current_devices
         listSelectedDevices = enabled_devices
-        print(listDevices)
-        print(listSelectedDevices)
-        return render(request, 'home/content/form/seeDevices.html', {
-            'listDevices': listDevices,
-            'listSelectedDevices': listSelectedDevices
-        })
+
+        print("Lista de dispositivos:", listDevices)
+        print("Dispositivos habilitados:", listSelectedDevices)
+
+        # Renderiza la plantilla basada en el parámetro recibido
+        template_name = f'home/content/form/{device_param}.html'
+
+        try:
+            return render(request, template_name, {
+                'listDevices': listDevices,
+            })
+        except:
+            return HttpResponseNotFound(f"Error: La plantilla {template_name} no existe.")
         
 
-class FormModbusDevicesDeleteView(View):
-    def get(self, request):
-        device_param = request.GET.get('device', '')  # Obtener el string "device"
-        print(device_param)
-        config.read(list_path_menu[2])
-        menu =Menu()
-        a =menu.setup_folder_path()
-        print("Holiii")
-        print(a)
-        current_devices = config.sections()
-        current_devices.remove("Default")
-        enabled_devices = config.get(
-                "Default", "devices_config", fallback=""
-            ).split(",")
-        
-        listDevices = current_devices
-        listSelectedDevices = enabled_devices
-        print(listDevices)
-        print(listSelectedDevices)
-        return render(request, f'home/content/form/{device_param}.html', {
-            'listDevices': listDevices,
-           
-        })
-        
 
 
 class FormModbusGetDevicesView(APIView):
