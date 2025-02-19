@@ -51,7 +51,7 @@ class FormModbusDevicesView(View):
 class FormModbusDevicesDeleteView(View):
     def get(self, request):
         device_param = request.GET.get('device', '')  # Obtener el string "device"
-
+        print(device_param)
         config.read(list_path_menu[2])
         menu =Menu()
         a =menu.setup_folder_path()
