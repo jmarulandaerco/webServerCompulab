@@ -135,7 +135,7 @@ class FormModbusAddDeviceRtu(View):
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
             
-            print(f"/FW/Modbus/modbusmaps/{data.get("modbus_map_folder")}/{data.get("modbus_map_json")}")
+            print("/FW/Modbus/modbusmaps/{}/{}".format(data.get("modbus_map_folder"), data.get("modbus_map_json")))
             
             config[new_name_device] = {
                         "serial_port": data.get("portDevice"),
@@ -146,7 +146,7 @@ class FormModbusAddDeviceRtu(View):
                         "address_init": data.get("initial_address"),
                         "total_registers": data.get("total_registers"),
                         "protocol_type": "DeviceProtocol.MODBUS_RTU_MASTER",
-                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{data.get("modbus_map_folder")}/{data.get("modbus_map_json")}",
+                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{data.get('modbus_map_folder')}/{data.get('modbus_map_json')}",
                         "modbus_mode": data.get("modbus_mode"),
                         "device_type": data.get("device_type"),
                         "address_offset": 0,
