@@ -72,6 +72,51 @@ function handleSelectChange(event) {
                 document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
             });
 }
+function loadAddDevicesUpdateDeviceRtu(selectedDevice) {
+    fetch(mapFolder)  // Llamamos a la vista de Django
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.json();  // Asumimos que la respuesta es un JSON
+        })
+        .then(data => {
+            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
+            const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
+
+            const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
+            
+            // Limpiar las opciones previas (si existen)
+            modbusMapFolderSelect.innerHTML = "";
+
+            // Crear y agregar un "option" por cada dispositivo en la lista
+            modbusMapList.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
+                optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                modbusMapFolderSelect.appendChild(optionElement);
+            });
+
+            // Establecer el valor del select según el parámetro recibido
+            if (selectedDevice && modbusMapList.includes(selectedDevice)) {
+                modbusMapFolderSelect.value = selectedDevice;
+                console.log(`✔ Dispositivo seleccionado: ${selectedDevice}`);
+            } else if (modbusMapList.length > 0) {
+                // Si no se proporciona un dispositivo válido, seleccionar el primero de la lista
+                modbusMapFolderSelect.value = modbusMapList[0];
+                console.log(`✔ Seleccionado primer dispositivo: ${modbusMapList[0]}`);
+            } else {
+                console.log("❌ No hay dispositivos disponibles para seleccionar.");
+            }
+
+            // Disparar el evento 'change' después de establecer el valor
+            modbusMapFolderSelect.dispatchEvent(new Event("change"));
+            console.log("🚀 Evento 'change' disparado.");
+        })
+        .catch(error => {
+            console.error("Error al cargar los dispositivos:", error);
+        });
+}
 
 function loadAddDevices() {
     fetch(mapFolder)  // Llamamos a la vista de Django
@@ -391,19 +436,7 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            const select = document.getElementById("modbus_map_folder");
-
-            // Verifica si la opción ya existe
-            let optionExists = Array.from(select.options).some(
-                (option) => option.value === dataRtu.modbus_map_folder_rtu
-            );
-
-            if (!optionExists) {
-                let newOption = new Option(dataRtu.modbus_map_folder_rtu, dataRtu.modbus_map_folder_rtu);
-                select.add(newOption);
-            }
-
-            // Ahora sí asignamos el valor
+            loadAddDevicesUpdateDeviceRtu( dataRtu.modbus_map_folder_rtu)
             select.value = dataRtu.modbus_map_folder_rtu;
             console.log(dataRtu.modbus_map_folder_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
