@@ -387,8 +387,8 @@ async function ModifyOption(device) {
             document.getElementById("modbus_function_rtu").value = dataRtu.modbus_function_rtu;
             document.getElementById("initial_address_rtu").value = dataRtu.initial_address_rtu;
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
-            document.getElementById("modbus_map_folder_rtu").value = dataRtu.modbus_map_folder_rtu;
-            document.getElementById("modbus_map_json_rtu").value = dataRtu.modbus_map_json_rtu;
+            document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
+            document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
