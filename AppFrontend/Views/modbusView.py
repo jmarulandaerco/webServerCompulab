@@ -55,9 +55,10 @@ class FormModbusDevicesView(View):
         template_name = f'home/content/form/{device_param}.html'
 
         try:
-            return render(request, template_name, {
-                'listDevices': listDevices,
-            })
+             return render(request, 'home/content/form/seeDevices.html', {
+            'listDevices': listDevices,
+            'listSelectedDevices': listSelectedDevices
+        })
         except:
             return HttpResponseNotFound(f"Error: La plantilla {template_name} no existe.")
         
