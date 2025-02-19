@@ -378,7 +378,7 @@ async function ModifyOption(device) {
             if (!responseDevice.ok) {
                 alert(" ❌ Error al cargar los datos device Rtu");
             }
-
+            console.log(responseDevice)
             const dataRtu = await responseDevice.json();
             document.getElementById("nameRtu").value = dataRtu.nameRtu;
             document.getElementById("portRtu").value = dataRtu.portRtu;
@@ -397,6 +397,8 @@ async function ModifyOption(device) {
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
             document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
         }
+        document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
+
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
