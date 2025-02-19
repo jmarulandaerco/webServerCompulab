@@ -246,6 +246,7 @@ async function addDeviceRtu() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode").value;
         const device_type = document.getElementById("device_type").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
         const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
         const server_send = document.getElementById("server_send").checked;
@@ -253,7 +254,8 @@ async function addDeviceRtu() {
         const response = await fetch(viewAdd, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
             },
             body: JSON.stringify({
                 nameDevice, portDevice, baudrate, initial, end, modbus_function,
