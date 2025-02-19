@@ -280,13 +280,13 @@ class FormModbusDeviceRtuView(View):
 
             # Crear diccionario con la información
             information = {
-                "nameRtu": device_param,
+                "nameRtu": device_param.replace("Modbus-RTU-", ""),
                 "portRtu": data.get("serial_port", ""),
                 "baudrateRtu": data.get("baudrate", ""),
                 "initialRtu": data.get("slave_id_start", ""),
                 "endRtu": data.get("slave_id_end", ""),
                 "modbus_function_rtu": data.get("", ""),
-                "initial_address_rtudata": data.get("address_init", ""),
+                "initial_address_rtu": data.get("address_init", ""),
                 "total_registers_rtu": data.get("total_registers", ""),
                 "modbus_map_folder_rtu": map_folder,
                 "modbus_map_json_rtu": map_json,
