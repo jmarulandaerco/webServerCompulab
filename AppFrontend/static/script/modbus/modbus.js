@@ -397,8 +397,7 @@ async function ModifyOption(device) {
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
             document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
         }
-        document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-
+        
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
