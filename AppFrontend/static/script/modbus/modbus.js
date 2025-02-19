@@ -105,6 +105,7 @@ function loadAddDevices() {
                 modbusMapFolderSelect.dispatchEvent(new Event("change"));
                 console.log("🚀 Evento 'change' disparado.");
             }
+            console.log("Cargue primero")
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
@@ -388,6 +389,7 @@ async function ModifyOption(device) {
             document.getElementById("modbus_function_rtu").value = dataRtu.modbus_function_rtu;
             document.getElementById("initial_address_rtu").value = dataRtu.initial_address_rtu;
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
+            console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
             const select = document.getElementById("modbus_map_folder");
 
