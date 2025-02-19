@@ -147,10 +147,10 @@ class FormModbusAddDeviceRtu(View):
                         "modbus_map_file": f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
                         "modbus_mode": str(data.get("modbus_mode")),
                         "device_type": str(data.get("device_type")),
-                        "address_offset": 0,
+                        "address_offset": str(0),
                         "storage_db": str(data.get("save_db")),
                         "send_server": str(data.get("server_send")),
-                        "attempts_wait": 0.2,
+                        "attempts_wait": str(0.2),
                     }
             with open(list_path_menu[2]) as configfile:
                     config.write(configfile)
