@@ -94,6 +94,7 @@ function loadAddDevices() {
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
+                console.log(optionElement.value)
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
