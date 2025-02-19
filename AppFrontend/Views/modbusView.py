@@ -133,23 +133,23 @@ class FormModbusAddDeviceRtu(View):
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
             
-            print("/FW/Modbus/modbusmaps/{}/{}".format(data.get("modbus_map_folder"), data.get("modbus_map_json")))
+            print("/FW/Modbus/modbusmaps/{}/{}".format(str(data.get("modbus_map_folder")), str(data.get("modbus_map_json"))))
             
             config[new_name_device] = {
-                        "serial_port": data.get("portDevice"),
-                        "baudrate": data.get("baudrate"),
-                        "slave_id_start": data.get("initial"),
-                        "slave_id_end": data.get("end"),
-                        "modbus_function": data.get("modbus_function"),
-                        "address_init": data.get("initial_address"),
-                        "total_registers": data.get("total_registers"),
+                        "serial_port": str(data.get("portDevice")),
+                        "baudrate": str(data.get("baudrate")),
+                        "slave_id_start": str(data.get("initial")),
+                        "slave_id_end": str(data.get("end")),
+                        "modbus_function": str(data.get("modbus_function")),
+                        "address_init": str(data.get("initial_address")),
+                        "total_registers": str(data.get("total_registers")),
                         "protocol_type": "DeviceProtocol.MODBUS_RTU_MASTER",
-                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{data.get('modbus_map_folder')}/{data.get('modbus_map_json')}",
-                        "modbus_mode": data.get("modbus_mode"),
-                        "device_type": data.get("device_type"),
+                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
+                        "modbus_mode": str(data.get("modbus_mode")),
+                        "device_type": str(data.get("device_type")),
                         "address_offset": 0,
-                        "storage_db": data.get("save_db"),
-                        "send_server": data.get("server_send"),
+                        "storage_db": str(data.get("save_db")),
+                        "send_server": str(data.get("server_send")),
                         "attempts_wait": 0.2,
                     }
             with open(list_path_menu[2]) as configfile:
