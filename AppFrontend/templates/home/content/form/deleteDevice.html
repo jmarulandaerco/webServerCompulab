@@ -7,7 +7,7 @@
         {% csrf_token %}
 
         <h3>Selecciona los dispositivos:</h3>
-        <div id="deviceList" class="button-group">
+        <div id="deviceList">
             {% for device in listDevices %}
                 <button type="button" class="device-button" onclick="deleteOption('{{ device }}')">
                     {{ device }}
@@ -15,6 +15,5 @@
             {% endfor %}
         </div>
 
-        <button class="buttonClass" type="button" onclick="guardarSeleccion()">Guardar</button>
     </form>
 </div>
