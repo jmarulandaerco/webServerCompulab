@@ -160,3 +160,65 @@ class FormModbusAddDeviceRtu(View):
         except Exception as ex:
             print(ex)
             return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
+        
+        
+
+class FormModbusAddDeviceTcp(View):
+    def post(self,request):
+        try:
+            data = json.loads(request.body)
+            
+            config.read(list_path_menu[2])
+            
+            new_name_device="Modbus-RTU-"+data.get("nameDevice")
+            
+            current_devices =config.get("Default", "devices_config")
+            current_sections = config.sections()
+            if new_name_device in current_sections:
+                return JsonResponse({"message": f"Error el Dispositivo ya existe"}, status=400)
+            updated_device_list = (
+                            current_devices + "," + new_name_device
+                            if current_devices
+                            else new_name_device
+                        )
+
+            config.set(
+                            "Default", "devices_config", updated_device_list
+                        )
+            
+            with open(list_path_menu[2], "w") as configfile:
+                config.write(configfile)
+            
+            print("/FW/Modbus/modbusmaps/{}/{}".format(str(data.get("modbus_map_folder")), str(data.get("modbus_map_json"))))
+            attempts_wait=0
+            if int(data.get("offset")) > 0:
+                    attempts_wait = 0.2
+            else:
+                    attempts_wait = 0
+            config[new_name_device] = {
+                        "host_ip": str(data.get("ip_device")),
+                        "port_ip": str(data.get("port_device")),
+                        "slave_id_start": str(data.get("initial")),
+                        "slave_id_end": str(data.get("end")),
+                        "modbus_function": str(data.get("modbus_function")),
+                        "address_init": str(data.get("initial_address")),
+                        "total_registers": str(data.get("total_registers")),
+                        "protocol_type": "DeviceProtocol.MODBUS_TCP",
+                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
+                        "modbus_mode": str(data.get("modbus_mode")),
+                        "device_type": str(data.get("device_type")),
+                        "address_offset": str(data.get("offset")),
+                        "storage_db": str(data.get("save_db")),
+                        "send_server": str(data.get("server_send")),
+                        "attempts_wait": str(attempts_wait),
+                    }
+            
+          
+            with open(list_path_menu[2], "w") as configfile:
+                config.write(configfile)
+
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+        
+        except Exception as ex:
+            print(ex)
+            return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)

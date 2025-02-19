@@ -29,7 +29,7 @@ async function loadFunctionModbus(option){
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
-    fetch(viewAddDevices, {
+    fetch(mapFolder, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -74,7 +74,7 @@ function handleSelectChange(event) {
 }
 
 function loadAddDevices() {
-    fetch(viewAddDevices)  // Llamamos a la vista de Django
+    fetch(mapFolder)  // Llamamos a la vista de Django
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
@@ -251,7 +251,7 @@ async function addDeviceRtu() {
         const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
         const server_send = document.getElementById("server_send").checked;
 
-        const response = await fetch(viewAdd, {
+        const response = await fetch(viewAddRtu, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -270,7 +270,55 @@ async function addDeviceRtu() {
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadContent('form/database');  // Recarga contenido tras éxito
+            await loadDevices('seeDevices');  // Recarga contenido tras éxito
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error("Error:", error);
+    }
+}
+
+async function addDeviceTcp() {
+    try {
+        const nameDevice = document.getElementById("name").value;
+        const ip_device = document.getElementById("ip_device").value;
+        const port_device = document.getElementById("port_device").value;
+        const offset = document.getElementById("offset").value;
+        const initial = document.getElementById("initial").value;
+        const end = document.getElementById("end").value;
+        const modbus_function = document.getElementById("modbus_function").value;
+        const initial_address = document.getElementById("initial_address").value;
+        const total_registers = document.getElementById("total_registers").value;
+        const modbus_map_folder = document.getElementById("modbus_map_folder").value;
+        const modbus_map_json = document.getElementById("modbus_map_json").value;
+        const modbus_mode = document.getElementById("modbus_mode").value;
+        const device_type = document.getElementById("device_type").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
+        const server_send = document.getElementById("server_send").checked;
+
+        const response = await fetch(viewAddTcp, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({
+                nameDevice, ip_device,port_device,offset, initial, end, modbus_function,
+                initial_address, total_registers, modbus_map_folder, modbus_map_json,
+                modbus_mode, device_type, save_db, server_send
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error en la validación: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            await loadDevices('seeDevices');
         }
 
     } catch (error) {

@@ -58,6 +58,7 @@ urlpatterns = [
     path('api/add-wifi/', AddWifi.as_view(),name="add_wifi"),
     path('api/modbus/view-devices/',FormModbusDevicesView.as_view(),name='view_devices'),
     path('api/modbus/add-device-rtu/',FormModbusAddDeviceRtu.as_view(),name='add_rtu'),
+    path('api/modbus/add-device-tcp/',FormModbusAddDeviceRtu.as_view(),name='add_tcp'),
 
     path('api/modbus/view-devices-add/',FormModbusGetDevicesView.as_view(),name='view_devices_add'),
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
