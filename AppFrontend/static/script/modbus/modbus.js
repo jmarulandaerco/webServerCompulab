@@ -250,7 +250,7 @@ async function addDeviceRtu() {
         const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
         const server_send = document.getElementById("server_send").checked;
 
-        const response = await fetch(viewAddDevices, {
+        const response = await fetch(viewAdd, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
