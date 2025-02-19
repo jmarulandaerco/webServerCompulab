@@ -406,7 +406,6 @@ async function saveChangesEnableDisableDevices() {
 
 
 
-
 async function loadFunction(option) {
     switch (option) {
         case 'modbusMeasure':
@@ -444,6 +443,11 @@ async function loadFunction(option) {
             break;
         case 'registerDeviceTcp':
             loadAddDevices();
+        
+        case 'modifyRtu':
+            break;
+        case 'modifyTcp':
+            break;
         default:
             break;
 

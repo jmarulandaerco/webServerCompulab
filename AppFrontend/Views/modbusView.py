@@ -251,3 +251,48 @@ class FormModbusAddDeviceTcp(View):
         except Exception as ex:
             print(ex)
             return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
+        
+
+class FormModbusDeviceRtuView(View):
+    def get(self, request):
+        try:
+            device_param = request.GET.get('device', '')  
+
+            config.read(list_path_menu[2])
+            
+            data = config[device_param]
+            
+            path = "valores/FW/Modbus/modbusmaps/HUAWEI/HUAWEI_INV.json"
+
+            # Dividir el string por "/"
+            parts = path.split("/")
+
+            # Obtener los últimos dos elementos
+            last_two_elements = parts[-2:]  
+
+            map_forder = last_two_elements[0]  # "HUAWEI"
+            map_json = last_two_elements[1] # "HUAWEI_INV.json"
+
+
+            information={
+                "nameRtu": device_param,
+                "portRtu":data.serial_port,
+                "baudrateRtu":data.baudrate,
+                "initialRtu":data.slave_id_start,
+                "endRtu":data.slave_id_end,
+                "modbus_function_rtu":data.address_init,
+                "initial_address_rtudata":data.total_registers,
+                "total_registers_rtu":data.modbus_map_file,
+                "modbus_map_folder_rtu":map_forder,
+                "modbus_map_json_rtu":map_json,
+                "modbus_mode_rtu":data.address_offset,
+                "device_type_rtu":data.storage_db,
+                "save_db_rtu":data.send_server,
+                "server_send_rtu":data.attempts_wait
+            }
+            
+            return JsonResponse(information)
+        except Exception as ex:
+            return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
+        
+    

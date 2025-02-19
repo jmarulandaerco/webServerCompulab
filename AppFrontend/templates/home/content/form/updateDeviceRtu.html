@@ -14,21 +14,21 @@
                 <!-- Primera columna -->
                 <div class="form-column">
                     <div class="form-group">
-                        <label for="name">Enter new device name  (e.g. Huawei_Inv):</label>
-                        <input type="text" id="name" name="name" value="Huawei" required>
+                        <label for="nameRtu">Enter new device name  (e.g. Huawei_Inv):</label>
+                        <input type="text" id="nameRtu" name="nameRtu" value="Huawei" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="port">Choose serial port:</label>
-                        <select id="port" name="port" required>
+                        <label for="portRtu">Choose serial port:</label>
+                        <select id="portRtu" name="portRtu" required>
                             <option value="/dev/ttymxc0">Serial port 0</option>
                             <option value="/dev/ttymxc1">Serial port 1</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="baudrate">Choose baudrate:</label>
-                        <select id="baudrate" name="baudrate" required>
+                        <label for="baudrateRtu">Choose baudrate:</label>
+                        <select id="baudrateRtu" name="baudrateRtu" required>
                             <option value="4800">4800 bps</option>
                             <option value="9600">9600 bps</option>
                             <option value="19200">19200 bps</option>
@@ -36,18 +36,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="initial">Enter initial slave ID:</label>
-                        <input type="text" id="initial" name="initial" required>
+                        <label for="initialRtu">Enter initial slave ID:</label>
+                        <input type="text" id="initialRtu" name="initialRtu" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="end">Enter end slave ID:</label>
-                        <input type="text" id="end" name="end" required>
+                        <label for="endRtu">Enter end slave ID:</label>
+                        <input type="text" id="endRtu" name="endRtu" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_function">Choose modbus function:</label>
-                        <select id="modbus_function" name="modbus_function" required>
+                        <label for="modbus_function_rtu">Choose modbus function:</label>
+                        <select id="modbus_function_rtu" name="modbus_function_rtu" required>
                             <option value="3">Holding register</option>
                             <option value="4">Input register</option>
                             <option value="6">Write register</option>
@@ -55,13 +55,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="initial_address">Enter initial address:</label>
-                        <input type="text" id="initial_address" name="initial_address" value="3208" required>
+                        <label for="initial_address_rtu">Enter initial address:</label>
+                        <input type="text" id="initial_address_rtu" name="initial_address_rtu" value="3208" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="total_registers">Enter total number of registers:</label>
-                        <input type="text" id="total_registers" name="total_registers" value="100" required>
+                        <label for="total_registers_rtu">Enter total number of registers:</label>
+                        <input type="text" id="total_registers_rtu" name="total_registers_rtu" value="100" required>
                     </div>
                     
                     
@@ -76,30 +76,30 @@
         
 
                     <div class="form-group">
-                        <label for="modbus_map_folder">Choose modbus map folder::</label>
-                        <select id="modbus_map_folder" name="modbus_map_folder" required onchange="handleSelectChange()">
+                        <label for="modbus_map_folder_rtu">Choose modbus map folder::</label>
+                        <select id="modbus_map_folder_rtu" name="modbus_map_folder_rtu" required onchange="handleSelectChange()">
                            
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_map_json">Choose json:</label>
-                        <select id="modbus_map_json" name="modbus_map_json" required>
+                        <label for="modbus_map_json_rtu">Choose json:</label>
+                        <select id="modbus_map_json_rtu" name="modbus_map_json_rtu" required>
                            
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_mode">Choose modbus mode:</label>
-                        <select id="modbus_mode" name="modbus_mode" required>
+                        <label for="modbus_mode_rtu">Choose modbus mode:</label>
+                        <select id="modbus_mode_rtu" name="modbus_mode_rtu" required>
                             <option value="ModbusMode.READ">Read</option>
                             <option value="ModbusMode.WRITE">Write</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="device_type">Choose device type:</label>
-                        <select id="device_type" name="device_type" required>
+                        <label for="device_type_rtu">Choose device type:</label>
+                        <select id="device_type_rtu" name="device_type_rtu" required>
                             <option value="Inverter">Inverter</option>
                             <option value="Weather_station">Weather station</option>
                             <option value="Pyranometer">Pyranometer</option>
@@ -120,16 +120,16 @@
 
 
                     <div class="form-group">
-                        <label for="save_db">Choose if you want to save data in database:</label>
-                        <select id="save_db" name="save_db" required>
+                        <label for="save_db_rtu">Choose if you want to save data in database:</label>
+                        <select id="save_db_rtu" name="save_db_rtu" required>
                             <option value="True">Insert to DB</option>
                             <option value="False">Do not insert to DB</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="save_db">Choose if you want to send to server:</label>
-                        <select id="save_db" name="save_db" required>
+                        <label for="server_send_rtu">Choose if you want to send to server:</label>
+                        <select id="server_send_rtu" name="server_send_rtu" required>
                             <option value="True">Send to server</option>
                             <option value="False">Not send to server</option>
                         </select>
@@ -143,7 +143,7 @@
             </div>
 
             <div class="form-group button-container">
-                <button class="buttonClass" type="button">Guardar</button>
+                <button class="buttonClass" type="button" onclick="updateDeviceRtu()">Guardar</button>
             </div>
         </form>
     </div>

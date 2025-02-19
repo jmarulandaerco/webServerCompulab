@@ -352,3 +352,51 @@ async function deleteDevice(device) {
         console.error("Error en la eliminación:", error.message);
     }
 }
+
+async function ModifyOption(device) {
+    try {
+        let url = device.includes("RTU")
+            ? "/home/content/form/updateDeviceRtu/"
+            : "/home/content/form/updateDeviceTcp/";
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            alert("❌ Error en la validación: " + response.message);
+        }
+
+        const data = await response.text();
+        document.getElementById("content3").innerHTML = data;
+        loadAddDevices();
+
+        // Si no es RTU, también obtiene los datos de configuración Modbus
+        if (device.includes("RTU")) {
+            const responseDevice = await fetch(`${modifyDeviceRtu}?device=${encodeURIComponent(page)}`);
+          
+
+            if (!responseDevice.ok) {
+                alert(" ❌ Error al cargar los datos device Rtu");
+            }
+
+            const dataRtu = await modbusResponse.json();
+            document.getElementById("nameRtu").value = dataRtu.server;
+            document.getElementById("portRtu").value = dataRtu.portRtu;
+            document.getElementById("baudrateRtu").value = dataRtu.baudrateRtu;
+            document.getElementById("initialRtu").value = dataRtu.initialRtu;
+            document.getElementById("endRtu").value = dataRtu.endRtu;
+            document.getElementById("modbus_function_rtu").value = dataRtu.modbus_function_rtu;
+            document.getElementById("initial_address_rtu").value = dataRtu.initial_address_rtu;
+            document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
+            document.getElementById("modbus_map_folder_rtu").value = dataRtu.modbus_map_folder_rtu;
+            document.getElementById("modbus_map_json_rtu").value = dataRtu.modbus_map_json_rtu;
+            document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
+            document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
+            document.getElementById("save_db_rtu").value = dataRtu.telemetry;
+            document.getElementById("server_send_rtu").value = dataRtu.mqtt;
+        }
+
+    } catch (error) {
+        document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+        console.error("Error en ModifyOption:", error);
+    }
+}
