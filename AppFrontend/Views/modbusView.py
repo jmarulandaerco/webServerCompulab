@@ -279,6 +279,10 @@ class FormModbusDeviceRtuView(View):
             map_json = parts[-1]    # "HUAWEI_INV.json"
 
             # Crear diccionario con la información
+            print("Information")
+            print(device_param.replace("Modbus-RTU-", ""))
+            print(map_folder)
+            print(map_json)
             information = {
                 "nameRtu": device_param.replace("Modbus-RTU-", ""),
                 "portRtu": data.get("serial_port", ""),
