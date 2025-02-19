@@ -155,9 +155,8 @@ class FormModbusAddDeviceRtu(View):
             with open(list_path_menu[2]) as configfile:
                     config.write(configfile)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
-        except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except json.JSONDecodeError as e:
+            return JsonResponse({"message": f"Error al decodificar JSON: {e}"}, status=400)
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f'Error al actualizar los datos, {e}'}, status=400) 
+            return JsonResponse({"message": f'Error al actualizar los datos, {e}'}, status=400)
