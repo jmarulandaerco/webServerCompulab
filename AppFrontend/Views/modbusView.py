@@ -65,6 +65,7 @@ class FormModbusDevicesView(View):
     def put(self, request):
         
         try:
+            
             config.read(list_path_menu[2])
 
             data = json.loads(request.body)
@@ -104,3 +105,39 @@ class FormModbusGetDevicesView(APIView):
         files_json = [archivo for archivo in os.listdir(path_modbus) if archivo.endswith('.json')]
         print(files_json)
         return JsonResponse({"data":files_json})
+    
+
+class FormModbusAddDeviceRtu(View):
+    def post(self,request):
+        
+        
+        try:
+            data = json.loads(request.body)
+            config.read(list_path_menu[2])
+            name_device="Modbus-RTU-"+data.nameDevice
+            config[name_device] = {
+                        "serial_port": data.portDevice,
+                        "baudrate": data.baudrate,
+                        "slave_id_start": data.initial,
+                        "slave_id_end": data.end,
+                        "modbus_function": data.modbus_function,
+                        "address_init": data.initial_address,
+                        "total_registers": data.total_registers,
+                        "protocol_type": "DeviceProtocol.MODBUS_RTU_MASTER",
+                        "modbus_map_file": data.modbus_map_json,
+                        "modbus_mode": data.modbus_mode,
+                        "device_type": data.device_type,
+                        "address_offset": 0,
+                        "storage_db": data.save_db,
+                        "send_server": data.server_send,
+                        "attempts_wait": 0,
+                    }
+            with open(list_path_menu[2]) as configfile:
+                    self.config.write(configfile)
+            return JsonResponse({"message": "Datos actualizados"}, status=200)
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 

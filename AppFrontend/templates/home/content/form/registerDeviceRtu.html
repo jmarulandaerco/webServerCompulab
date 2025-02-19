@@ -37,12 +37,12 @@
 
                     <div class="form-group">
                         <label for="initial">Enter initial slave ID:</label>
-                        <input type="text" id="initial" name="initial" required>
+                        <input type="text" id="initial" name="initial" value="1" required>
                     </div>
 
                     <div class="form-group">
                         <label for="end">Enter end slave ID:</label>
-                        <input type="text" id="end" name="end" required>
+                        <input type="text" id="end" name="end" value="1" required>
                     </div>
 
                     <div class="form-group">
@@ -128,8 +128,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="save_db">Choose if you want to send to server:</label>
-                        <select id="save_db" name="save_db" required>
+                        <label for="server_send">Choose if you want to send to server:</label>
+                        <select id="server_send" name="server_send" required>
                             <option value="True">Send to server</option>
                             <option value="False">Not send to server</option>
                         </select>
@@ -143,7 +143,7 @@
             </div>
 
             <div class="form-group button-container">
-                <button class="buttonClass" type="button">Guardar</button>
+                <button class="buttonClass" type="button" onclick="addDeviceRtu()">Guardar</button>
             </div>
         </form>
     </div>
