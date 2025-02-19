@@ -355,7 +355,8 @@ async function saveChangesEnableDisableDevices() {
     const selectedDevices = Array.from(document.querySelectorAll('input[name="devices"]:checked'))
                                 .map(checkbox => checkbox.value);
 
-   
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
     // Aquí puedes hacer algo con los valores, por ejemplo, enviarlos a un backend con fetch
     
     // fetch(viewDevices, {
