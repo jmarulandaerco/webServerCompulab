@@ -378,7 +378,7 @@ async function ModifyOption(device) {
                 alert(" ❌ Error al cargar los datos device Rtu");
             }
 
-            const dataRtu = await modbusResponse.json();
+            const dataRtu = await responseDevice.json();
             document.getElementById("nameRtu").value = dataRtu.server;
             document.getElementById("portRtu").value = dataRtu.portRtu;
             document.getElementById("baudrateRtu").value = dataRtu.baudrateRtu;
