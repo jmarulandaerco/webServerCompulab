@@ -272,8 +272,8 @@ class FormModbusDeviceRtuView(View):
 
             map_forder = last_two_elements[0]  # "HUAWEI"
             map_json = last_two_elements[1] # "HUAWEI_INV.json"
-
-
+            print("Esto esta cuca")
+            print(data)
             information={
                 "nameRtu": device_param,
                 "portRtu":data.serial_port,
