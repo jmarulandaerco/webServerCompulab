@@ -343,7 +343,7 @@ async function deleteDevice(device) {
         if (!response.ok) {
             alert("❌ Error en la validación: " + result.message);
         }else{
-            alert("✅ " + data.message);
+            alert("✅ " + result.message);
             await loadDevices('seeDevices');
         }
 
