@@ -285,7 +285,7 @@ class FormModbusDeviceRtuView(View):
                 "baudrateRtu": data.get("baudrate", ""),
                 "initialRtu": data.get("slave_id_start", ""),
                 "endRtu": data.get("slave_id_end", ""),
-                "modbus_function_rtu": data.get("", ""),
+                "modbus_function_rtu": data.get("modbus_function", ""),
                 "initial_address_rtu": data.get("address_init", ""),
                 "total_registers_rtu": data.get("total_registers", ""),
                 "modbus_map_folder_rtu": map_folder,

@@ -379,7 +379,7 @@ async function ModifyOption(device) {
             }
 
             const dataRtu = await responseDevice.json();
-            document.getElementById("nameRtu").value = dataRtu.server;
+            document.getElementById("nameRtu").value = dataRtu.nameRtu;
             document.getElementById("portRtu").value = dataRtu.portRtu;
             document.getElementById("baudrateRtu").value = dataRtu.baudrateRtu;
             document.getElementById("initialRtu").value = dataRtu.initialRtu;
@@ -391,8 +391,8 @@ async function ModifyOption(device) {
             document.getElementById("modbus_map_json_rtu").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
-            document.getElementById("save_db_rtu").value = dataRtu.telemetry;
-            document.getElementById("server_send_rtu").value = dataRtu.mqtt;
+            document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
+            document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
         }
 
     } catch (error) {
