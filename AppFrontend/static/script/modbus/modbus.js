@@ -389,7 +389,20 @@ async function ModifyOption(device) {
             document.getElementById("initial_address_rtu").value = dataRtu.initial_address_rtu;
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            console.log("Verjvdfd")
+            const select = document.getElementById("modbus_map_folder");
+
+            // Verifica si la opción ya existe
+            let optionExists = Array.from(select.options).some(
+                (option) => option.value === dataRtu.modbus_map_folder_rtu
+            );
+
+            if (!optionExists) {
+                let newOption = new Option(dataRtu.modbus_map_folder_rtu, dataRtu.modbus_map_folder_rtu);
+                select.add(newOption);
+            }
+
+            // Ahora sí asignamos el valor
+            select.value = dataRtu.modbus_map_folder_rtu;
             console.log(dataRtu.modbus_map_folder_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
