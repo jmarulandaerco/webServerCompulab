@@ -160,4 +160,4 @@ class FormModbusAddDeviceRtu(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f'Error al actualizar los datos, {e}'}, status=400) 
