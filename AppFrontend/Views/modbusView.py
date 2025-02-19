@@ -280,9 +280,8 @@ class FormModbusDeviceRtuView(View):
 
             # Crear diccionario con la información
             print("Information")
-            print(device_param.replace("Modbus-RTU-", ""))
-            print(map_folder)
-            print(map_json)
+            print(data.get("send_server", ""))
+            
             information = {
                 "nameRtu": device_param.replace("Modbus-RTU-", ""),
                 "portRtu": data.get("serial_port", ""),
@@ -294,10 +293,10 @@ class FormModbusDeviceRtuView(View):
                 "total_registers_rtu": data.get("total_registers", ""),
                 "modbus_map_folder_rtu": str(map_folder),
                 "modbus_map_json_rtu": str(map_json),
-                "modbus_mode_rtu": data.get("address_offset", ""),
-                "device_type_rtu": data.get("storage_db", ""),
+                "modbus_mode_rtu": data.get("modbus_mode", ""),
+                "device_type_rtu": data.get("device_type", ""),
                 "save_db_rtu": data.get("send_server", ""),
-                "server_send_rtu": data.get("attempts_wait", "")
+                "server_send_rtu": data.get("send_server", "")
             }
 
             return JsonResponse(information)
