@@ -6,16 +6,14 @@
     <form id="deviceForm">
         {% csrf_token %}
 
-        <h3>Selecciona los dispositivos: A borrar</h3>
-        <div id="deviceList" class="checkbox-group">
+        <h3>Selecciona los dispositivos:</h3>
+        <div id="deviceList">
             {% for device in listDevices %}
-                <div class="checkbox-item">
-                    <input class="input_checkbox_clear" type="checkbox" id="{{ device }}" name="devices" value="{{ device }}" >
-                    <label for="{{ device }}">{{ device }}</label>
-                </div>
+                <button type="button" class="device-button" onclick="ModifyOption('{{ device }}')">
+                    {{ device }}
+                </button>
             {% endfor %}
         </div>
 
-        <button class="buttonClass" type="button">Borrar</button>
     </form>
 </div>
