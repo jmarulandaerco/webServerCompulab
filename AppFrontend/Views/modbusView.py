@@ -115,9 +115,8 @@ class FormModbusAddDeviceRtu(View):
             data = json.loads(request.body)
             print("Hola")
             print(data)
-            print(data.nameDevice)
             config.read(list_path_menu[2])
-            new_name_device="Modbus-RTU-"+data.nameDevice
+            new_name_device="Modbus-RTU-"+data.get("nameDevice")
             
             current_devices = self.config.get("Default", "devices_config")
             current_sections = self.config.sections()
@@ -136,27 +135,27 @@ class FormModbusAddDeviceRtu(View):
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
             
-            print(f"/FW/Modbus/modbusmaps/{data.modbus_map_folder}/{data.modbus_map_json}")
+            print(f"/FW/Modbus/modbusmaps/{data.get("modbus_map_folder")}/{data.get("modbus_map_json")}")
             
             config[new_name_device] = {
-                        "serial_port": data.portDevice,
-                        "baudrate": data.baudrate,
-                        "slave_id_start": data.initial,
-                        "slave_id_end": data.end,
-                        "modbus_function": data.modbus_function,
-                        "address_init": data.initial_address,
-                        "total_registers": data.total_registers,
+                        "serial_port": data.get("portDevice"),
+                        "baudrate": data.get("baudrate"),
+                        "slave_id_start": data.get("initial"),
+                        "slave_id_end": data.get("end"),
+                        "modbus_function": data.get("modbus_function"),
+                        "address_init": data.get("initial_address"),
+                        "total_registers": data.get("total_registers"),
                         "protocol_type": "DeviceProtocol.MODBUS_RTU_MASTER",
-                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{data.modbus_map_folder}/{data.modbus_map_json}",
-                        "modbus_mode": data.modbus_mode,
-                        "device_type": data.device_type,
+                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{data.get("modbus_map_folder")}/{data.get("modbus_map_json")}",
+                        "modbus_mode": data.get("modbus_mode"),
+                        "device_type": data.get("device_type"),
                         "address_offset": 0,
-                        "storage_db": data.save_db,
-                        "send_server": data.server_send,
+                        "storage_db": data.get("save_db"),
+                        "send_server": data.get("server_send"),
                         "attempts_wait": 0.2,
                     }
             with open(list_path_menu[2]) as configfile:
-                    self.config.write(configfile)
+                    config.write(configfile)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
         except json.JSONDecodeError:
             
