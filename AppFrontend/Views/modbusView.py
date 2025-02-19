@@ -109,17 +109,15 @@ class FormModbusGetDevicesView(APIView):
 
 class FormModbusAddDeviceRtu(View):
     def post(self,request):
-        
-        
         try:
             data = json.loads(request.body)
-            print("Hola")
-            print(data)
+            
             config.read(list_path_menu[2])
+            
             new_name_device="Modbus-RTU-"+data.get("nameDevice")
             
-            current_devices = self.config.get("Default", "devices_config")
-            current_sections = self.config.sections()
+            current_devices =config.get("Default", "devices_config")
+            current_sections = config.sections()
             if new_name_device in current_sections:
                 return JsonResponse({"message": f"Error el Dispositivo ya existe, {e}"}, status=400)
             updated_device_list = (
