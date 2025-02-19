@@ -150,7 +150,7 @@ class FormModbusAddDeviceRtu(View):
                         "address_offset": str(0),
                         "storage_db": str(data.get("save_db")),
                         "send_server": str(data.get("server_send")),
-                        "attempts_wait": str(0.2),
+                        "attempts_wait": str(0),
                     }
             with open(list_path_menu[2]) as configfile:
                     config.write(configfile)
