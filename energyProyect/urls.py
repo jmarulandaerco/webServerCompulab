@@ -10,7 +10,7 @@ from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import GetLogsView, LogTemplateView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
-from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
+from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterDataView
@@ -58,7 +58,7 @@ urlpatterns = [
     path('api/add-wifi/', AddWifi.as_view(),name="add_wifi"),
     path('api/modbus/view-devices/',FormModbusDevicesView.as_view(),name='view_devices'),
     path('api/modbus/add-device-rtu/',FormModbusAddDeviceRtu.as_view(),name='add_rtu'),
-    path('api/modbus/add-device-tcp/',FormModbusAddDeviceRtu.as_view(),name='add_tcp'),
+    path('api/modbus/add-device-tcp/',FormModbusAddDeviceTcp.as_view(),name='add_tcp'),
 
     path('api/modbus/view-devices-add/',FormModbusGetDevicesView.as_view(),name='view_devices_add'),
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
