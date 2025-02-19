@@ -248,8 +248,8 @@ async function addDeviceRtu() {
         const device_type = document.getElementById("device_type").value;
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
-        const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
-        const server_send = document.getElementById("server_send").checked;
+        const save_db = document.getElementById("save_db").value;  // Checkbox obtiene .checked
+        const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddRtu, {
             method: "POST",
@@ -296,8 +296,8 @@ async function addDeviceTcp() {
         const device_type = document.getElementById("device_type").value;
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
-        const save_db = document.getElementById("save_db").checked;  // Checkbox obtiene .checked
-        const server_send = document.getElementById("server_send").checked;
+        const save_db = document.getElementById("save_db").value;  // Checkbox obtiene .checked
+        const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddTcp, {
             method: "POST",
