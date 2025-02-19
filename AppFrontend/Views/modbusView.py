@@ -257,7 +257,7 @@ class FormModbusDeviceRtuView(View):
     def get(self, request):
         try:
             device_param = request.GET.get('device', '')  
-
+            print(device_param)
             # Validar que el parámetro no está vacío
             if not device_param:
                 return JsonResponse({"message": "El parámetro 'device' es requerido."}, status=400)
@@ -272,7 +272,6 @@ class FormModbusDeviceRtuView(View):
 
             # Obtener datos de la sección de configuración
             data = config[device_param]
-
             # Ruta del archivo Modbus
             path = "valores/FW/Modbus/modbusmaps/HUAWEI/HUAWEI_INV.json"
             parts = path.split("/")
@@ -286,9 +285,9 @@ class FormModbusDeviceRtuView(View):
                 "baudrateRtu": data.get("baudrate", ""),
                 "initialRtu": data.get("slave_id_start", ""),
                 "endRtu": data.get("slave_id_end", ""),
-                "modbus_function_rtu": data.get("address_init", ""),
-                "initial_address_rtudata": data.get("total_registers", ""),
-                "total_registers_rtu": data.get("modbus_map_file", ""),
+                "modbus_function_rtu": data.get("", ""),
+                "initial_address_rtudata": data.get("address_init", ""),
+                "total_registers_rtu": data.get("total_registers", ""),
                 "modbus_map_folder_rtu": map_folder,
                 "modbus_map_json_rtu": map_json,
                 "modbus_mode_rtu": data.get("address_offset", ""),
