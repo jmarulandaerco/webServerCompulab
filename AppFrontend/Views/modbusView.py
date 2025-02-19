@@ -170,7 +170,7 @@ class FormModbusAddDeviceTcp(View):
             
             config.read(list_path_menu[2])
             
-            new_name_device="Modbus-RTU-"+data.get("nameDevice")
+            new_name_device="Modbus-TCP-"+data.get("nameDevice")
             
             current_devices =config.get("Default", "devices_config")
             current_sections = config.sections()
