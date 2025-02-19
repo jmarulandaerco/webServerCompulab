@@ -351,6 +351,24 @@ function loadDevices() {
 
 
 
+function loadDevicesDelete() {
+    fetch(viewDevices)  // Llamamos a la vista de Django
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById("content3").innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error al cargar los dispositivos:", error);
+            document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
+        });
+}
+
+
 
 
 
