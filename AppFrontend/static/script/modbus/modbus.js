@@ -326,3 +326,33 @@ async function addDeviceTcp() {
         console.error("Error:", error);
     }
 }
+
+
+async function deleteDevice(device) {
+    const url = "https://tu-api.com/delete"; // Reemplaza con la URL real de tu API
+
+    try {
+        const response = await fetch(mapFolder, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ device }) // Enviamos el nombre del dispositivo en el cuerpo
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error en la validación: " + data.message);
+        }else{
+            alert("✅ " + data.message);
+            await loadDevices('seeDevices');
+        }
+
+        console.log("Dispositivo eliminado:", result);
+        return result;
+    } catch (error) {
+        console.error("Error en la eliminación:", error.message);
+        return { error: error.message };
+    }
+}

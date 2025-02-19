@@ -106,6 +106,35 @@ class FormModbusGetDevicesView(APIView):
         print(files_json)
         return JsonResponse({"data":files_json})
     
+    @csrf_exempt
+    def delete(self, request):
+        try:
+            config.read(list_path_menu[2])
+            data = json.loads(request.body)
+            filename = data.get("device")
+            enabled_devices = config.get("Default", "devices_config", fallback="").split(",")
+            
+            if filename not in enabled_devices:
+                return JsonResponse({"message": "El dispositivo no existe."}, status=400)
+            
+            index = enabled_devices.index(filename)
+            current_devices = config.sections()
+            current_devices.remove('Default')
+            delete_device=current_devices[index]
+            current_devices.remove(delete_device)
+            new_list_devices = ','.join(current_devices)
+            config.set('Default', 'devices_config', new_list_devices)
+            if config.has_section(delete_device):
+                config.remove_section(delete_device)
+
+            with open(list_path_menu[2], 'w') as configfile:
+                config.write(configfile)
+
+            return JsonResponse({"message": "Archivo eliminado correctamente.", "index": index}, status=200)
+        except Exception as e:
+            return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
+
+
 
 class FormModbusAddDeviceRtu(View):
     def post(self,request):
