@@ -113,6 +113,8 @@ class FormModbusAddDeviceRtu(View):
         
         try:
             data = json.loads(request.body)
+            print("Hola")
+            print(data)
             config.read(list_path_menu[2])
             name_device="Modbus-RTU-"+data.nameDevice
             
