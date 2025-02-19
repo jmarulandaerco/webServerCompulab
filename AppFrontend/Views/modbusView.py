@@ -273,7 +273,7 @@ class FormModbusDeviceRtuView(View):
             # Obtener datos de la sección de configuración
             data = config[device_param]
             # Ruta del archivo Modbus
-            path = data.get("modbus_map_file", ""),
+            path = str(data.get("modbus_map_file", "")),
             parts = path.split("/")
             map_folder = parts[-2]  # "HUAWEI"
             map_json = parts[-1]    # "HUAWEI_INV.json"
