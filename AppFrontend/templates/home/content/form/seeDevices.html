@@ -10,7 +10,8 @@
         <div id="deviceList" class="checkbox-group">
             {% for device in listDevices %}
                 <div class="checkbox-item">
-                    <input class="input_checkbox_one_choce" type="checkbox" id="{{ device }}" name="devices" value="{{ device }}">
+                    <input class="input_checkbox_one_choce" type="checkbox" id="{{ device }}" name="devices" value="{{ device }}"
+                        {% if device in listSelectedDevices %}checked{% endif %}>
                     <label for="{{ device }}">{{ device }}</label>
                 </div>
             {% endfor %}
@@ -19,3 +20,4 @@
         <button class="buttonClass" type="button" onclick="guardarSeleccion()">Guardar</button>
     </form>
 </div>
+
