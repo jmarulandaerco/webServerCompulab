@@ -119,7 +119,7 @@ class FormModbusAddDeviceRtu(View):
             current_devices =config.get("Default", "devices_config")
             current_sections = config.sections()
             if new_name_device in current_sections:
-                return JsonResponse({"message": f"Error el Dispositivo ya existe, {e}"}, status=400)
+                return JsonResponse({"message": f"Error el Dispositivo ya existe"}, status=400)
             updated_device_list = (
                             current_devices + "," + new_name_device
                             if current_devices
