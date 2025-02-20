@@ -447,7 +447,8 @@ async function loadFunction(option) {
             break
         case 'registerDeviceTcp':
             loadAddDevices();
-        
+        case 'registerDeviceRtu':
+            loadAddDevices();
         case 'modifyRtu':
             break;
         case 'modifyTcp':
