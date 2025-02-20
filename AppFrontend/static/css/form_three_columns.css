@@ -6,7 +6,7 @@
   } 
 
 
-.form-wrapper {
+.form-wrapper-column {
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -14,7 +14,7 @@
     max-height: 70vh; /* Asegura que no sobrepase el alto de la ventana */
 }
 
-.form-container {
+.form-container-column {
     width: 100%;
     max-width: 1200px;
 }
