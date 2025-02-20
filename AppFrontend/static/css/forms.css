@@ -10,9 +10,6 @@ button{
     font-family: 'Sora Light';
 }
 
-form{
-    align-items: center;
-}
 
 .form-container {
     max-width: 600px;
@@ -49,7 +46,9 @@ h2 {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 label {
@@ -80,7 +79,9 @@ input {
     font-size: 14px;
 }
 .buttonClass {
-    width: 100%;
+    width: auto;  /* Para que no ocupe todo el ancho */
+    min-width: 150px; /* Ajusta según necesidad */
+    text-align: center;
     padding: 10px;
     background: #007bff;
     color: #fff;
