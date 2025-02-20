@@ -6,15 +6,20 @@
     max-height: 70vh; /* Asegura que no sobrepase el alto de la ventana */
 }
 
-
 .form-container {
     width: 100%;
     max-width: 1200px;
 }
 
-h2 {
-    text-align: center;
-    color: #333;
+.form-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 250px;
 }
 
 .form-group {
@@ -24,93 +29,42 @@ h2 {
 label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
-    color: #444;
 }
 
-input {
+input, select {
     width: 100%;
     padding: 8px;
+    margin-top: 5px;
     border: 1px solid #ccc;
-    height: 25px;
     border-radius: 4px;
-    font-size: 14px;
 }
-.input_checkbox{
-    width: 10%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    height: 20px;
-    border-radius: 4px;
-    font-size: 14px;
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
+
 .buttonClass {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 .buttonClass:hover {
-    background: #0056b3;
+    background-color: #0056b3;
 }
 
-/* Estilos para los radio buttons */
-.radio-group {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 5px;
-}
+/* Responsive */
+@media (max-width: 900px) {
+    .form-columns {
+        flex-direction: column;
+    }
 
-.radio-group input[type="radio"] {
-    margin-right: 5px;
-}
-
-.radio-group label {
-    margin-right: 15px;
-}
-
-
-.checkbox-group {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: start;
-}
-
-.checkbox-item input {
-    margin-right: 10px;
-}
-
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 10px;
-}
-
-.device-button {
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-    margin: 10px;
-}
-
-.device-button:hover {
-    background-color: #bbb;
+    .form-column {
+        width: 100%;
+    }
 }
