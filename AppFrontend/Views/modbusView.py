@@ -28,13 +28,20 @@ class FormModbusView(View):
         return JsonResponse(sample_data)
     
     def put(self,request):
-         config.read(list_path_menu[2])
-         data = json.loads(request.body)
-         config.set('Default', 'log_debug',data.log_debug),
-         config.set('Default', 'max_attempts', data.max_attempts)
-         config.set('Default', 'timeout_attempts', data.timeout_attempts),
-         with open(list_path_menu[2], 'w') as configfile:
-                config.write(configfile)
+        try:
+            config.read(list_path_menu[2])
+            data = json.loads(request.body)
+            config.set('Default', 'log_debug',data.log_debug),
+            config.set('Default', 'max_attempts', data.max_attempts)
+            config.set('Default', 'timeout_attempts', data.timeout_attempts),
+            with open(list_path_menu[2], 'w') as configfile:
+                    config.write(configfile)
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 class FormModbusDevicesView(View):
     def get(self, request):
