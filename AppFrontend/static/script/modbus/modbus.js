@@ -443,7 +443,7 @@ async function ModifyOption(device) {
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
             document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
         }else{
-            const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(modifyDevice)}`);
+            const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(device)}`);
           
 
             if (!responseDevice.ok) {
