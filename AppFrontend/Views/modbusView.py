@@ -293,6 +293,8 @@ class FormModbusAddDeviceTcp(View):
                     attempts_wait = 0.2
             else:
                     attempts_wait = 0
+            print("Ver device")
+            print(str(data.get("device_type")))
             config[new_name_device] = {
                         "host_ip": str(data.get("ip_device")),
                         "port_ip": str(data.get("port_device")),
