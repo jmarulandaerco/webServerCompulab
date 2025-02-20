@@ -30,9 +30,6 @@
     min-width: 250px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
 
 label {
     display: block;
@@ -61,7 +58,6 @@ select option {
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .buttonClass {
