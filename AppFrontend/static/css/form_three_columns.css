@@ -4,6 +4,11 @@
     font-weight: 300; /* Light */
     font-style: normal;
   } 
+
+button{
+    width: 112%;
+
+}
 .form-wrapper {
     display: flex;
     justify-content: center;

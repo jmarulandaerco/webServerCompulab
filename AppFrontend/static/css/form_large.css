@@ -101,3 +101,8 @@ input {
 .radio-group label {
     margin-right: 15px;
 }
+
+button{
+    width: 112%;
+
+}
