@@ -168,7 +168,7 @@ async function loadFormDataMeasureModbus() {
 
 async function updateSettingModbus() {
     const log_debug = document.getElementById("debug").value;
-    const attmax_attemptsmpts = document.getElementById("attempts").value;
+    const max_attempts = document.getElementById("attempts").value;
     const timeout_attempts = document.getElementById("timeout").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
@@ -180,7 +180,7 @@ async function updateSettingModbus() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ log_debug, attmax_attemptsmpts, timeout_attempts })
+            body: JSON.stringify({ log_debug, max_attempts, timeout_attempts })
         });
 
         const data = await response.json();
