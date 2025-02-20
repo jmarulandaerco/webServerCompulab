@@ -31,9 +31,9 @@ class FormModbusView(View):
         try:
             config.read(list_path_menu[2])
             data = json.loads(request.body)
-            config.set('Default', 'log_debug',data.log_debug),
-            config.set('Default', 'max_attempts', data.max_attempts)
-            config.set('Default', 'timeout_attempts', data.timeout_attempts),
+            config.set('Default', 'log_debug',data.get("log_debug")),
+            config.set('Default', 'max_attempts', data.get("max_attempts"))
+            config.set('Default', 'timeout_attempts', data.get("timeout_attempts")),
             with open(list_path_menu[2], 'w') as configfile:
                     config.write(configfile)
         except json.JSONDecodeError:
