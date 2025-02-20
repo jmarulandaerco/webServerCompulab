@@ -1,7 +1,7 @@
 let intervalId;
 
 function loadContentModbus(option) {
-    fetch(`/home/content/form/${option}/`)
+    fetch(`/home/content/form/modbus/${option}/`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error al cargar el contenido: ${response.statusText}`);

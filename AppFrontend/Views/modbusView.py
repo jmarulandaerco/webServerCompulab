@@ -77,10 +77,10 @@ class FormModbusDevicesView(View):
         print("Dispositivos habilitados:", listSelectedDevices)
 
         # Renderiza la plantilla basada en el parámetro recibido
-        template_name = f'home/content/form/{device_param}.html'
+        template_name = f'home/content/form/modbus/{device_param}.html'
 
         try:
-             return render(request, f'home/content/form/{device_param}.html', {
+             return render(request, template_name, {
             'listDevices': listDevices,
             'listSelectedDevices': listSelectedDevices
         })

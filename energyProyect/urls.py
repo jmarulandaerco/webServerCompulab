@@ -2,7 +2,7 @@ from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView) 
 from django.urls import path
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
-from AppFrontend.Views.contenView import ContentView, ContentViewMenuModbus
+from AppFrontend.Views.contenView import ContentView, ContentViewMenuMain, ContentViewMenuModbus
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceConnection
@@ -21,7 +21,9 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path('home/', HomeView.as_view(), name='home'),
     path('home/content/<str:option>/', ContentView.as_view(), name='get_content'),
-    path('home/content/form/<str:option>/', ContentViewMenuModbus.as_view(), name='get_content_form_modbus_menu'),
+    path('home/content/form/<str:option>/', ContentViewMenuMain.as_view(), name='get_content_form_modbus_menu'),
+    path('home/content/form/modbus/<str:option>/', ContentViewMenuModbus.as_view(), name='get_content_form_menu_modbus'),
+
     path('user/', UserDetailView.as_view(), name='user'),
     path('user/<str:user_id>/', UserDetailView.as_view(), name='user-detail'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
