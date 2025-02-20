@@ -68,7 +68,7 @@ input {
 
 /* Estilo del botón, asegurando que tenga el mismo ancho que los inputs */
 .buttonClass {
-    width: 112%;
+    width: 100%;
     padding: 8px;
     background: #007bff;
     color: #fff;
