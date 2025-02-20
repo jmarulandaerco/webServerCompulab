@@ -51,6 +51,9 @@ input, select {
     font-family: 'Sora Light';
 }
 
+select{
+    height: 25px;
+}
 select option {
     font-size: 10px;  /* Ajustamos el tamaño del texto */
     font-family: 'Sora Light';
