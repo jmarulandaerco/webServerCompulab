@@ -7,6 +7,7 @@ async function loadFormDataSettingModbus() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
+        console.log(data)
         document.getElementById("debug").value = data.debug;
         document.getElementById("attempts").value = data.attempts;
         document.getElementById("timeout").value = data.timeout;
