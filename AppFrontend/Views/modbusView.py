@@ -25,6 +25,8 @@ class FormModbusView(View):
         }
         
         
+        
+        
         return JsonResponse(sample_data)
     
     def put(self,request):
@@ -37,6 +39,8 @@ class FormModbusView(View):
             config.set('Default', 'timeout_attempts', data.get("timeout_attempts")),
             with open(list_path_menu[2], 'w') as configfile:
                     config.write(configfile)
+            
+            return JsonResponse({"message":"Datos actualizados"})
         except json.JSONDecodeError:
             
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
