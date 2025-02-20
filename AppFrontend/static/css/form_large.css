@@ -19,6 +19,10 @@
     font-size: 10px;  /* Ajustamos el tamaño del texto */
     font-family: 'Sora Light';
 }
+select option {
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
 
 h2 {
     text-align: center;
