@@ -10,6 +10,10 @@ button{
     font-family: 'Sora Light';
 }
 
+form{
+    align-items: center;
+}
+
 .form-container {
     max-width: 600px;
     margin: auto;
