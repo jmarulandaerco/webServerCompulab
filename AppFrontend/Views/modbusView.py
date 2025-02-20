@@ -133,40 +133,39 @@ class FormModbusGetDevicesView(APIView):
         return JsonResponse({"data":files_json})
     
     @csrf_exempt
-def delete(self, request):
-    try:
-        # Leer el archivo de configuración
-        config.read(list_path_menu[2])
-        data = json.loads(request.body)
-        filename = data.get("device")
+    def delete(self, request):
+        try:
+            # Leer el archivo de configuración
+            config.read(list_path_menu[2])
+            data = json.loads(request.body)
+            filename = data.get("device")
 
-        # Obtener la lista de dispositivos habilitados
-        enabled_devices = config.get("Default", "devices_config", fallback="").split(",")
+            # Obtener la lista de dispositivos habilitados
+            enabled_devices = config.get("Default", "devices_config", fallback="").split(",")
 
-        # Limpiar espacios en blanco y eliminar entradas vacías
-        enabled_devices = [dev.strip() for dev in enabled_devices if dev.strip()]
+            # Limpiar espacios en blanco y eliminar entradas vacías
+            enabled_devices = [dev.strip() for dev in enabled_devices if dev.strip()]
 
-        if filename not in enabled_devices:
-            return JsonResponse({"message": "El dispositivo no existe."}, status=400)
+            
 
-        # Eliminar el dispositivo de la lista
-        enabled_devices.remove(filename)
+            # Eliminar el dispositivo de la lista
+            enabled_devices.remove(filename)
 
-        # Actualizar la lista de dispositivos en la sección 'Default'
-        new_list_devices = ','.join(enabled_devices)
-        config.set('Default', 'devices_config', new_list_devices)
+            # Actualizar la lista de dispositivos en la sección 'Default'
+            new_list_devices = ','.join(enabled_devices)
+            config.set('Default', 'devices_config', new_list_devices)
 
-        # Eliminar la sección correspondiente al dispositivo
-        if config.has_section(filename):
-            config.remove_section(filename)
+            # Eliminar la sección correspondiente al dispositivo
+            if config.has_section(filename):
+                config.remove_section(filename)
 
-        # Guardar los cambios en el archivo de configuración
-        with open(list_path_menu[2], 'w') as configfile:
-            config.write(configfile)
+            # Guardar los cambios en el archivo de configuración
+            with open(list_path_menu[2], 'w') as configfile:
+                config.write(configfile)
 
-        return JsonResponse({"message": "Dispositivo eliminado correctamente."}, status=200)
-    except Exception as e:
-        return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
+            return JsonResponse({"message": "Dispositivo eliminado correctamente."}, status=200)
+        except Exception as e:
+            return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
 
 class FormModbusAddDeviceRtu(View):
     def post(self,request):
