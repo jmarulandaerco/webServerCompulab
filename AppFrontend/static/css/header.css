@@ -55,6 +55,7 @@
     padding: 0;
     cursor: pointer;
     display: flex;
+    width: 40px;
 }
 
 .logout-btn img {
