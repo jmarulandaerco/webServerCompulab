@@ -302,6 +302,8 @@ class FormModbusDeviceRtuView(View):
                     "server_send_rtu": data.get("send_server", "")
                 }
             else:
+                print("123")
+                print(data.get("device_type", ""))
                 information = {
                     "nameTcp": device_param.replace("Modbus-TCP-", ""),
                     "ip_device_tcp": data.get("host_ip", ""),
