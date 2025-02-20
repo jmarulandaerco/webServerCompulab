@@ -146,14 +146,15 @@ class FormModbusGetDevicesView(APIView):
             # Limpiar espacios en blanco y eliminar entradas vacías
             enabled_devices = [dev.strip() for dev in enabled_devices if dev.strip()]
 
-            
+            if filename  in enabled_devices:
+               
 
-            # Eliminar el dispositivo de la lista
-            enabled_devices.remove(filename)
+                # Eliminar el dispositivo de la lista
+                enabled_devices.remove(filename)
 
-            # Actualizar la lista de dispositivos en la sección 'Default'
-            new_list_devices = ','.join(enabled_devices)
-            config.set('Default', 'devices_config', new_list_devices)
+                # Actualizar la lista de dispositivos en la sección 'Default'
+                new_list_devices = ','.join(enabled_devices)
+                config.set('Default', 'devices_config', new_list_devices)
 
             # Eliminar la sección correspondiente al dispositivo
             if config.has_section(filename):
