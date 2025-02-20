@@ -306,7 +306,7 @@ class FormModbusDeviceRtuView(View):
                     "nameTcp": device_param.replace("Modbus-TCP-", ""),
                     "ip_device_tcp": data.get("host_ip", ""),
                     "port_device_tcp": data.get("port_ip", ""),
-
+                    "offset_tcp": data.get("address_offset", ""),
                     "initial_tcp": data.get("slave_id_start", ""),
                     "end_tcp": data.get("slave_id_end", ""),
                     "modbus_function_tcp": data.get("modbus_function", ""),
