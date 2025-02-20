@@ -24,6 +24,7 @@ select  {
     padding: 8px;
     margin-bottom: 5px;
     border: 1px solid #ccc;
+    height: 50px;
     border-radius: 4px;
     font-size: 14px;
     display: block;
@@ -67,7 +68,7 @@ input {
 
 /* Estilo del botón, asegurando que tenga el mismo ancho que los inputs */
 .buttonClass {
-    width: 100%;
+    width: 112%;
     padding: 8px;
     background: #007bff;
     color: #fff;
@@ -100,9 +101,4 @@ input {
 
 .radio-group label {
     margin-right: 15px;
-}
-
-button{
-    width: 112%;
-
 }
