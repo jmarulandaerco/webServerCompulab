@@ -17,13 +17,24 @@ list_path_menu = cf.to_list()
 
 class FormModbusView(View):
     def get(self, request):
+        config.read(list_path_menu[2])
         sample_data = {
-            "debug": "DEBUG",
-            "attempts": "3",
-            "timeout": "1",
+            "debug": config.get('Default', 'log_debug', fallback='INFO'),
+            "attempts":config.get('Default', 'max_attempts', fallback='3'),
+            "timeout": config.get('Default', 'timeout_attempts', fallback='1'),
         }
+        
+        
         return JsonResponse(sample_data)
     
+    def put(self,request):
+         config.read(list_path_menu[2])
+         data = json.loads(request.body)
+         config.set('Default', 'log_debug',data.log_debug),
+         config.set('Default', 'max_attempts', data.max_attempts)
+         config.set('Default', 'timeout_attempts', data.timeout_attempts),
+         with open(list_path_menu[2], 'w') as configfile:
+                config.write(configfile)
 
 class FormModbusDevicesView(View):
     def get(self, request):

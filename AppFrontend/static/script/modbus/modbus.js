@@ -21,47 +21,47 @@ function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
     fetch(mapFolder, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-                
-            },
-            body: JSON.stringify({ selectedValue })
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
 
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Holaaa")
-                console.log(data)
+        },
+        body: JSON.stringify({ selectedValue })
+
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Holaaa")
+            console.log(data)
 
 
-                const modbusMapList = data.data;  
+            const modbusMapList = data.data;
 
-                const modbusMapFolderSelect = document.getElementById("modbus_map_json");
-                
-                modbusMapFolderSelect.innerHTML = "";
-    
-                modbusMapList.forEach(option => {
-                    const optionElement = document.createElement("option");
-                    optionElement.value = option;  
-                    optionElement.textContent = option; 
-                    modbusMapFolderSelect.appendChild(optionElement);
-                });
-    
-                if (modbusMapList.length > 0) {
-                    modbusMapFolderSelect.value = modbusMapList[0];
-                    console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
-    
-                    // Disparar evento change
-                    modbusMapFolderSelect.dispatchEvent(new Event("change"));
-                    console.log("🚀 Evento 'change' disparado.");
-                }
-               
+            const modbusMapFolderSelect = document.getElementById("modbus_map_json");
 
-            }).catch(error => {
-                console.log('Error al cargar el contenido:', error);
-                document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            modbusMapFolderSelect.innerHTML = "";
+
+            modbusMapList.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                modbusMapFolderSelect.appendChild(optionElement);
             });
+
+            if (modbusMapList.length > 0) {
+                modbusMapFolderSelect.value = modbusMapList[0];
+                console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
+
+                // Disparar evento change
+                modbusMapFolderSelect.dispatchEvent(new Event("change"));
+                console.log("🚀 Evento 'change' disparado.");
+            }
+
+
+        }).catch(error => {
+            console.log('Error al cargar el contenido:', error);
+            document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+        });
 }
 function loadAddDevicesUpdateDeviceRtu(selectedDevice) {
     fetch(mapFolder)  // Llamamos a la vista de Django
@@ -76,7 +76,7 @@ function loadAddDevicesUpdateDeviceRtu(selectedDevice) {
             const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
 
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-            
+
             // Limpiar las opciones previas (si existen)
             modbusMapFolderSelect.innerHTML = "";
 
@@ -122,7 +122,7 @@ function loadAddDevices() {
             const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
 
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-            
+
             // Limpiar las opciones previas (si existen)
             modbusMapFolderSelect.innerHTML = "";
 
@@ -166,6 +166,42 @@ async function loadFormDataMeasureModbus() {
     }
 }
 
+async function updateSettingModbus() {
+    const log_debug = document.getElementById("debug").value;
+    const attmax_attemptsmpts = document.getElementById("attempts").value;
+    const timeout_attempts = document.getElementById("timeout").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+    try {
+        console.log(getFormDatasettingModbus)
+        const response = await fetch(getFormDatasettingModbus, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({ log_debug, attmax_attemptsmpts, timeout_attempts })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+
+        } else {
+            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        console.error("Error:", error);
+    }
+};
+
+
 async function updateMeasureModbus() {
     const zone = document.getElementById("zone").value;
     const modbus = document.getElementById("modbus").value;
@@ -175,16 +211,16 @@ async function updateMeasureModbus() {
 
     try {
         console.log(getFormDataModemChecker)
-        const response =  await fetch(getFormDataUrl, {
+        const response = await fetch(getFormDataUrl, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ zone,modbus,start,stop })
+            body: JSON.stringify({ zone, modbus, start, stop })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
@@ -192,7 +228,7 @@ async function updateMeasureModbus() {
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-             
+
 
         }
 
@@ -237,21 +273,21 @@ async function updateDataModes() {
     const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
     const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
     const sampling_limitation = document.getElementById("sampling_limitation").value;
-    const sampling_compensation =  document.getElementById("sampling_compensation").value;
+    const sampling_compensation = document.getElementById("sampling_compensation").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
         console.log(getFormDataModemChecker)
-        const response =  await fetch(getFormDataUrlServerModes, {
+        const response = await fetch(getFormDataUrlServerModes, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
-            body: JSON.stringify({ mode,limitation,compensation,sampling_limitation,sampling_compensation })
+            body: JSON.stringify({ mode, limitation, compensation, sampling_limitation, sampling_compensation })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
@@ -259,7 +295,7 @@ async function updateDataModes() {
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-             
+
 
         }
 
@@ -344,7 +380,7 @@ async function addDeviceTcp() {
                 "X-CSRFToken": csrfToken // Enviar CSRF token
             },
             body: JSON.stringify({
-                nameDevice, ip_device,port_device,offset, initial, end, modbus_function,
+                nameDevice, ip_device, port_device, offset, initial, end, modbus_function,
                 initial_address, total_registers, modbus_map_folder, modbus_map_json,
                 modbus_mode, device_type, save_db, server_send
             })
@@ -380,7 +416,7 @@ async function deleteDevice(device) {
 
         if (!response.ok) {
             alert("❌ Error en la validación: " + result.message);
-        }else{
+        } else {
             alert("✅ " + result.message);
             await loadDevices('seeDevices');
         }
@@ -410,7 +446,7 @@ async function ModifyOption(device) {
         // Si no es RTU, también obtiene los datos de configuración Modbus
         if (device.includes("RTU")) {
             const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(device)}`);
-          
+
 
             if (!responseDevice.ok) {
                 alert(" ❌ Error al cargar los datos device Rtu");
@@ -427,15 +463,15 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            loadAddDevicesUpdateDeviceRtu( dataRtu.modbus_map_folder_rtu)
+            loadAddDevicesUpdateDeviceRtu(dataRtu.modbus_map_folder_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
             document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
-        }else{
+        } else {
             const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(device)}`);
-          
+
 
             if (!responseDevice.ok) {
                 alert(" ❌ Error al cargar los datos device Rtu");
@@ -453,16 +489,16 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_tcp").value = dataRtu.total_registers_tcp;
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            loadAddDevicesUpdateDeviceRtu( dataRtu.modbus_map_folder_rtu)
+            loadAddDevicesUpdateDeviceRtu(dataRtu.modbus_map_folder_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
             document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
             document.getElementById("save_db_tcp").value = dataRtu.save_db_tcp;
             document.getElementById("server_send_tcp").value = dataRtu.server_send_tcp;
-        
 
-    } 
-        
+
+        }
+
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
