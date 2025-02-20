@@ -418,7 +418,7 @@ async function ModifyOption(device) {
 
         // Si no es RTU, también obtiene los datos de configuración Modbus
         if (device.includes("RTU")) {
-            const responseDevice = await fetch(`${modifyDeviceRtu}?device=${encodeURIComponent(device)}`);
+            const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(device)}`);
           
 
             if (!responseDevice.ok) {
