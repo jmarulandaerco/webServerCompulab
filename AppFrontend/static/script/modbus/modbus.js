@@ -392,8 +392,7 @@ async function addDeviceTcp() {
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');
-        }
+            await loadDevices('seeDevices');        }
 
     } catch (error) {
         alert("❌ Error: " + error.message);
