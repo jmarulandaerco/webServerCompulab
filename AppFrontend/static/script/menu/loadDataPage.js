@@ -442,6 +442,7 @@ async function loadFunction(option) {
             loadAddDevices();
             break;
         case 'modbusSetting':
+            console.log("Holaaas")
             loadFormDataSettingModbus();
             break
         case 'registerDeviceTcp':
