@@ -219,10 +219,12 @@ async function loadFormDataServerChecker() {
     }
 }
 function loadContent(option) {
+    console.log("Holaaa")
     // checkServiceStatus();
     fetch(`/home/content/${option}/`)
         .then(response => {
             if (!response.ok) {
+                console.log("Error")
                 throw new Error(`Error al cargar el contenido: ${response.statusText}`);
             }
             return response.text();
@@ -269,7 +271,7 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-
+            console.log(error)
             document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
