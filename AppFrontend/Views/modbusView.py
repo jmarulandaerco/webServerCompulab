@@ -31,6 +31,7 @@ class FormModbusView(View):
         try:
             config.read(list_path_menu[2])
             data = json.loads(request.body)
+            print(data)
             config.set('Default', 'log_debug',data.get("log_debug")),
             config.set('Default', 'max_attempts', data.get("max_attempts"))
             config.set('Default', 'timeout_attempts', data.get("timeout_attempts")),
