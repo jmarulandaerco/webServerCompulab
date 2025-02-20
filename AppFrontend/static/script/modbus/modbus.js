@@ -14,17 +14,7 @@ async function loadFormDataSettingModbus() {
         console.error("Error:", error);
     }
 }
-async function loadFunctionModbus(option){
-    switch (option) {
-        case 'modbusSetting':
-            loadFormDataSettingModbus();
-            break;
-       
-        default:
-            console.warn('Opción no reconocida:', option);
-    }
-    
-}
+
 
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");

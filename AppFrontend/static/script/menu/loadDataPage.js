@@ -441,6 +441,9 @@ async function loadFunction(option) {
         case 'registerDeviceRtu':
             loadAddDevices();
             break;
+        case 'modbusSetting':
+            loadFormDataSettingModbus();
+            break
         case 'registerDeviceTcp':
             loadAddDevices();
         
