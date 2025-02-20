@@ -15,7 +15,7 @@
     
 }
 
-.button {
+button {
     padding: 5px;
     cursor: pointer;
     background-color: #91CE00;
@@ -24,12 +24,13 @@
     border-radius: 4px;
     text-transform: uppercase;
     font-family:  'Sora Light';
-    font-size: 10px;
     font-weight: bold;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s;
     width: 200px; /* Tamaño fijo para evitar desorden */
     text-align: center;
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
 }
 
 .button:hover {
