@@ -263,7 +263,6 @@ class FormModbusDeviceRtuView(View):
                 return JsonResponse({"message": "El parámetro 'device' es requerido."}, status=400)
 
             # Crear y leer el archivo de configuración
-            config = configparser.ConfigParser()
             config.read(list_path_menu[2])
 
             # Verificar si la sección existe
@@ -284,23 +283,42 @@ class FormModbusDeviceRtuView(View):
             print(map_folder)
             print(map_json)
             print(str(data.get("modbus_map_file", ""))),
-            information = {
-                "nameRtu": device_param.replace("Modbus-RTU-", ""),
-                "portRtu": data.get("serial_port", ""),
-                "baudrateRtu": data.get("baudrate", ""),
-                "initialRtu": data.get("slave_id_start", ""),
-                "endRtu": data.get("slave_id_end", ""),
-                "modbus_function_rtu": data.get("modbus_function", ""),
-                "initial_address_rtu": data.get("address_init", ""),
-                "total_registers_rtu": data.get("total_registers", ""),
-                "modbus_map_folder_rtu": str(map_folder),
-                "modbus_map_json_rtu": str(map_json),
-                "modbus_mode_rtu": data.get("modbus_mode", ""),
-                "device_type_rtu": data.get("device_type", ""),
-                "save_db_rtu": data.get("storage_db", ""),
-                "server_send_rtu": data.get("send_server", "")
-            }
+            
+            if "RTU" in device_param:
+                information = {
+                    "nameRtu": device_param.replace("Modbus-RTU-", ""),
+                    "portRtu": data.get("serial_port", ""),
+                    "baudrateRtu": data.get("baudrate", ""),
+                    "initialRtu": data.get("slave_id_start", ""),
+                    "endRtu": data.get("slave_id_end", ""),
+                    "modbus_function_rtu": data.get("modbus_function", ""),
+                    "initial_address_rtu": data.get("address_init", ""),
+                    "total_registers_rtu": data.get("total_registers", ""),
+                    "modbus_map_folder_rtu": str(map_folder),
+                    "modbus_map_json_rtu": str(map_json),
+                    "modbus_mode_rtu": data.get("modbus_mode", ""),
+                    "device_type_rtu": data.get("device_type", ""),
+                    "save_db_rtu": data.get("storage_db", ""),
+                    "server_send_rtu": data.get("send_server", "")
+                }
+            else:
+                information = {
+                    "nameTcp": device_param.replace("Modbus-TCP-", ""),
+                    "ip_device_tcp": data.get("host_ip", ""),
+                    "port_device_tcp": data.get("port_ip", ""),
 
+                    "initial_tcp": data.get("slave_id_start", ""),
+                    "end_tcp": data.get("slave_id_end", ""),
+                    "modbus_function_tcp": data.get("modbus_function", ""),
+                    "initial_address_rtu": data.get("address_init", ""),
+                    "total_registers_tcp": data.get("total_registers", ""),
+                    "modbus_map_folder_rtu": str(map_folder),
+                    "modbus_map_json_rtu": str(map_json),
+                    "modbus_mod_tcp": data.get("modbus_mode", ""),
+                    "device_type_tcp": data.get("device_type", ""),
+                    "save_db_tcp": data.get("storage_db", ""),
+                    "server_send_tcp": data.get("send_server", "")
+                }
             return JsonResponse(information)
 
         except Exception as ex:

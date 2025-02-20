@@ -14,36 +14,36 @@
                 <!-- Primera columna -->
                 <div class="form-column">
                     <div class="form-group">
-                        <label for="name">Enter new device name (e.g. Huawei_Inv):</label>
-                        <input type="text" id="name" name="name" value="Huawei" required>
+                        <label for="nameTcp">Enter new device name (e.g. Huawei_Inv):</label>
+                        <input type="text" id="nameTcp" name="nameTcp" value="Huawei" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="ip_device">Enter IP device:</label>
-                        <input type="text" id="ip_device" name="ip_device" value="10.6.20.10" required>
+                        <label for="ip_device_tcp">Enter IP device:</label>
+                        <input type="text" id="ip_device_tcp" name="ip_device_tcp" value="10.6.20.10" required>
                     </div>
                     <div class="form-group">
-                        <label for="port_device">Enter port device:</label>
-                        <input type="text" id="port_device" name="port_device" value="502" required>
+                        <label for="port_device_tcp">Enter port device:</label>
+                        <input type="text" id="port_device_tcp" name="port_device_tcp" value="502" required>
                     </div>
                     <div class="form-group">
-                        <label for="offset">Enter OFFSET if reading from a PLC:</label>
-                        <input type="text" id="offset" name="offset" value="100" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="initial">Enter initial slave ID:</label>
-                        <input type="text" id="initial" name="initial" value="1" required>
+                        <label for="offset_tcp">Enter OFFSET if reading from a PLC:</label>
+                        <input type="text" id="offset_tcp" name="offset_tcp" value="100" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="end">Enter end slave ID:</label>
-                        <input type="text" id="end" name="end" value="1" required>
+                        <label for="initial_tcp">Enter initial slave ID:</label>
+                        <input type="text" id="initial_tcp" name="initial_tcp" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_function">Choose modbus function:</label>
-                        <select id="modbus_function" name="modbus_function" required>
+                        <label for="end_tcp">Enter end slave ID:</label>
+                        <input type="text" id="end_tcp" name="end_tcp" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modbus_function_tcp">Choose modbus function:</label>
+                        <select id="modbus_function_tcp" name="modbus_function_tcp" required>
                             <option value="3">Holding register</option>
                             <option value="4">Input register</option>
                             <option value="6">Write register</option>
@@ -51,8 +51,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="initial_address">Enter initial address:</label>
-                        <input type="text" id="initial_address" name="initial_address" value="3208" required>
+                        <label for="initial_address_tcp">Enter initial address:</label>
+                        <input type="text" id="initial_address_tcp" name="initial_address_tcp" value="3208" required>
                     </div>
 
 
@@ -68,8 +68,8 @@
 
 
                     <div class="form-group">
-                        <label for="total_registers">Enter total number of registers:</label>
-                        <input type="text" id="total_registers" name="total_registers" value="100" required>
+                        <label for="total_registers_tcp">Enter total number of registers:</label>
+                        <input type="text" id="total_registers_tcp" name="total_registers_tcp" value="100" required>
                     </div>
                     <div class="form-group">
                         <label for="modbus_map_folder">Choose modbus map folder::</label>
@@ -87,16 +87,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_mode">Choose modbus mode:</label>
-                        <select id="modbus_mode" name="modbus_mode" required>
+                        <label for="modbus_mod_tcp">Choose modbus mode:</label>
+                        <select id="modbus_mod_tcp" name="modbus_mod_tcp" required>
                             <option value="ModbusMode.READ">Read</option>
                             <option value="ModbusMode.WRITE">Write</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="device_type">Choose device type:</label>
-                        <select id="device_type" name="device_type" required>
+                        <label for="device_type_tcp">Choose device type:</label>
+                        <select id="device_type_tcp" name="device_type_tcp" required>
                             <option value="Inverter">Inverter</option>
                             <option value="Weather_station">Weather station</option>
                             <option value="Pyranometer">Pyranometer</option>
@@ -117,16 +117,16 @@
 
 
                     <div class="form-group">
-                        <label for="save_db">Choose if you want to save data in database:</label>
-                        <select id="save_db" name="save_db" required>
+                        <label for="save_db_tcp">Choose if you want to save data in database:</label>
+                        <select id="save_db_tcp" name="save_db_tcp" required>
                             <option value="True">Insert to DB</option>
                             <option value="False">Do not insert to DB</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="server_send">Choose if you want to send to server:</label>
-                        <select id="server_send" name="server_send" required>
+                        <label for="server_send_tcp">Choose if you want to send to server:</label>
+                        <select id="server_send_tcp" name="server_send_tcp" required>
                             <option value="True">Send to server</option>
                             <option value="False">Not send to server</option>
                         </select>

@@ -442,7 +442,35 @@ async function ModifyOption(device) {
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
             document.getElementById("save_db_rtu").value = dataRtu.save_db_rtu;
             document.getElementById("server_send_rtu").value = dataRtu.server_send_rtu;
-        }
+        }else{
+            const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(modifyDevice)}`);
+          
+
+            if (!responseDevice.ok) {
+                alert(" ❌ Error al cargar los datos device Rtu");
+            }
+            console.log(responseDevice)
+            const dataRtu = await responseDevice.json();
+            document.getElementById("nameTcp").value = dataRtu.nameTcp;
+            document.getElementById("ip_device_tcp").value = dataRtu.ip_device_tcp;
+            document.getElementById("port_device_tcp").value = dataRtu.port_device_tcp;
+            document.getElementById("offset_tcp").value = dataRtu.offset_tcp;
+            document.getElementById("initial_tcp").value = dataRtu.initial_tcp;
+            document.getElementById("end_tcp").value = dataRtu.end_tcp;
+            document.getElementById("modbus_function_tcp").value = dataRtu.modbus_function_tcp;
+            document.getElementById("initial_address_tcp").value = dataRtu.initial_address_tcp;
+            document.getElementById("total_registers_tcp").value = dataRtu.total_registers_tcp;
+            console.log("Cargue segundo")
+            document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
+            loadAddDevicesUpdateDeviceRtu( dataRtu.modbus_map_folder_rtu)
+            document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
+            document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
+            document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
+            document.getElementById("save_db_tcp").value = dataRtu.save_db_tcp;
+            document.getElementById("server_send_tcp").value = dataRtu.server_send_tcp;
+        
+
+    } 
         
 
     } catch (error) {
@@ -450,3 +478,5 @@ async function ModifyOption(device) {
         console.error("Error en ModifyOption:", error);
     }
 }
+
+
