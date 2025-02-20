@@ -506,4 +506,52 @@ async function ModifyOption(device) {
     }
 }
 
+async function updateDeviceRtu(){
+    try {
+        const nameDevice = document.getElementById("nameRtu").value;
+        const portDevice = document.getElementById("portRtu").value;
+        const baudrate = document.getElementById("baudrateRtu").value;
+        const initial = document.getElementById("initialRtu").value;
+        const end = document.getElementById("endRtu").value;
+        const modbus_function = document.getElementById("modbus_function_rtu").value;
+        const initial_address = document.getElementById("initial_address_rtu").value;
+        const total_registers = document.getElementById("total_registers_rtu").value;
+        const modbus_map_folder = document.getElementById("modbus_map_folder").value;
+        const modbus_map_json = document.getElementById("modbus_map_json").value;
+        const modbus_mode = document.getElementById("modbus_mode_rtu").value;
+        const device_type = document.getElementById("device_type_rtu").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        const save_db = document.getElementById("save_db_rtu").value;  // Checkbox obtiene .checked
+        const server_send = document.getElementById("server_send_rtu").value;
+
+        const response = await fetch(viewAddRtu, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({
+                nameDevice, portDevice, baudrate, initial, end, modbus_function,
+                initial_address, total_registers, modbus_map_folder, modbus_map_json,
+                modbus_mode, device_type, save_db, server_send
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error en la validación: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            await loadDevices('seeDevices');  // Recarga contenido tras éxito
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error("Error:", error);
+    }
+}
+
+
 
