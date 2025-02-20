@@ -52,7 +52,7 @@ input, select {
 }
 
 select{
-    height: 25px;
+    height: 35px;
 }
 select option {
     font-size: 10px;  /* Ajustamos el tamaño del texto */
