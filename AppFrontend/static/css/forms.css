@@ -8,16 +8,8 @@
 
 
 .form-container {
-    max-width: 600px;
-    margin: auto;
-    background: transparent;
-    max-height: 200px;
-    padding: 20px;
-    border-radius: 8px;
-    max-height: 30px !important;
-    overflow-y: auto !important;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    overflow-y: visible !important;
+    width: 100%;
+    max-width: 1200px;
 }
 
 h2 {
