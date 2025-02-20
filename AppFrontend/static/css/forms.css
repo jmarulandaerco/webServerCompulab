@@ -22,7 +22,19 @@ button{
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     overflow-y: visible !important;
 }
-select option {
+option {
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+select  {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    height: 25px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: block;
     font-size: 10px;  /* Ajustamos el tamaño del texto */
     font-family: 'Sora Light';
 }
