@@ -70,7 +70,7 @@ input {
 .buttonClass {
     width: 100%;
     padding: 8px;
-    background: #007bff;
+    background: #00AB00;
     color: #fff;
     margin-top: 10px;
     border: none;
@@ -84,7 +84,7 @@ input {
 }
 
 .buttonClass:hover {
-    background: #0056b3;
+    background: #00AB00;
 }
 
 /* Estilos para los radio buttons */

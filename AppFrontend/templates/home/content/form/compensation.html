@@ -2,57 +2,64 @@
 
 <div class="container" id="content2">
 
-    <div class="form-container-compensation">
-    <link rel="stylesheet" href="{% static 'css/form_large.css' %}">
+    <div class="container form-container-column">
 
-    <form id="myForm" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label>Reactive Power Limiter:</label>
-            <div class="radio-group">
-                <input type="radio" id="reactive_power_yes" name="reactive_power" value="Yes" required>
-                <label for="meter_yes">Yes</label>
-                <input type="radio" id="reactive_power_no" name="reactive_power" value="No" required>
-                <label for="meter_no">No</label>
+        <form id="myForm" method="post">
+            {% csrf_token %}
+            <div class="form-columns">
+                <div class="form-column">
+
+                    <div class="form-group">
+                        <label>Reactive Power Limiter:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="reactive_power_yes" name="reactive_power" value="Yes" required>
+                            <label for="meter_yes">Yes</label>
+                            <input type="radio" id="reactive_power_no" name="reactive_power" value="No" required>
+                            <label for="meter_no">No</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="meter_ids">Energy Meter IDs:</label>
+                        <input type="text" id="meter_ids" name="meter_ids" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="smart_logger">Smartlogger ID:</label>
+                        <input type="text" id="smart_logger" name="smart_logger" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="high">Reactive Power Percentage High:</label>
+                        <input type="text" id="high" name="high" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="low">Reactive Power Percentege low:</label>
+                        <input type="text" id="low" name="low" required>
+                    </div>
+                </div>
+
+                <div class="form-column">
+
+                    <div class="form-group">
+                        <label for="reactive">Reactive Offset:</label>
+                        <input type="text" id="reactive" name="reactive" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Active Offset:</label>
+                        <input type="text" id="active" name="active" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time Active Power:</label>
+                        <input type="text" id="time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="factor">Power Factor Min:</label>
+                        <input type="text" id="factor" name="factor" required>
+                    </div>
+                </div>
+
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="meter_ids">Energy Meter IDs:</label>
-            <input type="text" id="meter_ids" name="meter_ids" required>
-        </div>
-
-        <div class="form-group">
-            <label for="smart_logger">Smartlogger ID:</label>
-            <input type="text" id="smart_logger" name="smart_logger" required>
-        </div>
-        <div class="form-group">
-            <label for="high">Reactive Power Percentage High:</label>
-            <input type="text" id="high" name="high" required>
-        </div>
-        <div class="form-group">
-            <label for="low">Reactive Power Percentege low:</label>
-            <input type="text" id="low" name="low" required>
-        </div>
-        <div class="form-group">
-            <label for="reactive">Reactive Offset:</label>
-            <input type="text" id="reactive" name="reactive" required>
-        </div>
-        <div class="form-group">
-            <label for="active">Active Offset:</label>
-            <input type="text" id="active" name="active" required>
-        </div>
-        <div class="form-group">
-            <label for="time">Time Active Power:</label>
-            <input type="text" id="time" name="time" required>
-        </div>
-        <div class="form-group">
-            <label for="factor">Power Factor Min:</label>
-            <input type="text" id="factor" name="factor" required>
-        </div>
 
 
-        <button class="buttonClass" type="button" onclick="updateInformationCompensation()">Guardar</button>
-    </form>
-</div>
+            <button class="buttonClass" type="button" onclick="updateInformationCompensation()">Guardar</button>
+        </form>
+    </div>
 </div>
