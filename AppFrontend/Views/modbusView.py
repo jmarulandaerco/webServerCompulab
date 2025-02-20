@@ -320,7 +320,48 @@ class FormModbusAddDeviceTcp(View):
         except Exception as ex:
             print(ex)
             return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
-        
+    def put(self, request):
+        try:
+            data = json.loads(request.body)
+            config.read(list_path_menu[2])
+
+            # Construir el nombre del dispositivo
+            device_name = f"Modbus-TCP-{data.get('nameDevice')}"
+
+            # Verificar si la sección del dispositivo existe
+            if not config.has_section(device_name):
+                return JsonResponse({"message": f"Error: el dispositivo '{device_name}' no existe"}, status=400)
+
+            # Calcular 'attempts_wait' basado en 'offset'
+            offset = int(data.get("offset", 0))
+            attempts_wait = 0.2 if offset > 0 else 0
+
+            # Actualizar los valores de la sección del dispositivo
+            config.set(device_name, "host_ip", str(data.get("ip_device")))
+            config.set(device_name, "port_ip", str(data.get("port_device")))
+            config.set(device_name, "slave_id_start", str(data.get("initial")))
+            config.set(device_name, "slave_id_end", str(data.get("end")))
+            config.set(device_name, "modbus_function", str(data.get("modbus_function")))
+            config.set(device_name, "address_init", str(data.get("initial_address")))
+            config.set(device_name, "total_registers", str(data.get("total_registers")))
+            config.set(device_name, "protocol_type", "DeviceProtocol.MODBUS_TCP")
+            config.set(device_name, "modbus_map_file", f"/FW/Modbus/modbusmaps/{data.get('modbus_map_folder')}/{data.get('modbus_map_json')}")
+            config.set(device_name, "modbus_mode", str(data.get("modbus_mode")))
+            config.set(device_name, "device_type", str(data.get("device_type")))
+            config.set(device_name, "address_offset", str(offset))
+            config.set(device_name, "storage_db", str(data.get("save_db")))
+            config.set(device_name, "send_server", str(data.get("server_send")))
+            config.set(device_name, "attempts_wait", str(attempts_wait))
+
+            # Guardar los cambios en el archivo de configuración
+            with open(list_path_menu[2], "w") as configfile:
+                config.write(configfile)
+
+            return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
+
+        except Exception as ex:
+            print(ex)
+            return JsonResponse({"message": f"Error al actualizar los datos: {ex}"}, status=400)   
 
 class FormModbusDeviceRtuView(View):
     def get(self, request):

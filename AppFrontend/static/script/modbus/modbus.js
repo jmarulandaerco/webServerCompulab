@@ -506,6 +506,53 @@ async function ModifyOption(device) {
     }
 }
 
+async function updateDeviceTcp() {
+    try {
+        const nameDevice = document.getElementById("nameTcp").value;
+        const ip_device = document.getElementById("ip_device_tcp").value;
+        const port_device = document.getElementById("port_device_tcp").value;
+        const offset = document.getElementById("offset_tcp").value;
+        const initial = document.getElementById("initial_tcp").value;
+        const end = document.getElementById("end_tcp").value;
+        const modbus_function = document.getElementById("modbus_function_tcp").value;
+        const initial_address = document.getElementById("initial_address_tcp").value;
+        const total_registers = document.getElementById("total_registers_tcp").value;
+        const modbus_map_folder = document.getElementById("modbus_map_folder").value;
+        const modbus_map_json = document.getElementById("modbus_map_json").value;
+        const modbus_mode = document.getElementById("modbus_mod_tcp").value;
+        const device_type = document.getElementById("device_type_tcp").value;
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+
+        const save_db = document.getElementById("save_db_tcp").value;  // Checkbox obtiene .checked
+        const server_send = document.getElementById("server_send_tcp").value;
+
+        const response = await fetch(viewAddTcp, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken // Enviar CSRF token
+            },
+            body: JSON.stringify({
+                nameDevice, ip_device, port_device, offset, initial, end, modbus_function,
+                initial_address, total_registers, modbus_map_folder, modbus_map_json,
+                modbus_mode, device_type, save_db, server_send
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error en la validación: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            await loadDevices('seeDevices');
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error("Error:", error);
+    }
+}
 async function updateDeviceRtu(){
     try {
         const nameDevice = document.getElementById("nameRtu").value;
