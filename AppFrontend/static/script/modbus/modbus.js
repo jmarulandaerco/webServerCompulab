@@ -63,7 +63,7 @@ function handleSelectChange(event) {
             document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
-function loadAddDevicesUpdateDeviceRtu(selectedDevice) {
+function loadAddDevicesUpdateDevice(selectedDevice) {
     fetch(mapFolder)  // Llamamos a la vista de Django
         .then(response => {
             if (!response.ok) {
@@ -462,7 +462,7 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            loadAddDevicesUpdateDeviceRtu(dataRtu.modbus_map_folder_rtu)
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
@@ -488,7 +488,7 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_tcp").value = dataRtu.total_registers_tcp;
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_tcp;
-            loadAddDevicesUpdateDeviceRtu(dataRtu.modbus_map_folder_rtu)
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
             document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
             document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
