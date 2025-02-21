@@ -222,7 +222,7 @@ function loadContent(option) {
     console.log("Holaaa")
     // checkServiceStatus();
     if(option=='form/database/database'){
-        url='home/content/form/database/database/'
+        url='home/content/form/database/databaseInformation/'
     }else{
         url=`/home/content/${option}/`
     }
