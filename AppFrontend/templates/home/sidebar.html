@@ -123,23 +123,18 @@
     if (!token) {
         alert('No se encontró el token. Redirigiendo al login...');
         window.location.href = "{% url 'index' %}";
-    } else {
-        console.log('Token encontrado:', token);
-    }
+    } 
 
 
-    // Interceptar el evento de retroceder (usando window.onpopstate)
     window.onpopstate = function (event) {
         if (localStorage.getItem('access_token')) {
-            // Si el token está presente, redirigir a home si intentan volver a login
             window.location.href = "{% url 'home' %}";
         }
     };
 
-    // Opción para prevenir que el usuario use la flecha atrás
     window.history.pushState(null, null, window.location.href);
     window.onpopstate = function () {
-        window.history.go(1);  // Este comando evita que el usuario regrese a la página anterior
+        window.history.go(1);  
     };
 
 

@@ -64,7 +64,7 @@ async function updateInformationLimitation() {
     const inverterMax = document.getElementById("inverterMax").value;
 
     
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         console.log(getFormDataModemChecker)
@@ -72,7 +72,7 @@ async function updateInformationLimitation() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ selectedValue,meter_ids,inverter_ids,porcentage,grid_min,grid_max,inverter_min,inverterMax })
         });
@@ -81,16 +81,16 @@ async function updateInformationLimitation() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -104,7 +104,7 @@ async function updateInformationCompensation() {
     const active = document.getElementById("active").value;
     const time = document.getElementById("time").value;
     const factor = document.getElementById("factor").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -112,7 +112,7 @@ async function updateInformationCompensation() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ selectedValue,meter_ids,smart_logger,high,low,reactive,active,time,factor })
         });
@@ -121,16 +121,16 @@ async function updateInformationCompensation() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación");
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };

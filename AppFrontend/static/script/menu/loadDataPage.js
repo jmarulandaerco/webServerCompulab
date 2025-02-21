@@ -100,7 +100,7 @@ async function updateInformationDataSettingLog() {
     const log_size = document.getElementById("log_size").value;
     const backup = document.getElementById("backup").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -108,7 +108,7 @@ async function updateInformationDataSettingLog() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ level, stdout, file, enable, log_size, backup })
         });
@@ -117,16 +117,16 @@ async function updateInformationDataSettingLog() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -151,14 +151,14 @@ async function updateSettingInterface() {
     const connection = document.getElementById("connection").value;
 
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         const response = await fetch(getFormDataUrlSettingInterface, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ interface, connection})
         });
@@ -167,16 +167,16 @@ async function updateSettingInterface() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -259,16 +259,14 @@ function loadContent(option) {
 
             } else {
                 if (intervalId) {
-                    clearInterval(intervalId); // Detiene el intervalo si existe
-                    intervalId = null; // Limpia la variable
+                    clearInterval(intervalId);
+                    intervalId = null; 
                 }
             }
 
-            // Remueve la clase 'active' de todos los enlaces del sidebar
             document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
 
 
-            // Encuentra el enlace correspondiente y agrégale la clase 'active'
             document.querySelectorAll("#sidebar a").forEach(a => {
                 if (a.getAttribute("onclick")?.includes(option)) {
                     a.classList.add("active");
@@ -290,7 +288,6 @@ async function loadFormDataServerSelection() {
         }
         const data = await response.json();
 
-        // Llenar los campos del formulario con los valores de ejemplo
         document.getElementById("server").value = data.server;
         document.getElementById("neu_plus").value = data.neu_plus;
         document.getElementById("telemetry").value = data.telemetry;
@@ -308,14 +305,14 @@ async function updateServerSelection() {
     const mqtt = document.getElementById("mqtt").value;
     const storage = document.getElementById("storage").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         const response = await fetch(getFormDataUrlServerSelection, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ server, neu_plus, telemetry, mqtt, storage })
         });
@@ -324,16 +321,16 @@ async function updateServerSelection() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación");
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -341,7 +338,7 @@ async function updateServerSelection() {
 
 function loadDevices(page) {
     const fullUrl = `/api/modbus/view-devices/?device=${encodeURIComponent(page)}`; 
-    fetch(fullUrl)  // Llamamos a la vista de Django
+    fetch(fullUrl)  
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
@@ -358,35 +355,17 @@ function loadDevices(page) {
 }
 
 async function saveChangesEnableDisableDevices() {
-    // Selecciona todos los checkboxes marcados
     const selectedDevices = Array.from(document.querySelectorAll('input[name="devices"]:checked'))
                                 .map(checkbox => checkbox.value);
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
-    // Aquí puedes hacer algo con los valores, por ejemplo, enviarlos a un backend con fetch
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
     
-    // fetch(viewDevices, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value  // Token CSRF para Django
-    //     },
-    //     body: JSON.stringify({  selectedDevices })
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log('Respuesta del servidor:', data))
-    // .catch(error => {
-    //     console.error("Error al cargar los dispositivos:", error);
-    //     document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
-    // });
-
     try {
         const response = await fetch(viewDevices, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ selectedDevices })
         });
@@ -395,16 +374,16 @@ async function saveChangesEnableDisableDevices() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
     

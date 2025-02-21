@@ -13,9 +13,7 @@ class ContentView(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
 
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except:
@@ -31,7 +29,6 @@ class ContentViewMenuMain(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/main/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:

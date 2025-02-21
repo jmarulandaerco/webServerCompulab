@@ -17,25 +17,31 @@ list_path_menu = cf.to_list()
 
 class FormModbusView(View):
     def get(self, request):
-        config.read(list_path_menu[2])
-        sample_data = {
-            "debug": config.get('Default', 'log_debug', fallback='INFO'),
-            "attempts":config.get('Default', 'max_attempts', fallback='3'),
-            "timeout": config.get('Default', 'timeout_attempts', fallback='1'),
-        }
+        try:
+            config.read(list_path_menu[2])
+            sample_data = {
+                "debug": config.get('Default', 'log_debug', fallback='INFO'),
+                "attempts":config.get('Default', 'max_attempts', fallback='3'),
+                "timeout": config.get('Default', 'timeout_attempts', fallback='1'),
+            }
+            return JsonResponse(sample_data)
+        except Exception as ex:
+            return JsonResponse({"message": f"Error al actualizar los datos, {ex}"}, status=400)
+
         
         
         
         
-        return JsonResponse(sample_data)
+        
     
     def put(self, request):
         try:
             config.read(list_path_menu[2])
             data = json.loads(request.body)
-            print(data)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
-            # Convertir los valores a cadenas antes de establecerlos
+            
             config.set('Default', 'log_debug', str(data.get("log_debug")))
             config.set('Default', 'max_attempts', str(data.get("max_attempts")))
             config.set('Default', 'timeout_attempts', str(data.get("timeout_attempts")))
@@ -47,23 +53,19 @@ class FormModbusView(View):
         except json.JSONDecodeError:
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400)
 
 class FormModbusDevicesView(View):
     def get(self, request):
-        device_param = request.GET.get('device', '')  # Obtener el string "device"
-        print(f"Device recibido: {device_param}")
+        device_param = request.GET.get('device', '') 
 
-        if not device_param:  # Manejo si no se recibe el parámetro
+        if not device_param: 
             return HttpResponseNotFound("Error: No se especificó un dispositivo.")
 
         config.read(list_path_menu[2])
         menu = Menu()
         a = menu.setup_folder_path()
-        print("Holiii")
-        print(a)
-
+  
         current_devices = config.sections()
         if "Default" in current_devices:
             current_devices.remove("Default")
@@ -73,10 +75,8 @@ class FormModbusDevicesView(View):
         listDevices = current_devices
         listSelectedDevices = enabled_devices
 
-        print("Lista de dispositivos:", listDevices)
-        print("Dispositivos habilitados:", listSelectedDevices)
+      
 
-        # Renderiza la plantilla basada en el parámetro recibido
         template_name = f'home/content/form/modbus/{device_param}.html'
 
         try:
@@ -96,6 +96,11 @@ class FormModbusDevicesView(View):
             data = json.loads(request.body)
             devices = data.get("selectedDevices")
             
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
+            
             config.set("Default", "devices_config", ",".join(devices))
 
            
@@ -108,29 +113,38 @@ class FormModbusDevicesView(View):
             
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
 
 
 
 class FormModbusGetDevicesView(APIView):
     def get(self, request):
-        menu =Menu()
-        optionsModbusMap =menu.setup_folder_path()
-        print(optionsModbusMap[0])
-        return JsonResponse({"modbus_map":optionsModbusMap[0]})
-    
+        try:
+            menu =Menu()
+            optionsModbusMap =menu.setup_folder_path()
+            return JsonResponse({"modbus_map":optionsModbusMap[0]})
+        except Exception as ex:
+            return JsonResponse({"message": f"Error al obtener los datos, {ex}"}, status=400) 
+
     @csrf_exempt  # Esto desactiva la verificación CSRF para esta vista
     def post(self,request):
-        data = json.loads(request.body)
-        url =data.get("selectedValue")
-        path_modbus = "/FW/Modbus/modbusmaps"+"/"+url
+        try:
+            data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
+            url =data.get("selectedValue")
+            path_modbus = "/FW/Modbus/modbusmaps"+"/"+url
 
-        
-        
-        files_json = [archivo for archivo in os.listdir(path_modbus) if archivo.endswith('.json')]
-        print(files_json)
-        return JsonResponse({"data":files_json})
+            
+            
+            files_json = [archivo for archivo in os.listdir(path_modbus) if archivo.endswith('.json')]
+            print(files_json)
+            return JsonResponse({"data":files_json})
+        except Exception as ex:
+            return JsonResponse({"message": f"Error al guardar los datos, {ex}"}, status=400) 
+
     
     @csrf_exempt
     def delete(self, request):
@@ -138,6 +152,10 @@ class FormModbusGetDevicesView(APIView):
             # Leer el archivo de configuración
             config.read(list_path_menu[2])
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+         
+            
             filename = data.get("device")
 
             # Obtener la lista de dispositivos habilitados
@@ -166,12 +184,15 @@ class FormModbusGetDevicesView(APIView):
 
             return JsonResponse({"message": "Dispositivo eliminado correctamente."}, status=200)
         except Exception as e:
-            return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
+            return JsonResponse({"message": f"Error: {str(e)}"}, status=400)
 
 class FormModbusAddDeviceRtu(View):
     def post(self,request):
         try:
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
             
             config.read(list_path_menu[2])
             
@@ -194,8 +215,7 @@ class FormModbusAddDeviceRtu(View):
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
             
-            print("/FW/Modbus/modbusmaps/{}/{}".format(str(data.get("modbus_map_folder")), str(data.get("modbus_map_json"))))
-            
+           
             config[new_name_device] = {
                         "serial_port": str(data.get("portDevice")),
                         "baudrate": str(data.get("baudrate")),
@@ -219,7 +239,6 @@ class FormModbusAddDeviceRtu(View):
             return JsonResponse({"message": "Datos actualizados"}, status=200)
         
         except Exception as ex:
-            print(ex)
             return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
     
     def put(self, request):
@@ -229,8 +248,10 @@ class FormModbusAddDeviceRtu(View):
 
             # Analizar los datos JSON de la solicitud
             data = json.loads(request.body)
-            print(data)
-
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             # Construir el nombre de la sección que deseas actualizar
             nombre_seccion = f"Modbus-RTU-{data.get('nameDevice')}"
 
@@ -264,7 +285,6 @@ class FormModbusAddDeviceRtu(View):
         except json.JSONDecodeError:
             return JsonResponse({"message": "Error al analizar los datos JSON"}, status=400)
         except Exception as ex:
-            print(ex)
             return JsonResponse({"message": f"Error al actualizar los datos: {ex}"}, status=400)
             
 
@@ -272,6 +292,9 @@ class FormModbusAddDeviceTcp(View):
     def post(self,request):
         try:
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
             
             config.read(list_path_menu[2])
             
@@ -300,8 +323,7 @@ class FormModbusAddDeviceTcp(View):
                     attempts_wait = 0.2
             else:
                     attempts_wait = 0
-            print("Ver device")
-            print(str(data.get("device_type")))
+
             config[new_name_device] = {
                         "host_ip": str(data.get("ip_device")),
                         "port_ip": str(data.get("port_device")),
@@ -327,13 +349,15 @@ class FormModbusAddDeviceTcp(View):
             return JsonResponse({"message": "Datos actualizados"}, status=200)
         
         except Exception as ex:
-            print(ex)
             return JsonResponse({"message": f'Error al actualizar los datos, {ex}'}, status=400)
     def put(self, request):
         try:
             data = json.loads(request.body)
             config.read(list_path_menu[2])
-
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             # Construir el nombre del dispositivo
             device_name = f"Modbus-TCP-{data.get('nameDevice')}"
 
@@ -344,8 +368,7 @@ class FormModbusAddDeviceTcp(View):
             # Calcular 'attempts_wait' basado en 'offset'
             offset = int(data.get("offset", 0))
             attempts_wait = 0.2 if offset > 0 else 0
-            print("HOla prueba")
-            print(data.get("device_type"))
+
             # Actualizar los valores de la sección del dispositivo
             config.set(device_name, "host_ip", str(data.get("ip_device")))
             config.set(device_name, "port_ip", str(data.get("port_device")))
@@ -370,14 +393,12 @@ class FormModbusAddDeviceTcp(View):
             return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
 
         except Exception as ex:
-            print(ex)
             return JsonResponse({"message": f"Error al actualizar los datos: {ex}"}, status=400)   
 
 class FormModbusDeviceRtuView(View):
     def get(self, request):
         try:
             device_param = request.GET.get('device', '')  
-            print(device_param)
             # Validar que el parámetro no está vacío
             if not device_param:
                 return JsonResponse({"message": "El parámetro 'device' es requerido."}, status=400)
@@ -398,11 +419,9 @@ class FormModbusDeviceRtuView(View):
             map_json = parts[-1]    # "HUAWEI_INV.json"
 
             # Crear diccionario con la información
-            print("Information")
+
             data.get("device_type", "")
-            print(map_folder)
-            print(map_json)
-            print(str(data.get("modbus_map_file", ""))),
+ 
             
             if "RTU" in device_param:
                 information = {
@@ -422,8 +441,7 @@ class FormModbusDeviceRtuView(View):
                     "server_send_rtu": data.get("send_server", "")
                 }
             else:
-                print("123")
-                print(data.get("modbus_mode", ""))
+          
                 information = {
                     "nameTcp": device_param.replace("Modbus-TCP-", ""),
                     "ip_device_tcp": data.get("host_ip", ""),

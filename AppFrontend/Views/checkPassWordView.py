@@ -9,7 +9,10 @@ class CheckPassword(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
-
+            if any(value is None or value == "" for value in data.values()):
+                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                        
+            
             password = data.get("password")
             confirm_password = data.get("confirmPassword")
 
@@ -34,6 +37,10 @@ class ChangePassword(View):
     def put(self, request):
         try:
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             password = data.get("actualPassword")
             new_password = data.get("newPassword")
             

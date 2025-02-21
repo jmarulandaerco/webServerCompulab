@@ -2,13 +2,13 @@
 async function changePassword(){
     const actualPassword = document.getElementById("actualPassword").value;
     const newPassword = document.getElementById("newPassword").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try{
         const response = await fetch(changePasswordUrl, {
-            method: "PUT", // Especificar el método PUT
+            method: "PUT", 
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ actualPassword, newPassword }) 
      });
@@ -17,14 +17,13 @@ async function changePassword(){
         console.log(data)
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ "  + "Error en la validación"); 
 
         }else{
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-
+            alert("✅ " + data.message);
         }
     }catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }   
 }
@@ -32,14 +31,14 @@ async function changePassword(){
 async function checked() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         const response = await fetch(postCheckPasswordUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ password, confirmPassword })
         });
@@ -48,16 +47,16 @@ async function checked() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ "  + "Error en la validación"); 
 
         }else{
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
             await loadContent('form/database/database')
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -67,14 +66,14 @@ async function checkedPassWordLog() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         const response = await fetch(postCheckPasswordUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ password, confirmPassword })
         });
@@ -83,17 +82,17 @@ async function checkedPassWordLog() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
-            // await loadContentMenu('settingLog')
+            alert("❌ "  + "Error en la validación"); 
+            
 
         }else{
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
             await loadContentMenu('settingLog')
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };

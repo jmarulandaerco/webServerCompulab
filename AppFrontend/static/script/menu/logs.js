@@ -1,11 +1,11 @@
 function deletelog() {
     if (confirm("¿Estás seguro de borrar los logs?")) {
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+        const token = localStorage.getItem("access_token");
 
         fetch(deleteLog, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
             }
         })

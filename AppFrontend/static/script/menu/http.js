@@ -1,15 +1,14 @@
 async function updateModemChecker() {
     const connection = document.getElementById("connection").value;
     const attemts = document.getElementById("attemts").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
     try {
         console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataModemChecker, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ connection, attemts })
         });
@@ -18,23 +17,23 @@ async function updateModemChecker() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message);
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
 async function updateModemSignal() {
     const onomondo = document.getElementById("onomondo").value;
     const minimum = document.getElementById("minimum").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -42,7 +41,7 @@ async function updateModemSignal() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ onomondo, minimum })
         });
@@ -51,22 +50,22 @@ async function updateModemSignal() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message);
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
 async function updateModemServer() {
     const requests = document.getElementById("requests").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -74,7 +73,7 @@ async function updateModemServer() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ requests })
         });
@@ -83,16 +82,16 @@ async function updateModemServer() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };

@@ -4,15 +4,14 @@ async function updateInformationDatabase() {
     const name = document.getElementById("name").value;
     const timeout = document.getElementById("timeout").value;
     const date = document.getElementById("date").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
-
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
     try {
         console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataBase, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ host,port,name,timeout,date })
         });
@@ -21,16 +20,16 @@ async function updateInformationDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -54,7 +53,7 @@ async function updateSettingDatabase() {
     const awaitTime = document.getElementById("awaitTime").value;
    
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -62,7 +61,7 @@ async function updateSettingDatabase() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ day,awaitTime })
         });
@@ -71,16 +70,16 @@ async function updateSettingDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
              
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };

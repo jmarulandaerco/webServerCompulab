@@ -5,7 +5,7 @@
     <form id="myForm" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="Server">Server Type:</label>
+            <label for="Server">Server type:</label>
             <select id="server" name="Server" required>
                 <option value="telemetry">Telemetry</option>
                 <option value="neu_plus">Neu Plus</option>
@@ -14,22 +14,22 @@
         </div>
 
         <div class="form-group">
-            <label for="neu_plus">Id device neu_plus:</label>
+            <label for="neu_plus">Id device neu plus:</label>
             <input type="text" id="neu_plus" name="neu_plus" required>
         </div>
 
         <div class="form-group">
-            <label for="telemetry">Identity_id telemetry:</label>
+            <label for="telemetry">Identity id telemetry:</label>
             <input type="text" id="telemetry" name="telemetry" required>
         </div>
 
         <div class="form-group">
-            <label for="mqtt">Sampling_mqtt:</label>
+            <label for="mqtt">Sampling mqtt:</label>
             <input type="text" id="mqtt" name="mqtt" required>
         </div>
 
         <div class="form-group">
-            <label for="storage">sampling_storage_plus:</label>
+            <label for="storage">sampling storage plus:</label>
             <input type="text" id="storage" name="storage" required>
         </div>
 

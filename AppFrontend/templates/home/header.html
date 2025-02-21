@@ -6,7 +6,6 @@
             <img src="{% static 'images/logo.svg' %}" alt="Logo">
         </div>
 
-        <!-- Indicador de estado -->
         <div class="status-indicator">
             <span id="statusCircle" class="status-circle active"></span>
             <span id="statusText">Activo</span>
@@ -27,7 +26,7 @@
 
     document.getElementById('logoutBtn').addEventListener('click', function () {
         localStorage.removeItem('access_token');
-        window.location.href = "{% url 'index' %}";  // Redirige a la página de inicio
+        window.location.href = "{% url 'index' %}";  
     });
 
 

@@ -30,6 +30,10 @@ class MeasureView(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             zone = data.get("zone")
             modbus = data.get("modbus")
             start = data.get("start")
@@ -49,7 +53,7 @@ class MeasureView(View):
             config.set(
                                 "measurementmodbus", "stop_hour", stop
                             )
-            
+              
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
@@ -81,13 +85,17 @@ class FormDataServer(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             server = data.get("server")
             neu_plus = data.get("neu_plus")
             telemetry = data.get("telemetry")
             mqtt = data.get("mqtt")
             storage = data.get("storage")
 
-
+                    
             config.set("server", "server_type", server)
             config.set("server", "id_device", neu_plus)
             config.set(
@@ -134,6 +142,10 @@ class FormDataModes(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             mode = data.get("mode")
             limitation = data.get("limitation")
             compensation = data.get("compensation")
@@ -205,6 +217,10 @@ class FormDataSettingDataBase(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             day = data.get("day")
             awaitTime = data.get("awaitTime")
            
@@ -244,6 +260,10 @@ class FormDataSettingInterface(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             interface = data.get("interface")
             connection = data.get("connection")
            
@@ -296,7 +316,10 @@ class FormDataLimitation(View):
             config.read(list_path_menu[4])
 
             data = json.loads(request.body)
-
+            if any(value is None or value == "" for value in data.values()):
+                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                        
+                        
             selectedValue = data.get("selectedValue")
             meter_ids = data.get("meter_ids")
             inverter_ids = data.get("inverter_ids")
@@ -359,7 +382,10 @@ class FormDataCompensation(View):
             config.read(list_path_menu[5])
 
             data = json.loads(request.body)
-
+            if any(value is None or value == "" for value in data.values()):
+                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                        
+            
             selectedValue = data.get("selectedValue")
             meter_ids = data.get("meter_ids")
             smart_logger = data.get("smart_logger")
@@ -439,7 +465,10 @@ class FormDataBasePropierties(View):
             config.read(list_path_menu[1])
 
             data = json.loads(request.body)
-
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             host = data.get("host")
             port = data.get("port")
             name = data.get("name")
@@ -487,6 +516,10 @@ class FormDataSettingLogs(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             level = data.get("level")
             stdout = data.get("stdout")
             file = data.get("file")
@@ -534,6 +567,9 @@ class FormDataModemChecker(View):
         try:
             data = json.loads(request.body)
             config.read(list_path_menu[3])
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
 
             connection = data.get("connection")
             attemts = data.get("attemts")
@@ -572,7 +608,10 @@ class FormDataSignalChecker(View):
         try:
             data = json.loads(request.body)
             config.read(list_path_menu[3])
-
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             onomondo = data.get("onomondo")
             minimum = data.get("minimum")
             config.set(
@@ -611,7 +650,10 @@ class FormDataServerChecker(View):
             config.read(list_path_menu[3])
 
             data = json.loads(request.body)
-
+            if any(value is None or value == "" for value in data.values()):
+                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            
+            
             requests = data.get("requests")
             config.set(
                                 'SERVER_CHECKER', 'max_attempts', requests,

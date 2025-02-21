@@ -1,11 +1,11 @@
 function deleteDatabase() {
     if (confirm("¿Estás seguro de borrar la información en la Base de datos?")) {
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+        const token = localStorage.getItem("access_token"); 
 
         fetch(deleteDatabaseUrl, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
             }
         })
@@ -26,13 +26,13 @@ function downloadCollections() {
             if (!response.ok) {
                 throw new Error("Error en la descarga");
             }
-            return response.blob(); // Convertimos la respuesta en un Blob
+            return response.blob(); 
         })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "colecciones.txt"; // Nombre del archivo
+            a.download = "colecciones.txt"; 
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
@@ -41,19 +41,19 @@ function downloadCollections() {
 }
 function rebootErcoPulse() {
     if (confirm("¿Estás seguro de reinir el Erco Pulse")) {
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+        const token = localStorage.getItem("access_token"); 
 
         fetch(reboot, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                alert(data.message); // Muestra el mensaje de respuesta
+                alert(data.message); 
             })
             .catch(error => console.error("Error:", error));
     }

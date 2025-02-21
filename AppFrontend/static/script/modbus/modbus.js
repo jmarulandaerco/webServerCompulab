@@ -7,12 +7,11 @@ async function loadFormDataSettingModbus() {
             throw new Error("Error al cargar los datos");
         }
         const data = await response.json();
-        console.log(data)
         document.getElementById("debug").value = data.debug;
         document.getElementById("attempts").value = data.attempts;
         document.getElementById("timeout").value = data.timeout;
     } catch (error) {
-        console.error("Error:", error);
+        alert("Error:", error);
     }
 }
 
@@ -50,59 +49,45 @@ function handleSelectChange(event) {
 
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
-                console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
 
-                // Disparar evento change
                 modbusMapFolderSelect.dispatchEvent(new Event("change"));
-                console.log("🚀 Evento 'change' disparado.");
             }
 
 
         }).catch(error => {
-            console.log('Error al cargar el contenido:', error);
             document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
         });
 }
 function loadAddDevicesUpdateDevice(selectedDevice) {
-    fetch(mapFolder)  // Llamamos a la vista de Django
+    fetch(mapFolder) 
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
+                alert(`Error: ${response.statusText}`);
             }
-            return response.json();  // Asumimos que la respuesta es un JSON
+            return response.json();  
         })
         .then(data => {
-            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
-            const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
-
+            const modbusMapList = data.modbus_map;  
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
 
-            // Limpiar las opciones previas (si existen)
             modbusMapFolderSelect.innerHTML = "";
 
-            // Crear y agregar un "option" por cada dispositivo en la lista
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
-                optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
+                optionElement.value = option;  
+                optionElement.textContent = option;  
                 modbusMapFolderSelect.appendChild(optionElement);
             });
 
-            // Establecer el valor del select según el parámetro recibido
             if (selectedDevice && modbusMapList.includes(selectedDevice)) {
                 modbusMapFolderSelect.value = selectedDevice;
-                console.log(`✔ Dispositivo seleccionado: ${selectedDevice}`);
             } else if (modbusMapList.length > 0) {
-                // Si no se proporciona un dispositivo válido, seleccionar el primero de la lista
                 modbusMapFolderSelect.value = modbusMapList[0];
-                console.log(`✔ Seleccionado primer dispositivo: ${modbusMapList[0]}`);
             } else {
-                console.log("❌ No hay dispositivos disponibles para seleccionar.");
+                alert.error("❌ No hay dispositivos disponibles para seleccionar.");
             }
 
-            // Disparar el evento 'change' después de establecer el valor
             modbusMapFolderSelect.dispatchEvent(new Event("change"));
-            console.log("🚀 Evento 'change' disparado.");
         })
         .catch(error => {
             console.error("Error al cargar los dispositivos:", error);
@@ -110,41 +95,34 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
 }
 
 function loadAddDevices() {
-    fetch(mapFolder)  // Llamamos a la vista de Django
+    fetch(mapFolder)  
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            return response.json();  // Asumimos que la respuesta es un JSON
+            return response.json();  
         })
         .then(data => {
-            // Accedemos a la lista de dispositivos dentro de la propiedad "modbus_map"
             const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
 
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
 
-            // Limpiar las opciones previas (si existen)
             modbusMapFolderSelect.innerHTML = "";
 
-            // Crear y agregar un "option" por cada dispositivo en la lista
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;  // El valor del "option" será el nombre del dispositivo
-                console.log(optionElement.value)
                 optionElement.textContent = option;  // El texto visible será el nombre del dispositivo
                 modbusMapFolderSelect.appendChild(optionElement);
             });
             if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
-                console.log("✔ Seleccionado primer dispositivo:", modbusMapList[0]);
 
                 modbusMapFolderSelect.dispatchEvent(new Event("change"));
-                console.log("🚀 Evento 'change' disparado.");
             }
-            console.log("Cargue primero")
         })
         .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
+            alert.error("Error al cargar los dispositivos:", error);
         });
 }
 
@@ -173,7 +151,6 @@ async function updateSettingModbus() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
-        console.log(getFormDatasettingModbus)
         const response = await fetch(getFormDatasettingModbus, {
             method: "PUT",
             headers: {
@@ -207,7 +184,7 @@ async function updateMeasureModbus() {
     const modbus = document.getElementById("modbus").value;
     const start = document.getElementById("start").value;
     const stop = document.getElementById("stop").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
         console.log(getFormDataModemChecker)
@@ -215,7 +192,7 @@ async function updateMeasureModbus() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ zone, modbus, start, stop })
         });
@@ -224,16 +201,16 @@ async function updateMeasureModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message); 
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -282,7 +259,7 @@ async function updateDataModes() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({ mode, limitation, compensation, sampling_limitation, sampling_compensation })
         });
@@ -291,16 +268,16 @@ async function updateDataModes() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación"); 
 
         } else {
-            alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
+            alert("✅ " + data.message);
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
+        alert("❌ " + error.message); 
         console.error("Error:", error);
     }
 };
@@ -320,16 +297,16 @@ async function addDeviceRtu() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode").value;
         const device_type = document.getElementById("device_type").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
-        const save_db = document.getElementById("save_db").value;  // Checkbox obtiene .checked
+        const save_db = document.getElementById("save_db").value; 
         const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddRtu, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({
                 nameDevice, portDevice, baudrate, initial, end, modbus_function,
@@ -344,7 +321,7 @@ async function addDeviceRtu() {
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');  // Recarga contenido tras éxito
+            await loadDevices('seeDevices');  
         }
 
     } catch (error) {
@@ -368,16 +345,16 @@ async function addDeviceTcp() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode").value;
         const device_type = document.getElementById("device_type").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
-        const save_db = document.getElementById("save_db").value;  // Checkbox obtiene .checked
+        const save_db = document.getElementById("save_db").value; 
         const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddTcp, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
                 nameDevice, ip_device, port_device, offset, initial, end, modbus_function,
@@ -408,7 +385,7 @@ async function deleteDevice(device) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ device }) // Enviamos el nombre del dispositivo en el cuerpo
+            body: JSON.stringify({ device }) 
         });
 
         const result = await response.json();
@@ -442,7 +419,6 @@ async function ModifyOption(device) {
         document.getElementById("content3").innerHTML = data;
         loadAddDevices();
 
-        // Si no es RTU, también obtiene los datos de configuración Modbus
         if (device.includes("RTU")) {
             const responseDevice = await fetch(`${modifyDevice}?device=${encodeURIComponent(device)}`);
 
@@ -520,16 +496,16 @@ async function updateDeviceTcp() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mod_tcp").value;
         const device_type = document.getElementById("device_type_tcp").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
-        const save_db = document.getElementById("save_db_tcp").value;  // Checkbox obtiene .checked
+        const save_db = document.getElementById("save_db_tcp").value;  
         const server_send = document.getElementById("server_send_tcp").value;
 
         const response = await fetch(viewAddTcp, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({
                 nameDevice, ip_device, port_device, offset, initial, end, modbus_function,
@@ -566,16 +542,16 @@ async function updateDeviceRtu(){
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode_rtu").value;
         const device_type = document.getElementById("device_type_rtu").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
-        const save_db = document.getElementById("save_db_rtu").value;  // Checkbox obtiene .checked
+        const save_db = document.getElementById("save_db_rtu").value;  
         const server_send = document.getElementById("server_send_rtu").value;
 
         const response = await fetch(viewAddRtu, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken // Enviar CSRF token
+                "X-CSRFToken": csrfToken 
             },
             body: JSON.stringify({
                 nameDevice, portDevice, baudrate, initial, end, modbus_function,
@@ -590,7 +566,7 @@ async function updateDeviceRtu(){
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');  // Recarga contenido tras éxito
+            await loadDevices('seeDevices');  
         }
 
     } catch (error) {

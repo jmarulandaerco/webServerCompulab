@@ -1,5 +1,5 @@
 function checkServiceStatus() {
-    fetch(statusService)  // Ajusta esto con la URL real de tu API
+    fetch(statusService)  
         .then(response => response.json())
         .then(data => {
             const statusCircle = document.getElementById('statusCircle');
@@ -19,12 +19,12 @@ function checkServiceStatus() {
 }
 function startService() {
     if (confirm("¿Estás seguro de iniciar el servicio?")) {
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+        const token = localStorage.getItem("access_token"); 
 
         fetch(start, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
             }
         })
@@ -34,11 +34,10 @@ function startService() {
 
 
 
-                alert(data.message); // Muestra el mensaje de respuesta
-
+                alert(data.message);
                 if (data.message == "Reiniciando sistema, espera 30 segundos  por favor") {
                     setTimeout(() => {
-                        checkServiceStatus(); // Ejecuta la función después de 5 segundos
+                        checkServiceStatus();
                     }, 20000);
                 }
 
@@ -48,23 +47,23 @@ function startService() {
 }
 function stopService() {
     if (confirm("¿Estás seguro de parar el servicio?")) {
-        const token = localStorage.getItem("access_token"); // Obtiene el token del localStorage
+        const token = localStorage.getItem("access_token"); 
 
         fetch(stop, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,  // Enviar token en la cabecera
+                "Authorization": `Bearer ${token}`, 
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                alert(data.message); // Muestra el mensaje de respuesta
+                alert(data.message);
 
                 if (data.message == "Parando Sistema") {
                     setTimeout(() => {
-                        checkServiceStatus(); // Ejecuta la función después de 5 segundos
+                        checkServiceStatus(); 
                     }, 2000);
                 }
             })
