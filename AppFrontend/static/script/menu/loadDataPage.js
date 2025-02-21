@@ -221,7 +221,12 @@ async function loadFormDataServerChecker() {
 function loadContent(option) {
     console.log("Holaaa")
     // checkServiceStatus();
-    fetch(`/home/content/${option}/`)
+    if(option=='form/database/database'){
+        url='home/content/form/database/database/'
+    }else{
+        url=`/home/content/${option}/`
+    }
+    fetch(url)
         .then(response => {
             if (!response.ok) {
                 console.log("Error")
