@@ -429,8 +429,8 @@ async function deleteDevice(device) {
 async function ModifyOption(device) {
     try {
         let url = device.includes("RTU")
-            ? "/home/content/form/updateDeviceRtu/"
-            : "/home/content/form/updateDeviceTcp/";
+            ? "/home/content/form/modbus/updateDeviceRtu/"
+            : "/home/content/form/modbus/updateDeviceTcp/";
 
         const response = await fetch(url);
 

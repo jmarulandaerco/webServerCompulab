@@ -246,7 +246,7 @@ function loadContent(option) {
                     loadFormDataCompensation();
                     break;
 
-                case "form/database":
+                case "form/database/database":
                     loadFormDataBase();
                     break;
             }
