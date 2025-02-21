@@ -52,7 +52,7 @@ async function checked() {
 
         }else{
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
-            await loadContent('form/database')
+            await loadContent('form/database/database')
 
         }
 
