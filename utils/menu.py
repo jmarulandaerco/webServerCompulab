@@ -25,7 +25,9 @@ class Menu:
         try:
             result = os.system("systemctl is-active --quiet enrg-utilitymanager.service")
             print("Este es el resultado")
-            print(result)
+            exit_code = os.WEXITSTATUS(result)
+
+            print(exit_code)
             if result == 0:
                 return True
             else:
