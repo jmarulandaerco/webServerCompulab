@@ -238,11 +238,11 @@ function loadContent(option) {
             document.getElementById("content").innerHTML = data;
 
             switch (option) {
-                case "form/limitation":
+                case "form/compensation-limitation/limitation":
                     loadFormDataLimitation();
                     break;
 
-                case "form/compensation":
+                case "form/compensation-limitation/compensation":
                     loadFormDataCompensation();
                     break;
 
