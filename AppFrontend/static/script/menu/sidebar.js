@@ -1,5 +1,5 @@
 function deleteDatabase() {
-    if (confirm("¿Estás seguro de borrar la información en la Base de datos?")) {
+    if (confirm("Are you sure you want to delete the information in the database?")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(deleteDatabaseUrl, {
@@ -24,7 +24,7 @@ function downloadCollections() {
     fetch(listCollection)
         .then(response => {
             if (!response.ok) {
-                throw new Error("Error en la descarga");
+                alert.error("Error while downloading");
             }
             return response.blob(); 
         })
@@ -40,7 +40,7 @@ function downloadCollections() {
         .catch(error => console.error("Error:", error));
 }
 function rebootErcoPulse() {
-    if (confirm("¿Estás seguro de reinir el Erco Pulse")) {
+    if (confirm("Are you sure about restarting the Erco Pulse?")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(reboot, {
@@ -52,7 +52,6 @@ function rebootErcoPulse() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 alert(data.message); 
             })
             .catch(error => console.error("Error:", error));

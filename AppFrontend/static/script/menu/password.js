@@ -14,10 +14,9 @@ async function changePassword(){
      });
 
         const data=await  response.json();
-        console.log(data)
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); 
+            alert("❌ "  + "Validation error"); 
 
         }else{
             alert("✅ " + data.message);
@@ -47,7 +46,7 @@ async function checked() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); 
+            alert("❌ "  + "Validation error"); 
 
         }else{
             alert("✅ " + data.message); 
@@ -82,7 +81,7 @@ async function checkedPassWordLog() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Error en la validación"); 
+            alert("❌ "  + "Validation error"); 
             
 
         }else{
@@ -101,7 +100,7 @@ async function loadFormDataBase() {
     try {
         const response = await fetch(getFormDataBase);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            throw new Error("Error in loading the data");
         }
             const data = await response.json();
 

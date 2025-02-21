@@ -20,4 +20,4 @@ class GetLogsView(View):
                 logs = file.readlines()
             return JsonResponse({"logs": logs})
         else:
-            return JsonResponse({"error": "Archivo de log no encontrado"}, status=404)
+            return JsonResponse({"message": "Log file not found"}, status=404)

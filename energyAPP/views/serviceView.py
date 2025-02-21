@@ -34,10 +34,10 @@ class StartView(generics.RetrieveAPIView):
             started= Menu()
             start = started.start_service()
             if start==True:
-                return Response({'message':'Sistema reiniciado'})
+                return Response({'message':'System restarted'})
             else:
             
-                return Response({'message':'Service enrg-utilitymanager.service is in error'})
+                return Response({'message':'Service FW_main.service is in error'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
@@ -66,10 +66,10 @@ class StopView(generics.RetrieveAPIView):
             stopper= Menu()
             stop = stopper.stop_service()
             if stop==True:
-                return Response({'message':'Parando Sistema'})
+                return Response({'message':'Stopping System'})
             else:
             
-                return Response({'message':'Service enrg-utilitymanager.service is already stopped.'})
+                return Response({'message':'Service FW_main is already stopped.'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
@@ -98,10 +98,10 @@ class Reboot(generics.RetrieveAPIView):
             stopper= Menu()
             stop = stopper.reboot()
             if stop==True:
-                return Response({'message':'Parando Sistema'})
+                return Response({'message':'Reboot System'})
             else:
             
-                return Response({'message':'Service enrg-utilitymanager.service is already stopped.'})
+                return Response({'message':'Service FW_main.service is already stopped.'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
@@ -116,10 +116,8 @@ class StatusService(generics.RetrieveAPIView):
    
         try:
            
-            print("Hola")
             statusService= Menu()
             status_value = statusService.check_service_status()
-            print(status_value)
             if status_value==True:
                 return Response({'active':True})
             elif status_value==False:

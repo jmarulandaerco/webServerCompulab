@@ -4,8 +4,7 @@ function checkServiceStatus() {
         .then(data => {
             const statusCircle = document.getElementById('statusCircle');
             const statusText = document.getElementById('statusText');
-            console.log("Hecho")
-            console.log(data.active)
+
             if (data.active) {
                 statusCircle.classList.remove('inactive');
                 statusCircle.classList.add('active');
@@ -16,10 +15,10 @@ function checkServiceStatus() {
                 statusText.innerText = 'Inactivo';
             }
         })
-        .catch(error => console.error('Error al obtener el estado:', error));
+        .catch(error => console.error('Error when obtaining the status:', error));
 }
 function startService() {
-    if (confirm("¿Estás seguro de iniciar el servicio?, este tardara 30 segundos en iniciar")) {
+    if (confirm("Are you sure you want to start the service?, it will take 30 seconds to start.")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(start, {
@@ -42,7 +41,7 @@ function startService() {
     }
 }
 function stopService() {
-    if (confirm("¿Estás seguro de parar el servicio?")) {
+    if (confirm("Are you sure to stop the service?")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(stop, {
@@ -54,10 +53,9 @@ function stopService() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 alert(data.message);
 
-                if (data.message == "Parando Sistema") {
+                if (!response.ok) {
                     setTimeout(() => {
                         checkServiceStatus(); 
                     }, 2000);

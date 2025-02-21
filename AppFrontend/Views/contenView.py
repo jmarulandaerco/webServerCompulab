@@ -14,7 +14,7 @@ class BaseContentView(TemplateView):
             return render(request, template_name)
         except Exception as e:
             print(e)
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
+            return HttpResponse(f"<h1>{option} - Error loading page</h1>")
 
     def get_template_name(self, option):
         """

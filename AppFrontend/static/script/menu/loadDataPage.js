@@ -4,7 +4,7 @@ function loadContentModbus(option) {
     fetch(`/home/content/form/modbus/${option}/`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                throw new Error(`Error loading content: ${response.statusText}`);
             }
             return response.text();
         })
@@ -14,7 +14,7 @@ function loadContentModbus(option) {
 
         })
         .catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
         });
 }
 
@@ -25,7 +25,7 @@ function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                throw new Error(`Error loading content: ${response.statusText}`);
             }
             return response.text();
         })
@@ -35,15 +35,14 @@ function loadContentMenu(option) {
 
         })
         .catch(error => {
-            console.log('Error al cargar el contenido:', error);
-            document.getElementById("content2").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content2").innerHTML = "<h1>Error loading content</h1>";
         });
 }
 function loadContentSetting(option) {
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                throw new Error(`Error loading content: ${response.statusText}`);
             }
             return response.text();
         })
@@ -52,15 +51,14 @@ function loadContentSetting(option) {
 
         })
         .catch(error => {
-            console.log('Error al cargar el contenido:', error);
-            document.getElementById("content5").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content5").innerHTML = "<h1>Error loading content</h1>";
         });
 }
 function loadContentHttp(option) {
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                throw new Error(`Error loading content: ${response.statusText}`);
             }
             return response.text();
         })
@@ -70,7 +68,7 @@ function loadContentHttp(option) {
 
         })
         .catch(error => {
-            document.getElementById("content4").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content4").innerHTML = "<h1>Error loading content</h1>";
         });
 }
 
@@ -78,7 +76,7 @@ async function loadFormDataSettingLog() {
     try {
         const response = await fetch(getFormDatasettingLog);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            alert.error("Error loading the data");
         }
         const data = await response.json();
         document.getElementById("level").value = data.level;
@@ -103,7 +101,6 @@ async function updateInformationDataSettingLog() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
-        console.log(getFormDataModemChecker)
         const response = await fetch(getFormDatasettingLog, {
             method: "PUT",
             headers: {
@@ -117,7 +114,7 @@ async function updateInformationDataSettingLog() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -136,7 +133,7 @@ async function loadFormDataSettingInterface() {
     try {
         const response = await fetch(getFormDataUrlSettingInterface);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            throw new Error("Error loading data");
         }
         const data = await response.json();
         document.getElementById("interface").value = data.interface;
@@ -167,7 +164,7 @@ async function updateSettingInterface() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -184,7 +181,7 @@ async function loadFormDataSignalChecker() {
     try {
         const response = await fetch(getFormDataSignalChecker);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            throw new Error("Error loading data");
         }
         const data = await response.json();
         document.getElementById("onomondo").value = data.onomondo;
@@ -197,7 +194,7 @@ async function loadFormDataModemChecker() {
     try {
         const response = await fetch(getFormDataModemChecker);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            throw new Error("Error loading data");
         }
         const data = await response.json();
         document.getElementById("connection").value = data.connection;
@@ -210,7 +207,7 @@ async function loadFormDataServerChecker() {
     try {
         const response = await fetch(getFormDataServerChecker);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            throw new Error("Error loading data");
         }
         const data = await response.json();
         document.getElementById("requests").value = data.requests;
@@ -227,8 +224,7 @@ function loadContent(option) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                console.log("Error")
-                throw new Error(`Error al cargar el contenido: ${response.statusText}`);
+                throw new Error(`Error when loading content: ${response.statusText}`);
             }
             return response.text();
         })
@@ -237,7 +233,6 @@ function loadContent(option) {
 
             switch (option) {
                 case "form/compensation-limitation/limitation":
-                    console.log("Hola")
                     loadFormDataLimitation();
                     break;
 
@@ -273,8 +268,7 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-            console.log(error)
-            document.getElementById("content").innerHTML = "<h1>Error al cargar el contenido</h1>";
+            document.getElementById("content").innerHTML = "<h1>Error when loading content</h1>";
         });
 }
 
@@ -320,7 +314,7 @@ async function updateServerSelection() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación");
+            alert("❌ " + "Error in validation");
 
         } else {
             alert("✅ " + data.message); 
@@ -348,8 +342,8 @@ function loadDevices(page) {
             document.getElementById("content3").innerHTML = html;
         })
         .catch(error => {
-            console.error("Error al cargar los dispositivos:", error);
-            document.getElementById("content3").innerHTML = "<p>Error al cargar los dispositivos</p>";
+            console.error("Error while loading devices:", error);
+            document.getElementById("content3").innerHTML = "<p>Error while loading devices</p>";
         });
 }
 
@@ -373,7 +367,7 @@ async function saveChangesEnableDisableDevices() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -427,7 +421,6 @@ async function loadFunction(option) {
             loadAddDevices();
             break;
         case 'modbusSetting':
-            console.log("Holaaas")
             loadFormDataSettingModbus();
             break
         case 'registerDeviceTcp':

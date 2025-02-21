@@ -99,7 +99,5 @@ class UserDetailView(generics.RetrieveAPIView):
             return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         
         except User.DoesNotExist:
-            # print(user)
-            # print(user_id)
-            # print(ObjectId(user_id))
+
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)

@@ -24,10 +24,8 @@ class Menu:
         """Check the status of a systemd service."""
         try:
             result = os.system("systemctl is-active --quiet FW_main.service")
-            print("Este es el resultado")
             exit_code = os.WEXITSTATUS(result)
 
-            print(exit_code)
             if result == 0:
                 return True
             else:
@@ -67,8 +65,6 @@ class Menu:
                 self.execute_command(command)
             else:
                 return False
-
-            # Check the service status after the command has finished
             new_status = self.check_service_status()
             if new_status == True:
                 
@@ -81,7 +77,6 @@ class Menu:
             return False
         
     def change_user_password(self, new_password):
-        # Cambiar la contraseña del usuario 'erco_config'
         try:
             os.system(f"echo 'erco_config:{new_password}' | sudo chpasswd")
             return True
@@ -122,7 +117,6 @@ class Menu:
     def view_modem_info(self):
         """Displays modem, SIM, and signal information in a dialog menu."""
         try:
-            # Verificar si el módem está presente
             if not self.modem.is_modem_present():
                 return "Modem not present."
 
@@ -131,7 +125,6 @@ class Menu:
                 shell=True,
                 text=True,
             ).strip()
-            # Verificar si la SIM está presente
             sim_info = None
             if self.modem.is_sim_present():
                 sim_info = self.modem.get_sim_info()
@@ -141,18 +134,15 @@ class Menu:
                 
                 return "SIM not present."
 
-            # Verificar si el módem está conectado
             if not self.modem.is_modem_connected():
                 
                 return "Modem is present but not connected to a network."
 
-            # Obtener calidad de la señal
             signal_quality = self.modem.get_signal_quality()
             if not signal_quality:
                 
                 return "Unable to retrieve signal quality information."
 
-            # Mostrar la información del SIM y señal en un cuadro de diálogo
             iccid, operator_id, operator_name = sim_info
             sim_info_text = (
                 f"SIM Information:\n"
@@ -168,7 +158,6 @@ class Menu:
                 f"RSSI: {signal_quality.RSSI} dBm\n"
             )
 
-            # Mostrar un cuadro de diálogo con toda la información
             return  f"{sim_info_text}\n{signal_info_text}"
             
         except Exception as e:
@@ -208,26 +197,22 @@ class Menu:
     
     
     def create_user_if_not_exists(self, username, password):
-        # Verificar si el usuario ya existe
         if not User.objects.filter(username=username).exists():
             user = User.objects.create_user(username=username, password=password)
-            print(f"✅ Usuario '{username}' creado correctamente.")
+            print(f"✅ User '{username}' creater correct.")
         else:
-            print(f"⚠️ El usuario '{username}' ya existe.")
+            print(f"⚠️ The user '{username}' already exist.")
             
     def setup_folder_path(self):
         try:
             folders_devices=[]
             choices=[]
             path_modbus = "/FW/Modbus/modbusmaps"
-            print("Locurita")
             print(path_modbus)
             if os.path.exists(path_modbus):
-                print("existe")
                 folders_devices = [name for name in os.listdir(path_modbus) if os.path.isdir(os.path.join(path_modbus, name))]
                 
             if folders_devices:
-                print("No hay nada")
                 choices=[(str(i + 1), folder)
                         for i, folder in enumerate(folders_devices)],
                 

@@ -6,7 +6,6 @@ async function updateInformationDatabase() {
     const date = document.getElementById("date").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
     try {
-        console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataBase, {
             method: "PUT",
             headers: {
@@ -20,7 +19,7 @@ async function updateInformationDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -38,7 +37,7 @@ async function loadFormDataSettingDatabase() {
     try {
         const response = await fetch(getFormDataUrlSettingDatabase);
         if (!response.ok) {
-            alert.error("Error al cargar los datos");
+            alert.error("Error loading data");
         }
         const data = await response.json();
         document.getElementById("day").value = data.day;
@@ -56,7 +55,6 @@ async function updateSettingDatabase() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
-        console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataUrlSettingDatabase, {
             method: "PUT",
             headers: {
@@ -70,7 +68,7 @@ async function updateSettingDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 

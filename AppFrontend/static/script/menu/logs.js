@@ -1,5 +1,5 @@
 function deletelog() {
-    if (confirm("¿Estás seguro de borrar los logs?")) {
+    if (confirm("Are you sure to delete logs?")) {
         const token = localStorage.getItem("access_token");
 
         fetch(deleteLog, {
@@ -33,9 +33,9 @@ async function fetchLogs() {
                 .map(line => `<div class="log-line">${line}</div>`)
                 .join("");
         } else {
-            logContainer.innerText = "No se encontraron logs.";
+            logContainer.innerText = "No logs found.";
         }
     } catch (error) {
-        console.error("Error obteniendo los logs:", error);
+        console.error("Error retrieving logs:", error);
     }
 }

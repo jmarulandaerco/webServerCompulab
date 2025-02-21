@@ -32,7 +32,7 @@ class MeasureView(View):
             data = json.loads(request.body)
            
             if any(value is None or value == '' for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
             
             zone = data.get("zone")
@@ -57,14 +57,14 @@ class MeasureView(View):
               
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataServer(View):
     def get(self, request):
@@ -87,7 +87,7 @@ class FormDataServer(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
             
             server = data.get("server")
@@ -112,14 +112,14 @@ class FormDataServer(View):
                                 )
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataModes(View):
     def get(self, request):
@@ -144,7 +144,7 @@ class FormDataModes(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
             
             mode = data.get("mode")
@@ -192,14 +192,14 @@ class FormDataModes(View):
                             )
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 class FormDataSettingDataBase(View):
     def get(self, request):
         try:
@@ -219,7 +219,7 @@ class FormDataSettingDataBase(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
             
             day = data.get("day")
@@ -239,10 +239,10 @@ class FormDataSettingDataBase(View):
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataSettingInterface(View):
     def get(self, request):
@@ -262,7 +262,7 @@ class FormDataSettingInterface(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data.s"}, status=400)
             
             
             interface = data.get("interface")
@@ -284,14 +284,14 @@ class FormDataSettingInterface(View):
                                 
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error while updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 class FormDataLimitation(View):
     def get(self, request):
         try:
@@ -318,7 +318,7 @@ class FormDataLimitation(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
                         
                         
             selectedValue = data.get("selectedValue")
@@ -348,14 +348,14 @@ class FormDataLimitation(View):
            
             with open(list_path_menu[4], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataCompensation(View):
     def get(self, request):
@@ -384,7 +384,7 @@ class FormDataCompensation(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
                         
             
             selectedValue = data.get("selectedValue")
@@ -436,14 +436,14 @@ class FormDataCompensation(View):
             config.set("Reactive", "pf_min", factor)
             with open(list_path_menu[5], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataBasePropierties(View):
     def get(self, request):
@@ -467,7 +467,7 @@ class FormDataBasePropierties(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
             
             host = data.get("host")
@@ -484,14 +484,14 @@ class FormDataBasePropierties(View):
             
             with open(list_path_menu[1], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 
 class FormDataSettingLogs(View):
@@ -518,7 +518,7 @@ class FormDataSettingLogs(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
             
             level = data.get("level")
@@ -539,14 +539,14 @@ class FormDataSettingLogs(View):
             config.set("DEFAULT", "backup_count", backup)
             with open(list_path_menu[0], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Invalid data: one or more records contain invalid or null data, {e}"}, status=400) 
 
 
 
@@ -569,7 +569,7 @@ class FormDataModemChecker(View):
             data = json.loads(request.body)
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
 
             connection = data.get("connection")
@@ -583,14 +583,14 @@ class FormDataModemChecker(View):
             
             with open(list_path_menu[3], "w") as configfileChecked:
                config.write(configfileChecked)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 class FormDataSignalChecker(View):
     def get(self, request):
         try:
@@ -610,7 +610,7 @@ class FormDataSignalChecker(View):
             data = json.loads(request.body)
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
             
             onomondo = data.get("onomondo")
@@ -623,14 +623,14 @@ class FormDataSignalChecker(View):
                             )
             with open(list_path_menu[3], "w") as configfile:
                config.write(configfile)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400)
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
 
     
 class FormDataServerChecker(View):
@@ -652,7 +652,7 @@ class FormDataServerChecker(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
             
             requests = data.get("requests")
@@ -661,13 +661,13 @@ class FormDataServerChecker(View):
                             )
             with open(list_path_menu[3], "w") as configfile:
                config.write(configfile)
-            return JsonResponse({"message": "Datos actualizados"}, status=200)
+            return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
             
-            return JsonResponse({"message": "Error al actualizar los datos"}, status=400)    
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
             print(e)
-            return JsonResponse({"message": f"Error al actualizar los datos, {e}"}, status=400)
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
         
         

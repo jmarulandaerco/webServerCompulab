@@ -3,7 +3,6 @@ async function updateModemChecker() {
     const attemts = document.getElementById("attemts").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
     try {
-        console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataModemChecker, {
             method: "PUT",
             headers: {
@@ -17,7 +16,7 @@ async function updateModemChecker() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message);
@@ -36,7 +35,6 @@ async function updateModemSignal() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
-        console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataSignalChecker, {
             method: "PUT",
             headers: {
@@ -50,7 +48,7 @@ async function updateModemSignal() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message);
@@ -68,7 +66,6 @@ async function updateModemServer() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
-        console.log(getFormDataModemChecker)
         const response =  await fetch(getFormDataServerChecker, {
             method: "PUT",
             headers: {
@@ -82,7 +79,7 @@ async function updateModemServer() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error in validation"); 
 
         } else {
             alert("✅ " + data.message); 

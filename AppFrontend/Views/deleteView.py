@@ -22,7 +22,7 @@ class DeleteCollectionView(APIView):
             User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
             User.objects.create_user(username="erco_config", password="3rc04dm1n#t0")
 
-            return JsonResponse({"status": "success", "message": "Todas las colecciones han sido eliminadas."}, status=status.HTTP_200_OK)
+            return JsonResponse({"status": "success", "message": "All collections have been deleted."}, status=status.HTTP_200_OK)
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
@@ -31,6 +31,6 @@ class DeleteLog(APIView):
         try:
             menu = Menu()
             menu.delete_log()
-            return JsonResponse({"message":"Logs eliminados"},status=200)
+            return JsonResponse({"message":"Logs deleted"},status=200)
         except Exception as e:
-            return JsonResponse({"message":"Error al eliminar"}, status=400)
+            return JsonResponse({"message":"Error when deleting"}, status=400)

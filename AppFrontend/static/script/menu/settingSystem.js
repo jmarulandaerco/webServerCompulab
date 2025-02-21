@@ -17,7 +17,7 @@ async function interfaceEthernetOne() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Validation error"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -48,7 +48,7 @@ async function interfaceEthernetTwo() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación");
+            alert("❌ " + "Validation error");
 
         } else {
             alert("✅ " + data.message); 
@@ -82,7 +82,7 @@ async function addWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Validation error"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -109,7 +109,7 @@ async function antennaWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Validation error"); 
 
         } else {
             alert("✅ " + data.message); 
@@ -140,5 +140,5 @@ headers: {
     alert(data.message)
 
 })
-.catch(error => { console.error("Error:", error); console.log(response) });
+.catch(error => { console.error("Error:", error);  });
 }

@@ -12,7 +12,7 @@ class InterfaceConnection(APIView):
             ip = data.get("ip")
             gateway = data.get("gateway")
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
            
 
             command = f"sudo nmcli con mod '{connection_name}' ipv4.addresses '{ip}'"
@@ -21,8 +21,7 @@ class InterfaceConnection(APIView):
             command += " ipv4.method 'manual'"
 
             os.system(command)
-            print(command)
-            return JsonResponse({"message": "Configuración aplicada correctamente"}, status=200)
+            return JsonResponse({"message": "Configuration correctly applied"}, status=200)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
 
@@ -46,7 +45,7 @@ class AddWifi(APIView):
             name = data.get("name")
             menu = Menu()
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
             
             response = menu.add_wifi(ssid=ssid,password=password,connection_name=name)
