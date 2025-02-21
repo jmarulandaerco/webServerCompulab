@@ -119,7 +119,6 @@
 
 <script>
     const token = localStorage.getItem('access_token');
-    checkServiceStatus()
 
     if (!token) {
         alert('No se encontró el token. Redirigiendo al login...');
@@ -146,7 +145,6 @@
 </script>
 <script>
 
-    checkServiceStatus()
     loadContent('mainMenu');
 
 </script>

@@ -116,6 +116,7 @@ class StatusService(generics.RetrieveAPIView):
    
         try:
            
+            print("Hola")
             statusService= Menu()
             status_value = statusService.check_service_status()
             print(status_value)
@@ -125,7 +126,7 @@ class StatusService(generics.RetrieveAPIView):
                 
                 return Response({'active':False})
             else:
-                return Response({'active':False})
+                return Response({'active':True})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)

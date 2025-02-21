@@ -17,13 +17,10 @@
     </div>
 </div>
 <script>
-    const statusService = "{% url 'status_service' %}";
 </script>
 <script src="{% static 'script/menu/service.js' %}"></script>
 
 <script>
-    checkServiceStatus()
-    checkServiceStatus()
 
     document.getElementById('logoutBtn').addEventListener('click', function () {
         localStorage.removeItem('access_token');
