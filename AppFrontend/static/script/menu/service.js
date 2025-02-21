@@ -83,6 +83,10 @@ function startProgressBar() {
 
         if (percentage < 100) {
             requestAnimationFrame(updateProgress);
+        }else {
+            setTimeout(() => {
+                progressContainer.style.display = "none";
+            }, 500); 
         }
     }
 
