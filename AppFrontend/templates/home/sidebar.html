@@ -121,7 +121,7 @@
     const token = localStorage.getItem('access_token');
 
     if (!token) {
-        alert('No se encontró el token. Redirigiendo al login...');
+        alert('Token not found. Redirecting to login...');
         window.location.href = "{% url 'index' %}";
     } 
 
