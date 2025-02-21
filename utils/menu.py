@@ -31,6 +31,7 @@ class Menu:
             else:
                 return False
         except Exception as e:
+            print(e)
             return False
 
     def execute_command(self, command: str) :
