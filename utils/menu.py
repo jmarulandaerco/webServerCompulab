@@ -60,10 +60,10 @@ class Menu:
         status = self.check_service_status()
         try:
             if status == True:
-                command = "sudo systemctl restart enrg-utilitymanager.service"
+                command = "sudo systemctl restart FW_main.service"
                 self.execute_command(command)
             elif status == False:
-                command = "sudo systemctl start enrg-utilitymanager.service"
+                command = "sudo systemctl start FW_main.service"
                 self.execute_command(command)
             else:
                 return False
@@ -106,7 +106,7 @@ class Menu:
             return False
 
         try:
-            os.system("sudo systemctl stop enrg-utilitymanager.service")
+            os.system("sudo systemctl stop FW_main.service")
             return True
 
         except Exception as e:
