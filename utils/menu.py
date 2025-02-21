@@ -23,7 +23,7 @@ class Menu:
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
-            result = os.system("systemctl is-active --quiet enrg-utilitymanager.service")
+            result = os.system("systemctl is-active --quiet FW_main.service")
             print("Este es el resultado")
             exit_code = os.WEXITSTATUS(result)
 
