@@ -57,3 +57,71 @@ class ContentViewMenuModbus(TemplateView):
             
             return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
         
+class ContentViewMenuCompensationLimitation(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if 'option' in kwargs:
+            return self.get_content(request, kwargs['option'])
+        return super().get(request, *args, **kwargs)
+
+    def get_content(self, request, option):
+        template_name = f'home/content/form/compensation_limitatation/{option}.html'
+        print(f"Intentando renderizar: {template_name}")  # Depuración
+        try:
+            return render(request, template_name)
+        except Exception as e:
+            print(e)
+            
+            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
+        
+class ContentViewMenuDatabase(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if 'option' in kwargs:
+            return self.get_content(request, kwargs['option'])
+        return super().get(request, *args, **kwargs)
+
+    def get_content(self, request, option):
+        template_name = f'home/content/form/database/{option}.html'
+        print(f"Intentando renderizar: {template_name}")  # Depuración
+        try:
+            return render(request, template_name)
+        except Exception as e:
+            print(e)
+            
+            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
+        
+class ContentViewMenuChecker(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if 'option' in kwargs:
+            return self.get_content(request, kwargs['option'])
+        return super().get(request, *args, **kwargs)
+
+    def get_content(self, request, option):
+        template_name = f'home/content/form/checker/{option}.html'
+        print(f"Intentando renderizar: {template_name}")  # Depuración
+        try:
+            return render(request, template_name)
+        except Exception as e:
+            print(e)
+            
+            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
+        
+class ContentViewMenuSetting(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if 'option' in kwargs:
+            return self.get_content(request, kwargs['option'])
+        return super().get(request, *args, **kwargs)
+
+    def get_content(self, request, option):
+        template_name = f'home/content/form/setting/{option}.html'
+        print(f"Intentando renderizar: {template_name}")  # Depuración
+        try:
+            return render(request, template_name)
+        except Exception as e:
+            print(e)
+            
+            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
+        

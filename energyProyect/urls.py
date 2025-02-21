@@ -2,7 +2,7 @@ from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView) 
 from django.urls import path
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
-from AppFrontend.Views.contenView import ContentView, ContentViewMenuMain, ContentViewMenuModbus
+from AppFrontend.Views.contenView import ContentView, ContentViewMenuChecker, ContentViewMenuCompensationLimitation, ContentViewMenuDatabase, ContentViewMenuMain, ContentViewMenuModbus, ContentViewMenuSetting
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceConnection
@@ -23,6 +23,10 @@ urlpatterns = [
     path('home/content/<str:option>/', ContentView.as_view(), name='get_content'),
     path('home/content/form/<str:option>/', ContentViewMenuMain.as_view(), name='get_content_form_modbus_menu'),
     path('home/content/form/modbus/<str:option>/', ContentViewMenuModbus.as_view(), name='get_content_form_menu_modbus'),
+    path('home/content/form/compensation-limitation/<str:option>/', ContentViewMenuCompensationLimitation.as_view(), name='get_content_form_compensation-limitation'),
+    path('home/content/form/database/<str:option>/', ContentViewMenuDatabase.as_view(), name='get_content_form_database'),
+    path('home/content/form/checker/<str:option>/', ContentViewMenuChecker.as_view(), name='get_content_form_checker'),
+    path('home/content/form/setting/<str:option>/', ContentViewMenuSetting.as_view(), name='get_content_form_checker'),
 
     path('user/', UserDetailView.as_view(), name='user'),
     path('user/<str:user_id>/', UserDetailView.as_view(), name='user-detail'),

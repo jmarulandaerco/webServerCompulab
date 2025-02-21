@@ -40,7 +40,7 @@ function loadContentMenu(option) {
         });
 }
 function loadContentSetting(option) {
-    fetch(`/home/content/form/${option}/`)
+    fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error al cargar el contenido: ${response.statusText}`);
@@ -57,7 +57,7 @@ function loadContentSetting(option) {
         });
 }
 function loadContentHttp(option) {
-    fetch(`/home/content/form/${option}/`)
+    fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error al cargar el contenido: ${response.statusText}`);
