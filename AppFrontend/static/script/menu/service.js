@@ -20,7 +20,7 @@ function checkServiceStatus() {
 function startService() {
     if (confirm("Are you sure you want to start the service?, it will take 30 seconds to start.")) {
         const token = localStorage.getItem("access_token"); 
-
+        startProgressBar();
         fetch(start, {
             method: "GET",
             headers: {
@@ -63,4 +63,28 @@ function stopService() {
             })
             .catch(error => console.error("Error:", error));
     }
+}
+
+function startProgressBar() {
+    let progressBar = document.getElementById("progressBar");
+    let progressContainer = document.getElementById("progressBarContainer");
+
+    progressContainer.style.display = "block"; // Mostrar la barra
+    progressBar.style.width = "0%"; // Resetear
+
+    let startTime = Date.now();
+    let duration = 30000; // 30 segundos
+
+    function updateProgress() {
+        let elapsedTime = Date.now() - startTime;
+        let percentage = (elapsedTime / duration) * 100;
+
+        progressBar.style.width = percentage + "%";
+
+        if (percentage < 100) {
+            requestAnimationFrame(updateProgress);
+        }
+    }
+
+    requestAnimationFrame(updateProgress);
 }

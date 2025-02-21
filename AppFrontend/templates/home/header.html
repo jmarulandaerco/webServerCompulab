@@ -1,4 +1,4 @@
-<div id="header">
+<div id="header"> 
     {% load static %}
 
     <div class="header-content">
@@ -15,17 +15,19 @@
             <img src="{% static 'images/logout.svg' %}" alt="Logout" width="40px" height="40px">
         </button>
     </div>
+
+    <!-- Barra de carga -->
+    <div id="progressBarContainer" style="display: none; width: 100%; background: #ddd; height: 5px; margin-top: 10px;">
+        <div id="progressBar" style="width: 0%; height: 100%; background: #4caf50;"></div>
+    </div>
 </div>
-<script>
-</script>
+
 <script src="{% static 'script/menu/service.js' %}"></script>
 
 <script>
-
     document.getElementById('logoutBtn').addEventListener('click', function () {
         localStorage.removeItem('access_token');
         window.location.href = "{% url 'index' %}";  
     });
-
 
 </script>
