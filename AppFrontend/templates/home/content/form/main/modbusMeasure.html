@@ -1,8 +1,8 @@
 {% load static %}
 
-<div class="form-container form-wrapper" >
+<div class="form-container form-wrapper">
 
-    <form id="myForm" method="post" onsubmit="updateMeasureModbus()">
+    <form id="myForm" method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="zone">Timezone:</label>
@@ -24,7 +24,7 @@
             <input type="text" id="stop" name="stop" required>
         </div>
 
-        <button class="buttonClass" type="submit" >Guardar</button>
+        <button class="buttonClass" type="button" onclick="updateMeasureModbus()">Guardar</button>
     </form>
 </div>
 

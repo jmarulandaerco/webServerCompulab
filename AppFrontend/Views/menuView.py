@@ -30,6 +30,8 @@ class MeasureView(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
+            print("Holla")
+            print(data.values())
             if any(value is None or value == "" for value in data.values()):
                 JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             

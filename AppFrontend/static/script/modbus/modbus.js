@@ -187,7 +187,6 @@ async function updateMeasureModbus() {
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
 
     try {
-        console.log(getFormDataModemChecker)
         const response = await fetch(getFormDataUrl, {
             method: "PUT",
             headers: {
