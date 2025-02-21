@@ -5,6 +5,7 @@ function checkServiceStatus() {
             const statusCircle = document.getElementById('statusCircle');
             const statusText = document.getElementById('statusText');
             console.log("Hecho")
+            console.log(data.active)
             if (data.active) {
                 statusCircle.classList.remove('inactive');
                 statusCircle.classList.add('active');
