@@ -53,13 +53,13 @@ function stopService() {
         })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);
+             alert(data.message);
 
-                if (response.ok) {
+                
                     setTimeout(() => {
                         checkServiceStatus(); 
                     }, 2000);
-                }
+                
             })
             .catch(error => console.error("Error:", error));
     }
