@@ -19,7 +19,7 @@ function checkServiceStatus() {
         .catch(error => console.error('Error al obtener el estado:', error));
 }
 function startService() {
-    if (confirm("¿Estás seguro de iniciar el servicio?")) {
+    if (confirm("¿Estás seguro de iniciar el servicio?, este tardara 30 segundos en iniciar")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(start, {
@@ -31,16 +31,11 @@ function startService() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
 
 
 
                 alert(data.message);
-                if (data.message == "Reiniciando sistema, espera 30 segundos  por favor") {
-                    setTimeout(() => {
-                        checkServiceStatus();
-                    }, 20000);
-                }
+                checkServiceStatus();
 
             })
             .catch(error => console.error("Error:", error));
