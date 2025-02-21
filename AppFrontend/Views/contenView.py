@@ -1,119 +1,51 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-import os
+from django.http import HttpResponse
 from django.views.generic import TemplateView
-from django.conf import settings
 
-class ContentView(TemplateView):
-
+class BaseContentView(TemplateView):
     def get(self, request, *args, **kwargs):
         if 'option' in kwargs:
             return self.get_content(request, kwargs['option'])
         return super().get(request, *args, **kwargs)
 
     def get_content(self, request, option):
-        template_name = f'home/content/{option}.html'
-
-        try:
-            return render(request, template_name)
-        except:
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
-
-class ContentViewMenuMain(TemplateView):
-
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
-
-    def get_content(self, request, option):
-        template_name = f'home/content/form/main/{option}.html'
+        template_name = self.get_template_name(option)
         try:
             return render(request, template_name)
         except Exception as e:
             print(e)
-            
             return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
 
-class ContentViewMenuModbus(TemplateView):
+    def get_template_name(self, option):
+        """
+        Método abstracto que debe ser implementado por las subclases
+        para definir la ruta de la plantilla correspondiente.
+        """
+        raise NotImplementedError("Subclases deben implementar este método.")
+class ContentView(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/{option}.html'
 
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
+class ContentViewMenuMain(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/main/{option}.html'
 
-    def get_content(self, request, option):
-        template_name = f'home/content/form/modbus/{option}.html'
-        try:
-            return render(request, template_name)
-        except Exception as e:
-            print(e)
-            
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
-class ContentViewMenuCompensationLimitation(TemplateView):
+class ContentViewMenuModbus(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/modbus/{option}.html'
 
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
+class ContentViewMenuCompensationLimitation(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/compensation_limitatation/{option}.html'
 
-    def get_content(self, request, option):
-        template_name = f'home/content/form/compensation_limitatation/{option}.html'
-        try:
-            return render(request, template_name)
-        except Exception as e:
-            print(e)
-            
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
-class ContentViewMenuDatabase(TemplateView):
+class ContentViewMenuDatabase(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/database/{option}.html'
 
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
+class ContentViewMenuChecker(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/checker/{option}.html'
 
-    def get_content(self, request, option):
-        template_name = f'home/content/form/database/{option}.html'
-        try:
-            return render(request, template_name)
-        except Exception as e:
-            print(e)
-            
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
-class ContentViewMenuChecker(TemplateView):
-
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
-
-    def get_content(self, request, option):
-        template_name = f'home/content/form/checker/{option}.html'
-        try:
-            return render(request, template_name)
-        except Exception as e:
-            print(e)
-            
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
-class ContentViewMenuSetting(TemplateView):
-
-    def get(self, request, *args, **kwargs):
-        if 'option' in kwargs:
-            return self.get_content(request, kwargs['option'])
-        return super().get(request, *args, **kwargs)
-
-    def get_content(self, request, option):
-        template_name = f'home/content/form/setting/{option}.html'
-        try:
-            return render(request, template_name)
-        except Exception as e:
-            print(e)
-            
-            return HttpResponse(f"<h1>{option} - Página en construcción</h1>")
-        
+class ContentViewMenuSetting(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/setting/{option}.html'

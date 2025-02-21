@@ -6,7 +6,7 @@
     <form id="deviceForm">
         {% csrf_token %}
 
-        <h3>Selecciona El dispositivo a eliminar:</h3>
+        <h3>Selecciona el dispositivo a eliminar:</h3>
         <div id="deviceList">
             {% for device in listDevices %}
                 <button type="button" class="device-button" onclick="deleteDevice('{{ device }}')">
