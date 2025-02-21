@@ -46,7 +46,6 @@ class ContentViewMenuModbus(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/modbus/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:
@@ -63,7 +62,6 @@ class ContentViewMenuCompensationLimitation(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/compensation_limitatation/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:
@@ -80,7 +78,6 @@ class ContentViewMenuDatabase(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/database/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:
@@ -97,7 +94,6 @@ class ContentViewMenuChecker(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/checker/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:
@@ -114,7 +110,6 @@ class ContentViewMenuSetting(TemplateView):
 
     def get_content(self, request, option):
         template_name = f'home/content/form/setting/{option}.html'
-        print(f"Intentando renderizar: {template_name}")  # Depuración
         try:
             return render(request, template_name)
         except Exception as e:

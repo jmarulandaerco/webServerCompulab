@@ -28,18 +28,12 @@ class FormModbusView(View):
         except Exception as ex:
             return JsonResponse({"message": f"Error al actualizar los datos, {ex}"}, status=400)
 
-        
-        
-        
-        
-        
-    
     def put(self, request):
         try:
             config.read(list_path_menu[2])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             config.set('Default', 'log_debug', str(data.get("log_debug")))
@@ -97,7 +91,7 @@ class FormModbusDevicesView(View):
             devices = data.get("selectedDevices")
             
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             
@@ -126,12 +120,12 @@ class FormModbusGetDevicesView(APIView):
         except Exception as ex:
             return JsonResponse({"message": f"Error al obtener los datos, {ex}"}, status=400) 
 
-    @csrf_exempt  # Esto desactiva la verificación CSRF para esta vista
+    @csrf_exempt 
     def post(self,request):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             url =data.get("selectedValue")
@@ -149,36 +143,29 @@ class FormModbusGetDevicesView(APIView):
     @csrf_exempt
     def delete(self, request):
         try:
-            # Leer el archivo de configuración
             config.read(list_path_menu[2])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
          
             
             filename = data.get("device")
 
-            # Obtener la lista de dispositivos habilitados
             enabled_devices = config.get("Default", "devices_config", fallback="").split(",")
 
-            # Limpiar espacios en blanco y eliminar entradas vacías
             enabled_devices = [dev.strip() for dev in enabled_devices if dev.strip()]
 
             if filename  in enabled_devices:
                
 
-                # Eliminar el dispositivo de la lista
                 enabled_devices.remove(filename)
 
-                # Actualizar la lista de dispositivos en la sección 'Default'
                 new_list_devices = ','.join(enabled_devices)
                 config.set('Default', 'devices_config', new_list_devices)
 
-            # Eliminar la sección correspondiente al dispositivo
             if config.has_section(filename):
                 config.remove_section(filename)
 
-            # Guardar los cambios en el archivo de configuración
             with open(list_path_menu[2], 'w') as configfile:
                 config.write(configfile)
 
@@ -191,7 +178,7 @@ class FormModbusAddDeviceRtu(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             config.read(list_path_menu[2])
@@ -243,23 +230,18 @@ class FormModbusAddDeviceRtu(View):
     
     def put(self, request):
         try:
-            # Cargar el archivo de configuración existente
             config.read(list_path_menu[2])
 
-            # Analizar los datos JSON de la solicitud
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
-            # Construir el nombre de la sección que deseas actualizar
             nombre_seccion = f"Modbus-RTU-{data.get('nameDevice')}"
 
-            # Verificar si la sección existe
             if not config.has_section(nombre_seccion):
                 return JsonResponse({"message": f"Error: el dispositivo '{nombre_seccion}' no existe"}, status=400)
 
-            # Actualizar las opciones de la sección existente
             config.set(nombre_seccion, "serial_port", str(data.get("portDevice")))
             config.set(nombre_seccion, "baudrate", str(data.get("baudrate")))
             config.set(nombre_seccion, "slave_id_start", str(data.get("initial")))
@@ -276,7 +258,6 @@ class FormModbusAddDeviceRtu(View):
             config.set(nombre_seccion, "send_server", str(data.get("server_send")))
             config.set(nombre_seccion, "attempts_wait", "0")
 
-            # Guardar los cambios en el archivo de configuración
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
 
@@ -293,7 +274,7 @@ class FormModbusAddDeviceTcp(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             config.read(list_path_menu[2])
@@ -317,7 +298,6 @@ class FormModbusAddDeviceTcp(View):
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
             
-            print("/FW/Modbus/modbusmaps/{}/{}".format(str(data.get("modbus_map_folder")), str(data.get("modbus_map_json"))))
             attempts_wait=0
             if int(data.get("offset")) > 0:
                     attempts_wait = 0.2
@@ -355,21 +335,17 @@ class FormModbusAddDeviceTcp(View):
             data = json.loads(request.body)
             config.read(list_path_menu[2])
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
-            # Construir el nombre del dispositivo
             device_name = f"Modbus-TCP-{data.get('nameDevice')}"
 
-            # Verificar si la sección del dispositivo existe
             if not config.has_section(device_name):
                 return JsonResponse({"message": f"Error: el dispositivo '{device_name}' no existe"}, status=400)
 
-            # Calcular 'attempts_wait' basado en 'offset'
             offset = int(data.get("offset", 0))
             attempts_wait = 0.2 if offset > 0 else 0
 
-            # Actualizar los valores de la sección del dispositivo
             config.set(device_name, "host_ip", str(data.get("ip_device")))
             config.set(device_name, "port_ip", str(data.get("port_device")))
             config.set(device_name, "slave_id_start", str(data.get("initial")))
@@ -386,7 +362,6 @@ class FormModbusAddDeviceTcp(View):
             config.set(device_name, "send_server", str(data.get("server_send")))
             config.set(device_name, "attempts_wait", str(attempts_wait))
 
-            # Guardar los cambios en el archivo de configuración
             with open(list_path_menu[2], "w") as configfile:
                 config.write(configfile)
 
@@ -399,26 +374,20 @@ class FormModbusDeviceRtuView(View):
     def get(self, request):
         try:
             device_param = request.GET.get('device', '')  
-            # Validar que el parámetro no está vacío
             if not device_param:
                 return JsonResponse({"message": "El parámetro 'device' es requerido."}, status=400)
 
-            # Crear y leer el archivo de configuración
             config.read(list_path_menu[2])
 
-            # Verificar si la sección existe
             if device_param not in config:
                 return JsonResponse({"message": f"La sección '{device_param}' no existe en la configuración."}, status=400)
 
-            # Obtener datos de la sección de configuración
             data = config[device_param]
-            # Ruta del archivo Modbus
             path = str(data.get("modbus_map_file", ""))
             parts = path.split("/")
-            map_folder = parts[-2]  # "HUAWEI"
-            map_json = parts[-1]    # "HUAWEI_INV.json"
+            map_folder = parts[-2]  
+            map_json = parts[-1]    
 
-            # Crear diccionario con la información
 
             data.get("device_type", "")
  

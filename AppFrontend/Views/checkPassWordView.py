@@ -10,7 +10,7 @@ class CheckPassword(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
                         
             
             password = data.get("password")
@@ -22,9 +22,8 @@ class CheckPassword(View):
             if password != confirm_password:
                 return JsonResponse({"error": "Las contraseñas no coinciden"}, status=400)
 
-            # Verificar la contraseña en la base de datos
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password(password):  # <- Pasar el argumento correcto
+            if not passwordDatabase.check_password(password): 
                 return JsonResponse({"error": "La contraseña ingresada no es válida"}, status=400)
 
             return JsonResponse({"message": "Las contraseñas coinciden"}, status=200)
@@ -38,7 +37,7 @@ class ChangePassword(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             password = data.get("actualPassword")
@@ -48,9 +47,8 @@ class ChangePassword(View):
                 return JsonResponse({"error": "Se requieren ambos campos"}, status=400)
 
         
-            # Verificar la contraseña en la base de datos
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password(password):  # <- Pasar el argumento correcto
+            if not passwordDatabase.check_password(password):  
                 return JsonResponse({"error": "La contraseña ingresada no es válida"}, status=400)
             
             menu = Menu()

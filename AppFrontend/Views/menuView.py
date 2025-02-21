@@ -30,8 +30,7 @@ class MeasureView(View):
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
-            print("Holla")
-            print(data.values())
+           
             if any(value is None or value == '' for value in data.values()):
                 return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
@@ -88,7 +87,7 @@ class FormDataServer(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             server = data.get("server")
@@ -145,7 +144,7 @@ class FormDataModes(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             mode = data.get("mode")
@@ -220,7 +219,7 @@ class FormDataSettingDataBase(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             day = data.get("day")
@@ -263,7 +262,7 @@ class FormDataSettingInterface(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             interface = data.get("interface")
@@ -319,7 +318,7 @@ class FormDataLimitation(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
                         
                         
             selectedValue = data.get("selectedValue")
@@ -385,7 +384,7 @@ class FormDataCompensation(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                            JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
                         
             
             selectedValue = data.get("selectedValue")
@@ -468,7 +467,7 @@ class FormDataBasePropierties(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             host = data.get("host")
@@ -519,7 +518,7 @@ class FormDataSettingLogs(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             level = data.get("level")
@@ -570,7 +569,7 @@ class FormDataModemChecker(View):
             data = json.loads(request.body)
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
 
             connection = data.get("connection")
@@ -611,7 +610,7 @@ class FormDataSignalChecker(View):
             data = json.loads(request.body)
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             onomondo = data.get("onomondo")
@@ -653,7 +652,7 @@ class FormDataServerChecker(View):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             requests = data.get("requests")
