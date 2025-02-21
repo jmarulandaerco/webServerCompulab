@@ -423,7 +423,7 @@ class FormModbusDeviceRtuView(View):
                 }
             else:
                 print("123")
-                print(data.get("device_type", ""))
+                print(data.get("modbus_mode", ""))
                 information = {
                     "nameTcp": device_param.replace("Modbus-TCP-", ""),
                     "ip_device_tcp": data.get("host_ip", ""),

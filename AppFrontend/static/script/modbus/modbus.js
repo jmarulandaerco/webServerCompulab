@@ -489,8 +489,8 @@ async function ModifyOption(device) {
             console.log("Cargue segundo")
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_tcp;
             loadAddDevicesUpdateDeviceRtu(dataRtu.modbus_map_folder_rtu)
-            document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
-            document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_map_json_tcp;
+            document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
+            document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
             document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
             document.getElementById("save_db_tcp").value = dataRtu.save_db_tcp;
             document.getElementById("server_send_tcp").value = dataRtu.server_send_tcp;
