@@ -55,7 +55,7 @@ function stopService() {
             .then(data => {
                 alert(data.message);
 
-                if (!response.ok) {
+                if (response.ok) {
                     setTimeout(() => {
                         checkServiceStatus(); 
                     }, 2000);
