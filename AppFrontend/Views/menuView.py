@@ -32,8 +32,8 @@ class MeasureView(View):
             data = json.loads(request.body)
             print("Holla")
             print(data.values())
-            if any(value is None or value == "" for value in data.values()):
-                JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
+            if any(value is None or value == '' for value in data.values()):
+                return JsonResponse({"message": "Datos inválidos: uno o mas registros contiene datos invalidos o nulos"}, status=400)
             
             
             zone = data.get("zone")
