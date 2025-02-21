@@ -24,6 +24,8 @@ class Menu:
         """Check the status of a systemd service."""
         try:
             result = os.system("systemctl is-active --quiet enrg-utilitymanager.service")
+            print("Este es el resultado")
+            print(result)
             if result == 0:
                 return True
             else:
