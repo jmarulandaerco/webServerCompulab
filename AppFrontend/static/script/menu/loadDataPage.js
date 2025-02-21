@@ -239,6 +239,7 @@ function loadContent(option) {
 
             switch (option) {
                 case "form/compensation-limitation/limitation":
+                    console.log("Hola")
                     loadFormDataLimitation();
                     break;
 
