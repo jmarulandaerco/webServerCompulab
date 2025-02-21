@@ -32,8 +32,8 @@ async function loadFormDataCompensation() {
             throw new Error("Error al cargar los datos");
         }
             const data = await response.json();
-           
-
+           console.log("Analisis")
+            console.log(data)
             const compensation = document.querySelector(`input[name="reactive_power"][value="${data.reactive_power}"]`);
             if (compensation) {
                 compensation.checked = true;
