@@ -2,7 +2,7 @@ async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            alert.error("Error al cargar los datos");
         }
             const data = await response.json();
            
@@ -30,7 +30,7 @@ async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            alert.error("Error al cargar los datos");
         }
             const data = await response.json();
           

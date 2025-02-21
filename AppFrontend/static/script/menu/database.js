@@ -38,7 +38,7 @@ async function loadFormDataSettingDatabase() {
     try {
         const response = await fetch(getFormDataUrlSettingDatabase);
         if (!response.ok) {
-            throw new Error("Error al cargar los datos");
+            alert.error("Error al cargar los datos");
         }
         const data = await response.json();
         document.getElementById("day").value = data.day;

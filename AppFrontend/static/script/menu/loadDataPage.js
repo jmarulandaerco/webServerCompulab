@@ -219,8 +219,6 @@ async function loadFormDataServerChecker() {
     }
 }
 function loadContent(option) {
-    console.log("Holaaa")
-    // checkServiceStatus();
     if(option=='form/database/database'){
         url='/home/content/form/database/databaseInformation/'
     }else{

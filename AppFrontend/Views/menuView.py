@@ -299,9 +299,9 @@ class FormDataLimitation(View):
             limitation = "Yes" if config.getboolean('Active', 'energy_meter_3p', fallback=False) else "No"
             sample_data = {
                 "limitation": limitation,
-                "meter_ids": config.get('Active', 'energy_meter_ids', fallback="1,2"),
-                "inverter_ids": config.get('Active', 'inverter_ids', fallback="1,2"),
-                "porcentage": config.get('Active', 'active_power_percentage', fallback=0.02),
+                "meter_ids": config.get('Active', 'energy_meter_ids', fallback="1"),
+                "inverter_ids": config.get('Active', 'inverter_ids', fallback="1"),
+                "porcentage": config.getfloat('Active', 'active_power_percentage', fallback=0.02),
                 "grid_min": config.getfloat('Active', 'active_power_grid_min', fallback=5.0),
                 "grid_max": config.getfloat('Active', 'active_power_grid_max', fallback=10.0),
                 "inverter_min": config.getint('Active', 'active_power_inv_min', fallback=0),

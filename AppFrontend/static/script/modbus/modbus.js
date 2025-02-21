@@ -59,23 +59,23 @@ function handleSelectChange(event) {
         });
 }
 function loadAddDevicesUpdateDevice(selectedDevice) {
-    fetch(mapFolder) 
+    fetch(mapFolder)
         .then(response => {
             if (!response.ok) {
                 alert(`Error: ${response.statusText}`);
             }
-            return response.json();  
+            return response.json();
         })
         .then(data => {
-            const modbusMapList = data.modbus_map;  
+            const modbusMapList = data.modbus_map;
             const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
 
             modbusMapFolderSelect.innerHTML = "";
 
             modbusMapList.forEach(option => {
                 const optionElement = document.createElement("option");
-                optionElement.value = option;  
-                optionElement.textContent = option;  
+                optionElement.value = option;
+                optionElement.textContent = option;
                 modbusMapFolderSelect.appendChild(optionElement);
             });
 
@@ -95,12 +95,12 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
 }
 
 function loadAddDevices() {
-    fetch(mapFolder)  
+    fetch(mapFolder)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            return response.json();  
+            return response.json();
         })
         .then(data => {
             const modbusMapList = data.modbus_map;  // Aquí obtenemos la lista de opciones
@@ -184,14 +184,14 @@ async function updateMeasureModbus() {
     const modbus = document.getElementById("modbus").value;
     const start = document.getElementById("start").value;
     const stop = document.getElementById("stop").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(getFormDataUrl, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ zone, modbus, start, stop })
         });
@@ -200,16 +200,16 @@ async function updateMeasureModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error en la validación");
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -258,7 +258,7 @@ async function updateDataModes() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ mode, limitation, compensation, sampling_limitation, sampling_compensation })
         });
@@ -267,7 +267,7 @@ async function updateDataModes() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación"); 
+            alert("❌ " + "Error en la validación");
 
         } else {
             alert("✅ " + data.message);
@@ -276,7 +276,7 @@ async function updateDataModes() {
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -296,16 +296,16 @@ async function addDeviceRtu() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode").value;
         const device_type = document.getElementById("device_type").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-        const save_db = document.getElementById("save_db").value; 
+        const save_db = document.getElementById("save_db").value;
         const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddRtu, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
                 nameDevice, portDevice, baudrate, initial, end, modbus_function,
@@ -320,7 +320,7 @@ async function addDeviceRtu() {
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');  
+            await loadDevices('seeDevices');
         }
 
     } catch (error) {
@@ -344,9 +344,9 @@ async function addDeviceTcp() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode").value;
         const device_type = document.getElementById("device_type").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-        const save_db = document.getElementById("save_db").value; 
+        const save_db = document.getElementById("save_db").value;
         const server_send = document.getElementById("server_send").value;
 
         const response = await fetch(viewAddTcp, {
@@ -368,7 +368,8 @@ async function addDeviceTcp() {
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');        }
+            await loadDevices('seeDevices');
+        }
 
     } catch (error) {
         alert("❌ Error: " + error.message);
@@ -379,23 +380,25 @@ async function addDeviceTcp() {
 
 async function deleteDevice(device) {
     try {
-        const response = await fetch(mapFolder, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ device }) 
-        });
 
-        const result = await response.json();
+        if (confirm("¿Estás seguro de borrar el dispositivo?")) {
+            const response = await fetch(mapFolder, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ device })
+            });
 
-        if (!response.ok) {
-            alert("❌ Error en la validación: " + result.message);
-        } else {
-            alert("✅ " + result.message);
-            await loadDevices('seeDevices');
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert("❌ Error en la validación: " + result.message);
+            } else {
+                alert("✅ " + result.message);
+                await loadDevices('seeDevices');
+            }
         }
-
         console.log("Dispositivo eliminado:", result);
     } catch (error) {
         console.error("Error en la eliminación:", error.message);
@@ -495,16 +498,16 @@ async function updateDeviceTcp() {
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mod_tcp").value;
         const device_type = document.getElementById("device_type_tcp").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-        const save_db = document.getElementById("save_db_tcp").value;  
+        const save_db = document.getElementById("save_db_tcp").value;
         const server_send = document.getElementById("server_send_tcp").value;
 
         const response = await fetch(viewAddTcp, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
                 nameDevice, ip_device, port_device, offset, initial, end, modbus_function,
@@ -527,7 +530,7 @@ async function updateDeviceTcp() {
         console.error("Error:", error);
     }
 }
-async function updateDeviceRtu(){
+async function updateDeviceRtu() {
     try {
         const nameDevice = document.getElementById("nameRtu").value;
         const portDevice = document.getElementById("portRtu").value;
@@ -541,16 +544,16 @@ async function updateDeviceRtu(){
         const modbus_map_json = document.getElementById("modbus_map_json").value;
         const modbus_mode = document.getElementById("modbus_mode_rtu").value;
         const device_type = document.getElementById("device_type_rtu").value;
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-        const save_db = document.getElementById("save_db_rtu").value;  
+        const save_db = document.getElementById("save_db_rtu").value;
         const server_send = document.getElementById("server_send_rtu").value;
 
         const response = await fetch(viewAddRtu, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
                 nameDevice, portDevice, baudrate, initial, end, modbus_function,
@@ -565,7 +568,7 @@ async function updateDeviceRtu(){
             alert("❌ Error en la validación: " + data.message);
         } else {
             alert("✅ " + data.message);
-            await loadDevices('seeDevices');  
+            await loadDevices('seeDevices');
         }
 
     } catch (error) {

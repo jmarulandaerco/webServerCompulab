@@ -6,7 +6,7 @@
     <form id="deviceForm">
         {% csrf_token %}
 
-        <h3>Selecciona los dispositivos:</h3>
+        <h3>Selecciona El dispositivo a modificar:</h3>
         <div id="deviceList">
             {% for device in listDevices %}
                 <button type="button" class="device-button" onclick="ModifyOption('{{ device }}')">
