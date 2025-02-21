@@ -344,7 +344,8 @@ class FormModbusAddDeviceTcp(View):
             # Calcular 'attempts_wait' basado en 'offset'
             offset = int(data.get("offset", 0))
             attempts_wait = 0.2 if offset > 0 else 0
-
+            print("HOla prueba")
+            print(data.get("device_type"))
             # Actualizar los valores de la sección del dispositivo
             config.set(device_name, "host_ip", str(data.get("ip_device")))
             config.set(device_name, "port_ip", str(data.get("port_device")))
