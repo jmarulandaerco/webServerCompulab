@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/form_three_columns.css' %}">
     <link rel="stylesheet" href="{% static 'css/form_three_columns.css' %}">
     <link rel="stylesheet" href="{% static 'css/form_three_columns.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
 
 
     <a href="#" onclick="loadContent('mainMenu')">
@@ -38,7 +39,7 @@
         <img src="{% static 'images/log.svg' %}" height="20" width="20" alt="Logo" />
         View Logs
     </a>
-    <a href="#" onclick="loadContent('View Data Devices')">
+    <a href="#" onclick="loadDatabase()">
         <img src="{% static 'images/view.svg' %}" height="20" width="20" alt="Logo" />
         View Data Devices
     </a>
@@ -102,6 +103,7 @@
     const viewAddRtu ="{% url 'add_rtu' %}"
     const viewAddTcp = "{% url 'add_tcp' %}"
     const modifyDevice = "{% url 'modify_device_rtu' %}"
+    const inverterData = "{% url 'inverter_data' %}"
     
 </script>
 <script src="{% static 'script/menu/loadDataPage.js' %}"></script>

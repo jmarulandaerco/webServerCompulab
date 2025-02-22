@@ -1,4 +1,6 @@
 
+from django.shortcuts import render
+from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,32 +8,27 @@ from django.conf import settings
 from rest_framework_simplejwt.backends import TokenBackend
 from energyAPP.models import InverterData
 from energyAPP.serializers import InverterDataSerializer
+from pymongo import MongoClient
 
 class InverterDataView(APIView):
-    # authentication_classes = [JWTAuthentication]  # Usa JWTAuthentication
-    # permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        # 1️⃣ Obtener el encabezado 'Authorization'
         auth_header = request.headers.get('Authorization')
         
 
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # 2️⃣ Extraer el token (lo que viene después de 'Bearer ')
         token = auth_header.split(' ')[1]
    
         try:
-            # 3️⃣ Decodificar el token manualmente
             token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
             valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
           
 
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
-
-            # 5️⃣ Obtener y serializar los datos
+            
             inverter_data = InverterData.objects.all()
             serializer = InverterDataSerializer(inverter_data, many=True)
             return Response(serializer.data)
@@ -64,4 +61,24 @@ class InverterDataView(APIView):
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
+class InverterView(View):
+    def get(self, request):
+        # Conectar a MongoDB usando la configuración en settings.py
+        client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
+        db = client[settings.DATABASES['default']['NAME']]
         
+        # Acceder a la colección 'inverters'
+        inverters_collection = db['inverters']
+        
+        # Obtener todos los documentos de la colección 'inverters'
+        inverters_data = list(inverters_collection.find())
+        
+        # Convertir los objetos BSON a un formato serializable (JSON)
+        for inverter in inverters_data:
+            # Convertir el _id (ObjectId) a string
+            inverter['_id'] = str(inverter['_id'])
+        datos = inverter
+        print("Holaaaaaaaaaaaaaaaaaaaa")
+        print(inverters_data)
+        print(len(datos))
+        return render(request, 'home/content/databaseView.html', {'datos': inverters_data})

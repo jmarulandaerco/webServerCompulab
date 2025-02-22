@@ -24,7 +24,7 @@ function downloadCollections() {
     fetch(listCollection)
         .then(response => {
             if (!response.ok) {
-                alert.error("Error while downloading");
+                alert("Error while downloading");
             }
             return response.blob(); 
         })

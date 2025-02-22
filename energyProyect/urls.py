@@ -13,7 +13,7 @@ from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensa
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
 from authApp.views.userDetailView import UserDetailView
-from energyAPP.views.inverterDataView import InverterDataView
+from energyAPP.views.inverterDataView import InverterDataView, InverterView
 from energyAPP.views.serviceView import Reboot, StartView, StatusService, StopView
 
 urlpatterns = [
@@ -31,7 +31,7 @@ urlpatterns = [
     path('user/', UserDetailView.as_view(), name='user'),
     path('user/<str:user_id>/', UserDetailView.as_view(), name='user-detail'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/inverter-data/', InverterDataView.as_view(), name='inverter-data'),
+    path('api/inverter-data/', InverterDataView.as_view(), name='inverter_data'),
     path('home/start/', StartView.as_view(), name='start_service'),
     path('home/stop/', StopView.as_view(), name='stop_service'),
     path('home/reboot/', Reboot.as_view(), name='reboot_erco_pulse'),
@@ -69,6 +69,6 @@ urlpatterns = [
 
     path('api/modbus/view-devices-add/',FormModbusGetDevicesView.as_view(),name='view_devices_add'),
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
-    path('api/delete/log/',DeleteLog.as_view(),name='delete_log')
-
+    path('api/delete/log/',DeleteLog.as_view(),name='delete_log'),
+    path('datos_inversor/',InverterView.as_view(), name='datos_inversor'),
 ]

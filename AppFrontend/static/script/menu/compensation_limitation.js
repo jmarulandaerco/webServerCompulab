@@ -2,7 +2,7 @@ async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
-            alert.error("Error in loading the data");
+            alert("Error in loading the data");
         }
         const data = await response.json();
         const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
@@ -27,7 +27,7 @@ async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
         if (!response.ok) {
-            alert.error("Error in loading the data");
+            alert("Error in loading the data");
         }
         const data = await response.json();
 
