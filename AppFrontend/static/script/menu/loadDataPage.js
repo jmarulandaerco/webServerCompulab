@@ -380,6 +380,8 @@ function loadDatabase() {
         });
 }
 
+
+
 async function saveChangesEnableDisableDevices() {
     const selectedDevices = Array.from(document.querySelectorAll('input[name="devices"]:checked'))
                                 .map(checkbox => checkbox.value);

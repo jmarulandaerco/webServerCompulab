@@ -1,6 +1,8 @@
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+import pandas as pd
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -74,3 +76,34 @@ class InverterView(View):
             inverter['_id'] = str(inverter['_id'])
         print(inverters_data)
         return render(request, 'home/content/databaseView.html', {'datos': inverters_data})
+    
+    
+class InverterApiView(APIView):
+    def get(self, request):
+        try:
+            client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
+            db = client[settings.DATABASES['default']['NAME']]
+            
+            inverters_collection = db['inverters']
+            
+            inverters_data = list(inverters_collection.find().sort('_id', -1).limit(20))
+            
+            for inverter in inverters_data:
+                inverter['_id'] = str(inverter['_id'])
+            inverters_data
+            
+            df = pd.DataFrame(inverters_data)
+            
+            # Crear la respuesta de archivo Excel
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename="datos_inversores.xlsx"'
+            
+            # Escribir el DataFrame a un archivo Excel en la respuesta
+            with pd.ExcelWriter(response, engine='openpyxl') as writer:
+                df.to_excel(writer, index=False, sheet_name="Datos Inversores")
+            
+        except Exception as ex:
+            return HttpResponse(f"Error: {ex}")        
+        return response
+
+    

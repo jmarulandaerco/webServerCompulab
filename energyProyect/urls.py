@@ -13,7 +13,7 @@ from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensa
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
 from authApp.views.userDetailView import UserDetailView
-from energyAPP.views.inverterDataView import InverterDataView, InverterView
+from energyAPP.views.inverterDataView import InverterApiView, InverterDataView, InverterView
 from energyAPP.views.serviceView import Reboot, StartView, StatusService, StopView
 
 urlpatterns = [
@@ -71,4 +71,6 @@ urlpatterns = [
     path('api/delete/database/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/delete/log/',DeleteLog.as_view(),name='delete_log'),
     path('datos_inversor/',InverterView.as_view(), name='datos_inversor'),
+    path('exportar_excel/', InverterApiView.as_view(), name='exportar_excel'),
+
 ]

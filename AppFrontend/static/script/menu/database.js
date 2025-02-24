@@ -81,3 +81,11 @@ async function updateSettingDatabase() {
         console.error("Error:", error);
     }
 };
+
+function exportToExcel() {
+    const url = '/exportar_excel/';
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'datos_inversores.xlsx'; // Este nombre puede ser cualquier nombre para el archivo
+    a.click(); // Esto simula el clic en el enlace para descargar el archivo
+}
