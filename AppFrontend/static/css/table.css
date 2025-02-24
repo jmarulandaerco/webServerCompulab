@@ -2,28 +2,36 @@
   font-family: 'Sora Light';
   src: url('../fonts/Sora-Light.ttf') format('truetype');
   font-weight: 300;
-  /* Light */
   font-style: normal;
 }
 
 .table-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  /* Para un scroll más suave en iOS */
+  overflow-x: auto; 
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
 }
 
-/* Estilos para la tabla */
+.table-erco {
+  max-height: 70vh; 
+  overflow-y: auto;
+  background: green;
+}
+
 #inverter-data-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed; /* Hace que la tabla tenga un tamaño más compacto */
 }
 
 #inverter-data-table th,
 #inverter-data-table td {
-  padding: 10px;
+  padding: 5px; /* Reducción del padding */
   text-align: left;
   border: 1px solid #ddd;
+  font-family: 'Sora Light';
+  font-size: 9px; /* Reducir el tamaño de la fuente */
+  word-wrap: break-word; /* Asegura que el texto largo no se desborde */
 }
 
 #inverter-data-table tr:nth-child(even) {
@@ -31,11 +39,17 @@
 }
 
 th {
-  font-family: 'Sora Light';
-  font-size: 10;
+  font-weight: bold;
 }
 
 td {
-  font-family: 'Sora Light';
-  font-size: 10;
+  font-size: 9px;
+}
+
+/* Si quieres hacer el scroll más visible, puedes añadirlo a la tabla */
+.table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }

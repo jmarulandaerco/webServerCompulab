@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Sora Light';
     src: url('../fonts/Sora-Light.ttf') format('truetype');
-    font-weight: 300; /* Light */
+    font-weight: 300; 
     font-style: normal;
   } 
 
@@ -10,8 +10,8 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-    max-height: 70vh; /* Asegura que no sobrepase el alto de la ventana */
+    overflow-y: auto; 
+    max-height: 70vh; 
 }
 
 .form-container-column {
