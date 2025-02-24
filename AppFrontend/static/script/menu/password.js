@@ -118,3 +118,4 @@ async function loadFormDataBase() {
 
 const username = localStorage.getItem("username") || "Invitado";
 document.getElementById("usernameHeader").textContent = username;
+console.log("Culis")

@@ -28,10 +28,3 @@
 
 <script src="{% static 'script/menu/service.js' %}"></script>
 
-<script>
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-        localStorage.removeItem('access_token');
-        window.location.href = "{% url 'index' %}";  
-    });
-
-</script>
