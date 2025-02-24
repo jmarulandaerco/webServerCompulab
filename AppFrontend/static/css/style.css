@@ -230,7 +230,7 @@ input[type="submit"]:active {
     font-size: 0.8em;
   }
 }
-.user-name {
+.usernameHeader {
   font-size: 16px;
   font-weight: bold;
   margin-left: 10px;
