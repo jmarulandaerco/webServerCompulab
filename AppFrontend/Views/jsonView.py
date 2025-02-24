@@ -4,11 +4,14 @@ from django.db import connections
 from rest_framework.views import APIView
 from datetime import datetime
 
-class ListCollections(APIView):
+class ListColections(APIView):
     def get(self, request):
         try:
+
             db = connections['default']
+
             collections = db.cursor().db_conn.list_collection_names()
+
             data = {}
             for collection in collections:
                 if collection != 'authApp_user':
