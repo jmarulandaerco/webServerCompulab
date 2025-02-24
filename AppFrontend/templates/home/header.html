@@ -6,7 +6,7 @@
             <img src="{% static 'images/logo.svg' %}" alt="Logo">
         </div>
         <div class="user-name">
-            <span id="usernameHeader">{{ request.user.username }}</span> <!-- Aquí se muestra el nombre del usuario -->
+            <span id="usernameHeader"></span> <!-- Aquí se muestra el nombre del usuario -->
         </div>
         <div class="status-indicator">
             <span id="statusCircle" class="status-circle active"></span>
@@ -27,4 +27,8 @@
 </div>
 
 <script src="{% static 'script/menu/service.js' %}"></script>
-
+<script>
+    const username = localStorage.getItem("username") || "Invitado";
+    document.getElementById("usernameHeader").textContent = username;
+    console.log("Culis")
+</script>
