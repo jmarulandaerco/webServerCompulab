@@ -1,6 +1,11 @@
 {% load static %}
 
 <h1>Datos del Inversor</h1>
+<div>
+    <button id="refreshButton" onclick="loadDatabase()">Update</button>
+    <button id="refreshButton" onclick="fetchLogs()">Download</button>
+
+</div>
 <div class="table-erco">
     <table id="inverter-data-table">
         <thead>
