@@ -6,7 +6,6 @@
 }
 
 .table-container {
-  width: 100%;
   overflow-x: auto; 
   overflow-y: auto;
   -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
@@ -15,7 +14,6 @@
 .table-erco {
   max-height: 70vh; 
   overflow-y: auto;
-  background: green;
 }
 
 #inverter-data-table {
@@ -50,6 +48,5 @@ td {
 .table-container {
   overflow-x: auto;
   overflow-y: auto;
-  max-width: 100%;
   -webkit-overflow-scrolling: touch;
 }
