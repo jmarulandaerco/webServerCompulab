@@ -2,6 +2,7 @@ import json
 from django.http import HttpResponse
 from django.db import connections
 from rest_framework.views import APIView
+from datetime import datetime
 
 class ListColections(APIView):
     def get(self, request):
@@ -13,13 +14,14 @@ class ListColections(APIView):
 
             datos = {}
             for coleccion in colecciones:
-                collection_ref = db.cursor().db_conn[coleccion]
-                datos[coleccion] = list(collection_ref.find({}, {"_id": 0}))  # Excluir _id para evitar problemas de serialización
+                if coleccion != 'authApp_user':
+                    collection_ref = db.cursor().db_conn[coleccion]
+                    datos[coleccion] = list(collection_ref.find({}, {"_id": 0}))  # Excluir _id para evitar problemas de serialización
 
             json_data = json.dumps({"colecciones": datos}, indent=4, default=str)
 
             response = HttpResponse(json_data, content_type="text/plain")
-            response["Content-Disposition"] = 'attachment; filename="colecciones.txt"'
+            response["Content-Disposition"] = f'attachment; filename="colecciones{str(datetime.now())}.txt"'
 
             return response
 
