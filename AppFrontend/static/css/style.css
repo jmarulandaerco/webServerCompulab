@@ -230,11 +230,3 @@ input[type="submit"]:active {
     font-size: 0.8em;
   }
 }
-.usernameHeader {
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 10px;
-  font-family: 'Sora Light';
-  font-size: 10;
-  color: #fff;
-}
