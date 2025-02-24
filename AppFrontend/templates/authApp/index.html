@@ -80,6 +80,7 @@
           if (data.access) {
 
             localStorage.setItem('access_token', data.access); // Guarda el token de acceso en el almacenamiento local
+            localStorage.setItem('username',username)
             window.location.href = "{% url 'home' %}";  // Redirige a la página de inicio usando el nombre de la URL
           } else {
             // Si no hay token de acceso, muestra el mensaje de error

@@ -86,7 +86,7 @@ class InverterApiView(APIView):
             
             inverters_collection = db['inverters']
             
-            inverters_data = list(inverters_collection.find().sort('_id', -1).limit(20))
+            inverters_data = list(inverters_collection.find())
             
             for inverter in inverters_data:
                 inverter['_id'] = str(inverter['_id'])
