@@ -18,9 +18,11 @@ class ListColections(APIView):
                     collection_ref = db.cursor().db_conn[coleccion]
                     datos[coleccion] = list(collection_ref.find({}, {"_id": 0}))  # Excluir _id para evitar problemas de serialización
 
-            json_data = json.dumps({"colecciones": datos}, indent=4, default=str)
+
             current_datetime = datetime.now()
             filename = current_datetime.strftime('collections_%Y-%m-%d_%H-%M-%S.txt')
+            json_data = json.dumps({f"{filename}": datos}, indent=4, default=str)
+            
             response = HttpResponse(json_data, content_type="text/plain")
             response["Content-Disposition"] = f'attachment; filename="{filename}"'
 
