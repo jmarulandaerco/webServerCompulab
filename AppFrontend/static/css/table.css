@@ -1,24 +1,41 @@
-/* Contenedor para habilitar scroll horizontal en pantallas pequeñas */
+@font-face {
+  font-family: 'Sora Light';
+  src: url('../fonts/Sora-Light.ttf') format('truetype');
+  font-weight: 300;
+  /* Light */
+  font-style: normal;
+}
+
 .table-container {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
-  }
-  
-  /* Estilos para la tabla */
-  #inverter-data-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #inverter-data-table th,
-  #inverter-data-table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  #inverter-data-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Para un scroll más suave en iOS */
+}
+
+/* Estilos para la tabla */
+#inverter-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#inverter-data-table th,
+#inverter-data-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+#inverter-data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+th {
+  font-family: 'Sora Light';
+  font-size: 10;
+}
+
+td {
+  font-family: 'Sora Light';
+  font-size: 10;
+}
