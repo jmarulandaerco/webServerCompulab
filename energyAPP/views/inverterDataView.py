@@ -63,22 +63,14 @@ class InverterDataView(APIView):
 
 class InverterView(View):
     def get(self, request):
-        # Conectar a MongoDB usando la configuración en settings.py
         client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
         db = client[settings.DATABASES['default']['NAME']]
         
-        # Acceder a la colección 'inverters'
         inverters_collection = db['inverters']
         
-        # Obtener todos los documentos de la colección 'inverters'
-        inverters_data = list(inverters_collection.find())
+        inverters_data = list(inverters_collection.find().sort('_id', -1).limit(20))
         
-        # Convertir los objetos BSON a un formato serializable (JSON)
         for inverter in inverters_data:
-            # Convertir el _id (ObjectId) a string
             inverter['_id'] = str(inverter['_id'])
-        datos = inverter
-        print("Holaaaaaaaaaaaaaaaaaaaa")
-        print(inverters_data)
-        print(len(datos))
+       
         return render(request, 'home/content/databaseView.html', {'datos': inverters_data})
