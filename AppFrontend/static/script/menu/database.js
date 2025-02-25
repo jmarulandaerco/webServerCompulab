@@ -85,6 +85,7 @@ async function updateSettingDatabase() {
 function exportToExcel() {
     const url = '/api/inverter/export/';
     const a = document.createElement('a');
+    const now = new Date();
     const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
     const filename = `investor_data${dateString}.txt`;
     a.href = url;
