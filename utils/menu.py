@@ -7,7 +7,9 @@ import threading
 import time
 from typing import List
 from authApp.models.user import User  # Importar modelos después de django.setup()
-
+from pymongo import MongoClient
+from django.contrib.auth import get_user_model
+from django.conf import settings
 from utils.modem_gsm_driver import SimModem
 
 
@@ -220,3 +222,31 @@ class Menu:
         except Exception as ex:
             print(ex)
             return[]
+        
+
+        client = MongoClient(settings.DATABASES['default']['HOST'], settings.DATABASES['default']['PORT'])
+        db = client[settings.DATABASES['default']['NAME']]
+        
+        user_collection_name = 'authApp_user'
+        
+        if user_collection_name not in db.list_collection_names():
+            print("Creo la coleccion")
+            db.create_collection(user_collection_name)
+            print(f"Se ha creado la colección '{user_collection_name}'.")
+        print("Todo bien")
+        # Obtener el modelo de usuario personalizado
+        User = get_user_model()
+        
+        # Lista de usuarios a verificar
+        required_users = [
+            {'username': 'erco_to', 'password': '3rc04dm1n#t0'},  # Reemplaza 'password1' con la contraseña deseada
+            {'username': 'erco_config', 'password': '3rc04dm1n#t0'}  # Reemplaza 'password2' con la contraseña deseada
+        ]
+        
+        # Verificar y crear los usuarios si no existen
+        for user_data in required_users:
+            if not User.objects.filter(username=user_data['username']).exists():
+                User.objects.create_user(username=user_data['username'], password=user_data['password'])
+                print(f"Usuario '{user_data['username']}' creado.")
+            else:
+                print(f"Usuario '{user_data['username']}' ya existe.")
