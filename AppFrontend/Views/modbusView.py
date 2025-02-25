@@ -7,16 +7,23 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 
-from utils.configfiles import configfilepaths
+from utils.configfiles import ConfigFilePaths
 from utils.menu import Menu
 
 
 config = configparser.ConfigParser(interpolation=None)
-cf = configfilepaths()
+cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
 
 class FormModbusView(View):
+    """
+    View to handle reading and updating Modbus configuration.
+    
+    GET request: Returns a JSON response with the current configuration values (log_debug, max_attempts, timeout_attempts).
+    PUT request: Updates the Modbus configuration based on the provided data.
+    """
     def get(self, request):
+        """Handles GET request to fetch current configuration."""
         try:
             config.read(list_path_menu[2])
             sample_data = {
@@ -29,6 +36,8 @@ class FormModbusView(View):
             return JsonResponse({"message": f"Error updating data, {ex}"}, status=400)
 
     def put(self, request):
+        """Handles PUT request to update the configuration."""
+
         try:
             config.read(list_path_menu[2])
             data = json.loads(request.body)
@@ -50,6 +59,12 @@ class FormModbusView(View):
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400)
 
 class FormModbusDevicesView(View):
+    """
+    View for managing Modbus devices, including fetching and updating the list of devices.
+    
+    GET request: Fetches a list of devices and their selected configurations.
+    PUT request: Updates the selected devices in the configuration.
+    """
     def get(self, request):
         device_param = request.GET.get('device', '') 
 
@@ -112,6 +127,13 @@ class FormModbusDevicesView(View):
 
 
 class FormModbusGetDevicesView(APIView):
+    """
+    View for retrieving Modbus devices and their configuration.
+    
+    GET request: Fetches the Modbus map.
+    POST request: Fetches the list of JSON files in the Modbus map directory.
+    DELETE request: Removes a device from the configuration.
+    """
     def get(self, request):
         try:
             menu =Menu()

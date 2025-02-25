@@ -83,9 +83,55 @@ async function updateSettingDatabase() {
 };
 
 function exportToExcel() {
-    const url = '/exportar_excel/';
+    const url = '/api/inverter/export/';
     const a = document.createElement('a');
+    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
+    const filename = `investor_data${dateString}.txt`;
     a.href = url;
-    a.download = 'datos_inversores.xlsx'; // Este nombre puede ser cualquier nombre para el archivo
-    a.click(); // Esto simula el clic en el enlace para descargar el archivo
+    a.download = `${filename}.xlsx`; 
+    a.click();
+}
+
+
+
+function deleteDatabase() {
+    if (confirm("Are you sure you want to delete the information in the database?")) {
+        const token = localStorage.getItem("access_token"); 
+
+        fetch(deleteDatabaseUrl, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,  
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+
+
+
+                alert(data.message)
+
+            })
+            .catch(error => console.error("Error:", error));
+    }
+}
+
+async function loadFormDataBase() {
+    try {
+        const response = await fetch(getFormDataBase);
+        if (!response.ok) {
+            throw new Error("Error in loading the data");
+        }
+            const data = await response.json();
+
+            document.getElementById("host").value = data.host;
+            document.getElementById("port").value = data.port;
+            document.getElementById("name").value = data.name;
+            document.getElementById("timeout").value = data.timeout;
+            document.getElementById("date").value = data.date;
+            
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }

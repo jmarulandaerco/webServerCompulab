@@ -70,39 +70,39 @@
 </div>
 {% load static %}
 <script>
-    const getFormDataUrl = "{% url 'get_form_data' %}";
-    const getFormDataUrlServerSelection = "{% url 'get_form_data_server' %}";
-    const getFormDataUrlServerModes = "{% url 'get_form_data_modes' %}";
-    const getFormDataUrlSettingDatabase = "{% url 'get_form_data_setting_database' %}";
-    const getFormDataUrlSettingInterface = "{% url 'get_form_data_setting_interface' %}";
-    const getFormDatasettingLog = "{% url 'get_form_data_setting_log' %}";
-    const getFormDataModemChecker = "{% url 'get_form_data_modem_checker' %}";
-    const getFormDataSignalChecker = "{% url 'get_form_data_signal_checker' %}";
-    const getFormDataServerChecker = "{% url 'get_form_data_server_checker' %}";
-    const getFormDatasettingModbus = "{% url 'get_form_data_setting_modbus' %}"
-    let postCheckPasswordUrl = "{% url 'post_check_password' %}";
-    let getFormDataBase = "{% url 'get_form_data_base' %}";
+    const getFormDataUrl = "{% url 'get_measurement_data' %}";
+    const getFormDataUrlServerSelection = "{% url 'get_server_config' %}";
+    const getFormDataUrlServerModes = "{% url 'get_modes_config' %}";
+    const getFormDataUrlSettingDatabase = "{% url 'get_database_settings' %}";
+    const getFormDataUrlSettingInterface = "{% url 'get_interface_settings' %}";
+    const getFormDatasettingLog = "{% url 'get_log_settings' %}";
+    const getFormDataModemChecker = "{% url 'get_modem_status' %}";
+    const getFormDataSignalChecker = "{% url 'get_signal_status' %}";
+    const getFormDataServerChecker = "{% url 'get_server_status' %}";
+    const getFormDatasettingModbus = "{% url 'get_modbus_settings' %}"
+    let postCheckPasswordUrl = "{% url 'verify_password' %}";
+    let getFormDataBase = "{% url 'get_database_config' %}";
     const getInterfaceConnectionOne = "{% url 'connection_one' %}";
     const getInterfaceConnectionTwo = "{% url 'connection_two' %}";
-    const postAntennaWifi = "{% url 'antenna_wifi' %}";
+    const postAntennaWifi = "{% url 'toggle_wifi' %}";
     const postAddWifi = "{% url 'add_wifi' %}";
-    const changePasswordUrl = "{% url 'put_change_password' %}"
-    const getFormDataLimitation = "{% url 'get_form_data_limitation' %}";
-    const getFormDataCompensation = "{% url 'get_form_data_compensation' %}";
+    const changePasswordUrl = "{% url 'change_password' %}"
+    const getFormDataLimitation = "{% url 'get_limitation_config' %}";
+    const getFormDataCompensation = "{% url 'get_compensation_config' %}";
     const start = "{% url 'start_service' %}";
     const stop = "{% url 'stop_service' %}";
     const deleteLog = "{% url 'delete_log' %}";
-    const fetchLog = "{% url 'get_logs' %}";
-    const modem = "{% url 'modem' %}";
+    const fetchLog = "{% url 'fetch_logs' %}";
+    const modem = "{% url 'modem_status' %}";
     const deleteDatabaseUrl = "{% url 'delete_database' %}";
     const listCollection = "{% url 'list_colections' %}";
     const reboot = "{% url 'reboot_erco_pulse' %}";
     const postModemChecker = "{% url 'reboot_erco_pulse' %}";
-    const viewDevices ="{% url 'view_devices' %}";
-    const mapFolder ="{% url 'view_devices_add' %}";
-    const viewAddRtu ="{% url 'add_rtu' %}"
-    const viewAddTcp = "{% url 'add_tcp' %}"
-    const modifyDevice = "{% url 'modify_device_rtu' %}"
+    const viewDevices ="{% url 'modbus_devices_list' %}";
+    const mapFolder ="{% url 'modbus_devices_detail' %}";
+    const viewAddRtu ="{% url 'add_modbus_device_rtu' %}"
+    const viewAddTcp = "{% url 'add_modbus_device_tcp' %}"
+    const modifyDevice = "{% url 'modify_modbus_device_rtu' %}"
     const inverterData = "{% url 'inverter_data' %}"
     
 </script>

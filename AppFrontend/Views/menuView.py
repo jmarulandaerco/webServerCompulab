@@ -3,14 +3,30 @@ import json
 from django.http import JsonResponse
 from django.views import View
 
-from utils.configfiles import configfilepaths
+from utils.configfiles import ConfigFilePaths
 from utils.menu import Menu
 
 config = configparser.ConfigParser(interpolation=None)
-cf = configfilepaths()
+cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
 
 class MeasureView(View):
+    """
+    View class for retrieving and updating measurement-related configuration settings.
+
+    This view provides GET and PUT endpoints to manage measurement configuration parameters.
+    The GET method retrieves the current measurement settings, including timezone, Modbus sampling,
+    and start/stop hours. The PUT method updates these settings based on a JSON payload received in the
+    request, writing the changes back to the configuration file.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current measurement configuration settings from the configuration storage.
+    
+    put(request):
+        Updates the measurement configuration settings using the data provided in the JSON payload.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[0])
@@ -67,6 +83,22 @@ class MeasureView(View):
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataServer(View):
+    """
+    View class for retrieving and updating server configuration settings.
+
+    This view provides GET and PUT endpoints to manage server-related configuration parameters.
+    The GET method retrieves the current server settings, including server type, device ID, telemetry
+    identifier, MQTT sampling, and storage sampling values. The PUT method updates these settings based
+    on a JSON payload received in the request, writing the changes back to the configuration file.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current server configuration settings from the configuration storage.
+    
+    put(request):
+        Updates the server configuration settings using the data provided in the JSON payload.
+    """
     def get(self, request):
         try:
             sample_data = {
@@ -122,6 +154,23 @@ class FormDataServer(View):
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataModes(View):
+    """
+    View class for retrieving and updating the operational modes of the system.
+
+    This view handles GET and PUT requests to manage the system's functioning modes,
+    including work mode, active limitation, reactive compensation, and their associated
+    sampling times. The GET method retrieves the current settings from a configuration file,
+    converting boolean settings for active limitation and reactive compensation into "Yes" or "No" strings.
+    The PUT method accepts a JSON payload to update these settings in the configuration file.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current operational mode settings from the configuration file.
+    
+    put(request):
+        Updates the operational mode settings in the configuration file using data provided in a JSON payload.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[0])
@@ -200,7 +249,25 @@ class FormDataModes(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
+
 class FormDataSettingDataBase(View):
+    """
+    View class for retrieving and updating database retention settings.
+
+    This class handles GET and PUT requests for managing database settings. The settings
+    include 'old_days', which represents the number of days to retain old data, and 
+    'await_to_while', which specifies the waiting time for certain operations. These 
+    settings are read from and written to a configuration file whose path is specified 
+    by list_path_menu[0].
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current database configuration settings.
+    
+    put(request):
+        Updates the database configuration settings with new values provided in the JSON payload.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[0])
@@ -245,6 +312,22 @@ class FormDataSettingDataBase(View):
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataSettingInterface(View):
+    """
+    View class for retrieving and updating internet interface settings.
+
+    This view provides GET and PUT endpoints for managing configuration settings related 
+    to the internet interface. The GET method retrieves the current settings, such as the 
+    interface name and connection name, while the PUT method updates these settings based 
+    on a JSON payload provided by the client.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current internet interface settings from the configuration.
+
+    put(request):
+        Updates the internet interface settings in the configuration file using data from a JSON payload.
+    """
     def get(self, request):
         try:
             sample_data = {
@@ -292,7 +375,25 @@ class FormDataSettingInterface(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+
 class FormDataLimitation(View):
+    """
+    View class for retrieving and updating active energy limitation settings.
+
+    This view handles GET and PUT requests for managing configuration settings related
+    to active energy limitation. The GET method retrieves current settings from a configuration
+    file (specified by list_path_menu[4]), including whether a three-phase energy meter is used,
+    the meter IDs, inverter IDs, active power percentage, and grid/inverter limits. The PUT method
+    validates and updates these settings based on a JSON payload from the client.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current active energy limitation configuration settings.
+    
+    put(request):
+        Updates the active energy limitation configuration settings after validating the input data.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[4])
@@ -356,8 +457,27 @@ class FormDataLimitation(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
-
+    
 class FormDataCompensation(View):
+    """
+    View class for retrieving and updating reactive power compensation settings.
+
+    This view manages configuration settings related to reactive power compensation, 
+    which are stored in a configuration file specified by list_path_menu[5]. The GET 
+    method retrieves the current configuration, including whether the reactive power 
+    limiter is enabled, energy meter IDs, smart logger ID, high and low reactive power 
+    percentages, reactive and active offsets, active power time, and the minimum power factor.
+    The PUT method updates these settings based on a JSON payload provided by the client.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current reactive power compensation settings from the configuration file.
+    
+    put(request):
+        Validates and updates the reactive power compensation settings using data provided 
+        in the JSON payload, then writes the updated configuration back to the file.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[5])
@@ -446,6 +566,25 @@ class FormDataCompensation(View):
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataBasePropierties(View):
+    """
+    View class for retrieving and updating database configuration properties.
+
+    This class provides GET and PUT endpoints to manage the database connection settings.
+    The GET method retrieves the current database properties such as host, port, database name,
+    connection timeout, and date format (with fallback values provided if not set).
+    The PUT method updates these properties in the configuration file based on a JSON payload
+    from the client.
+
+    Methods:
+    --------
+    get(request):
+        Reads the configuration file and returns the current database properties.
+
+    put(request):
+        Validates and updates the database properties in the configuration file using data 
+        provided in the JSON payload.
+    """
+
     def get(self, request):
         try:
             config.read(list_path_menu[1])
@@ -495,6 +634,23 @@ class FormDataBasePropierties(View):
 
 
 class FormDataSettingLogs(View):
+    """
+    View class for retrieving and updating logging configuration settings.
+
+    This class provides GET and PUT endpoints to manage the application's logging settings.
+    The settings include the logging level, stdout output, log file path, sample logging flag,
+    maximum log file size in bytes, and the backup count. These settings are read from or written
+    to a configuration file specified by a global list `list_path_menu`.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves the current logging configuration settings from the configuration file.
+        
+    put(request):
+        Updates the logging configuration settings in the configuration file based on the provided
+        JSON payload after validating the input data.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[0])
@@ -548,9 +704,25 @@ class FormDataSettingLogs(View):
             print(e)
             return JsonResponse({"message": f"Invalid data: one or more records contain invalid or null data, {e}"}, status=400) 
 
-
-
 class FormDataModemChecker(View):
+    """
+    View class for retrieving and updating modem checker configuration data.
+
+    This view handles GET and PUT HTTP requests to manage configuration settings 
+    for modem checking. The GET method retrieves current modem settings such as 
+    the connection name and the attempts state. The PUT method updates these settings 
+    by processing a JSON payload from the client and writing the updated values to 
+    the configuration file.
+
+    Methods:
+    --------
+    get(request):
+        Reads the configuration file and returns the current modem settings.
+
+    put(request):
+        Validates and updates the modem settings in the configuration file based on 
+        the provided JSON payload.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[3])
@@ -591,8 +763,40 @@ class FormDataModemChecker(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+
 class FormDataSignalChecker(View):
+    """
+    View class for retrieving and updating signal checker configuration data.
+
+    This class provides GET and PUT methods to handle configuration settings related 
+    to signal quality. The GET method retrieves current signal quality parameters for GSM 
+    and WiFi, while the PUT method allows updating these parameters.
+
+    Methods:
+    --------
+    get(request):
+        Reads the configuration file and returns the current signal quality parameters.
+    
+    put(request):
+        Updates the configuration file with new signal quality parameters after validating 
+        the input data.
+    """
     def get(self, request):
+        """
+        Handles GET requests to retrieve the current signal quality configuration values.
+
+        This method reads the configuration file specified by the global list `list_path_menu` 
+        and extracts the 'min_quality_gsm' and 'min_quality_wifi' values from the 
+        'SIGNAL_CHECKER' section. The retrieved values are returned in a JSON response 
+        under the keys 'onomondo' and 'minimum', respectively.
+
+        Args:
+            request: The HTTP request object.
+
+        Returns:
+            JsonResponse: A JSON object containing the current signal quality values, or an error 
+                          message if an exception occurs.
+        """
         try:
             config.read(list_path_menu[3])
             sample_data = {
@@ -606,6 +810,25 @@ class FormDataSignalChecker(View):
             return JsonResponse({"error": str(e)})
         
     def put(self, request):
+        """
+        Handles PUT requests to update the signal quality configuration values.
+
+        This method parses the JSON payload from the request to obtain new values for signal quality 
+        (GSM and WiFi). It validates the input data to ensure that no value is None or an empty string. 
+        If the data is valid, it updates the corresponding configuration entries in the 'SIGNAL_CHECKER' 
+        section and writes the changes back to the configuration file.
+
+        Args:
+            request: The HTTP request object containing the JSON payload with new configuration values.
+
+        Returns:
+            JsonResponse: A JSON object indicating successful data update, or an error message if the input 
+                          data is invalid or an exception occurs.
+
+        Raises:
+            JSONDecodeError: If the request body does not contain valid JSON.
+            Exception: For any other errors encountered during processing or writing the configuration.
+        """
         try:
             data = json.loads(request.body)
             config.read(list_path_menu[3])
@@ -631,9 +854,22 @@ class FormDataSignalChecker(View):
         except Exception as e:
             print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
-
     
 class FormDataServerChecker(View):
+    """
+    View that handles server configuration data related to server checks. 
+    It allows for retrieving and updating configuration data such as the number of max attempts 
+    for server checks.
+
+    Methods:
+    --------
+    get(request):
+        Handles GET requests to retrieve the current 'max_attempts' configuration value.
+        
+    put(request):
+        Handles PUT requests to update the 'max_attempts' configuration value.
+        Validates the input data and writes the changes to the configuration file.
+    """
     def get(self, request):
         try:
             config.read(list_path_menu[3])

@@ -5,6 +5,18 @@ from rest_framework.views import APIView
 from datetime import datetime
 
 class ListColections(APIView):
+    """
+    API View for listing MongoDB collections and exporting their data.
+
+    This view handles GET requests to list all collections in the database (except 'authApp_user').
+    For each collection, it retrieves the documents, excluding the '_id' field, and exports the data as a text file.
+
+    Methods:
+    -------
+    get(request)
+        Handles GET requests to fetch all collections (except 'authApp_user'), retrieves their documents,
+        and returns the data as a downloadable text file.
+    """
     def get(self, request):
         try:
 

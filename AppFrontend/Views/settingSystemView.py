@@ -6,6 +6,18 @@ from rest_framework.views import APIView
 from utils.menu import Menu
 
 class InterfaceConnection(APIView):
+    """
+    API View for configuring network interface connections.
+
+    This view handles POST requests to configure an interface connection with a given IP address and gateway.
+    The data must include a valid IP and optionally a gateway.
+    It uses the `nmcli` command to apply the configuration.
+
+    Methods:
+    -------
+    post(request, connection_name)
+        Handles POST requests to configure the network connection with the given connection name.
+    """
     def post(self, request, connection_name):
         try:
             data = json.loads(request.body)
@@ -27,6 +39,16 @@ class InterfaceConnection(APIView):
 
 
 class AntennaWifi(APIView):
+    """
+    API View for toggling the status of the WiFi antenna.
+
+    This view handles GET requests to toggle the WiFi antenna on or off using the `Menu` class.
+
+    Methods:
+    -------
+    get(request)
+        Handles GET requests to toggle the WiFi antenna and returns its status.
+    """
     def get(self, request):
         try:
             menu = Menu()
@@ -37,6 +59,17 @@ class AntennaWifi(APIView):
 
 
 class AddWifi(APIView):
+    """
+    API View for adding a WiFi connection.
+
+    This view handles POST requests to add a new WiFi network with the provided SSID, password, and connection name.
+    It uses the `Menu` class to add the WiFi network.
+
+    Methods:
+    -------
+    post(request)
+        Handles POST requests to add a WiFi network with the provided SSID, password, and connection name.
+    """
     def post(self, request):
         try:
             data = json.loads(request.body)

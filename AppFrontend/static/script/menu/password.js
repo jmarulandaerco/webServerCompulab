@@ -96,23 +96,6 @@ async function checkedPassWordLog() {
     }
 };
 
-async function loadFormDataBase() {
-    try {
-        const response = await fetch(getFormDataBase);
-        if (!response.ok) {
-            throw new Error("Error in loading the data");
-        }
-            const data = await response.json();
 
-            document.getElementById("host").value = data.host;
-            document.getElementById("port").value = data.port;
-            document.getElementById("name").value = data.name;
-            document.getElementById("timeout").value = data.timeout;
-            document.getElementById("date").value = data.date;
-            
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
 
 

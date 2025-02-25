@@ -15,10 +15,10 @@ async function loadFormDataSettingModbus() {
     }
 }
 
-
+//function for loading modbus map options
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-    const selectedValue = modbusMapFolderSelect.value;  // Obtener el valor seleccionad
+    const selectedValue = modbusMapFolderSelect.value;  
     fetch(mapFolder, {
         method: "POST",
         headers: {
@@ -55,6 +55,7 @@ function handleSelectChange(event) {
             document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
         });
 }
+
 function loadAddDevicesUpdateDevice(selectedDevice) {
     fetch(mapFolder)
         .then(response => {
@@ -123,7 +124,6 @@ function loadAddDevices() {
         });
 }
 
-
 async function loadFormDataMeasureModbus() {
     try {
         const response = await fetch(getFormDataUrl);
@@ -174,7 +174,6 @@ async function updateSettingModbus() {
     }
 };
 
-
 async function updateMeasureModbus() {
     const zone = document.getElementById("zone").value;
     const modbus = document.getElementById("modbus").value;
@@ -210,7 +209,6 @@ async function updateMeasureModbus() {
     }
 };
 
-
 async function loadFormDataModes() {
     try {
         const response = await fetch(getFormDataUrlServerModes);
@@ -238,7 +236,6 @@ async function loadFormDataModes() {
         console.error("Error:", error);
     }
 }
-
 
 async function updateDataModes() {
     const mode = document.getElementById("mode").value;
@@ -275,7 +272,6 @@ async function updateDataModes() {
         console.error("Error:", error);
     }
 };
-
 
 async function addDeviceRtu() {
     try {
@@ -371,7 +367,6 @@ async function addDeviceTcp() {
         console.error("Error:", error);
     }
 }
-
 
 async function deleteDevice(device) {
     try {
@@ -519,6 +514,7 @@ async function updateDeviceTcp() {
         console.error("Error:", error);
     }
 }
+
 async function updateDeviceRtu() {
     try {
         const nameDevice = document.getElementById("nameRtu").value;

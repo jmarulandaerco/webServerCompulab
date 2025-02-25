@@ -6,6 +6,18 @@ from utils.menu import Menu
 
 
 class CheckPassword(View):
+    """
+    API View to check if the provided passwords match and if the password is valid.
+
+    This view handles POST requests to verify if the 'password' and 'confirmPassword' fields match 
+    and if the provided password is valid according to the password database.
+
+    Methods:
+    -------
+    post(request)
+        Handles POST requests to check if the passwords match and if the password is valid.
+        Returns a JSON response with a message indicating success or error.
+    """
     def post(self, request):
         try:
             data = json.loads(request.body)
@@ -33,6 +45,18 @@ class CheckPassword(View):
         
 
 class ChangePassword(View):
+    """
+    API View to change the user's password.
+
+    This view handles PUT requests to update the user's password. It checks if the current password is valid, 
+    and if so, updates the password to the new one.
+
+    Methods:
+    -------
+    put(request)
+        Handles PUT requests to update the user's password after validating the current password.
+        Returns a JSON response indicating success or failure of the update.
+    """
     def put(self, request):
         try:
             data = json.loads(request.body)

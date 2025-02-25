@@ -3,6 +3,23 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 
 class BaseContentView(TemplateView):
+    """
+    A base class for rendering content views based on the option provided in the URL.
+
+    This class provides the logic to load a content template dynamically based on an 'option'
+    parameter passed in the URL. Subclasses must implement the `get_template_name` method.
+
+    Methods:
+    -------
+    get(request, *args, **kwargs)
+        Handles GET requests and checks for the 'option' parameter to determine which content to render.
+
+    get_content(request, option)
+        Renders the template corresponding to the 'option' or returns an error response if the template fails to load.
+
+    get_template_name(option)
+        Abstract method that must be implemented by subclasses to define the template name.
+    """
     def get(self, request, *args, **kwargs):
         if 'option' in kwargs:
             return self.get_content(request, kwargs['option'])

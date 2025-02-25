@@ -10,6 +10,25 @@ from bson import ObjectId  # Necesario para trabajar con ObjectId
 
 
 class UserDetailView(generics.RetrieveAPIView):
+    """
+    View to manage user details in a REST API.
+
+    This view allows authenticated users to retrieve, create, and delete users via JWT authentication.
+
+    Methods:
+        - GET: Retrieves the list of all users if the JWT token is valid.
+        - POST: Creates a new user if the username is not already in use.
+        - DELETE: Deletes a specific user if the provided user ID is valid.
+
+    Authentication:
+        Uses JWT authentication to validate requests. If the token is missing or invalid, 
+        a 401 (Unauthorized) response is returned.
+
+    Exceptions:
+        - If the token is invalid or expired, a 401 (Unauthorized) response is returned.
+        - If the requested user does not exist, a 404 (Not Found) response is returned.
+        - If the username is already in use during user creation, a 400 (Bad Request) response is returned.
+    """
 
     queryset = User.objects.all()
     serializer_class = UserSerializer

@@ -5,17 +5,22 @@ from rest_framework import status
 from django.conf import settings
 from pymongo import MongoClient
 from authApp.models.user import User
-from utils.menu import Menu  # Importar modelos después de django.setup()
-
+from utils.menu import Menu  
 
 class DeleteCollectionView(APIView):
+    """
+    A view to delete all collections from the MongoDB database and create two default users.
+
+    Methods:
+        delete: Connects to the MongoDB database, deletes all collections, and creates 
+                two default users with predefined usernames and passwords.
+    """
     def delete(self, request):
         try:
-            # Conectar a MongoDB
             client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
             db = client[settings.DATABASES['default']['NAME']]
 
-            # Eliminar todas las colecciones
+           
             for collection_name in db.list_collection_names():
                 db[collection_name].drop()
             
@@ -27,6 +32,12 @@ class DeleteCollectionView(APIView):
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
 class DeleteLog(APIView):
+    """
+    A view to delete logs through the `Menu` utility class.
+
+    Methods:
+        delete: Deletes logs using the `Menu.delete_log()` method.
+    """
     def delete(self,request):
         try:
             menu = Menu()

@@ -7,22 +7,41 @@ from .enumerations import InternetInterfaceEnum, ModemSignalQualityEnum
 
 @dataclass
 class ModemSignalQuality:
-    # Attributes
+    """
+    Represents the signal quality of a modem.
+
+    Attributes:
+        network_technology (str): The type of network the modem is connected to.
+        RSSI (float): The Received Signal Strength Indicator (RSSI) in dBm.
+    """
     network_technology: str = field(init=False, default="None")
     RSSI: float = field(init=False, default=0.0)
 
 @dataclass
 class SimModem:
-    # Public Attributes
+    """
+    Represents a SIM modem and provides methods to manage its status and configuration.
+
+    Attributes:
+        connection_name (str): The name of the network connection.
+        __modem_id (Union[None, str]): The modem ID retrieved from the system.
+    """
     connection_name: str = field(init=True)
-    # Private Attributes
     __modem_id: Union[None, str] = field(init=False, default=None)
 
-    # Private Methods
     def __post_init__(self) -> None:
         self.__modem_id = self.__get_modem_id()
 
     def __run_bash_command(self, command:str) -> Union[None,str]:
+        """
+        Executes a bash command and returns its output.
+
+        Args:
+            command (str): The command to execute.
+
+        Returns:
+            Union[None, str]: The command output if successful, otherwise None.
+        """
         val_return = None
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -32,6 +51,12 @@ class SimModem:
         return val_return
 
     def __get_modem_id(self) -> Union[None, str]:
+        """
+        Retrieves the modem ID from the system.
+
+        Returns:
+            Union[None, str]: The modem ID if found, otherwise None.
+        """
         val_return = None
         try:
             modem = self.__run_bash_command("mmcli -L")
@@ -42,11 +67,16 @@ class SimModem:
 
         return val_return
 
-    # Public Methods
     def is_modem_present(self) -> bool:
         return self.__modem_id is not None
 
     def is_sim_present(self) -> bool:
+        """
+        Checks if a SIM card is inserted in the modem.
+
+        Returns:
+            bool: True if a SIM card is detected, otherwise False.
+        """
         val_return: bool = False
         try:
             if not self.__modem_id:
@@ -62,12 +92,16 @@ class SimModem:
         return val_return
 
     def get_sim_info(self) -> Union[None, tuple[str, str, str]]:
+        """
+        Retrieves SIM card information, including ICCID, operator ID, and operator name.
 
+        Returns:
+            Union[None, tuple[str, str, str]]: A tuple containing ICCID, operator ID, and operator name, or None if retrieval fails.
+        """
         try:
             if not self.__modem_id:
                 return None
 
-            # Get the SIM path
             sim_path = self.__run_bash_command(
                 f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
             )
@@ -75,11 +109,9 @@ class SimModem:
             if not sim_path:
                 return None
 
-            # Get SIM information using the SIM path
             operator_sim_info = self.__run_bash_command(f"mmcli -m {self.__modem_id}")
             iccid_sim_info = self.__run_bash_command(f"mmcli -i {sim_path}")
 
-            # Extract ICCID, Operator ID, and Operator Name using regex
             iccid_match = re.search(r"iccid:\s*(\S+)", iccid_sim_info)
             operator_id_match = re.search(r"operator id:\s*(\S+)", operator_sim_info)
             operator_name_match = re.search(
@@ -97,6 +129,12 @@ class SimModem:
         return iccid, operator_id, operator_name
 
     def is_modem_connected(self) -> bool:
+        """
+        Checks if the modem is connected to a network.
+
+        Returns:
+            bool: True if the modem is connected, otherwise False.
+        """
         try:
             val_return: bool = False
 
@@ -113,6 +151,15 @@ class SimModem:
         return val_return
 
     def parse_modem_info(self, info_modem: str) -> Dict[str, Dict[str, str]]:
+        """
+        Parses modem information to extract network type and signal strength.
+
+        Args:
+            info_modem (str): The modem information string.
+
+        Returns:
+            Dict[str, Dict[str, str]]: A dictionary mapping network types to their signal strengths.
+        """
         try:
             val_return: dict = {}
             sections = re.split(r"\n(?=\w+)", info_modem)
@@ -144,6 +191,12 @@ class SimModem:
         return val_return
 
     def get_signal_quality(self) -> Union[None, ModemSignalQuality]:
+        """
+        Retrieves the modem's signal quality.
+
+        Returns:
+            Union[None, ModemSignalQuality]: A `ModemSignalQuality` object if successful, otherwise None.
+        """
         try:
             val_return = None
 
@@ -181,12 +234,11 @@ class SimModem:
             self.__run_bash_command(f"sudo nmcli con down {self.connection_name}")
 
     def set_as_default_interface(self) -> None:
+        
         try:
-            # Get information for the specified interface
             info = netifaces.ifaddresses(InternetInterfaceEnum.GPRS.value)
             ip_address = info[netifaces.AF_INET][0]["addr"]
 
-            # Configure the default route
             self.__run_bash_command("sudo ip route del default")
             self.__run_bash_command(
                 f"sudo ip route add default via {ip_address} dev {InternetInterfaceEnum.GPRS.value} proto dhcp src {ip_address} metric 201"

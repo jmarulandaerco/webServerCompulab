@@ -15,11 +15,53 @@ from utils.modem_gsm_driver import SimModem
 
 @dataclass
 class Menu:
-    list_config: List[configparser.ConfigParser] = field(init=False)
+    """
+    Provides functionalities to manage system services, user authentication, 
+    modem information, Wi-Fi configuration, and file management.
+
+    Attributes:
+        modem (SimModem): An instance of SimModem used to manage modem operations.
+
+    Methods:
+        check_service_status() -> bool:
+            Checks if the 'FW_main.service' systemd service is active.
+        
+        execute_command(command: str):
+            Executes a command in a separate thread with a timeout of 30 seconds.
+        
+        start_service() -> bool:
+            Starts or restarts the 'FW_main.service' systemd service.
+        
+        change_user_password(new_password: str) -> bool:
+            Changes the password of the user 'erco_config'.
+        
+        delete_log() -> bool:
+            Deletes the system log file located at '/FW/log.log'.
+        
+        stop_service() -> bool:
+            Stops the 'FW_main.service' systemd service.
+        
+        reboot():
+            Reboots the system.
+        
+        view_modem_info() -> str:
+            Retrieves and returns modem, SIM, and network signal information.
+        
+        toggle_wifi() -> str:
+            Toggles the Wi-Fi antenna state between on and off.
+        
+        add_wifi(ssid: str, password: str, connection_name: str) -> str:
+            Connects to a Wi-Fi network with the given SSID and password.
+        
+        create_user_if_not_exists(username: str, password: str):
+            Creates a new user if it does not already exist in the database.
+        
+        setup_folder_path() -> List[List[str]]:
+            Retrieves available Modbus device folders and returns them as choices.
+    """
     modem: SimModem = field(init=False)
 
     def __post_init__(self):
-        self.config = configparser.ConfigParser()
         self.modem = SimModem(connection_name="Red-Onomondo")
 
     def check_service_status(self)-> bool:
@@ -224,29 +266,4 @@ class Menu:
             return[]
         
 
-        client = MongoClient(settings.DATABASES['default']['HOST'], settings.DATABASES['default']['PORT'])
-        db = client[settings.DATABASES['default']['NAME']]
-        
-        user_collection_name = 'authApp_user'
-        
-        if user_collection_name not in db.list_collection_names():
-            print("Creo la coleccion")
-            db.create_collection(user_collection_name)
-            print(f"Se ha creado la colección '{user_collection_name}'.")
-        print("Todo bien")
-        # Obtener el modelo de usuario personalizado
-        User = get_user_model()
-        
-        # Lista de usuarios a verificar
-        required_users = [
-            {'username': 'erco_to', 'password': '3rc04dm1n#t0'},  # Reemplaza 'password1' con la contraseña deseada
-            {'username': 'erco_config', 'password': '3rc04dm1n#t0'}  # Reemplaza 'password2' con la contraseña deseada
-        ]
-        
-        # Verificar y crear los usuarios si no existen
-        for user_data in required_users:
-            if not User.objects.filter(username=user_data['username']).exists():
-                User.objects.create_user(username=user_data['username'], password=user_data['password'])
-                print(f"Usuario '{user_data['username']}' creado.")
-            else:
-                print(f"Usuario '{user_data['username']}' ya existe.")
+       

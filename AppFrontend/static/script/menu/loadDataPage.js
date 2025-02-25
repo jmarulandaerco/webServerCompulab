@@ -18,9 +18,6 @@ function loadContentModbus(option) {
         });
 }
 
-
-
-
 function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
@@ -38,6 +35,7 @@ function loadContentMenu(option) {
             document.getElementById("content2").innerHTML = "<h1>Error loading content</h1>";
         });
 }
+
 function loadContentSetting(option) {
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
@@ -54,6 +52,7 @@ function loadContentSetting(option) {
             document.getElementById("content5").innerHTML = "<h1>Error loading content</h1>";
         });
 }
+
 function loadContentHttp(option) {
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
@@ -90,6 +89,7 @@ async function loadFormDataSettingLog() {
         console.error("Error:", error);
     }
 }
+
 async function updateInformationDataSettingLog() {
     const level = document.getElementById("level").value;
     const stdout = document.getElementById("stdout").value;
@@ -127,7 +127,6 @@ async function updateInformationDataSettingLog() {
         console.error("Error:", error);
     }
 };
-
 
 async function loadFormDataSettingInterface() {
     try {
@@ -177,6 +176,7 @@ async function updateSettingInterface() {
         console.error("Error:", error);
     }
 };
+
 async function loadFormDataSignalChecker() {
     try {
         const response = await fetch(getFormDataSignalChecker);
@@ -190,6 +190,7 @@ async function loadFormDataSignalChecker() {
         console.error("Error:", error);
     }
 }
+
 async function loadFormDataModemChecker() {
     try {
         const response = await fetch(getFormDataModemChecker);
@@ -203,6 +204,7 @@ async function loadFormDataModemChecker() {
         console.error("Error:", error);
     }
 }
+
 async function loadFormDataServerChecker() {
     try {
         const response = await fetch(getFormDataServerChecker);
@@ -215,6 +217,7 @@ async function loadFormDataServerChecker() {
         console.error("Error:", error);
     }
 }
+
 function loadContent(option) {
     console.log("Terirr");
     if(option=='form/database/database'){
@@ -275,7 +278,6 @@ function loadContent(option) {
         });
 }
 
-
 async function loadFormDataServerSelection() {
     try {
         const response = await fetch(getFormDataUrlServerSelection);
@@ -333,7 +335,7 @@ async function updateServerSelection() {
 
 
 function loadDevices(page) {
-    const fullUrl = `/api/modbus/view-devices/?device=${encodeURIComponent(page)}`; 
+    const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
     fetch(fullUrl)  
         .then(response => {
             if (!response.ok) {
@@ -351,7 +353,7 @@ function loadDevices(page) {
 }
 
 function loadDatabase() {
-    const fullUrl = `/datos_inversor/`;
+    const fullUrl = `/api/inverter/status/`;
     const contentElement = document.getElementById("content");
 
     // Mostrar mensaje de carga mientras se hace la petición
