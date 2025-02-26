@@ -7,7 +7,7 @@
 
 h1{
   font-family: 'Sora Light';
-  font-size: 9px; /* Reducir el tamaño de la fuente */
+  font-size: 12px; /* Reducir el tamaño de la fuente */
 }
 .table-container {
   overflow-x: auto; 
@@ -16,7 +16,7 @@ h1{
 }
 
 .table-erco {
-  max-height: 65vh; 
+  max-height: 68vh; 
   overflow-y: auto;
   margin-bottom: 20px;
 }
