@@ -595,6 +595,7 @@ class FormDataBasePropierties(View):
                 "timeout": config.get('DATABASE', 'timeout', fallback='10'),
                 "date": config.get('DATABASE', 'db_date_format', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
             }
+            
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})

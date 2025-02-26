@@ -50,7 +50,7 @@ async function checked() {
 
         }else{
             alert("✅ " + data.message); 
-            await loadContent('form/database/database')
+            await loadContent('form/database/databaseSetting')
 
         }
 
