@@ -5,6 +5,10 @@
   font-style: normal;
 }
 
+h1{
+  font-family: 'Sora Light';
+  font-size: 9px; /* Reducir el tamaño de la fuente */
+}
 .table-container {
   overflow-x: auto; 
   overflow-y: auto;
@@ -12,8 +16,9 @@
 }
 
 .table-erco {
-  max-height: 70vh; 
+  max-height: 65vh; 
   overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 #inverter-data-table {
@@ -21,6 +26,7 @@
   border-collapse: collapse;
   table-layout: fixed; /* Hace que la tabla tenga un tamaño más compacto */
 }
+
 
 #inverter-data-table th,
 #inverter-data-table td {
