@@ -20,22 +20,34 @@ class InterfaceConnection(APIView):
     """
     def post(self, request, connection_name):
         try:
+            # Cargar datos JSON
             data = json.loads(request.body)
             ip = data.get("ip")
             gateway = data.get("gateway")
-            if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-           
 
-            command = f"sudo nmcli con mod '{connection_name}' ipv4.addresses '{ip}'"
+            # Validar que los valores no sean nulos o vacíos
+            if not ip:
+                return JsonResponse({"message": "Invalid IP address"}, status=400)
+
+            # Construir comando de manera segura
+            command = ["sudo", "nmcli", "con", "mod", connection_name, "ipv4.addresses", ip]
             if gateway:
-                command += f" ipv4.gateway '{gateway}'"
-            command += " ipv4.method 'manual'"
+                command += ["ipv4.gateway", gateway]
+            command += ["ipv4.method", "manual"]
 
-            os.system(command)
+            # Ejecutar el comando de forma segura
+            result = subprocess.run(command, capture_output=True, text=True)
+
+            # Verificar si hubo errores
+            if result.returncode != 0:
+                return JsonResponse({"message": f"Error configuring network: {result.stderr}"}, status=500)
+
             return JsonResponse({"message": "Configuration correctly applied"}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Invalid JSON format"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": str(e)}, status=400)
+            return JsonResponse({"message": str(e)}, status=500)
 
 
 class AntennaWifi(APIView):
