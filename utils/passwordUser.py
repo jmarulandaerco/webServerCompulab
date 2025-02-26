@@ -17,7 +17,7 @@ class DataBaseMenu:
             It attempts to retrieve the `PASS` key from the environment. If an error occurs,
             the `passkey` is set to an empty string.
             """
-            # load_dotenv()
+            load_dotenv()
             self.passkey=os.getenv("PASS")
         except Exception as e:
             self.passkey=""
