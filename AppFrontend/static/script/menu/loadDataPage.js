@@ -352,7 +352,7 @@ function loadDevices(page) {
         });
 }
 
-function loadDatabase() {
+function loadDatabase(option) {
     const fullUrl = `/api/inverter/status/`;
     const contentElement = document.getElementById("content");
 
