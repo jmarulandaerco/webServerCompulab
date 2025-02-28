@@ -36,7 +36,9 @@ class DataBaseMenu:
         """
         if self.passkey=="":
             return False
-            
+        
+        if "#" not in self.passkey:
+            self.passkey += "#t0"
         if password == self.passkey:
             return True
         else:
