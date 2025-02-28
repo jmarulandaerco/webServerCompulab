@@ -1,6 +1,8 @@
 import json
+import os
 from django.http import JsonResponse
 from django.views import View
+from dotenv import load_dotenv
 from utils.passwordUser import DataBaseMenu
 from utils.menu import Menu
 
@@ -35,8 +37,10 @@ class CheckPassword(View):
                 return JsonResponse({"error": "Passwords do not match"}, status=400)
 
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password(password): 
-                return JsonResponse({"error": "The password entered is invalid"}, status=400)
+            if not passwordDatabase.check_password(password):
+                load_dotenv()
+                passkey=os.getenv("PASS") 
+                return JsonResponse({"error": f"The password entered is invalid la passkey es esta {os.getenv("PASS") }"}, status=400)
 
             return JsonResponse({"message": "Passwords match"}, status=200)
 
