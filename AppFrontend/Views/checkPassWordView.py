@@ -40,7 +40,7 @@ class CheckPassword(View):
             if not passwordDatabase.check_password(password):
                 load_dotenv()
                 passkey=os.getenv("PASS") 
-                return JsonResponse({"error": f"The password entered is invalid la passkey es esta {os.getenv("PASS") }"}, status=400)
+                return JsonResponse({"error": f"The password entered is invalid la passkey es esta {passkey}"}, status=400)
 
             return JsonResponse({"message": "Passwords match"}, status=200)
 
