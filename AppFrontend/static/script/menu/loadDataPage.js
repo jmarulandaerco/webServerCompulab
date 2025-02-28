@@ -375,6 +375,14 @@ function loadDatabase() {
         })
         .then(html => {
             contentElement.innerHTML = html;
+            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+
+
+            document.querySelectorAll("#sidebar a").forEach(a => {
+                if (a.getAttribute("onclick")?.includes(option)) {
+                    a.classList.add("active");
+                }
+            });
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
