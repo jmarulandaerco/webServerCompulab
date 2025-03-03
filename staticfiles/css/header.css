@@ -1,0 +1,100 @@
+/* Aseguramos que el header use flexbox para alinear los elementos */
+#header {
+    width: 100%;
+    background-color: #222;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between; /* Alinea los elementos */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;  /* Centra el contenido */
+}
+
+.logo {
+    flex: 1;
+}
+
+/* Indicador de estado */
+.status-indicator {
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+.status-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #00AB00;
+}
+
+
+#statusText{
+    color: #fff;
+}
+/* Estados */
+.status-circle.active {
+    background-color: #00ff00; /* Verde cuando está activo */
+}
+
+.status-circle.inactive {
+    background-color: #ff0000; /* Rojo cuando está inactivo */
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    width: 40px;
+}
+
+.logout-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 10px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    .logout-btn img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        height: 30px;
+    }
+
+    .logout-btn img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+#usernameHeader {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 20px;
+    font-family: 'Sora Light';
+    font-size: 10;
+    color: #fff;
+  }

@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'Sora Light';
+    src: url('../fonts/Sora-Light.ttf') format('truetype');
+    font-weight: 300; 
+    font-style: normal;
+  } 
+
+
+.form-wrapper-column {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto; 
+    max-height: 70vh; 
+}
+
+.form-container-column {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.form-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+
+select{
+    height: 35px;
+}
+select option {
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonClass {
+    background-color: #00AB00;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+
+.buttonClass:hover {
+    background-color: #00AB00;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .form-columns {
+        flex-direction: column;
+    }
+
+    .form-column {
+        width: 100%;
+    }
+}

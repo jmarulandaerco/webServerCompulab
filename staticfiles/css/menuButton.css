@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Sora Light';
+    src: url('../fonts/Sora-Light.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+  } 
+
+.container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los botones */
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
+    gap: 10px; /* Espaciado entre los botones */
+    width: calc(100% - 220px); /* Evita que los botones queden detrás del sidebar */
+    margin-left: 10px; /* Asegura que no se superpongan con el sidebar */
+    
+}
+
+button {
+    padding: 5px;
+    cursor: pointer;
+    background-color: #91CE00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-family:  'Sora Light';
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    width: 200px; /* Tamaño fijo para evitar desorden */
+    text-align: center;
+    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-family: 'Sora Light';
+}
+
+.button:hover {
+    background-color: #E4DD00;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
