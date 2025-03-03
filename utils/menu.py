@@ -86,13 +86,7 @@ class Menu:
         command_thread = threading.Thread(target=run_command)
         command_thread.start()
 
-        for i in range(31):
-
-            if not command_thread.is_alive():
-                break
-
-            
-            time.sleep(1)
+        
 
         command_thread.join()
 

@@ -16,14 +16,15 @@ class StartView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     def get(self, request, *args, **kwargs):
-        auth_header = request.headers.get('Authorization')
- 
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        token = auth_header.split(' ')[1]
-   
         try:
+            auth_header = request.headers.get('Authorization')
+    
+            if not auth_header or not auth_header.startswith('Bearer '):
+                return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            token = auth_header.split(' ')[1]
+   
+        
             token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
             valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
           
@@ -40,6 +41,7 @@ class StartView(generics.RetrieveAPIView):
                 return Response({'message':'Service FW_main.service is in error'})
 
         except Exception as e:
+            print(e)
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
