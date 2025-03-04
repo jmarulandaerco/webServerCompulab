@@ -69,7 +69,8 @@ class Menu:
         try:
             result = os.system("systemctl is-active --quiet FW_main.service")
             exit_code = os.WEXITSTATUS(result)
-
+            with open("error_log.txt", "a") as file:
+                    file.write(f"Error: {str(result)}\n")
             if result == 0:
                 return True
             else:
@@ -78,22 +79,24 @@ class Menu:
             print(e)
             return False
 
-    def execute_command(self, command: str) :
-   
+    def execute_command(self, command: str):
         def run_command():
-            os.system(command)
+            try:
+                subprocess.run(command, shell=True, check=True)
+            except subprocess.CalledProcessError as e:
+                with open("error_log.txt", "a") as file:
+                    file.write(f"Error: {str(e)}\n")
 
         command_thread = threading.Thread(target=run_command)
         command_thread.start()
-
-        
-
         command_thread.join()
 
     def start_service(self)-> bool:
         """Start a systemd service, or restart if it's already active, with a progress bar."""
 
         status = self.check_service_status()
+        with open("error_log.txt", "a") as file:
+                file.write(f"Error: {str(status)}\n")
         try:
             if status == True:
                 command = "sudo systemctl restart FW_main.service"
@@ -112,6 +115,7 @@ class Menu:
             else:
                 return False
         except Exception :
+            
             return False
         
     def change_user_password(self, new_password):
@@ -145,11 +149,13 @@ class Menu:
         except Exception as e:
             return False
         
-    def reboot(self):
+    def reboot(self)->bool:
         try:
             os.system("sudo reboot")
+            return True
         except Exception as e:
-            print("Error al reiniciar el equipo")
+            return False
+            
 
     
     def view_modem_info(self):

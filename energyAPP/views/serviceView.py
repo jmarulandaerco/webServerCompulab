@@ -38,10 +38,11 @@ class StartView(generics.RetrieveAPIView):
                 return Response({'message':'System restarted'})
             else:
             
-                return Response({'message':'Service FW_main.service is in error'})
+                return Response({'message':'Error starting the computer'})
 
         except Exception as e:
             print(e)
+            
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -100,10 +101,10 @@ class Reboot(generics.RetrieveAPIView):
             stopper= Menu()
             stop = stopper.reboot()
             if stop==True:
-                return Response({'message':'Reboot System'})
+                return Response({'message':'Reboot system'})
             else:
             
-                return Response({'message':'Service FW_main.service is already stopped.'})
+                return Response({'message':'Error stoping the computer'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
