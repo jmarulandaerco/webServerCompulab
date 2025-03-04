@@ -104,7 +104,7 @@ class Reboot(generics.RetrieveAPIView):
                 return Response({'message':'Reboot system'})
             else:
             
-                return Response({'message':'Error stoping the computer'})
+                return Response({'message':'Error rebooting the computer'})
 
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)

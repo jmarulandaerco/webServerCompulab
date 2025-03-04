@@ -1,15 +1,13 @@
 
-import configparser
 from dataclasses import dataclass, field
+import logging
 import os
 import subprocess
 import threading
-import time
-from typing import List
 from authApp.models.user import User  # Importar modelos después de django.setup()
-from pymongo import MongoClient
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from utils.logger import LoggerHandler
 from utils.modem_gsm_driver import SimModem
 
 
@@ -60,23 +58,25 @@ class Menu:
             Retrieves available Modbus device folders and returns them as choices.
     """
     modem: SimModem = field(init=False)
-
+    logger: logging.Logger = field(init=False)
     def __post_init__(self):
         self.modem = SimModem(connection_name="Red-Onomondo")
+        logger_handler = LoggerHandler()
+        self.logger = logger_handler.get_logger() 
 
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
             result = os.system("systemctl is-active --quiet FW_main.service")
             exit_code = os.WEXITSTATUS(result)
-            with open("error_log.txt", "a") as file:
-                    file.write(f"Error: {str(result)}\n")
+            self.logger.info(f"status  result :{result}, exit code {exit_code}")
             if result == 0:
                 return True
             else:
                 return False
-        except Exception as e:
-            print(e)
+        except Exception as ex:
+            self.logger.error(f"Error checking the status of a systemd service: {ex}")
+
             return False
 
     def execute_command(self, command: str):
@@ -84,8 +84,8 @@ class Menu:
             try:
                 subprocess.run(command, shell=True, check=True)
             except subprocess.CalledProcessError as e:
-                with open("error_log.txt", "a") as file:
-                    file.write(f"Error: {str(e)}\n")
+                self.logger.error(f"Error excecute console command {e}")
+
 
         command_thread = threading.Thread(target=run_command)
         command_thread.start()
@@ -95,8 +95,7 @@ class Menu:
         """Start a systemd service, or restart if it's already active, with a progress bar."""
 
         status = self.check_service_status()
-        with open("error_log.txt", "a") as file:
-                file.write(f"Error: {str(status)}\n")
+        
         try:
             if status == True:
                 command = "sudo systemctl restart FW_main.service"
@@ -114,8 +113,8 @@ class Menu:
                 return False
             else:
                 return False
-        except Exception :
-            
+        except Exception as ex:
+            self.logger.error(f"Error started service {ex}")
             return False
         
     def change_user_password(self, new_password):
@@ -123,7 +122,7 @@ class Menu:
             os.system(f"echo 'erco_config:{new_password}' | sudo chpasswd")
             return True
         except Exception as e:
-            print(f"Error changing password: {e}")
+            self.logger.error(f"Error changing password: {e}")
             return False
         
     def delete_log(self):
@@ -131,7 +130,7 @@ class Menu:
             os.system("rm /FW/log.log")
             return True
         except Exception as e:
-            print(f"Error delete log: {e}")
+            self.logger.error(f"Error delete log: {e}")
             return False
             
 
@@ -139,7 +138,6 @@ class Menu:
         """Stop and disable a systemd service."""
         status = self.check_service_status()
         if status == "inactive":
-            print("Service enrg-utilitymanager.service is already stopped.")
             return False
 
         try:
@@ -147,6 +145,7 @@ class Menu:
             return True
 
         except Exception as e:
+            self.logger.error(f"Error stopping the service: {e}")
             return False
         
     def reboot(self)->bool:
@@ -154,6 +153,8 @@ class Menu:
             os.system("sudo reboot")
             return True
         except Exception as e:
+            self.logger.error(f"Error rebooting the computer {e}")
+
             return False
             
 
@@ -162,6 +163,8 @@ class Menu:
         """Displays modem, SIM, and signal information in a dialog menu."""
         try:
             if not self.modem.is_modem_present():
+                self.logger.warning(f"Modem not present. {e}")
+
                 return "Modem not present."
 
             ip_sim = subprocess.check_output(
@@ -205,23 +208,26 @@ class Menu:
             return  f"{sim_info_text}\n{signal_info_text}"
             
         except Exception as e:
-            return f"Error en la obtención de datos del modem {e}"
+            self.logger.error(f"Error in obtaining data from the modem {e}")
+            return f"Error in obtaining data from the modem {e}"
     
     def toggle_wifi(self):
+        try :
+            result = subprocess.run(
+                "nmcli radio wifi", shell=True, capture_output=True, text=True
+            )
+            current_status = result.stdout.strip()
+            new_status = "off" if current_status == "enabled" else "on"
+            toggle_command = f"sudo nmcli radio wifi {new_status}"
+            result = subprocess.run(toggle_command, shell=True)
 
-        result = subprocess.run(
-            "nmcli radio wifi", shell=True, capture_output=True, text=True
-        )
-        current_status = result.stdout.strip()
-        new_status = "off" if current_status == "enabled" else "on"
-        toggle_command = f"sudo nmcli radio wifi {new_status}"
-        result = subprocess.run(toggle_command, shell=True)
+            if result.returncode == 0:
+                return f"Wi-Fi antenna is now {new_status}."
+            else:
+                return "Failed to change Wi-Fi antenna state."
+        except Exception as ex:
+            self.logger.error(f"enable-disable wifi: {ex}")
 
-        if result.returncode == 0:
-            return f"Wi-Fi antenna is now {new_status}."
-        else:
-            return "Failed to change Wi-Fi antenna state."
-       
 
     def add_wifi(self,ssid,password,connection_name):
         try:
@@ -236,23 +242,23 @@ class Menu:
                             
                 return f"Connected to Wi-Fi network '{ssid}' with connection name '{connection_name}'."
                               
-        except:
+        except Exception as ex:
+            self.logger.error(f"Error adding wifi network: {ex}")
             return "Error adding wifi network"
     
     
     def create_user_if_not_exists(self, username, password):
         if not User.objects.filter(username=username).exists():
             user = User.objects.create_user(username=username, password=password)
-            print(f"✅ User '{username}' creater correct.")
+            self.logger.info(f"✅ User '{username}' creater correct.")
         else:
-            print(f"⚠️ The user '{username}' already exist.")
+            self.logger.info(f"⚠️ The user '{username}' already exist.")
             
     def setup_folder_path(self):
         try:
             folders_devices=[]
             choices=[]
             path_modbus = "/FW/Modbus/modbusmaps"
-            print(path_modbus)
             if os.path.exists(path_modbus):
                 folders_devices = [name for name in os.listdir(path_modbus) if os.path.isdir(os.path.join(path_modbus, name))]
                 
@@ -262,7 +268,7 @@ class Menu:
                 
             return[folders_devices,choices]
         except Exception as ex:
-            print(ex)
+            self.logger.error(f"no folder path: {ex}")
             return[]
         
 

@@ -1,8 +1,11 @@
+import logging
 import re
 import subprocess
 import netifaces
 from typing import Union, Dict
 from dataclasses import dataclass, field
+
+from utils.logger import LoggerHandler
 from .enumerations import InternetInterfaceEnum, ModemSignalQualityEnum
 
 @dataclass
@@ -16,6 +19,7 @@ class ModemSignalQuality:
     """
     network_technology: str = field(init=False, default="None")
     RSSI: float = field(init=False, default=0.0)
+    
 
 @dataclass
 class SimModem:
@@ -28,9 +32,13 @@ class SimModem:
     """
     connection_name: str = field(init=True)
     __modem_id: Union[None, str] = field(init=False, default=None)
+    logger: logging.Logger = field(init=False)
+
 
     def __post_init__(self) -> None:
         self.__modem_id = self.__get_modem_id()
+        logger_handler = LoggerHandler()
+        self.logger = logger_handler.get_logger()
 
     def __run_bash_command(self, command:str) -> Union[None,str]:
         """
@@ -47,6 +55,7 @@ class SimModem:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             val_return = result.stdout.strip()
         except Exception as e:
+            self.logger.error(f"Error execute a bash command and returns its output.{e}")
             return None
         return val_return
 
@@ -63,6 +72,8 @@ class SimModem:
             if modem:
                 val_return = modem.split()[0]
         except Exception as e:
+            self.logger.error(f"Error get modem id: {e}")
+
             return None
 
         return val_return
@@ -87,6 +98,8 @@ class SimModem:
             )
             val_return = "SIM" in sim_status
         except Exception as e:
+            self.logger.error(f"Error status sim: {e}")
+
             return False
 
         return val_return
@@ -125,6 +138,8 @@ class SimModem:
             )
 
         except Exception as e:
+            self.logger.error(f"Error information sim: {e}")
+
             return None
         return iccid, operator_id, operator_name
 
@@ -145,6 +160,7 @@ class SimModem:
             if "connected" in modem_info:
                 val_return = True
         except Exception as e:
+            self.logger.error(f"Error is connected modem: {e}")
 
             return False
 
@@ -186,6 +202,8 @@ class SimModem:
                     )
 
         except Exception as e:
+            self.logger.error(f"Error visualization information modem: {e}")
+
             return
 
         return val_return
@@ -226,6 +244,8 @@ class SimModem:
                 )
 
         except Exception as e:
+            self.logger.error(f"Error signal quality: {e}")
+
             return None
         return val_return
 
@@ -246,7 +266,7 @@ class SimModem:
         
 
         except Exception as e:
-            print(e)
+            self.logger.error(f"Error interface: {e}")
 
 
     def enable_modem(self):
