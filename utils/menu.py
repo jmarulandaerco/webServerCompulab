@@ -67,7 +67,7 @@ class Menu:
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
-            result = os.system("systemctl is-active --quiet FW_main.service")
+            result = os.system("sudo systemctl is-active --quiet FW_main.service")
             exit_code = os.WEXITSTATUS(result)
             self.logger.info(f"status  result :{result}, exit code {exit_code}")
             if result == 0:

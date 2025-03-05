@@ -147,7 +147,38 @@ Other important files include:
 </p>
 
 
-## 
+## Installation and Requirements
+
+Please follow the steps below to properly configure your development and production environments:
+
+1. **Configuration in `settings.py`:**
+
+   Ensure that the following settings are present in your `settings.py` file and remain unchanged:
+
+   ```python
+   STATIC_URL = '/static/'
+   STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+   MEDIA_URL = '/media/'
+   MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+2. **Collecting Static Files:**
+
+After making changes to static files, run the following command in your terminal:
+
+bash
+Copiar
+Editar
+python manage.py collectstatic
+This command gathers all static files into a directory that Django recognizes, especially when used with Gunicorn. It's important to maintain the existing folder structure and make modifications to HTML scripts as necessary.
+
+3. **Serving Static Files with Gunicorn:**
+
+By default, Gunicorn does not serve static files. To handle this, it's recommended to use a web server like Nginx in conjunction with Gunicorn. Nginx can serve static files directly, improving performance and efficiency. For more information on setting up Nginx with Gunicorn to serve static files, refer to this guide.
+
+4. **Gunicorn Service:**
+
+The Linux service managing the application is named gunicorn.service. Ensure that this service is correctly configured and running to handle application requests efficiently. For guidance on setting up Gunicorn as a service, consult the Gunicorn documentation.
 
 ## Licences
 
