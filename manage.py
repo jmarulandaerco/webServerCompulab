@@ -3,6 +3,7 @@ import os
 import sys
 from django.core.management import execute_from_command_line
 from django.db.utils import OperationalError
+from dotenv import load_dotenv
 
 def main():
     """Run administrative tasks."""
@@ -18,8 +19,12 @@ def main():
         # Ejecuta la función solo al iniciar el servidor
         if 'runserver' in sys.argv:
             menu = Menu()
-            menu.create_user_if_not_exists("erco_to","3rc04dm1n#t0")
-            menu.create_user_if_not_exists("erco_config","3rc04dm1n#t0")
+            load_dotenv()
+            passkey=os.getenv("PASS")
+            if "#" not in passkey:
+                passkey += "#t0"
+            menu.create_user_if_not_exists("erco_to",str(passkey))
+            menu.create_user_if_not_exists("erco_config",str(passkey))
 
 
     except ImportError as exc:

@@ -1,4 +1,6 @@
+import os
 from django.http import JsonResponse
+from dotenv import load_dotenv
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,6 +8,8 @@ from django.conf import settings
 from pymongo import MongoClient
 from authApp.models.user import User
 from utils.menu import Menu  
+
+menu = Menu()
 
 class DeleteCollectionView(APIView):
     """
@@ -23,7 +27,10 @@ class DeleteCollectionView(APIView):
            
             for collection_name in db.list_collection_names():
                 db[collection_name].delete_many({})
-            
+            load_dotenv()
+            passkey=os.getenv("PASS")
+            if "#" not in passkey:
+                passkey += "#t0"
             User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
             User.objects.create_user(username="erco_config", password="3rc04dm1n#t0")
 
@@ -40,7 +47,6 @@ class DeleteLog(APIView):
     """
     def delete(self,request):
         try:
-            menu = Menu()
             menu.delete_log()
             return JsonResponse({"message":"Logs deleted"},status=200)
         except Exception as e:
