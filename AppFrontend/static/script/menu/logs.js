@@ -42,7 +42,7 @@ async function fetchLogs() {
 
 async function downloadLogs() {
     try {
-        const response = await fetch(); // Reemplaza con la URL real
+        const response = await fetch("downloadLog"); // Reemplaza con la URL real
 
         if (!response.ok) {
             throw new Error("Failed to fetch logs");
