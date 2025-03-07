@@ -3,8 +3,8 @@ from dataclasses import dataclass
 import os
 
 
-LOG_FILE = "log.log"
-MAX_LOG_SIZE = 100 * 1024 * 1024  # 5 MB
+LOG_FILE = "django_log.log"
+MAX_LOG_SIZE = 50 * 1024 * 1024  # 5 MB
 
 def check_log_size():
     if os.path.exists(LOG_FILE) and os.path.getsize(LOG_FILE) > MAX_LOG_SIZE:

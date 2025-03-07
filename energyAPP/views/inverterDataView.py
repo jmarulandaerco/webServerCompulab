@@ -74,7 +74,6 @@ class InverterView(View):
         
         for inverter in inverters_data:
             inverter['_id'] = str(inverter['_id'])
-        print(inverters_data)
         return render(request, 'home/content/databaseView.html', {'datos': inverters_data})
     
     

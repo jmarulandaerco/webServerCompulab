@@ -79,7 +79,6 @@ class MeasureView(View):
             
             return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataServer(View):
@@ -150,7 +149,6 @@ class FormDataServer(View):
             
             return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataModes(View):
@@ -247,7 +245,6 @@ class FormDataModes(View):
             
             return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataSettingDataBase(View):
@@ -308,7 +305,6 @@ class FormDataSettingDataBase(View):
             
             return JsonResponse({"message": "Error updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
 
 class FormDataSettingInterface(View):
@@ -373,7 +369,6 @@ class FormDataSettingInterface(View):
             
             return JsonResponse({"message": "Error while updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataLimitation(View):
@@ -455,7 +450,6 @@ class FormDataLimitation(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
     
 class FormDataCompensation(View):
@@ -562,7 +556,6 @@ class FormDataCompensation(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataBasePropierties(View):
@@ -630,7 +623,6 @@ class FormDataBasePropierties(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 
@@ -702,7 +694,6 @@ class FormDataSettingLogs(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Invalid data: one or more records contain invalid or null data, {e}"}, status=400) 
 
 class FormDataModemChecker(View):
@@ -762,7 +753,6 @@ class FormDataModemChecker(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
 
 class FormDataSignalChecker(View):
@@ -853,7 +843,6 @@ class FormDataSignalChecker(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
     
 class FormDataServerChecker(View):
@@ -904,7 +893,6 @@ class FormDataServerChecker(View):
             
             return JsonResponse({"message": "Error when updating data"}, status=400)    
         except Exception as e:
-            print(e)
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
         
         

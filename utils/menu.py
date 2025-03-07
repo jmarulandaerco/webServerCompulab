@@ -74,6 +74,7 @@ class Menu:
                 return True
             else:
                 return False
+            
         except Exception as ex:
             self.logger.error(f"Error checking the status of a systemd service: {ex}")
 

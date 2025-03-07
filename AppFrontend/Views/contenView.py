@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
+from utils.logger import LoggerHandler
+
 class BaseContentView(TemplateView):
     """
     A base class for rendering content views based on the option provided in the URL.
@@ -20,6 +22,8 @@ class BaseContentView(TemplateView):
     get_template_name(option)
         Abstract method that must be implemented by subclasses to define the template name.
     """
+    logger = LoggerHandler().get_logger()
+
     def get(self, request, *args, **kwargs):
         if 'option' in kwargs:
             return self.get_content(request, kwargs['option'])
@@ -29,8 +33,9 @@ class BaseContentView(TemplateView):
         template_name = self.get_template_name(option)
         try:
             return render(request, template_name)
-        except Exception as e:
-            print(e)
+        except Exception as ex:
+            
+            self.logger.error(f"Error loding page: {ex}")
             return HttpResponse(f"<h1>{option} - Error loading page</h1>")
 
     def get_template_name(self, option):

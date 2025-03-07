@@ -1,22 +1,6 @@
 let intervalId;
 
-function loadContentModbus(option) {
-    fetch(`/home/content/form/modbus/${option}/`)
-        .then(response => {
-            if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById("content3").innerHTML = data;
-            loadFunction(option);
 
-        })
-        .catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
-        });
-}
 
 function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
@@ -334,23 +318,6 @@ async function updateServerSelection() {
 };
 
 
-function loadDevices(page) {
-    const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
-    fetch(fullUrl)  
-        .then(response => {
-            if (!response.ok) {
-                alert(`Error: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById("content3").innerHTML = html;
-        })
-        .catch(error => {
-            console.error("Error while loading devices:", error);
-            document.getElementById("content3").innerHTML = "<p>Error while loading devices</p>";
-        });
-}
 
 function loadDatabase(option) {
     const fullUrl = `/api/inverter/status/`;

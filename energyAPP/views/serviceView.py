@@ -41,7 +41,6 @@ class StartView(generics.RetrieveAPIView):
                 return Response({'message':'Error starting the computer'})
 
         except Exception as e:
-            print(e)
             
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 

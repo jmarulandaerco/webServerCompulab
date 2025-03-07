@@ -5,6 +5,8 @@ from django.core.management import execute_from_command_line
 from django.db.utils import OperationalError
 from dotenv import load_dotenv
 
+from utils.logger import LoggerHandler
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'energyProyect.settings')
@@ -25,6 +27,7 @@ def main():
                 passkey += "#t0"
             menu.create_user_if_not_exists("erco_to",str(passkey))
             menu.create_user_if_not_exists("erco_config",str(passkey))
+           
 
 
     except ImportError as exc:
@@ -38,5 +41,8 @@ def main():
 if __name__ == '__main__':
     try:
         main()
+        logger = LoggerHandler().get_logger()
+        logger.info("Application started")
     except OperationalError:
-        print("⚠️ No hay conexión a la base de datos, pero el servidor sigue funcionando...")
+        logger.error("Error starting django application")
+

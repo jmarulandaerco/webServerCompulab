@@ -6,7 +6,9 @@ from rest_framework.permissions import IsAuthenticated
 from authApp.models.user import User
 from authApp.serializers.userSerializer import UserSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from bson import ObjectId  # Necesario para trabajar con ObjectId
+from bson import ObjectId
+
+from utils.logger import LoggerHandler  # Necesario para trabajar con ObjectId
 
 
 class UserDetailView(generics.RetrieveAPIView):
@@ -34,7 +36,7 @@ class UserDetailView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     
 
-
+    logger = LoggerHandler().get_logger()
     def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
  
@@ -55,8 +57,9 @@ class UserDetailView(generics.RetrieveAPIView):
             serializer = UserSerializer(inverter_data, many=True)
             return Response(serializer.data)
 
-        except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as ex:
+            self.logger.warning(f"Invalid token {ex}")
+            return Response({'detail': 'Invalid token', 'error': str(ex)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
     def post(self, request, *args, **kwargs):
@@ -67,7 +70,6 @@ class UserDetailView(generics.RetrieveAPIView):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
-        print(token)
    
         try:
             token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
