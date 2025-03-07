@@ -325,7 +325,10 @@ function changePerPage() {
 }
 
 function loadDatabase() {
-    const perPage = document.getElementById('perPageSelect').value;
+    const perPageSelect = document.getElementById('perPageSelect');
+
+    // Establecer un valor predeterminado si el elemento no existe o no tiene un valor válido
+    const perPage = perPageSelect && perPageSelect.value ? perPageSelect.value : 10;
     const page = 1; // Siempre cargar la primera página al actualizar
     const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
     const contentElement = document.getElementById("content");
