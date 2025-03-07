@@ -40,8 +40,7 @@ class BaseContentView(TemplateView):
 
     def get_template_name(self, option):
         """
-        Método abstracto que debe ser implementado por las subclases
-        para definir la ruta de la plantilla correspondiente.
+      
         """
         raise NotImplementedError("Subclases deben implementar este método.")
 class ContentView(BaseContentView):
