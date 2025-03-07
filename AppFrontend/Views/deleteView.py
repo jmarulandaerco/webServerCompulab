@@ -22,7 +22,7 @@ class DeleteCollectionView(APIView):
 
            
             for collection_name in db.list_collection_names():
-                db[collection_name].drop()
+                db[collection_name].delete_many({})
             
             User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
             User.objects.create_user(username="erco_config", password="3rc04dm1n#t0")

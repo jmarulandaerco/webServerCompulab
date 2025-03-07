@@ -70,7 +70,7 @@ class InverterView(View):
         
         inverters_collection = db['inverters']
         
-        inverters_data = list(inverters_collection.find())
+        inverters_data = list(inverters_collection.find())[::-1]
         
         for inverter in inverters_data:
             inverter['_id'] = str(inverter['_id'])
