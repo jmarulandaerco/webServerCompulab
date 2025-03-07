@@ -33,10 +33,7 @@ async function updateInformationDatabase() {
     }
 };
 
-function changePerPage() {
-    const perPage = document.getElementById("perPageSelect").value;
-    window.location.href = `?page=1&per_page=${perPage}`;
-};
+
 
 async function loadFormDataSettingDatabase() {
     try {

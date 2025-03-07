@@ -319,8 +319,15 @@ async function updateServerSelection() {
 
 
 
-function loadDatabase(option) {
-    const fullUrl = `/api/inverter/status/`;
+function changePerPage() {
+    const perPage = document.getElementById('perPageSelect').value;
+    window.location.href = `?page=1&per_page=${perPage}`;
+}
+
+function loadDatabase() {
+    const perPage = document.getElementById('perPageSelect').value;
+    const page = 1; // Siempre cargar la primera página al actualizar
+    const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
     const contentElement = document.getElementById("content");
 
     // Mostrar mensaje de carga mientras se hace la petición
@@ -331,25 +338,10 @@ function loadDatabase(option) {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-
-            // Verificar que la respuesta es HTML (Content-Type)
-            const contentType = response.headers.get("Content-Type");
-            if (!contentType || !contentType.includes("text/html")) {
-                throw new Error("La respuesta no es HTML.");
-            }
-
             return response.text();
         })
         .then(html => {
             contentElement.innerHTML = html;
-            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
-
-
-            document.querySelectorAll("#sidebar a").forEach(a => {
-                if (a.getAttribute("onclick")?.includes(option)) {
-                    a.classList.add("active");
-                }
-            });
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
