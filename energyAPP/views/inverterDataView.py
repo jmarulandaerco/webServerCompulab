@@ -11,6 +11,7 @@ from rest_framework_simplejwt.backends import TokenBackend
 from energyAPP.models import InverterData
 from energyAPP.serializers import InverterDataSerializer
 from pymongo import MongoClient
+from django.core.paginator import Paginator
 
 class InverterDataView(APIView):
 
@@ -67,14 +68,25 @@ class InverterView(View):
     def get(self, request):
         client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
         db = client[settings.DATABASES['default']['NAME']]
-        
         inverters_collection = db['inverters']
-        
-        inverters_data = list(inverters_collection.find())[::-1]
-        
+
+        # Obtener todos los datos y convertir _id a string
+        inverters_data = list(inverters_collection.find().sort('_id', -1))
         for inverter in inverters_data:
             inverter['_id'] = str(inverter['_id'])
-        return render(request, 'home/content/databaseView.html', {'datos': inverters_data})
+
+        # Obtener el número de registros por página desde los parámetros GET (por defecto 10)
+        per_page = int(request.GET.get('per_page', 10))
+        page = int(request.GET.get('page', 1))
+
+        # Crear paginador
+        paginator = Paginator(inverters_data, per_page)
+        datos_paginados = paginator.get_page(page)
+
+        return render(request, 'home/content/databaseView.html', {
+            'datos': datos_paginados,
+            'per_page': per_page,
+        })
     
     
 class InverterApiView(APIView):

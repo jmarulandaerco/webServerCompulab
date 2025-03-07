@@ -56,3 +56,20 @@ td {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+.pagination {
+  margin-top: 10px;
+}
+
+.pagination a {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.pagination a:hover {
+  background-color: #0056b3;
+}

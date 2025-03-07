@@ -1,8 +1,19 @@
 {% load static %}
 
 <h1>Datos del Inversor</h1>
-<div>
+<!-- <div>
     <button id="refreshButton" onclick="loadDatabase()" style="margin-right: 10px;margin-bottom: 10px;">Update</button>
+    <button id="refreshButton" onclick="exportToExcel()">Download</button>
+
+</div> -->
+<div>
+    <label for="perPageSelect">Mostrar:</label>
+    <select id="perPageSelect" onchange="changePerPage()">
+        <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+        <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+        <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+    </select>
+    <button onclick="loadDatabase()" style="margin-left: 10px;">Actualizar</button>
     <button id="refreshButton" onclick="exportToExcel()">Download</button>
 
 </div>
@@ -73,4 +84,17 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="pagination">
+    {% if datos.has_previous %}
+        <a href="?page=1&per_page={{ per_page }}">Primero</a>
+        <a href="?page={{ datos.previous_page_number }}&per_page={{ per_page }}">Anterior</a>
+    {% endif %}
+
+    <span>Página {{ datos.number }} de {{ datos.paginator.num_pages }}</span>
+
+    {% if datos.has_next %}
+        <a href="?page={{ datos.next_page_number }}&per_page={{ per_page }}">Siguiente</a>
+        <a href="?page={{ datos.paginator.num_pages }}&per_page={{ per_page }}">Último</a>
+    {% endif %}
 </div>
