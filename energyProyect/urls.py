@@ -7,7 +7,7 @@ from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceConnection
 from AppFrontend.Views.jsonView import ListColections
-from AppFrontend.Views.logView import GetLogsView
+from AppFrontend.Views.logView import DownloadLogsView, GetLogsView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
@@ -39,6 +39,7 @@ urlpatterns = [
 
     # path("home/logs/", LogTemplateView.as_view(), name="log_view"),
     path("home/api/logs/", GetLogsView.as_view(), name="fetch_logs"),
+    path("home/api/logs/download/",DownloadLogsView.as_view(),name="download_logs"),
     path('api/measurement/', MeasureView.as_view(), name='get_measurement_data'),
     path('api/server/config/', FormDataServer.as_view(), name='get_server_config'),
     path('api/modes/config/', FormDataModes.as_view(), name='get_modes_config'),

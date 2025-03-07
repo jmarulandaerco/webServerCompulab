@@ -4,7 +4,9 @@
         <link rel="stylesheet" href="{% static 'css/logs.css' %}">
 
         <h1>Logs del Servidor</h1>
-        <button id="refreshButton" onclick="fetchLogs()">Actualizar Logs</button>
+        <button id="refreshButton" onclick="fetchLogs()">Update Logs</button>
+        <button id="refreshButton" onclick="downloadLogs()">Download Logs</button>
+        
         <div class="log-container" id="log-container">
         </div>
     </div>

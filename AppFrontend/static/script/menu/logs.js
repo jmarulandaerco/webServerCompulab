@@ -39,3 +39,30 @@ async function fetchLogs() {
         console.error("Error retrieving logs:", error);
     }
 }
+
+async function downloadLogs() {
+    try {
+        const response = await fetch(); // Reemplaza con la URL real
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch logs");
+        }
+
+        const blob = await response.blob(); // Convertir la respuesta en un blob
+        const url = window.URL.createObjectURL(blob);
+
+        // Crear un enlace para descargar el archivo
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "logs.zip"; // Nombre del archivo a descargar
+        document.body.appendChild(a);
+        a.click();
+
+        // Limpiar
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (error) {
+        console.error("Error downloading logs:", error);
+        alert("Error downloading logs. Please try again.");
+    }
+}

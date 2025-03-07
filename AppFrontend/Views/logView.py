@@ -1,11 +1,14 @@
 import os
-from django.http import JsonResponse
+import zipfile
+from django.http import FileResponse, JsonResponse
 from django.views.generic import TemplateView
 from django.views import View
 
 from energyProyect import settings
 
 LOG_FILE_PATH = os.path.join(os.path.dirname(settings.BASE_DIR), "log.log")
+LOG_FILES = [os.path.join(os.path.dirname(settings.BASE_DIR), "log.log"), os.path.join(settings.BASE_DIR, "log.log")]  # Ajusta las rutas de los archivos
+
 
 # class LogTemplateView(TemplateView):
 #     """Vista para mostrar la plantilla de logs"""
@@ -33,3 +36,37 @@ class GetLogsView(View):
             return JsonResponse({"logs": logs})
         else:
             return JsonResponse({"message": "Log file not found"}, status=404)
+
+
+
+class DownloadLogsView(View):
+    """
+    API View to download logs as a text file.
+
+    This view handles GET requests to provide a downloadable log file.
+    If the log file exists, it is returned as a downloadable response.
+    If the log file does not exist, a 404 response is returned with an error message.
+
+    Methods:
+    -------
+    get(request)
+        Handles GET requests to provide the log file as a downloadable response.
+        If the log file is not found, it returns a 404 response.
+    """
+
+    def get(self, request):
+        zip_filename = "logs.zip"
+        zip_path = os.path.join("/tmp", zip_filename)  # Guardar temporalmente el ZIP
+
+        with zipfile.ZipFile(zip_path, "w") as zipf:
+            files_added = False
+            for log_file in LOG_FILES:
+                if os.path.exists(log_file):
+                    zipf.write(log_file, os.path.basename(log_file))
+                    files_added = True
+
+        if files_added:
+            return FileResponse(open(zip_path, "rb"), as_attachment=True, filename=zip_filename)
+        else:
+            return JsonResponse("No log files found")
+
