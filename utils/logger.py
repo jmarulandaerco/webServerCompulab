@@ -22,7 +22,7 @@ class LoggerHandler:
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
 
-        file_handler = logging.FileHandler("log.log", mode="a")
+        file_handler = logging.FileHandler("django_log.log", mode="a")
         file_handler.setLevel(logging.INFO)
 
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")

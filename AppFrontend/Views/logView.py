@@ -7,7 +7,7 @@ from django.views import View
 from energyProyect import settings
 
 LOG_FILE_PATH = os.path.join(os.path.dirname(settings.BASE_DIR), "log.log")
-LOG_FILES = [os.path.join(os.path.dirname(settings.BASE_DIR), "log.log"), os.path.join(settings.BASE_DIR, "log.log")]  # Ajusta las rutas de los archivos
+LOG_FILES = [LOG_FILE_PATH, os.path.join(settings.BASE_DIR, "django_log.log")]  # Ajusta las rutas de los archivos
 
 
 # class LogTemplateView(TemplateView):
