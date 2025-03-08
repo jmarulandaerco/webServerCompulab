@@ -15,12 +15,14 @@ h1 {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-.perPageSelect{
+
+.perPageSelect {
   font-family: 'Sora Light';
   font-size: 12px;
   height: 15px;
-  max-width:30px ;
+  max-width: 30px;
 }
+
 .table-erco {
   max-height: 60vh;
   overflow-y: auto;
@@ -56,12 +58,22 @@ td {
 }
 
 .pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 10px;
+}
+
+.pagination select {
+  font-family: 'Sora Light';
+  font-size: 12px;
+  height: 20px;
+  max-width: 30px;
+  padding: 2px;
 }
 
 .pagination a {
   padding: 5px 10px;
-  margin: 0 5px;
   background-color: #91CE00;
   color: white;
   text-decoration: none;
@@ -70,13 +82,10 @@ td {
   font-size: 10px;
 }
 
-.pagination a span{
+.pagination span {
   font-size: 10px;
-  font-size: 10px;
-
 }
+
 .pagination a:hover {
   background-color: #91CE00;
-  font-family: 'Sora Light';
-  font-size: 10px;
 }
