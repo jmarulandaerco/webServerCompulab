@@ -17,7 +17,7 @@ h1 {
 }
 
 .table-erco {
-  max-height: 68vh;
+  max-height: 50vh;
   overflow-y: auto;
   margin-bottom: 20px;
 }
