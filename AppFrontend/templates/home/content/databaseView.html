@@ -1,6 +1,5 @@
 <h1>Datos del Inversor</h1>
 <div>
-    <label for="perPageSelect">Mostrar:</label>
     <select id="perPageSelect" onchange="loadDatabase(1)">
         <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
         <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>

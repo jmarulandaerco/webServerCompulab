@@ -15,7 +15,12 @@ h1 {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-
+.perPageSelect{
+  font-family: 'Sora Light';
+  font-size: 12px;
+  height: 15px;
+  max-width:30px ;
+}
 .table-erco {
   max-height: 50vh;
   overflow-y: auto;
@@ -61,8 +66,12 @@ td {
   color: white;
   text-decoration: none;
   border-radius: 3px;
+  font-family: 'Sora Light';
+  font-size: 9px;
 }
 
 .pagination a:hover {
   background-color: #0056b3;
+  font-family: 'Sora Light';
+  font-size: 9px;
 }
