@@ -66,6 +66,8 @@ class FormModbusDevicesView(View):
     PUT request: Updates the selected devices in the configuration.
     """
     def get(self, request):
+        listDevices=[]
+        listSelectedDevices=[]
         device_param = request.GET.get('device', '') 
 
         if not device_param: 
