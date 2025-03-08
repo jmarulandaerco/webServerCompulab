@@ -22,7 +22,7 @@ h1 {
   max-width:30px ;
 }
 .table-erco {
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: auto;
   margin-bottom: 20px;
 }
@@ -62,16 +62,16 @@ td {
 .pagination a {
   padding: 5px 10px;
   margin: 0 5px;
-  background-color: #007bff;
+  background-color: #91CE00;
   color: white;
   text-decoration: none;
   border-radius: 3px;
   font-family: 'Sora Light';
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .pagination a:hover {
-  background-color: #0056b3;
+  background-color: #91CE00;
   font-family: 'Sora Light';
-  font-size: 9px;
+  font-size: 10px;
 }
