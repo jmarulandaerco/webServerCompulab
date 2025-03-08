@@ -25,6 +25,7 @@ class FormModbusView(View):
     def get(self, request):
         """Handles GET request to fetch current configuration."""
         try:
+            config.clear() 
             config.read(list_path_menu[2])
             sample_data = {
                 "debug": config.get('Default', 'log_debug', fallback='INFO'),
@@ -39,6 +40,7 @@ class FormModbusView(View):
         """Handles PUT request to update the configuration."""
 
         try:
+            config.clear() 
             config.read(list_path_menu[2])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
@@ -66,6 +68,7 @@ class FormModbusDevicesView(View):
     PUT request: Updates the selected devices in the configuration.
     """
     def get(self, request):
+        config.clear() 
         listDevices=[]
         listSelectedDevices=[]
         device_param = request.GET.get('device', '') 
@@ -101,7 +104,7 @@ class FormModbusDevicesView(View):
     def put(self, request):
         
         try:
-            
+            config.clear() 
             config.read(list_path_menu[2])
 
             data = json.loads(request.body)
@@ -167,6 +170,7 @@ class FormModbusGetDevicesView(APIView):
     def delete(self, request):
         try:
             new_list_devices=[]
+            config.clear() 
             config.read(list_path_menu[2])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
@@ -204,7 +208,7 @@ class FormModbusAddDeviceRtu(View):
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
-            
+            config.clear() 
             config.read(list_path_menu[2])
             
             new_name_device="Modbus-RTU-"+data.get("nameDevice")
@@ -254,6 +258,7 @@ class FormModbusAddDeviceRtu(View):
     
     def put(self, request):
         try:
+            config.clear() 
             config.read(list_path_menu[2])
 
             data = json.loads(request.body)
@@ -300,7 +305,7 @@ class FormModbusAddDeviceTcp(View):
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
             
-            
+            config.clear() 
             config.read(list_path_menu[2])
             
             new_name_device="Modbus-TCP-"+data.get("nameDevice")
@@ -357,6 +362,7 @@ class FormModbusAddDeviceTcp(View):
     def put(self, request):
         try:
             data = json.loads(request.body)
+            config.clear() 
             config.read(list_path_menu[2])
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
@@ -400,7 +406,7 @@ class FormModbusDeviceRtuView(View):
             device_param = request.GET.get('device', '')  
             if not device_param:
                 return JsonResponse({"message": "The ‘device’ parameter is required."}, status=400)
-
+            config.clear() 
             config.read(list_path_menu[2])
 
             if device_param not in config:

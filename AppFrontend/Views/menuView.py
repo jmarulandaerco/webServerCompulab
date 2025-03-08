@@ -114,6 +114,7 @@ class FormDataServer(View):
     def put(self, request):
         
         try:
+            config.clear() 
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
@@ -171,6 +172,7 @@ class FormDataModes(View):
     """
     def get(self, request):
         try:
+            config.clear() 
             config.read(list_path_menu[0])
             limitation = 'No' if config.get('functioning', 'enable_active_limitation') == "False" else 'Yes'
             compensation = 'No' if config.get('functioning', 'enable_reactive_compensation') == "False" else 'Yes'
@@ -187,6 +189,7 @@ class FormDataModes(View):
     def put(self, request):
         
         try:
+            config.clear() 
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
@@ -267,6 +270,7 @@ class FormDataSettingDataBase(View):
     """
     def get(self, request):
         try:
+            config.clear() 
             config.read(list_path_menu[0])
             sample_data = {
                 "day": config.get('database', 'old_days'),
@@ -279,6 +283,7 @@ class FormDataSettingDataBase(View):
     def put(self, request):
         
         try:
+            config.clear() 
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
@@ -337,6 +342,7 @@ class FormDataSettingInterface(View):
     def put(self, request):
         
         try:
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
@@ -391,6 +397,7 @@ class FormDataLimitation(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[4])
             limitation = "Yes" if config.getboolean('Active', 'energy_meter_3p', fallback=False) else "No"
             sample_data = {
@@ -410,6 +417,8 @@ class FormDataLimitation(View):
     def put(self, request):
         
         try:
+            config.clear()
+
             config.read(list_path_menu[4])
 
             data = json.loads(request.body)
@@ -474,6 +483,7 @@ class FormDataCompensation(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[5])
             limitation = "Yes" if config.getboolean("Reactive", "reactive_power_limiter", fallback=False) else "No"
             sample_data = {
@@ -494,6 +504,7 @@ class FormDataCompensation(View):
     def put(self, request):
         
         try:
+            config.clear()
             config.read(list_path_menu[5])
 
             data = json.loads(request.body)
@@ -580,6 +591,7 @@ class FormDataBasePropierties(View):
 
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[1])
             sample_data = {
                 "host": config.get('DATABASE', 'host', fallback='localhost'),
@@ -596,6 +608,7 @@ class FormDataBasePropierties(View):
     def put(self, request):
         
         try:
+            config.clear()
             config.read(list_path_menu[1])
 
             data = json.loads(request.body)
@@ -646,6 +659,7 @@ class FormDataSettingLogs(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[0])
             sample_data = {
                 "level": config.get('DEFAULT', 'loglevel'),
@@ -663,6 +677,7 @@ class FormDataSettingLogs(View):
     def put(self, request):
         
         try:
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
@@ -717,6 +732,7 @@ class FormDataModemChecker(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[3])
             sample_data = {
                 "connection": config.get('MODEM_CHECKER', 'connection_name'),
@@ -731,6 +747,7 @@ class FormDataModemChecker(View):
     def put(self, request):
         try:
             data = json.loads(request.body)
+            config.clear()
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
@@ -789,6 +806,7 @@ class FormDataSignalChecker(View):
                           message if an exception occurs.
         """
         try:
+            config.clear()
             config.read(list_path_menu[3])
             sample_data = {
                 "onomondo": config.get('SIGNAL_CHECKER', 'min_quality_gsm'),
@@ -822,6 +840,7 @@ class FormDataSignalChecker(View):
         """
         try:
             data = json.loads(request.body)
+            config.clear()
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
@@ -862,6 +881,7 @@ class FormDataServerChecker(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[3])
             sample_data = {
                 "requests": config.get('SERVER_CHECKER', 'max_attempts'),
@@ -874,6 +894,7 @@ class FormDataServerChecker(View):
         
     def put(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[3])
 
             data = json.loads(request.body)
