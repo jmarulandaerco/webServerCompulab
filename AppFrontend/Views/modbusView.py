@@ -166,6 +166,7 @@ class FormModbusGetDevicesView(APIView):
     @csrf_exempt
     def delete(self, request):
         try:
+            new_list_devices=[]
             config.read(list_path_menu[2])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
