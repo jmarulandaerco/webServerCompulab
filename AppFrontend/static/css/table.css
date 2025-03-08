@@ -70,6 +70,11 @@ td {
   font-size: 10px;
 }
 
+.pagination a span{
+  font-size: 10px;
+  font-size: 10px;
+
+}
 .pagination a:hover {
   background-color: #91CE00;
   font-family: 'Sora Light';
