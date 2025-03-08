@@ -318,19 +318,11 @@ async function updateServerSelection() {
 };
 
 
-
-function changePerPage() {
-    const perPage = document.getElementById('perPageSelect').value;
-    window.location.href = `?page=1&per_page=${perPage}`;
-}
-
-function loadDatabase() {
+function loadDatabase(page) {
     const perPageSelect = document.getElementById('perPageSelect');
-
-    // Establecer un valor predeterminado si el elemento no existe o no tiene un valor válido
-    const perPage = perPageSelect && perPageSelect.value ? perPageSelect.value : 10;
-    const page = 1; // Siempre cargar la primera página al actualizar
+    const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
     const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
+
     const contentElement = document.getElementById("content");
 
     // Mostrar mensaje de carga mientras se hace la petición
@@ -344,15 +336,13 @@ function loadDatabase() {
             return response.text();
         })
         .then(html => {
-            contentElement.innerHTML = html;
+            contentElement.innerHTML = html; // Actualiza el contenido de la página
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
             contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
         });
 }
-
-
 
 
 async function saveChangesEnableDisableDevices() {

@@ -3,9 +3,6 @@ import os
 import sys
 from django.core.management import execute_from_command_line
 from django.db.utils import OperationalError
-from dotenv import load_dotenv
-
-from utils.logger import LoggerHandler
 
 def main():
     """Run administrative tasks."""
@@ -21,13 +18,8 @@ def main():
         # Ejecuta la función solo al iniciar el servidor
         if 'runserver' in sys.argv:
             menu = Menu()
-            load_dotenv()
-            passkey=os.getenv("PASS")
-            if "#" not in passkey:
-                passkey += "#t0"
-            menu.create_user_if_not_exists("erco_to",str(passkey))
-            menu.create_user_if_not_exists("erco_config",str(passkey))
-           
+            menu.create_user_if_not_exists("erco_to","3rc04dm1n#t0")
+            menu.create_user_if_not_exists("erco_config","3rc04dm1n#t0")
 
 
     except ImportError as exc:
@@ -41,8 +33,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-        logger = LoggerHandler().get_logger()
-        logger.info("Application started")
     except OperationalError:
-        logger.error("Error starting django application")
-
+        print("⚠️ No hay conexión a la base de datos, pero el servidor sigue funcionando...")

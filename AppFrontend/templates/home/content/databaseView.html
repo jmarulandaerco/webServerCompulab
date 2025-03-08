@@ -1,95 +1,92 @@
 <h1>Datos del Inversor</h1>
+<div>
+    <label for="perPageSelect">Mostrar:</label>
+    <select id="perPageSelect" onchange="loadDatabase(1)">
+        <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+        <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+        <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+    </select>
+    <button onclick="loadDatabase(1)" style="margin-left: 10px;">Actualizar</button>
+    <button id="refreshButton" onclick="exportToExcel()">Download</button>
+</div>
 
-    <div>
-        <label for="perPageSelect">Mostrar:</label>
-        <select id="perPageSelect" onchange="changePerPage()">
-            <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
-            <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
-            <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
-        </select>
-        <button onclick="loadDatabase()" style="margin-left: 10px;">Actualizar</button>
-        <button id="refreshButton" onclick="exportToExcel()">Download</button>
-    </div>
+<div class="table-erco">
+    <table id="inverter-data-table">
+        <thead>
+            <tr>
+                <th>Enviar al Servidor</th>
+                <th>Fecha</th>
+                <th>TP_I</th>
+                <th>Estado de Operación</th>
+                <th>Generación</th>
+                <th>Factor de Potencia</th>
+                <th>Potencia Reactiva</th>
+                <th>Instantánea de Potencia</th>
+                <th>Voltaje 1 DC</th>
+                <th>Voltaje 2 DC</th>
+                <th>Voltaje 3 DC</th>
+                <th>Voltaje 4 DC</th>
+                <th>Corriente 1 DC</th>
+                <th>Corriente 2 DC</th>
+                <th>Corriente 3 DC</th>
+                <th>Corriente 4 DC</th>
+                <th>Voltaje 1 AC</th>
+                <th>Voltaje 2 AC</th>
+                <th>Voltaje 3 AC</th>
+                <th>Corriente 1 AC</th>
+                <th>Corriente 2 AC</th>
+                <th>Corriente 3 AC</th>
+                <th>Temperatura del Inversor</th>
+                <th>Frecuencia de la Red</th>
+                <th>ID del Esclavo</th>
+                <th>Tipo de Dispositivo</th>
+                <th>Enviado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in datos %}
+            <tr>
+                <td>{{ item.send_server }}</td>
+                <td>{{ item.DATE }}</td>
+                <td>{{ item.TP_I }}</td>
+                <td>{{ item.OPERATION_STATE }}</td>
+                <td>{{ item.GENERATION }}</td>
+                <td>{{ item.POWER_FACTOR }}</td>
+                <td>{{ item.REACTIVE_POWER }}</td>
+                <td>{{ item.POWER_SNAPSHOT }}</td>
+                <td>{{ item.VOLTAGE_1_DC }}</td>
+                <td>{{ item.VOLTAGE_2_DC }}</td>
+                <td>{{ item.VOLTAGE_3_DC }}</td>
+                <td>{{ item.VOLTAGE_4_DC }}</td>
+                <td>{{ item.CURRENT_1_DC }}</td>
+                <td>{{ item.CURRENT_2_DC }}</td>
+                <td>{{ item.CURRENT_3_DC }}</td>
+                <td>{{ item.CURRENT_4_DC }}</td>
+                <td>{{ item.VOLTAGE_1_AC }}</td>
+                <td>{{ item.VOLTAGE_2_AC }}</td>
+                <td>{{ item.VOLTAGE_3_AC }}</td>
+                <td>{{ item.CURRENT_1_AC }}</td>
+                <td>{{ item.CURRENT_2_AC }}</td>
+                <td>{{ item.CURRENT_3_AC }}</td>
+                <td>{{ item.TEMPERATURE_INVERTER }}</td>
+                <td>{{ item.GRID_FREQUENCY }}</td>
+                <td>{{ item.id_slave }}</td>
+                <td>{{ item.device_type }}</td>
+                <td>{{ item.sent }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-    <div class="table-erco">
-        <table id="inverter-data-table">
-            <thead>
-                <tr>
-                    <th>Enviar al Servidor</th>
-                    <th>Fecha</th>
-                    <th>TP_I</th>
-                    <th>Estado de Operación</th>
-                    <th>Generación</th>
-                    <th>Factor de Potencia</th>
-                    <th>Potencia Reactiva</th>
-                    <th>Instantánea de Potencia</th>
-                    <th>Voltaje 1 DC</th>
-                    <th>Voltaje 2 DC</th>
-                    <th>Voltaje 3 DC</th>
-                    <th>Voltaje 4 DC</th>
-                    <th>Corriente 1 DC</th>
-                    <th>Corriente 2 DC</th>
-                    <th>Corriente 3 DC</th>
-                    <th>Corriente 4 DC</th>
-                    <th>Voltaje 1 AC</th>
-                    <th>Voltaje 2 AC</th>
-                    <th>Voltaje 3 AC</th>
-                    <th>Corriente 1 AC</th>
-                    <th>Corriente 2 AC</th>
-                    <th>Corriente 3 AC</th>
-                    <th>Temperatura del Inversor</th>
-                    <th>Frecuencia de la Red</th>
-                    <th>ID del Esclavo</th>
-                    <th>Tipo de Dispositivo</th>
-                    <th>Enviado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in datos %}
-                    <tr>
-                        <td>{{ item.send_server }}</td>
-                        <td>{{ item.DATE }}</td>
-                        <td>{{ item.TP_I }}</td>
-                        <td>{{ item.OPERATION_STATE }}</td>
-                        <td>{{ item.GENERATION }}</td>
-                        <td>{{ item.POWER_FACTOR }}</td>
-                        <td>{{ item.REACTIVE_POWER }}</td>
-                        <td>{{ item.POWER_SNAPSHOT }}</td>
-                        <td>{{ item.VOLTAGE_1_DC }}</td>
-                        <td>{{ item.VOLTAGE_2_DC }}</td>
-                        <td>{{ item.VOLTAGE_3_DC }}</td>
-                        <td>{{ item.VOLTAGE_4_DC }}</td>
-                        <td>{{ item.CURRENT_1_DC }}</td>
-                        <td>{{ item.CURRENT_2_DC }}</td>
-                        <td>{{ item.CURRENT_3_DC }}</td>
-                        <td>{{ item.CURRENT_4_DC }}</td>
-                        <td>{{ item.VOLTAGE_1_AC }}</td>
-                        <td>{{ item.VOLTAGE_2_AC }}</td>
-                        <td>{{ item.VOLTAGE_3_AC }}</td>
-                        <td>{{ item.CURRENT_1_AC }}</td>
-                        <td>{{ item.CURRENT_2_AC }}</td>
-                        <td>{{ item.CURRENT_3_AC }}</td>
-                        <td>{{ item.TEMPERATURE_INVERTER }}</td>
-                        <td>{{ item.GRID_FREQUENCY }}</td>
-                        <td>{{ item.id_slave }}</td>
-                        <td>{{ item.device_type }}</td>
-                        <td>{{ item.sent }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="pagination">
+    {% if datos.has_previous %}
+    <a href="javascript:void(0)" onclick="loadDatabase({{ datos.previous_page_number }})">Anterior</a>
+    {% endif %}
 
-    <div class="pagination">
-        {% if datos.has_previous %}
-            <a href="?page=1&per_page={{ per_page }}">Primero</a>
-            <a href="?page={{ datos.previous_page_number }}&per_page={{ per_page }}">Anterior</a>
-        {% endif %}
+    <span>Página {{ datos.number }} de {{ datos.paginator.num_pages }}</span>
 
-        <span>Página {{ datos.number }} de {{ datos.paginator.num_pages }}</span>
-
-        {% if datos.has_next %}
-            <a href="?page={{ datos.next_page_number }}&per_page={{ per_page }}">Siguiente</a>
-            <a href="?page={{ datos.paginator.num_pages }}&per_page={{ per_page }}">Último</a>
-        {% endif %}
-    </div>
+    {% if datos.has_next %}
+    <a href="javascript:void(0)" onclick="loadDatabase({{ datos.next_page_number }})">Siguiente</a>
+    {% endif %}
+</div>
