@@ -143,7 +143,7 @@ Other important files include:
 
 
 
-<p id="License">
+<p id="requirements">
 </p>
 
 

@@ -20,6 +20,7 @@ function loadDevices(page) {
     const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
     fetch(fullUrl)  
         .then(response => {
+            console.log(response);
             if (!response.ok) {
                 alert(`Error: ${response.statusText}`);
             }

@@ -5,18 +5,26 @@
   font-style: normal;
 }
 
-h1{
+h1 {
   font-family: 'Sora Light';
-  font-size: 12px; /* Reducir el tamaño de la fuente */
+  font-size: 12px;
 }
+
 .table-container {
-  overflow-x: auto; 
+  overflow-x: auto;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+.perPageSelect {
+  font-family: 'Sora Light';
+  font-size: 12px;
+  height: 15px;
+  max-width: 60px;
 }
 
 .table-erco {
-  max-height: 68vh; 
+  max-height: 60vh;
   overflow-y: auto;
   margin-bottom: 20px;
 }
@@ -24,18 +32,17 @@ h1{
 #inverter-data-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Hace que la tabla tenga un tamaño más compacto */
+  table-layout: fixed;
 }
-
 
 #inverter-data-table th,
 #inverter-data-table td {
-  padding: 5px; /* Reducción del padding */
+  padding: 5px;
   text-align: left;
   border: 1px solid #ddd;
   font-family: 'Sora Light';
-  font-size: 9px; /* Reducir el tamaño de la fuente */
-  word-wrap: break-word; /* Asegura que el texto largo no se desborde */
+  font-size: 9px;
+  word-wrap: break-word;
 }
 
 #inverter-data-table tr:nth-child(even) {
@@ -50,9 +57,35 @@ td {
   font-size: 9px;
 }
 
-/* Si quieres hacer el scroll más visible, puedes añadirlo a la tabla */
-.table-container {
-  overflow-x: auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pagination select {
+  font-family: 'Sora Light';
+  font-size: 12px;
+  height: 20px;
+  max-width: 30px;
+  padding: 2px;
+}
+
+.pagination a {
+  padding: 5px 10px;
+  background-color: #91CE00;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+  font-family: 'Sora Light';
+  font-size: 10px;
+}
+
+.pagination span {
+  font-size: 10px;
+}
+
+.pagination a:hover {
+  background-color: #91CE00;
 }

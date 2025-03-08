@@ -68,15 +68,11 @@ select option {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    font-size: 10px;  /* Ajustamos el tamaño del texto */
+    font-size: 10px;  
     font-family: 'Sora Light';
 }
 
-.buttonClass:hover {
-    background-color: #00AB00;
-}
 
-/* Responsive */
 @media (max-width: 900px) {
     .form-columns {
         flex-direction: column;

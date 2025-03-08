@@ -33,6 +33,8 @@ async function updateInformationDatabase() {
     }
 };
 
+
+
 async function loadFormDataSettingDatabase() {
     try {
         const response = await fetch(getFormDataUrlSettingDatabase);

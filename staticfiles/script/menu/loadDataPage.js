@@ -1,22 +1,6 @@
 let intervalId;
 
-function loadContentModbus(option) {
-    fetch(`/home/content/form/modbus/${option}/`)
-        .then(response => {
-            if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById("content3").innerHTML = data;
-            loadFunction(option);
 
-        })
-        .catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
-        });
-}
 
 function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
@@ -334,26 +318,13 @@ async function updateServerSelection() {
 };
 
 
-function loadDevices(page) {
-    const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
-    fetch(fullUrl)  
-        .then(response => {
-            if (!response.ok) {
-                alert(`Error: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById("content3").innerHTML = html;
-        })
-        .catch(error => {
-            console.error("Error while loading devices:", error);
-            document.getElementById("content3").innerHTML = "<p>Error while loading devices</p>";
-        });
-}
+function loadDatabase(page) {
+    console.log("Función loadDatabase ejecutada");  // Mensaje de depuración
+    console.log(page)
+    const perPageSelect = document.getElementById('perPageSelect');
+    const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
+    const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
 
-function loadDatabase(option) {
-    const fullUrl = `/api/inverter/status/`;
     const contentElement = document.getElementById("content");
 
     // Mostrar mensaje de carga mientras se hace la petición
@@ -364,32 +335,16 @@ function loadDatabase(option) {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-
-            // Verificar que la respuesta es HTML (Content-Type)
-            const contentType = response.headers.get("Content-Type");
-            if (!contentType || !contentType.includes("text/html")) {
-                throw new Error("La respuesta no es HTML.");
-            }
-
             return response.text();
         })
         .then(html => {
-            contentElement.innerHTML = html;
-            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
-
-
-            document.querySelectorAll("#sidebar a").forEach(a => {
-                if (a.getAttribute("onclick")?.includes(option)) {
-                    a.classList.add("active");
-                }
-            });
+            contentElement.innerHTML = html; // Actualiza el contenido de la página
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
             contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
         });
 }
-
 
 
 async function saveChangesEnableDisableDevices() {

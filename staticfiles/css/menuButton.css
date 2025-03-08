@@ -19,11 +19,11 @@ button {
     padding: 5px;
     cursor: pointer;
     background-color: #91CE00;
+    margin-bottom: 10px;
     color: white;
     border: none;
     border-radius: 4px;
     text-transform: uppercase;
-    font-family:  'Sora Light';
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s;
     width: 200px; /* Tamaño fijo para evitar desorden */

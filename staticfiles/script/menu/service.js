@@ -31,10 +31,12 @@ function startService() {
             .then(response => response.json())
             .then(data => {
 
-
+                console.log(data)
 
                 alert(data.message);
-                checkServiceStatus();
+                setTimeout(function() {
+                    checkServiceStatus();
+                });
 
             })
             .catch(error => console.error("Error:", error));
