@@ -29,6 +29,7 @@ class MeasureView(View):
     """
     def get(self, request):
         try:
+            config.clear()
             config.read(list_path_menu[0])
             sample_data = {
                 "zone": config.get('measurementmodbus', 'timezone'),
@@ -43,6 +44,7 @@ class MeasureView(View):
     def put(self, request):
         
         try:
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)

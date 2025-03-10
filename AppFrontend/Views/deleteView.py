@@ -48,6 +48,6 @@ class DeleteLog(APIView):
     def delete(self,request):
         try:
             menu.delete_log()
-            return JsonResponse({"message":"Logs deleted"},status=200)
+            return JsonResponse({"message":"Logs deleted. Remember to stop and start the service if they do not exist. "},status=200)
         except Exception as e:
             return JsonResponse({"message":"Error when deleting"}, status=400)

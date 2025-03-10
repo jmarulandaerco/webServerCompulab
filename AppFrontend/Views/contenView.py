@@ -45,6 +45,7 @@ class BaseContentView(TemplateView):
         raise NotImplementedError("Subclases deben implementar este método.")
 class ContentView(BaseContentView):
     def get_template_name(self, option):
+        
         return f'home/content/{option}.html'
 
 class ContentViewMenuMain(BaseContentView):

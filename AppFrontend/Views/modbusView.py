@@ -68,7 +68,6 @@ class FormModbusDevicesView(View):
     PUT request: Updates the selected devices in the configuration.
     """
     def get(self, request):
-        config.clear() 
         listDevices=[]
         listSelectedDevices=[]
         device_param = request.GET.get('device', '') 
@@ -76,6 +75,7 @@ class FormModbusDevicesView(View):
         if not device_param: 
             return HttpResponseNotFound("Error: A device was not specified.")
 
+        config.clear() 
         config.read(list_path_menu[2])
         menu = Menu()
         a = menu.setup_folder_path()
