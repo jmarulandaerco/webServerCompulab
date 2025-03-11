@@ -40,14 +40,14 @@ async function loadFormDataSettingModbus() {
     try {
         const response = await fetch(getFormDatasettingModbus);
         if (!response.ok) {
-            alert.error("Error loading data");
+            alert("Error loading data");
         }
         const data = await response.json();
         document.getElementById("debug").value = data.debug;
         document.getElementById("attempts").value = data.attempts;
         document.getElementById("timeout").value = data.timeout;
     } catch (error) {
-        alert.error("Error:", error);
+        alert("Error:", error);
     }
 }
 
@@ -118,7 +118,7 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
             } else if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
             } else {
-                alert.error("❌ No devices are available for selection.");
+                alert("❌ No devices are available for selection.");
             }
 
             modbusMapFolderSelect.dispatchEvent(new Event("change"));
@@ -156,7 +156,7 @@ function loadAddDevices() {
             }
         })
         .catch(error => {
-            alert.error("Error while loading devices:", error);
+            alert("Error while loading devices:", error);
         });
 }
 
@@ -164,7 +164,7 @@ async function loadFormDataMeasureModbus() {
     try {
         const response = await fetch(getFormDataUrl);
         if (!response.ok) {
-            alert.error("Error while loading devices");
+            alert("Error while loading devices");
         }
         const data = await response.json();
         document.getElementById("zone").value = data.zone;
@@ -249,7 +249,7 @@ async function loadFormDataModes() {
     try {
         const response = await fetch(getFormDataUrlServerModes);
         if (!response.ok) {
-            alert.error("Error while loading data");
+            alert("Error while loading data");
         }
         const data = await response.json();
 
