@@ -100,7 +100,6 @@ function exportToExcel() {
 function deleteDatabase() {
     if (confirm("Are you sure you want to delete the information in the database?")) {
         const token = localStorage.getItem("access_token"); 
-
         fetch(deleteDatabaseUrl, {
             method: "DELETE",
             headers: {
@@ -110,11 +109,7 @@ function deleteDatabase() {
         })
             .then(response => response.json())
             .then(data => {
-
-
-
                 alert(data.message)
-
             })
             .catch(error => console.error("Error:", error));
     }

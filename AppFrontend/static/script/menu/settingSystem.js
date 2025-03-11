@@ -9,6 +9,7 @@ async function deleteWhiteList() {
                 "Content-Type": "application/json"
             }
         });
+        //La data traera el mensaje que usare en los alert
         const data = await response.json();
         if (!response.ok){
             alert("❌ Failed to clear the whitelist")
