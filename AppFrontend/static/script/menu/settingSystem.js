@@ -1,3 +1,15 @@
+function handleButtonClick(buttonId) {
+    // Dependiendo del botón presionado, cambia la visibilidad de los otros botones
+    if (buttonId === 1) {
+        document.getElementById('button1').style.display = 'none'; // Oculta el primer botón
+        document.getElementById('button2').style.display = 'block'; // Muestra el segundo botón
+    } else if (buttonId === 2) {
+        document.getElementById('button2').style.display = 'none'; // Oculta el segundo botón
+        document.getElementById('button3').style.display = 'block'; // Muestra el tercer botón
+    } else if (buttonId === 3) {
+        document.getElementById('button3').style.display = 'none'; // Oculta el tercer botón
+    }
+}
 async function deleteWhiteList() {
     if(confirm("¿Are you sure you want to delete the whiteList?")){
         const token = localStorage.getItem("access_token"); 
