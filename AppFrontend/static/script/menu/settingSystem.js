@@ -14,6 +14,7 @@ function handleButtonClick(buttonId) {
 }
 
 async function modemManager(startManagerModemService) {
+    console.log
     const response = await fetch(modemManagerService,{
         method:"POST",
         headers:{
@@ -51,8 +52,8 @@ async function deleteWhiteList() {
     if(confirm("¿Are you sure you want to delete the whiteList?")){
         const token = localStorage.getItem("access_token"); 
 
-        var modemSelect = document.getElementById("modem");
-  
+        var modemSelect = document.getElementById("modem").value;
+        console.log(modemSelect)
         const response =await fetch(viewList, {
             method: "POST",
             headers: {
@@ -68,6 +69,9 @@ async function deleteWhiteList() {
             alert(`❌ Failed to clear the whitelist: ${data.message}`)
         }else{
             alert(`✅ Whitelist successfully cleared: ${data.message}`)
+            document.getElementById('button2').style.display = 'none'; 
+            document.getElementById('button3').style.display = 'block';
+            alert(`✅ Remember to deactivate your onomondo simcar, edit and select your internet operator, re-activate it, and you can start your modem. `)
         }
     }
 }
@@ -95,8 +99,7 @@ async function interfaceEthernetOne() {
             
         } else {
             alert("✅ " + data.message);
-            document.getElementById('button2').style.display = 'none'; // Oculta el segundo botón
-            document.getElementById('button3').style.display = 'block'; // Muestra el tercer botón
+            
 
         }
 

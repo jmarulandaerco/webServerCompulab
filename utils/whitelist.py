@@ -32,14 +32,17 @@ class WhiteList:
             print(response)
 
             ser.close()
+            
+            return True
 
         except serial.SerialException as ex:
             logger.error(f"Error accessing the serial port: {ex}")
-            return f"Error accessing the serial port: {ex}"
+            return False
     
     def control_modem_service(self,start_service: bool)->bool:
         action = "start" if start_service else "stop"
-        
+        print("Holaaaa")
+        print(action)
         try:
             result = subprocess.run(
                 ["sudo", "systemctl", action, "ModemManager.service"],
@@ -47,7 +50,15 @@ class WhiteList:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            return True
+            print("Resultado de result")
+            if result.returncode == 0:
+                print("Comando ejecutado exitosamente")
+                print(f"Resultado: {result.stdout.decode()}")  # Mostrar salida estándar si es necesario
+                return True
+            else:
+                print(f"El servicio no se pudo controlar. Código de error: {result.returncode}")
+                print(f"Salida de error: {result.stderr.decode()}")
+                return False
         except subprocess.CalledProcessError as e:
             print(f"Error while trying {action} the service: {e.stderr.decode()}")
             logger.error(f"Error while trying {action} the service: {e.stderr.decode()}")
