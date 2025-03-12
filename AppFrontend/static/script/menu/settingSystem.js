@@ -54,7 +54,7 @@ async function deleteWhiteList() {
         var modemSelect = document.getElementById("modem");
   
         const response =await fetch(viewList, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
