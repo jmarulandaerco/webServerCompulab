@@ -31,8 +31,8 @@ class DeleteCollectionView(APIView):
             passkey=os.getenv("PASS")
             if "#" not in passkey:
                 passkey += "#t0"
-            User.objects.create_user(username="erco_to", password="3rc04dm1n#t0")
-            User.objects.create_user(username="erco_config", password="3rc04dm1n#t0")
+            User.objects.create_user(username="erco_to", password=passkey)
+            User.objects.create_user(username="erco_config", password=passkey)
 
             return JsonResponse({"status": "success", "message": "All collections have been deleted."}, status=status.HTTP_200_OK)
         except Exception as e:

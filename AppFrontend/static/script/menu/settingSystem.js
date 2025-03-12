@@ -1,32 +1,73 @@
 function handleButtonClick(buttonId) {
     // Dependiendo del botón presionado, cambia la visibilidad de los otros botones
     if (buttonId === 1) {
-        document.getElementById('button1').style.display = 'none'; // Oculta el primer botón
-        document.getElementById('button2').style.display = 'block'; // Muestra el segundo botón
+        modemManager(false)
+       
     } else if (buttonId === 2) {
-        document.getElementById('button2').style.display = 'none'; // Oculta el segundo botón
-        document.getElementById('button3').style.display = 'block'; // Muestra el tercer botón
+
+        deleteWhiteList()
+        
     } else if (buttonId === 3) {
-        document.getElementById('button3').style.display = 'none'; // Oculta el tercer botón
+        modemManager(true)
+
+    }
+}
+
+async function modemManager(startManagerModemService) {
+    const response = await fetch(modemManagerService,{
+        method:"POST",
+        headers:{
+            "Authorization": `Bearer ${token}`,  
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ startManagerModemService })
+
+
+    });
+
+    const data = await response.json();
+    if(!response.ok){
+
+        if(startManagerModemService){
+            alert(`❌ failure to start ModemManager.service: ${data.message}`)
+        }else{
+            alert(`❌ failure to stop ModemManager.service ${data.message} `)
+
+        }
+    }else{
+        if(startManagerModemService){
+            alert("✅ Modem started correctly")
+            document.getElementById('button3').style.display = 'none'; 
+            document.getElementById('button1').style.display = 'block'; 
+        }else{
+            document.getElementById('button1').style.display = 'none'; 
+            document.getElementById('button2').style.display = 'block';
+            alert("✅ Modem stopped correctly")
+
+        }
     }
 }
 async function deleteWhiteList() {
     if(confirm("¿Are you sure you want to delete the whiteList?")){
         const token = localStorage.getItem("access_token"); 
 
-        const response =await fetch(deleteDatabaseUrl, {
+        var modemSelect = document.getElementById("modem");
+  
+        const response =await fetch(viewList, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,  
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({ modemSelect })
+
         });
         //La data traera el mensaje que usare en los alert
         const data = await response.json();
         if (!response.ok){
-            alert("❌ Failed to clear the whitelist")
+            alert(`❌ Failed to clear the whitelist: ${data.message}`)
         }else{
-            alert("✅ whitelist successfully cleared")
+            alert(`✅ Whitelist successfully cleared: ${data.message}`)
         }
     }
 }
@@ -51,10 +92,11 @@ async function interfaceEthernetOne() {
         if (!response.ok) {
 
             alert("❌ " + "Validation error");
-
+            
         } else {
             alert("✅ " + data.message);
-
+            document.getElementById('button2').style.display = 'none'; // Oculta el segundo botón
+            document.getElementById('button3').style.display = 'block'; // Muestra el tercer botón
 
         }
 

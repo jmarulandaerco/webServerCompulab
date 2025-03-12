@@ -12,6 +12,7 @@ from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
+from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterApiView, InverterDataView, InverterView
 from energyAPP.views.serviceView import Reboot, StartView, StatusService, StopView
@@ -72,5 +73,7 @@ urlpatterns = [
     path('api/logs/delete/',DeleteLog.as_view(),name='delete_log'),
     path('api/inverter/status/',InverterView.as_view(), name='inverter_status'),
     path('api/inverter/export/', InverterApiView.as_view(), name='export_inverter_data'),
+    path('api/setting/whitelist/',DeleteWhiteList.as_view(),name='view_list'),
+    path('api/setting/modemManager/',ModemManager.as_view(),name='modem_manager')
 
 ]
