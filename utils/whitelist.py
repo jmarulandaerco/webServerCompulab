@@ -9,6 +9,14 @@ logger = LoggerHandler().get_logger()
 
 @dataclass
 class WhiteList:
+    """
+    A class representing the modem's whitelist management. It allows sending AT commands 
+    to a modem and controlling the modem service.
+
+    Attributes:
+    - port (str): The serial port to which the modem is connected (default: '/dev/ttyUSB3').
+    - baud_rate (int): The baud rate for serial communication (default: 115200).
+    """
     port:str='/dev/ttyUSB3'
     baud_rate:int=115200
     

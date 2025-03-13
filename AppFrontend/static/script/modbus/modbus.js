@@ -1,20 +1,23 @@
-function loadContentModbus(option) {
-    fetch(`/home/content/form/modbus/${option}/`)
-        .then(response => {
-            if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById("content3").innerHTML = data;
-            loadFunction(option);
-
-        })
-        .catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
-        });
-}
+/**
+ * Loads content dynamically from the server based on the provided option 
+ * and updates the HTML of the "content3" element. Also invokes a specified 
+ * function based on the option parameter.
+ *
+ * @param {string} option - The option used to determine which content to load 
+ *                           from the server (e.g., a specific form or data set).
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to load content from a URL constructed 
+ *   using the provided `option`.
+ * - If the request is successful, it updates the inner HTML of the element with 
+ *   ID "content3" with the loaded data.
+ * - If an error occurs during the fetch or response processing, it shows an error 
+ *   message in the "content3" element and alerts the user.
+ * - It also calls a function (`loadFunction`) with the `option` passed as an argument.
+ *
+ * @example
+ * loadContentModbus("config");
+ */
 
 function loadDevices(page) {
     const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
@@ -36,6 +39,25 @@ function loadDevices(page) {
 }
 
 
+/**
+ * Asynchronously loads form data for Modbus settings from the server and populates 
+ * the form fields with the received data. If an error occurs, an alert is shown.
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to retrieve Modbus settings data in JSON format.
+ * - If the request is successful, it populates the form fields (`debug`, `attempts`, `timeout`) 
+ *   with the corresponding values from the server response.
+ * - If the request fails or the response is not successful, an error message is shown to the user.
+ * - If there is an error during the fetch process, it catches the error and alerts the user.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the form fields are populated or an error is handled.
+ *
+ * @example
+ * loadFormDataSettingModbus();
+ */
+
 async function loadFormDataSettingModbus() {
     try {
         const response = await fetch(getFormDatasettingModbus);
@@ -51,7 +73,22 @@ async function loadFormDataSettingModbus() {
     }
 }
 
-//function for loading modbus map options
+/**
+ * Handles the change event of the Modbus map folder selection. It sends the selected value to the server, 
+ * retrieves a list of Modbus map options, and updates the Modbus map JSON dropdown with the available options.
+ *
+ * This function performs the following:
+ * - Retrieves the selected value from the Modbus map folder dropdown (`modbus_map_folder`).
+ * - Sends a POST request to the server with the selected value in the request body.
+ * - On a successful response, populates the Modbus map JSON dropdown (`modbus_map_json`) with the available options.
+ * - If there are options available, it sets the first option as the selected value and triggers a change event.
+ * - If an error occurs during the fetch process, it displays an error message in the `content3` element.
+ *
+ * @param {Event} event - The change event triggered when the Modbus map folder selection changes.
+ *
+ * @example
+ * handleSelectChange(event);
+ */
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;  
@@ -92,6 +129,26 @@ function handleSelectChange(event) {
         });
 }
 
+
+/**
+ * Loads the available Modbus map options from the server and updates the Modbus map folder dropdown. 
+ * It selects the appropriate device based on the provided `selectedDevice` parameter.
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to retrieve a list of available Modbus maps.
+ * - Populates the Modbus map folder dropdown (`modbus_map_folder`) with the available options.
+ * - If a `selectedDevice` is provided and exists in the Modbus map list, it sets that device as the selected value.
+ * - If no device is selected or available, the first Modbus map is selected by default.
+ * - If no devices are available, it shows an alert informing the user.
+ * - Dispatches a "change" event on the Modbus map dropdown to trigger any dependent actions.
+ * - In case of an error, logs the error in the console.
+ *
+ * @param {string} [selectedDevice] - The device to pre-select in the dropdown, if it exists in the list.
+ *
+ * @example
+ * loadAddDevicesUpdateDevice("device1");
+ */
+
 function loadAddDevicesUpdateDevice(selectedDevice) {
     fetch(mapFolder)
         .then(response => {
@@ -128,6 +185,23 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
         });
 }
 
+
+/**
+ * Loads the available Modbus map options from the server and populates the Modbus map folder dropdown.
+ * If devices are available, the first device is selected by default and a "change" event is triggered.
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to retrieve a list of available Modbus map options.
+ * - Clears the existing options in the Modbus map folder dropdown (`modbus_map_folder`).
+ * - Populates the dropdown with the retrieved Modbus map options.
+ * - If options are available, selects the first device and triggers a "change" event on the dropdown.
+ * - If an error occurs during the fetch process, it alerts the user with the error message.
+ *
+ * @example
+ * loadAddDevices();
+ */
+
+
 function loadAddDevices() {
     fetch(mapFolder)
         .then(response => {
@@ -159,6 +233,23 @@ function loadAddDevices() {
             alert("Error while loading devices:", error);
         });
 }
+/**
+ * Asynchronously loads measurement data for Modbus from the server and populates the form fields with the retrieved data.
+ * If an error occurs during the fetch process, it logs the error to the console and alerts the user.
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to retrieve measurement data in JSON format.
+ * - Populates the form fields (`zone`, `modbus`, `start`, `stop`) with the corresponding values from the server response.
+ * - If an error occurs during the fetch operation or if the response is not successful, an alert is shown.
+ * - In case of any fetch errors, the error is logged to the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the form fields are populated with data or an error is handled.
+ *
+ * @example
+ * loadFormDataMeasureModbus();
+ */
 
 async function loadFormDataMeasureModbus() {
     try {
@@ -175,6 +266,25 @@ async function loadFormDataMeasureModbus() {
         console.error("Error:", error);
     }
 }
+
+/**
+ * Asynchronously sends an update request to the server to modify Modbus settings with the provided form data.
+ * It includes CSRF protection by sending the CSRF token with the request. If the update is successful, 
+ * it shows an alert with the success message; if it fails, it shows an error message.
+ *
+ * This function performs the following:
+ * - Retrieves the values from the form fields (`debug`, `attempts`, `timeout`) to be updated.
+ * - Sends a PUT request to the server with the form data in JSON format and includes the CSRF token in the request headers.
+ * - If the response is successful, an alert is shown with the success message returned from the server.
+ * - If the request fails, it shows an error message in the alert and logs the error in the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the update request is completed and the alert is shown.
+ *
+ * @example
+ * updateSettingModbus();
+ */
 
 async function updateSettingModbus() {
     const log_debug = document.getElementById("debug").value;
@@ -209,6 +319,27 @@ async function updateSettingModbus() {
         console.error("Error:", error);
     }
 };
+
+
+/**
+ * Asynchronously sends an update request to modify measurement settings for Modbus with the provided form data.
+ * The function includes CSRF protection by sending the CSRF token with the request. It shows an alert based on
+ * the success or failure of the update.
+ *
+ * This function performs the following:
+ * - Retrieves the values from the form fields (`zone`, `modbus`, `start`, `stop`) to be updated.
+ * - Sends a PUT request to the server with the data in JSON format, including the CSRF token in the request headers.
+ * - If the response is successful, an alert with the success message returned from the server is shown.
+ * - If the request fails, an alert with an error message is displayed and the error is logged in the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the update request is completed and an alert is shown.
+ *
+ * @example
+ * updateMeasureModbus();
+ */
+
 
 async function updateMeasureModbus() {
     const zone = document.getElementById("zone").value;
@@ -245,6 +376,26 @@ async function updateMeasureModbus() {
     }
 };
 
+/**
+ * Asynchronously loads mode settings data from the server and populates the form fields based on the retrieved data.
+ * It retrieves settings related to mode, limitation, compensation, and sampling from the server and updates
+ * the corresponding form elements.
+ *
+ * This function performs the following:
+ * - Sends a fetch request to the server to retrieve mode data in JSON format.
+ * - Populates the mode field with the value received from the server.
+ * - Sets the corresponding limitation and compensation radio buttons to the values from the server.
+ * - Fills the sampling fields (`sampling_limitation`, `sampling_compensation`) with the corresponding data from the server.
+ * - If the fetch request fails, an error is logged in the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the form is populated with the fetched data or logs an error.
+ *
+ * @example
+ * loadFormDataModes();
+ */
+
 async function loadFormDataModes() {
     try {
         const response = await fetch(getFormDataUrlServerModes);
@@ -272,6 +423,27 @@ async function loadFormDataModes() {
         console.error("Error:", error);
     }
 }
+
+
+/**
+ * Asynchronously sends an update request to modify mode settings based on the form data.
+ * The function includes CSRF protection by sending the CSRF token with the request.
+ * It shows an alert based on the success or failure of the update.
+ *
+ * This function performs the following:
+ * - Retrieves the values from the form fields (`mode`, `limitation`, `compensation`, `sampling_limitation`, `sampling_compensation`).
+ * - Sends a PUT request to the server with the collected data in JSON format, including the CSRF token in the request headers.
+ * - If the response is successful, it shows an alert with the success message returned from the server.
+ * - If the request fails, an alert with an error message is shown and the error is logged to the console.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the update request is completed and an alert is shown.
+ *
+ * @example
+ * updateDataModes();
+ */
+
 
 async function updateDataModes() {
     const mode = document.getElementById("mode").value;
@@ -308,6 +480,26 @@ async function updateDataModes() {
         console.error("Error:", error);
     }
 };
+
+
+/**
+ * Asynchronously adds a new RTU device by sending the device's configuration data to the server.
+ * The function sends a POST request with the form data to the server, including a CSRF token for protection.
+ * It shows an alert based on the success or failure of the operation.
+ *
+ * This function performs the following:
+ * - Retrieves the configuration values for the new RTU device from the form fields.
+ * - Sends a POST request to the server with the device data in JSON format and includes the CSRF token in the request headers.
+ * - If the response is successful, it shows a success message and calls `loadDevices` to refresh the device list.
+ * - If the request fails, it shows an error message with the validation issue returned by the server.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the device is added successfully or an error is displayed.
+ *
+ * @example
+ * addDeviceRtu();
+ */
 
 async function addDeviceRtu() {
     try {
@@ -355,6 +547,25 @@ async function addDeviceRtu() {
         console.error("Error:", error);
     }
 }
+
+/**
+ * Asynchronously adds a new TCP device by sending the device's configuration data to the server.
+ * The function sends a POST request with the device data in JSON format, including a CSRF token for security.
+ * Based on the response, it shows either a success or error message.
+ *
+ * This function performs the following actions:
+ * - Retrieves the configuration values for the new TCP device from the form fields.
+ * - Sends a POST request to the server with the device data and includes the CSRF token for security.
+ * - If the request is successful, it displays a success message and refreshes the list of devices by calling `loadDevices`.
+ * - If the request fails, it displays an error message with the issue returned from the server.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the device is added or an error is displayed.
+ *
+ * @example
+ * addDeviceTcp();
+ */
 
 async function addDeviceTcp() {
     try {
@@ -404,6 +615,27 @@ async function addDeviceTcp() {
     }
 }
 
+/**
+ * Asynchronously deletes a device by sending a DELETE request to the server with the device data.
+ * The function asks for confirmation from the user before proceeding with the deletion.
+ * If confirmed, it sends a DELETE request to the server and shows either a success or error message.
+ *
+ * This function performs the following actions:
+ * - Prompts the user to confirm the deletion of the device.
+ * - If the user confirms, it sends a DELETE request to the server with the device data.
+ * - If the request is successful, it displays a success message and reloads the device list by calling `loadDevices`.
+ * - If the request fails, it displays an error message returned from the server.
+ *
+ * @async
+ * @function
+ * @param {Object} device - The device object to be deleted.
+ * @returns {Promise<void>} A promise that resolves when the device is deleted or an error is displayed.
+ *
+ * @example
+ * deleteDevice(device);
+ */
+
+
 async function deleteDevice(device) {
     try {
         console.log(device)
@@ -429,6 +661,28 @@ async function deleteDevice(device) {
         console.error("Error in deletion:", error.message);
     }
 }
+
+/**
+ * Asynchronously modifies the device options (RTU or TCP) by fetching the appropriate form and updating the fields 
+ * based on the device type (RTU or TCP). The function dynamically loads the corresponding data and pre-fills the form.
+ * It updates the device configuration fields for either RTU or TCP devices depending on the selected device type.
+ *
+ * This function performs the following:
+ * - Determines the device type (RTU or TCP) and fetches the corresponding form for modification.
+ * - Loads the form data based on the device type and populates the fields with the device-specific details.
+ * - If the device is RTU, it fetches additional data for RTU configuration and updates the corresponding fields.
+ * - If the device is TCP, it fetches additional data for TCP configuration and updates the corresponding fields.
+ * - It also calls the `loadAddDevices` and `loadAddDevicesUpdateDevice` functions to handle additional device-related operations.
+ * 
+ * @async
+ * @function
+ * @param {string} device - The identifier of the device (RTU or TCP) to modify.
+ * @returns {Promise<void>} A promise that resolves when the form is updated with the device data.
+ * 
+ * @example
+ * ModifyOption("RTU_001");
+ */
+
 
 async function ModifyOption(device) {
     try {
@@ -503,6 +757,26 @@ async function ModifyOption(device) {
     }
 }
 
+
+/**
+ * Asynchronously updates the configuration of a TCP device by sending a PUT request to the server.
+ * The function collects the current values from the input fields in the form, sends them as a JSON payload to the server, 
+ * and handles the server response to confirm if the update was successful or if there was an error.
+ *
+ * This function performs the following:
+ * - Collects data from various form fields (e.g., name, IP, port, Modbus function, etc.) to create a request payload.
+ * - Sends a PUT request to update the TCP device configuration.
+ * - Displays an alert indicating success or failure based on the server's response.
+ * - Refreshes the device list by calling `loadDevices` if the update is successful.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the device configuration is updated and the devices list is reloaded.
+ * 
+ * @example
+ * updateDeviceTcp();
+ */
+
 async function updateDeviceTcp() {
     try {
         const nameDevice = document.getElementById("nameTcp").value;
@@ -550,6 +824,27 @@ async function updateDeviceTcp() {
         console.error("Error:", error);
     }
 }
+
+
+/**
+ * Asynchronously updates the configuration of an RTU (Remote Terminal Unit) device by sending a PUT request to the server.
+ * The function collects the current values from the RTU device configuration form, sends them as a JSON payload to the server,
+ * and handles the server response to confirm if the update was successful or if there was an error.
+ *
+ * This function performs the following:
+ * - Collects data from various form fields (e.g., name, port, baudrate, Modbus function, etc.) to create a request payload.
+ * - Sends a PUT request to update the RTU device configuration.
+ * - Displays an alert indicating success or failure based on the server's response.
+ * - Refreshes the device list by calling `loadDevices` if the update is successful.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when the RTU device configuration is updated and the devices list is reloaded.
+ * 
+ * @example
+ * updateDeviceRtu();
+ */
+
 
 async function updateDeviceRtu() {
     try {
