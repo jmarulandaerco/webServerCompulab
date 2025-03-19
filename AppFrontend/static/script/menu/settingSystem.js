@@ -23,11 +23,11 @@
 
 function handleButtonClick(buttonId) {
     // Dependiendo del botón presionado, cambia la visibilidad de los otros botones
-    if (buttonId === 2) {
-        modemManager(false)
-        deleteWhiteList()
+   
+    modemManager(false)
+    deleteWhiteList()
         
-    } 
+    
 }
 
     
@@ -61,7 +61,6 @@ function handleButtonClick(buttonId) {
 
 
 async function modemManager(startManagerModemService) {
-    console.log
     const response = await fetch(modemManagerService,{
         method:"POST",
         headers:{
