@@ -27,11 +27,10 @@ function handleButtonClick(buttonId) {
         modemManager(false)
         deleteWhiteList()
         
-    } else if (buttonId === 3) {
-        modemManager(true)
-
-    }
+    } 
 }
+
+    
 
 
 /**
@@ -134,6 +133,7 @@ async function deleteWhiteList() {
             alert(`✅ Whitelist successfully cleared: ${data.message}`)
           
             alert(`✅ Remember to deactivate your onomondo simcar, edit and select your internet operator, re-activate it, and you can start your modem. `)
+            modemManager(true)
         }
     }
 }
