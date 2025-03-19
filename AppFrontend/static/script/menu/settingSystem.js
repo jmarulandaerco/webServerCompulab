@@ -23,11 +23,8 @@
 
 function handleButtonClick(buttonId) {
     // Dependiendo del botón presionado, cambia la visibilidad de los otros botones
-    if (buttonId === 1) {
+    if (buttonId === 2) {
         modemManager(false)
-       
-    } else if (buttonId === 2) {
-
         deleteWhiteList()
         
     } else if (buttonId === 3) {
@@ -89,11 +86,9 @@ async function modemManager(startManagerModemService) {
     }else{
         if(startManagerModemService){
             alert("✅ Modem started correctly")
-            document.getElementById('button3').style.display = 'none'; 
-            document.getElementById('button1').style.display = 'block'; 
+          
         }else{
-            document.getElementById('button1').style.display = 'none'; 
-            document.getElementById('button2').style.display = 'block';
+            
             alert("✅ Modem stopped correctly")
 
         }
@@ -137,8 +132,7 @@ async function deleteWhiteList() {
             alert(`❌ Failed to clear the whitelist: ${data.message}`)
         }else{
             alert(`✅ Whitelist successfully cleared: ${data.message}`)
-            document.getElementById('button2').style.display = 'none'; 
-            document.getElementById('button3').style.display = 'block';
+          
             alert(`✅ Remember to deactivate your onomondo simcar, edit and select your internet operator, re-activate it, and you can start your modem. `)
         }
     }

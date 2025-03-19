@@ -19,6 +19,37 @@
  * loadContentModbus("config");
  */
 
+function loadContentModbus(option) {
+    fetch(`/home/content/form/modbus/${option}/`)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error loading content: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content3").innerHTML = data;
+            loadFunction(option);
+
+        })
+        .catch(error => {
+            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
+        });
+}
+
+/**
+ * Fetches and loads a list of devices from the API and displays the results in the "content3" element.
+ *
+ * This function constructs the full URL for the API endpoint by appending the `page` parameter to the 
+ * device query string. It then fetches the data from the server, handles the response, and updates the
+ * content of the HTML element with the id "content3" with the received HTML. If there is an error during 
+ * the fetch request, it logs the error and updates the "content3" element with an error message.
+ *
+ * @param {string} page - The page number or identifier to be passed in the query string to the API.
+ * 
+ * @returns {void}
+ */
+
 function loadDevices(page) {
     const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
     fetch(fullUrl)  
