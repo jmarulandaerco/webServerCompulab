@@ -1,0 +1,68 @@
+{% load static %}
+
+<div class="container-column form-wrapper-column">
+    <div class="form-container-column">
+        <form id="myForm" method="post">
+            {% csrf_token %}
+
+            <div class="form-columns">
+
+                <div class="form-group">
+                    <label for="port_rtu">Choose serial port:</label>
+                    <select id="port_rtu" name="port_rtu" required>
+                        <option value="/dev/ttymxc0">Serial port 0</option>
+                        <option value="/dev/ttymxc1">Serial port 1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="baudrateRtu">Choose baudrate:</label>
+                    <select id="baudrateRtu" name="baudrateRtu" required>
+                        <option value="4800">4800 bps</option>
+                        <option value="9600">9600 bps</option>
+                        <option value="19200">19200 bps</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="attempts_rtu">Choose maximum attempts:</label>
+                    <input type="text" id="attempts_rtu" name="attempts_rtu" value="3" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="timeout_rtu">Choose timeout_attempts:</label>
+                    <input type="text" id="timeout_rtu" name="timeout_rtu" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="slave_rtu">Choose Id slave:</label>
+                    <input type="text" id="slave_rtu" name="slave_rtu" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="modbus_function_rtu">Choose modbus function:</label>
+                    <select id="modbus_function_rtu" name="modbus_function_rtu" required>
+                        <option value="3">Holding register</option>
+                        <option value="4">Input register</option>
+                        <option value="6">Write register</option>
+                        <option value="10">Write multiple registers</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="initial_address_rtu">Choose start adress:</label>
+                    <input type="text" id="initial_address_rtu" name="initial_address_rtu" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="total_registers">Choose amount registers:</label>
+                    <input type="text" id="total_registers" name="total_registers" value="1" required>
+                </div>
+
+            </div>
+
+            <div class="form-group button-container">
+                <button class="buttonClass" type="button" onclick="loadContent('read_rtu_tcp/readRtu')">Read</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
