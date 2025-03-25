@@ -354,6 +354,27 @@ async function loadFormDataServerChecker() {
  * loadContent('form/database/database'); // Loads the database form content and triggers related functions.
  */
 
+
+function loadContentSingleDevice(option) {
+    url=`/home/content/${option}/`
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error loading content: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content3").innerHTML = data;
+            loadFunction(option);
+
+        })
+        .catch(error => {
+            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
+        });
+}
+
+
 function loadContent(option) {
     console.log("Terirr");
     if(option=='form/database/database'){
