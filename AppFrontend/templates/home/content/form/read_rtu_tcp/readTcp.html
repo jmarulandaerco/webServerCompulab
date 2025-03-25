@@ -1,63 +1,65 @@
 {% load static %}
 
-<div class="container-column form-wrapper-column">
-    <div class="form-container-column">
-        <form id="myForm" method="post">
-            {% csrf_token %}
-
-            <div class="form-columns">
-
-                <div class="form-group">
-                    <label for="ip_device_tcp">Choose host:</label>
-                    <input type="text" id="ip_device_tcp" name="ip_device_tcp" value="10.6.20.10" required>
+<div class="container">
+    <div class="container-column form-wrapper-column">
+        <div class="form-container-column">
+            <form id="myForm" method="post">
+                {% csrf_token %}
+    
+                <div class="form-columns">
+    
+                    <div class="form-group">
+                        <label for="ip_device_tcp">Choose host:</label>
+                        <input type="text" id="ip_device_tcp" name="ip_device_tcp" value="10.6.20.10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="port_device_tcp">Choose port:</label>
+                        <input type="text" id="port_device_tcp" name="port_device_tcp" value="502" required>
+                    </div>
+    
+    
+                    <div class="form-group">
+                        <label for="attempts_tcp">Choose maximum attempts:</label>
+                        <input type="text" id="attempts_tcp" name="attempts_tcp" value="3" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="timeout_tcp">Choose timeout_attempts:</label>
+                        <input type="text" id="timeout_tcp" name="timeout_tcp" value="1" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="slave_tcp">Choose Id slave:</label>
+                        <input type="text" id="slave_tcp" name="slave_tcp" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modbus_function_rtu">Choose modbus function:</label>
+                        <select id="modbus_function_rtu" name="modbus_function_rtu" required>
+                            <option value="3">Holding register</option>
+                            <option value="4">Input register</option>
+                            <option value="6">Write register</option>
+                            <option value="10">Write multiple registers</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="initial_address_rtu">Choose start adress:</label>
+                        <input type="text" id="initial_address_rtu" name="initial_address_rtu" value="1" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="total_registers">Choose amount registers:</label>
+                        <input type="text" id="total_registers" name="total_registers" value="1" required>
+                    </div>
+    
                 </div>
-                <div class="form-group">
-                    <label for="port_device_tcp">Choose port:</label>
-                    <input type="text" id="port_device_tcp" name="port_device_tcp" value="502" required>
+    
+                <div class="form-group button-container">
+                    <button class="buttonClass" type="button" onclick="loadContent('')">Read</button>
                 </div>
-
-
-                <div class="form-group">
-                    <label for="attempts_tcp">Choose maximum attempts:</label>
-                    <input type="text" id="attempts_tcp" name="attempts_tcp" value="3" required>
-                </div>
-        
-                <div class="form-group">
-                    <label for="timeout_tcp">Choose timeout_attempts:</label>
-                    <input type="text" id="timeout_tcp" name="timeout_tcp" value="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="slave_tcp">Choose Id slave:</label>
-                    <input type="text" id="slave_tcp" name="slave_tcp" value="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="modbus_function_rtu">Choose modbus function:</label>
-                    <select id="modbus_function_rtu" name="modbus_function_rtu" required>
-                        <option value="3">Holding register</option>
-                        <option value="4">Input register</option>
-                        <option value="6">Write register</option>
-                        <option value="10">Write multiple registers</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="initial_address_rtu">Choose start adress:</label>
-                    <input type="text" id="initial_address_rtu" name="initial_address_rtu" value="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="total_registers">Choose amount registers:</label>
-                    <input type="text" id="total_registers" name="total_registers" value="1" required>
-                </div>
-
-            </div>
-
-            <div class="form-group button-container">
-                <button class="buttonClass" type="button" onclick="loadContent('')">Read</button>
-            </div>
-        </form>
-
+            </form>
+    
+        </div>
+    
     </div>
-
 </div>
