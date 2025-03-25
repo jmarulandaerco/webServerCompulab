@@ -360,11 +360,7 @@ function loadContent(option) {
         url='/home/content/form/database/databaseInformation/'
 
     }
-    else if(option =='form/read_rtu_tcp/readRtu'){
-        url='/home/content/form/read_rtu_tcp/readRtu/'
-    }else if(option =='form/read_rtu_tcp/readTcp'){
-        url='/home/content/form/read_rtu_tcp/readTcp/'
-    }
+   
     else{
         url=`/home/content/${option}/`
     }

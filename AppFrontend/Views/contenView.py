@@ -71,3 +71,7 @@ class ContentViewMenuChecker(BaseContentView):
 class ContentViewMenuSetting(BaseContentView):
     def get_template_name(self, option):
         return f'home/content/form/setting/{option}.html'
+
+class ContentViewSingleDevice(BaseContentView):
+    def get_template_name(self, option):
+        return f'home/content/form/read_rtu_tcp/{option}.html'
