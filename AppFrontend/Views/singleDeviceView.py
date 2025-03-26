@@ -53,17 +53,17 @@ class FormModbusReadRtu(APIView):
             config.set(name_section, "timeout_attempts ", str(data.get("timeout")))
             
             
-            name_section = f"Configuration"
+            config_section = f"Configuration"
             
             if not config.has_section(name_section):
-                return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
+                return JsonResponse({"message": f"Error: The device '{config_section}' do no exist"}, status=400)
 
-            config.set(name_section, "serial_port  ", str(data.get("portDevice")))
-            config.set(name_section, "baudrate  ", str(data.get("baudrate")))
-            config.set(name_section, "slave_id ", str(data.get("idSlave")))
-            config.set(name_section, "modbus_function", str(data.get("modbus_function")))
-            config.set(name_section, "address_init", str(data.get("initial_address")))
-            config.set(name_section, "total_registers", str(data.get("total_registers")))
+            config.set(config_section, "serial_port  ", str(data.get("portDevice")))
+            config.set(config_section, "baudrate  ", str(data.get("baudrate")))
+            config.set(config_section, "slave_id ", str(data.get("idSlave")))
+            config.set(config_section, "modbus_function", str(data.get("modbus_function")))
+            config.set(config_section, "address_init", str(data.get("initial_address")))
+            config.set(config_section, "total_registers", str(data.get("total_registers")))
      
 
             with open(list_path_menu[6], "w") as configfile:
@@ -121,18 +121,18 @@ class FormModbusReadTCP(View):
             config.set(name_section, "timeout_attempts ", str(data.get("timeout")))
             
             
-            name_section = f"Configuration"
+            config_section = f"Configuration"
             
-            if not config.has_section(name_section):
-                return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
+            if not config.has_section(config_section):
+                return JsonResponse({"message": f"Error: The device '{config_section}' do no exist"}, status=400)
             
             
-            config.set(name_section, "port", str(data.get("port")))
-            config.set(name_section, "host", str(data.get("host")))
-            config.set(name_section, "slave_id ", str(data.get("idSlave")))
-            config.set(name_section, "modbus_function", str(data.get("modbus_function")))
-            config.set(name_section, "address_init", str(data.get("initial_address")))
-            config.set(name_section, "total_registers", str(data.get("total_registers_rtu")))
+            config.set(config_section, "port", str(data.get("port")))
+            config.set(config_section, "host", str(data.get("host")))
+            config.set(config_section, "slave_id ", str(data.get("idSlave")))
+            config.set(config_section, "modbus_function", str(data.get("modbus_function")))
+            config.set(config_section, "address_init", str(data.get("initial_address")))
+            config.set(config_section, "total_registers", str(data.get("total_registers_rtu")))
      
 
             with open(list_path_menu[6], "w") as configfile:
