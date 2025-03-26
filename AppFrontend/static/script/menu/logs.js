@@ -114,7 +114,7 @@ async function getLogSingleDevice() {
     try {
         const response = await fetch(fetchSingleDevice);
         const data = await response.json();
-        const logContainer = document.getElementById("log-container-single");
+        const logContainer = document.getElementById("content3");
 
 
 
