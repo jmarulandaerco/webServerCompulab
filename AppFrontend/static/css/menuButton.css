@@ -20,6 +20,7 @@
     justify-content: center; /* Centra horizontalmente los botones */
     flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
     gap: 10px; /* Espaciado entre los botones */
+    width: 100%;
     margin-left: 10px; /* Asegura que no se superpongan con el sidebar */
     
 }
