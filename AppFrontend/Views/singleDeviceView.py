@@ -69,7 +69,7 @@ class FormModbusReadRtu(APIView):
             with open(list_path_menu[6], "w") as configfile:
                 config.write(configfile)
             device_read =  SingleDeviceRead(
-                                            name_config = self.path_config_single
+                                            name_config = list_path_menu[6]
                                         )
             device_read.main()
             return JsonResponse({"message": "Data updated correctly"}, status=200)
