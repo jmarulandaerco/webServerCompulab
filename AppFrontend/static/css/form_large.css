@@ -83,7 +83,7 @@ input {
     font-family: 'Sora Light';
 }
 
-.buttonClass2 {
+.buttonClassTwo {
     width: 10%;
     padding: 8px;
     background: #00AB00;
@@ -99,7 +99,7 @@ input {
     font-family: 'Sora Light';
 }
 
-.buttonClass2:hover {
+.buttonClassTwo:hover {
     background: #00AB00;
 }
 
