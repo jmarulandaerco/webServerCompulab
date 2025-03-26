@@ -112,9 +112,9 @@ async function downloadLogs() {
 
 async function getLogSingleDevice() {
     try {
-        document.querySelector('.container_logs').style.display = 'none';
-        document.getElementById('content3').style.display = 'block';
+        
         document.querySelector('.container_logs').style.display = 'block';
+        document.getElementById('content3').style.display = 'none';
 
         const response = await fetch(fetchSingleDevice);
         const data = await response.json();
