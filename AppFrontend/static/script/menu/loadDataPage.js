@@ -357,6 +357,8 @@ async function loadFormDataServerChecker() {
 
 function loadContentSingleDevice(option) {
     document.querySelector('.container_logs').style.display = 'none';
+    document.getElementById('content3').style.display = 'block';
+
 
     url=`/home/content/${option}/`
     fetch(url)
