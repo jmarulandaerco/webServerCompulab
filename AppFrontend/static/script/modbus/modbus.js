@@ -952,6 +952,7 @@ async function readDeviceRtu() {
             alert("❌ Error in validation: " + data.message);
         } else {
             alert("✅ " + data.message);
+            getLogSingleDevice();
             
         }
 
@@ -990,7 +991,7 @@ async function readDeviceTcp() {
             alert("❌ Error in validation: " + data.message);
         } else {
             alert("✅ " + data.message);
-            
+            getLogSingleDevice();   
         }
 
     } catch (error) {

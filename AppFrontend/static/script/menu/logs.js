@@ -110,7 +110,7 @@ async function downloadLogs() {
 }
 
 
-async function getLog() {
+async function getLogSingleDevice() {
     try {
         const response = await fetch(fetchSingleDevice);
         const data = await response.json();
