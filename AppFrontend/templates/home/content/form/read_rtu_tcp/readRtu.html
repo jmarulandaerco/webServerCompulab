@@ -12,14 +12,14 @@
                         <label for="port_rtu">Choose serial port:</label>
                         <select id="port_rtu" name="port_rtu" required>
                             <option value="/dev/ttymxc0">Serial port 0</option>
-                            <option value="/dev/ttymxc1">Serial port 1</option>
+                            <option value="/dev/ttymxc1" selected>Serial port 1</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="baudrateRtu">Choose baudrate:</label>
-                        <select id="baudrateRtu" name="baudrateRtu" required>
+                        <label for="baudrate_rtu">Choose baudrate:</label>
+                        <select id="baudrate_rtu" name="baudrate_rtu" required>
                             <option value="4800">4800 bps</option>
-                            <option value="9600">9600 bps</option>
+                            <option value="9600" selected>9600 bps</option>
                             <option value="19200">19200 bps</option>
                         </select>
                     </div>
@@ -60,7 +60,7 @@
                 </div>
     
                 <div class="form-group button-container">
-                    <button class="buttonClass" type="button" onclick="loadContent('')">Read</button>
+                    <button class="buttonClass" type="button" onclick="readDeviceRtu()">Read</button>
                 </div>
             </form>
     

@@ -33,8 +33,8 @@
                         <input type="text" id="slave_tcp" name="slave_tcp" value="1" required>
                     </div>
                     <div class="form-group">
-                        <label for="modbus_function_rtu">Choose modbus function:</label>
-                        <select id="modbus_function_rtu" name="modbus_function_rtu" required>
+                        <label for="modbus_function_tcp">Choose modbus function:</label>
+                        <select id="modbus_function_tcp" name="modbus_function_tcp" required>
                             <option value="3">Holding register</option>
                             <option value="4">Input register</option>
                             <option value="6">Write register</option>
@@ -43,19 +43,19 @@
                     </div>
     
                     <div class="form-group">
-                        <label for="initial_address_rtu">Choose start adress:</label>
-                        <input type="text" id="initial_address_rtu" name="initial_address_rtu" value="1" required>
+                        <label for="initial_address_tcp">Choose start adress:</label>
+                        <input type="text" id="initial_address_tcp" name="initial_address_tcp" value="1" required>
                     </div>
     
                     <div class="form-group">
-                        <label for="total_registers">Choose amount registers:</label>
-                        <input type="text" id="total_registers" name="total_registers" value="1" required>
+                        <label for="total_registers_tcp">Choose amount registers:</label>
+                        <input type="text" id="total_registers_tcp" name="total_registers_tcp" value="1" required>
                     </div>
     
                 </div>
     
                 <div class="form-group button-container">
-                    <button class="buttonClass" type="button" onclick="loadContent('')">Read</button>
+                    <button class="buttonClass" type="button" onclick="readDeviceTcp()">Read</button>
                 </div>
             </form>
     

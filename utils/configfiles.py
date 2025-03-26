@@ -28,6 +28,7 @@ class ConfigFilePaths:
     http_data_config_path: str = field(default="/etc/enrg/utilitymanager/httpdatadriver_config.ini")
     active_limit_config_path: str = field(default="/etc/enrg/utilitymanager/activelimitation_config.ini")
     reactive_compensation_config_path: str = field(default="/etc/enrg/utilitymanager/compensationreactive_config.ini")
+    single_device_config_path: str = field(default="/etc/enrg/utilitymanager/single_device_config.ini")
 
     def to_list(self) -> List[str]:
         """
@@ -43,4 +44,5 @@ class ConfigFilePaths:
             self.http_data_config_path,
             self.active_limit_config_path,
             self.reactive_compensation_config_path,
+            self.single_device_config_path
         ]

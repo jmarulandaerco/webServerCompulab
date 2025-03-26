@@ -7,6 +7,7 @@ from django.views import View
 from energyProyect import settings
 
 LOG_FILE_PATH = "/var/log/enrg/utilitymanager/log.log"
+LOG_FILE_SINGLE_DEVICE="/var/log/enrg/modbus_read.log"
 LOG_FILES = [LOG_FILE_PATH, os.path.join(settings.BASE_DIR, "django_log.log")]  # Ajusta las rutas de los archivos
 
 
@@ -36,6 +37,32 @@ class GetLogsView(View):
             return JsonResponse({"logs": logs})
         else:
             return JsonResponse({"message": "Log file not found"}, status=404)
+
+class GetLogSingleDeviceView(View):
+    
+    """
+    View that handles GET requests to retrieve the log entries of a single device from a log file.
+
+    This view reads a log file and returns its content as a JSON response. If the log file exists,
+    the response contains the lines from the file. If the log file is not found, an error message
+    is returned with a 404 status code.
+
+    Methods:
+    --------
+    get(request):
+        Handles GET requests. If the log file exists, it returns the content of the file as a JSON response.
+        If the file is not found, it returns an error message with a 404 status code.
+    """
+    
+
+    def get(self, request):
+        if os.path.exists(LOG_FILE_SINGLE_DEVICE):
+            with open(LOG_FILE_SINGLE_DEVICE, "r", encoding="utf-8") as file:
+                logs = file.readlines()
+            return JsonResponse({"logs": logs})
+        else:
+            return JsonResponse({"message": "Log file not found"}, status=404)
+
 
 
 

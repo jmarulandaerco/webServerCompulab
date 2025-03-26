@@ -6,6 +6,54 @@ import logging
 
 @dataclass
 class SingleDeviceRead:
+    """
+    A class for reading Modbus registers from a single device using either RTU or TCP mode.
+
+    This class is designed to configure and manage a Modbus client connection, retrieve data from a device,
+    and log the results. The connection settings and Modbus parameters are loaded from a configuration file.
+
+    Attributes:
+    -----------
+    name_config : str
+        The path to the configuration file containing the Modbus settings.
+    logger : logging.Logger
+        A logger instance used to log messages throughout the class operations.
+    mode_read : str
+        The mode of communication, either 'RTU' (for Modbus RTU) or 'TCP' (for Modbus TCP).
+    max_attempts : int
+        The maximum number of connection attempts allowed.
+    timeout_attempts : int
+        The timeout for each attempt in seconds.
+    serial_port : str
+        The serial port to use for RTU connections (default is '/dev/ttymxc1').
+    baudrate : int
+        The baud rate for the Modbus RTU connection (default is 9600).
+    host : str
+        The host address for Modbus TCP connections (default is '127.0.0.1').
+    port : int
+        The port number for Modbus TCP connections (default is 502).
+    slave_id : int
+        The Modbus slave ID of the device to communicate with.
+    modbus_function : int
+        The Modbus function code to use for reading registers (e.g., 3 for holding registers).
+    address_init : int
+        The initial address of the first register to read.
+    total_registers : int
+        The total number of registers to read.
+
+    Methods:
+    --------
+    __post_init():
+        Reads the configuration file and initializes the class attributes.
+    __start_connection():
+        Starts the connection to the Modbus device using either RTU or TCP.
+    __close_connection(client):
+        Closes the Modbus client connection.
+    run_async_simple_client():
+        Starts the client connection, reads the Modbus registers asynchronously, and returns the result.
+    main():
+        Initializes logging, starts the Modbus client, retrieves the data, and logs the results.
+    """
     name_config: str = field(init=True)
     logger: logging.Logger = field(init=False)
     mode_read: str = field(init=False)

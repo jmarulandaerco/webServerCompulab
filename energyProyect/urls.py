@@ -7,11 +7,12 @@ from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
 from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceConnection
 from AppFrontend.Views.jsonView import ListColections
-from AppFrontend.Views.logView import DownloadLogsView, GetLogsView
+from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, GetLogsView
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
+from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
 from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
 from authApp.views.userDetailView import UserDetailView
 from energyAPP.views.inverterDataView import InverterApiView, InverterDataView, InverterView
@@ -40,6 +41,7 @@ urlpatterns = [
 
     # path("home/logs/", LogTemplateView.as_view(), name="log_view"),
     path("home/api/logs/", GetLogsView.as_view(), name="fetch_logs"),
+    path("home/api/log/singleDevice/", GetLogSingleDeviceView.as_view(),name="log_single_device"),
     path("home/api/logs/download/",DownloadLogsView.as_view(),name="download_logs"),
     path('api/measurement/', MeasureView.as_view(), name='get_measurement_data'),
     path('api/server/config/', FormDataServer.as_view(), name='get_server_config'),
@@ -74,6 +76,9 @@ urlpatterns = [
     path('api/inverter/status/',InverterView.as_view(), name='inverter_status'),
     path('api/inverter/export/', InverterApiView.as_view(), name='export_inverter_data'),
     path('api/setting/whitelist/',DeleteWhiteList.as_view(),name='view_list'),
-    path('api/setting/modemManager/',ModemManager.as_view(),name='modem_manager')
+    path('api/setting/modemManager/',ModemManager.as_view(),name='modem_manager'),
+    
+    path('api/read/rtu/',FormModbusReadRtu.as_view(),name='rtu_single_device'),
+    path('api/read/tcp/',FormModbusReadTCP.as_view(),name='tcp_single_device')
 
 ]

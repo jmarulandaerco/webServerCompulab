@@ -926,3 +926,80 @@ async function updateDeviceRtu() {
 
 
 
+async function readDeviceRtu() {
+    try {
+        const typeComunication = "RTU"
+        const portDevice = document.getElementById("port_rtu").value;
+        const baudrate = document.getElementById("baudrate_rtu").value;
+        const attempts = document.getElementById("attempts_rtu").value;
+        const timeout = document.getElementById("timeout_rtu").value
+        const idSlave = document.getElementById("slave_rtu").value;
+        const modbus_function = document.getElementById("modbus_function_rtu").value;
+        const initial_address = document.getElementById("initial_address_rtu").value;
+        const total_registers = document.getElementById("total_registers_rtu").value;
+        
+        const response = await fetch(logRtu, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                typeComunication,portDevice,baudrate,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error in validation: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error("Error:", error);
+    }
+}
+
+
+
+async function readDeviceTcp() {
+    try {
+        const typeComunication = "TCP"
+        const host = document.getElementById("ip_device_tcp").value;
+        const port = document.getElementById("port_device_tcp").value;
+        const attempts = document.getElementById("attempts_tcp").value;
+        const timeout = document.getElementById("timeout_tcp").value
+        const idSlave = document.getElementById("slave_tcp").value;
+        const modbus_function = document.getElementById("modbus_function_tcp").value;
+        const initial_address = document.getElementById("initial_address_tcp").value;
+        const total_registers = document.getElementById("total_registers_tcp").value;
+        
+        const response = await fetch(logTcp, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                typeComunication,host,port,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert("❌ Error in validation: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error("Error:", error);
+    }
+}

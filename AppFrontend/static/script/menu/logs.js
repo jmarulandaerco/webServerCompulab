@@ -108,3 +108,25 @@ async function downloadLogs() {
         alert("Error downloading logs. Please try again.");
     }
 }
+
+
+async function getLog() {
+    try {
+        const response = await fetch(fetchSingleDevice);
+        const data = await response.json();
+        const logContainer = document.getElementById("content3");
+
+
+
+        if (data.logs) {
+            logContainer.innerHTML = data.logs
+                .reverse()
+                .map(line => `<div class="log-line">${line}</div>`)
+                .join("");
+        } else {
+            logContainer.innerText = "No logs found.";
+        }
+    } catch (error) {
+        console.error("Error retrieving logs:", error);
+    }
+}
