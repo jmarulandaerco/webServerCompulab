@@ -977,10 +977,8 @@ async function readDeviceTcp() {
         
         const response = await fetch(logTcp, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken
-            },
+           
+            
             body: JSON.stringify({
                 typeComunication,host,port,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
             })
