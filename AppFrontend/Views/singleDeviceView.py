@@ -48,9 +48,9 @@ class FormModbusReadRtu(APIView):
             if not config.has_section(name_section):
                 return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
 
-            config.set(name_section, "mode_read ", str(data.get("typeComunication")))
-            config.set(name_section, "max_attempts ", str(data.get("attempts")))
-            config.set(name_section, "timeout_attempts ", str(data.get("timeout")))
+            config.set(name_section, "mode_read", str(data.get("typeComunication")))
+            config.set(name_section, "max_attempts", str(data.get("attempts")))
+            config.set(name_section, "timeout_attempts", str(data.get("timeout")))
             
             
             config_section = f"Configuration"
@@ -58,9 +58,9 @@ class FormModbusReadRtu(APIView):
             if not config.has_section(name_section):
                 return JsonResponse({"message": f"Error: The device '{config_section}' do no exist"}, status=400)
 
-            config.set(config_section, "serial_port  ", str(data.get("portDevice")))
-            config.set(config_section, "baudrate  ", str(data.get("baudrate")))
-            config.set(config_section, "slave_id ", str(data.get("idSlave")))
+            config.set(config_section, "serial_port", str(data.get("portDevice")))
+            config.set(config_section, "baudrate", str(data.get("baudrate")))
+            config.set(config_section, "slave_id", str(data.get("idSlave")))
             config.set(config_section, "modbus_function", str(data.get("modbus_function")))
             config.set(config_section, "address_init", str(data.get("initial_address")))
             config.set(config_section, "total_registers", str(data.get("total_registers")))
@@ -116,9 +116,9 @@ class FormModbusReadTCP(View):
             if not config.has_section(name_section):
                 return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
 
-            config.set(name_section, "mode_read ", str(data.get("typeComunication")))
-            config.set(name_section, "max_attempts ", str(data.get("attempts")))
-            config.set(name_section, "timeout_attempts ", str(data.get("timeout")))
+            config.set(name_section, "mode_read", str(data.get("typeComunication")))
+            config.set(name_section, "max_attempts", str(data.get("attempts")))
+            config.set(name_section, "timeout_attempts", str(data.get("timeout")))
             
             
             config_section = f"Configuration"
@@ -129,7 +129,7 @@ class FormModbusReadTCP(View):
             
             config.set(config_section, "port", str(data.get("port")))
             config.set(config_section, "host", str(data.get("host")))
-            config.set(config_section, "slave_id ", str(data.get("idSlave")))
+            config.set(config_section, "slave_id", str(data.get("idSlave")))
             config.set(config_section, "modbus_function", str(data.get("modbus_function")))
             config.set(config_section, "address_init", str(data.get("initial_address")))
             config.set(config_section, "total_registers", str(data.get("total_registers_rtu")))
