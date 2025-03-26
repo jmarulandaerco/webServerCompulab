@@ -3,6 +3,7 @@ import zipfile
 from django.http import FileResponse, JsonResponse
 from django.views.generic import TemplateView
 from django.views import View
+from rest_framework.views import APIView
 
 from energyProyect import settings
 
@@ -38,7 +39,7 @@ class GetLogsView(View):
         else:
             return JsonResponse({"message": "Log file not found"}, status=404)
 
-class GetLogSingleDeviceView(View):
+class GetLogSingleDeviceView(APIView):
     
     """
     View that handles GET requests to retrieve the log entries of a single device from a log file.

@@ -940,10 +940,7 @@ async function readDeviceRtu() {
         
         const response = await fetch(logRtu, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken
-            },
+          
             body: JSON.stringify({
                 typeComunication,portDevice,baudrate,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
             })
