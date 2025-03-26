@@ -15,6 +15,14 @@
     
 }
 
+.container_log {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los botones */
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
+    gap: 10px; /* Espaciado entre los botones */
+    margin-left: 10px; /* Asegura que no se superpongan con el sidebar */
+    
+}
 button {
     padding: 5px;
     cursor: pointer;
