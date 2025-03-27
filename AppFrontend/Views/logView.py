@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from energyProyect import settings
 
-LOG_FILE_PATH = "/var/log/enrg/utilitymanager/log.log"
+LOG_FILE_PATH = "/var/log/enrg/main.log"
 LOG_FILE_SINGLE_DEVICE="/var/log/enrg/modbus_read.log"
 LOG_FILES = [LOG_FILE_PATH, os.path.join(settings.BASE_DIR, "django_log.log")]  # Ajusta las rutas de los archivos
 
