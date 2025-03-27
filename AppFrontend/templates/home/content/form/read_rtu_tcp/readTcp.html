@@ -6,7 +6,7 @@
             <form id="myForm" method="post">
                 {% csrf_token %}
 
-                <div class="form-columns">
+  
 
                     <div class="form-group">
                         <label for="ip_device_tcp">Choose host:</label>
@@ -52,7 +52,6 @@
                         <input type="text" id="total_registers_tcp" name="total_registers_tcp" value="1" required>
                     </div>
 
-                </div>
 
                 <div class="form-group button-container">
                     <button class="buttonClassTwo" type="button" onclick="readDeviceTcp()">Read</button>
