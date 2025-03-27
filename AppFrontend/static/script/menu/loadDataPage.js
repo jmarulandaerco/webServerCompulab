@@ -339,6 +339,20 @@ async function loadFormDataServerChecker() {
     }
 }
 
+
+async function loadFormDataAwsSettings() {
+    try {
+        const response = await fetch(awsSttings);
+        if (!response.ok) {
+            alert("Error loading data");
+        }
+        const data = await response.json();
+        document.getElementById("requests").value = data.requests;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
 /**
  * Dynamically loads content into the main content area based on the specified option.
  * 
@@ -683,6 +697,9 @@ async function loadFunction(option) {
         case 'modifyRtu':
             break;
         case 'modifyTcp':
+            break;
+        case 'awsService':
+            loadFormDataAwsSettings();
             break;
    
         default:

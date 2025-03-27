@@ -9,7 +9,7 @@ from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceC
 from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, GetLogsView
 from AppFrontend.Views.loginView import IndexView
-from AppFrontend.Views.menuView import FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
+from AppFrontend.Views.menuView import FormDataAwsService, FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
 from AppFrontend.Views.modemView import ModemView
 from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
@@ -51,6 +51,7 @@ urlpatterns = [
     path('api/status/modem/', FormDataModemChecker.as_view(), name='get_modem_status'),
     path('api/status/signal/', FormDataSignalChecker.as_view(), name='get_signal_status'),
     path('api/status/server/', FormDataServerChecker.as_view(), name='get_server_status'),
+    path('api/status/server/',FormDataAwsService.as_view(),name='get_aws_config').
 
     path('api/settings/modbus/', FormModbusView.as_view(), name='get_modbus_settings'),
     path('api/config/limitation/', FormDataLimitation.as_view(), name='get_limitation_config'),

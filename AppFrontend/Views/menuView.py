@@ -2,6 +2,8 @@ import configparser
 import json
 from django.http import JsonResponse
 from django.views import View
+from rest_framework.views import APIView
+
 
 from utils.configfiles import ConfigFilePaths
 from utils.menu import Menu
@@ -918,4 +920,38 @@ class FormDataServerChecker(View):
         except Exception as e:
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
         
+    
+class FormDataAwsService(APIView):
+    def get(self,request):
+        try:
+            config.clear()
+            config.read(list_path_menu[3])
+            sample_data = {
+                "client": config.get('AWSIOT_SERVICE', 'client_id'),
+                "certificate": config.get('AWSIOT_SERVICE', 'certificate_path'),
+                "private":config.get('AWSIOT_SERVICE', 'private_key_path')
+
+            }
+            return JsonResponse(sample_data)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
         
+    def put(self,request):
+        try:
+            config.clear()
+            config.read(list_path_menu[3])
+            data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
+            
+            request = data.get("request")
+            config.set()
+            
+            
+            
+        except json.JSONDecodeError:
+            
+            return JsonResponse({"message": "Error when updating data"}, status=400)    
+        except Exception as e:
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
+            

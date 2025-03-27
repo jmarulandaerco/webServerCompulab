@@ -152,3 +152,27 @@ async function updateModemServer() {
         console.error("Error:", error);
     }
 };
+
+async function updateAwsSettings(){
+    const client = document.getElementById("clientId").value;
+    const certicate = document.getElementById("clientCertificate").value;   
+    const privateKey = document.getElementById("private").value;   
+    try{
+        const response = await fetch(awsSttings,{
+            method:"PUT",
+           
+            body:JSON.stringify({client,certicate,privateKey})
+        });
+
+        const data = await response.json();
+        if(!response.ok){
+            alert("❌ " + "Error in validation"); 
+        }else{
+            alert("✅ " + data.message);
+        }
+    }catch(error){
+        alert("❌ " + error.message);
+        console.log(error)
+    }
+
+}

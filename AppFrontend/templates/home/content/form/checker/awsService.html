@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="form-container">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+        
+
+        <div class="form-group">
+            <label for="clientId">Client ID:</label>
+            <input type="text" id="clientId" name="clientId" required>
+        </div>
+
+        <div class="form-group">
+            <label for="clientCertificate">Client certificate path:</label>
+            <input type="text" id="clientCertificate" name="clientCertificate" required>
+        </div>
+        <div class="form-group">
+            <label for="private">Client private key path:</label>
+            <input type="text" id="private" name="private" required>
+        </div>
+        <button class="buttonClass" type="button" onclick="updateAwsSettings()">Save</button>
+    </form>
+</div>
+
+
