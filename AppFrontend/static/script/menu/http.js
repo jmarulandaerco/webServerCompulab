@@ -158,7 +158,7 @@ async function updateAwsSettings(){
     const certicate = document.getElementById("clientCertificate").value;   
     const privateKey = document.getElementById("private").value;   
     try{
-        const response = await fetch(awsSttings,{
+        const response = await fetch(elementary,{
             method:"PUT",
            
             body:JSON.stringify({client,certicate,privateKey})

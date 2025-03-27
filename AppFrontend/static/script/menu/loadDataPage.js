@@ -342,7 +342,7 @@ async function loadFormDataServerChecker() {
 
 async function loadFormDataAwsSettings() {
     try {
-        const response = await fetch(awsSttings);
+        const response = await fetch(awsSettings);
         if (!response.ok) {
             alert("Error loading data");
         }
