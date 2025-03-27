@@ -582,6 +582,8 @@ function loadDatabase(page) {
 
 
             document.querySelectorAll("#sidebar a").forEach(a => {
+                console.log("Hola olago")
+                console.log(a.getAttribute("onclick")?.includes('Data Devices'))
                 if (a.getAttribute("onclick")?.includes('Data Devices')) {
                     a.classList.add("active");
                 }
