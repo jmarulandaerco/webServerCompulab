@@ -541,7 +541,8 @@ async function updateServerSelection() {
 
 
 function loadDatabase(page) {
-
+    console.log("Función loadDatabase ejecutada");  // Mensaje de depuración
+    console.log(page)
     const perPageSelect = document.getElementById('perPageSelect');
     const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
     const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
@@ -560,15 +561,6 @@ function loadDatabase(page) {
         })
         .then(html => {
             contentElement.innerHTML = html; // Actualiza el contenido de la página
-
-            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
-
-
-            document.querySelectorAll("#sidebar a").forEach(a => {
-                if (a.getAttribute("onclick")?.includes(option)) {
-                    a.classList.add("active");
-                }
-            });
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
