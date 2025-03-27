@@ -51,7 +51,7 @@ urlpatterns = [
     path('api/status/modem/', FormDataModemChecker.as_view(), name='get_modem_status'),
     path('api/status/signal/', FormDataSignalChecker.as_view(), name='get_signal_status'),
     path('api/status/server/', FormDataServerChecker.as_view(), name='get_server_status'),
-    path('api/status/server/',FormDataAwsService.as_view(),name='get_aws_config').
+    path('api/status/server/',FormDataAwsService.as_view(),name='get_aws_config'),
 
     path('api/settings/modbus/', FormModbusView.as_view(), name='get_modbus_settings'),
     path('api/config/limitation/', FormDataLimitation.as_view(), name='get_limitation_config'),
