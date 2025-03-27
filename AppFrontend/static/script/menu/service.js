@@ -71,7 +71,7 @@ function startService() {
                 alert(data.message);
                 setTimeout(function() {
                     checkServiceStatus();
-                });
+                },3000);
 
             })
             .catch(error => console.error("Error:", error));
