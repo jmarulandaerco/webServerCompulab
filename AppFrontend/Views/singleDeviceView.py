@@ -80,7 +80,7 @@ class FormModbusReadRtu(APIView):
             return JsonResponse({"message": f"Error updating data: {ex}"}, status=400)
         
         
-class FormModbusReadTCP(View):
+class FormModbusReadTCP(APIView):
     """
         Handles PUT requests to update the Modbus TCP configuration in a configuration file.
 
@@ -132,7 +132,7 @@ class FormModbusReadTCP(View):
             config.set(config_section, "slave_id", str(data.get("idSlave")))
             config.set(config_section, "modbus_function", str(data.get("modbus_function")))
             config.set(config_section, "address_init", str(data.get("initial_address")))
-            config.set(config_section, "total_registers", str(data.get("total_registers_rtu")))
+            config.set(config_section, "total_registers", str(data.get("total_registers")))
      
 
             with open(list_path_menu[6], "w") as configfile:

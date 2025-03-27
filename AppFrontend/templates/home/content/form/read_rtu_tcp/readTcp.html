@@ -5,9 +5,9 @@
         <div class="form-container-column">
             <form id="myForm" method="post">
                 {% csrf_token %}
-    
+
                 <div class="form-columns">
-    
+
                     <div class="form-group">
                         <label for="ip_device_tcp">Choose host:</label>
                         <input type="text" id="ip_device_tcp" name="ip_device_tcp" value="10.6.20.10" required>
@@ -16,18 +16,18 @@
                         <label for="port_device_tcp">Choose port:</label>
                         <input type="text" id="port_device_tcp" name="port_device_tcp" value="502" required>
                     </div>
-    
-    
+
+
                     <div class="form-group">
                         <label for="attempts_tcp">Choose maximum attempts:</label>
                         <input type="text" id="attempts_tcp" name="attempts_tcp" value="3" required>
                     </div>
-            
+
                     <div class="form-group">
                         <label for="timeout_tcp">Choose timeout_attempts:</label>
                         <input type="text" id="timeout_tcp" name="timeout_tcp" value="1" required>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="slave_tcp">Choose Id slave:</label>
                         <input type="text" id="slave_tcp" name="slave_tcp" value="1" required>
@@ -41,25 +41,25 @@
                             <option value="10">Write multiple registers</option>
                         </select>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="initial_address_tcp">Choose start adress:</label>
                         <input type="text" id="initial_address_tcp" name="initial_address_tcp" value="1" required>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="total_registers_tcp">Choose amount registers:</label>
                         <input type="text" id="total_registers_tcp" name="total_registers_tcp" value="1" required>
                     </div>
-    
+
                 </div>
-    
+
                 <div class="form-group button-container">
                     <button class="buttonClassTwo" type="button" onclick="readDeviceTcp()">Read</button>
                 </div>
             </form>
-    
+
         </div>
-    
+
     </div>
 </div>
