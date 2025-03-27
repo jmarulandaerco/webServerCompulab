@@ -944,8 +944,17 @@ class FormDataAwsService(APIView):
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
             
-            request = data.get("request")
-            config.set()
+            client = data.get("client")
+            certicate = data.get("certicate")
+            private = data.get("private")
+            config.set('AWSIOT_SERVICE','client_id',client)
+            config.set('AWSIOT_SERVICE','certificate_path',certicate)
+            config.set('AWSIOT_SERVICE','private_key_path',private)
+
+            
+            with open(list_path_menu[3], "w") as configfile:
+               config.write(configfile)
+            return JsonResponse({"message": "Data updated"}, status=200)
             
             
             

@@ -156,12 +156,12 @@ async function updateModemServer() {
 async function updateAwsSettings(){
     const client = document.getElementById("clientId").value;
     const certicate = document.getElementById("clientCertificate").value;   
-    const privateKey = document.getElementById("private").value;   
+    const private = document.getElementById("private").value;   
     try{
         const response = await fetch(elementary,{
             method:"PUT",
            
-            body:JSON.stringify({client,certicate,privateKey})
+            body:JSON.stringify({client,certicate,private})
         });
 
         const data = await response.json();
