@@ -347,6 +347,7 @@ async function loadFormDataAwsSettings() {
             alert("Error loading data");
         }
         const data = await response.json();
+        console.log(data)
         document.getElementById("clientId").value = data.client;
         document.getElementById("clientCertificate").value = data.certificate;
         document.getElementById("private").value = data.client;
