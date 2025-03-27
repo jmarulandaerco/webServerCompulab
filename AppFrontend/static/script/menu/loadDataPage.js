@@ -350,7 +350,7 @@ async function loadFormDataAwsSettings() {
         console.log(data)
         document.getElementById("clientId").value = data.client;
         document.getElementById("clientCertificate").value = data.certificate;
-        document.getElementById("private").value = data.client;
+        document.getElementById("private").value = data.private;
     } catch (error) {
         console.error("Error:", error);
     }
