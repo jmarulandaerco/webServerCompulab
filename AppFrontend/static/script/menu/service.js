@@ -68,10 +68,11 @@ function startService() {
 
                 console.log(data)
 
-                alert(data.message);
+                
                 setTimeout(function() {
                     checkServiceStatus();
-                },3000);
+                },30000);
+                alert(data.message);
 
             })
             .catch(error => console.error("Error:", error));
