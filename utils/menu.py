@@ -67,7 +67,7 @@ class Menu:
     def check_service_status(self)-> bool:
         """Check the status of a systemd service."""
         try:
-            result = os.system("sudo systemctl is-active --quiet FW_main.service")
+            result = os.system("sudo systemctl is-active --quiet enrg-utilitymanager.service")
             exit_code = os.WEXITSTATUS(result)
             if result == 0:
                 return True
@@ -98,10 +98,10 @@ class Menu:
         
         try:
             if status == True:
-                command = "sudo systemctl restart FW_main.service"
+                command = "sudo systemctl restart enrg-utilitymanager.service"
                 self.execute_command(command)
             elif status == False:
-                command = "sudo systemctl start FW_main.service"
+                command = "sudo systemctl start enrg-utilitymanager.service"
                 self.execute_command(command)
             else:
                 return False
@@ -127,7 +127,7 @@ class Menu:
         
     def delete_log(self):
         try:
-            os.system("rm /FW/log.log")
+            os.system("rm /var/log/enrg/main.log")
             return True
         except Exception as e:
             self.logger.error(f"Error delete log: {e}")
@@ -141,7 +141,7 @@ class Menu:
             return False
 
         try:
-            os.system("sudo systemctl stop FW_main.service")
+            os.system("sudo systemctl stop enrg-utilitymanager.service")
             return True
 
         except Exception as e:
@@ -258,7 +258,7 @@ class Menu:
         try:
             folders_devices=[]
             choices=[]
-            path_modbus = "/FW/Modbus/modbusmaps"
+            path_modbus = "/usr/share/enrg/utilitymanager/modbusmaps"
             if os.path.exists(path_modbus):
                 folders_devices = [name for name in os.listdir(path_modbus) if os.path.isdir(os.path.join(path_modbus, name))]
                 

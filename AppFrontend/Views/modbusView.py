@@ -156,7 +156,7 @@ class FormModbusGetDevicesView(APIView):
             
             
             url =data.get("selectedValue")
-            path_modbus = "/FW/Modbus/modbusmaps"+"/"+url
+            path_modbus = "/usr/share/enrg/utilitymanager/modbusmaps"+"/"+url
 
             
             
@@ -240,7 +240,7 @@ class FormModbusAddDeviceRtu(View):
                         "address_init": str(data.get("initial_address")),
                         "total_registers": str(data.get("total_registers")),
                         "protocol_type": "DeviceProtocol.MODBUS_RTU_MASTER",
-                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
+                        "modbus_map_file": f"/usr/share/enrg/utilitymanager/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
                         "modbus_mode": str(data.get("modbus_mode")),
                         "device_type": str(data.get("device_type")),
                         "address_offset": str(0),
@@ -279,7 +279,7 @@ class FormModbusAddDeviceRtu(View):
             config.set(nombre_seccion, "address_init", str(data.get("initial_address")))
             config.set(nombre_seccion, "total_registers", str(data.get("total_registers")))
             config.set(nombre_seccion, "protocol_type", "DeviceProtocol.MODBUS_RTU_MASTER")
-            config.set(nombre_seccion, "modbus_map_file", f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}")
+            config.set(nombre_seccion, "modbus_map_file", f"/usr/share/enrg/utilitymanager/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}")
             config.set(nombre_seccion, "modbus_mode", str(data.get("modbus_mode")))
             config.set(nombre_seccion, "device_type", str(data.get("device_type")))
             config.set(nombre_seccion, "address_offset", "0")
@@ -342,7 +342,7 @@ class FormModbusAddDeviceTcp(View):
                         "address_init": str(data.get("initial_address")),
                         "total_registers": str(data.get("total_registers")),
                         "protocol_type": "DeviceProtocol.MODBUS_TCP",
-                        "modbus_map_file": f"/FW/Modbus/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
+                        "modbus_map_file": f"/usr/share/enrg/utilitymanager/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}",
                         "modbus_mode": str(data.get("modbus_mode")),
                         "device_type": str(data.get("device_type")),
                         "address_offset": str(data.get("offset")),
@@ -384,7 +384,7 @@ class FormModbusAddDeviceTcp(View):
             config.set(device_name, "address_init", str(data.get("initial_address")))
             config.set(device_name, "total_registers", str(data.get("total_registers")))
             config.set(device_name, "protocol_type", "DeviceProtocol.MODBUS_TCP")
-            config.set(device_name, "modbus_map_file", f"/FW/Modbus/modbusmaps/{data.get('modbus_map_folder')}/{data.get('modbus_map_json')}")
+            config.set(device_name, "modbus_map_file", f"/usr/share/enrg/utilitymanager/modbusmaps/{data.get('modbus_map_folder')}/{data.get('modbus_map_json')}")
             config.set(device_name, "modbus_mode", str(data.get("modbus_mode")))
             config.set(device_name, "device_type", str(data.get("device_type")))
             config.set(device_name, "address_offset", str(offset))
