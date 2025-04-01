@@ -62,6 +62,7 @@ class DataBaseMenu:
             )
 
             # Si llegamos aquí, la contraseña es correcta
+            print(result)
             return True  # Contraseña correcta
 
         except subprocess.CalledProcessError as e:
