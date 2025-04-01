@@ -50,19 +50,20 @@ class DataBaseMenu:
             return False
 
     def check_password_erco_config(self, password):
-        # Comando que verifica la contraseña al intentar ejecutar un comando con sudo como el usuario
-        command = f"sudo -S -u erco_config whoami"
-
         try:
-            # Ejecutamos el comando, pasando la contraseña a sudo
-            result = subprocess.run(command, input=password.encode(), shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # Ejecutamos 'su -' para cambiar al usuario especificado y verificar la contraseña
+            result = subprocess.run(
+                ['su', '-', 'erco_config'],  # Comando para cambiar al usuario
+                input=password + '\n',  # Proporcionamos la contraseña como entrada
+                text=True,  # Aseguramos que el 'input' sea texto
+                check=True,  # Si el comando falla, se lanzará una excepción
+                stdout=subprocess.PIPE,  # Captura la salida estándar
+                stderr=subprocess.PIPE   # Captura los errores
+            )
 
-            # Si llegamos aquí sin errores, la contraseña es correcta
-            print(result)
-            print("Contraseña correcta")
-            return True
+            # Si llegamos aquí, la contraseña es correcta
+            return True  # Contraseña correcta
 
         except subprocess.CalledProcessError as e:
-            # Si hay un error, la contraseña es incorrecta
-            print(f"Contraseña incorrecta: {e.stderr.decode()}")
-            return False
+            # Si ocurre un error, significa que la contraseña es incorrecta
+            return False  # Contraseña incorrecta
