@@ -81,7 +81,7 @@ class ChangePassword(View):
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password_erco_config(password):
-                return JsonResponse({"message": "The password entered is invalid"}, status=400)
+                return JsonResponse({"message": "The actual password entered is invalid"}, status=400)
 
             menu = Menu()
             change = menu.change_user_password(new_password)
