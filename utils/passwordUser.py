@@ -50,7 +50,7 @@ class DataBaseMenu:
             return False
 
     def check_password_erco_config(self, password):
-        command = f"echo '{password}' | sudo -S -u erco_config id"
+        command = f"echo '{password}' | sudo -S -u erco_config -v"
 
         try:
             result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
