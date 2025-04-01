@@ -31,21 +31,21 @@ class CheckPassword(View):
             confirm_password = data.get("confirmPassword")
 
             if not password or not confirm_password:
-                return JsonResponse({"error": "Both fields are required"}, status=400)
+                return JsonResponse({"message": "Both fields are required"}, status=400)
 
             if password != confirm_password:
-                return JsonResponse({"error": "Passwords do not match"}, status=400)
+                return JsonResponse({"message": "Passwords do not match"}, status=400)
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password(password):
                 print(password)
                 
-                return JsonResponse({"error": f"The password entered is invalid"}, status=400)
+                return JsonResponse({"message": f"The password entered is invalid"}, status=400)
 
             return JsonResponse({"message": "Passwords match"}, status=200)
 
         except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+            return JsonResponse({"message": "Invalid JSON format"}, status=400)
 
 
 class ChangePassword(View):
@@ -74,6 +74,8 @@ class ChangePassword(View):
             
             if new_password != reply_new_password:
                 return JsonResponse({"message":"passwords do not match"},status=400)
+            if new_password == "" or reply_new_password=="":
+                return JsonResponse({"message":"fields are missing"})
             if not password or not new_password:
                 return JsonResponse({"message": "Both fields are required"}, status=400)
 

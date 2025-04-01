@@ -128,7 +128,7 @@ async function checkedPassWordLog() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Validation error"); 
+            alert("❌ "  + data.message); 
             
 
         }else{
