@@ -54,7 +54,8 @@ class DataBaseMenu:
 
         try:
             result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
+            
+            print(result)
             if result.returncode == 0:
                 return True
             else:
