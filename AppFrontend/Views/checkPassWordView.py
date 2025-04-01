@@ -41,7 +41,7 @@ class CheckPassword(View):
                 print(password)
                 load_dotenv()
                 passkey = os.getenv("PASS")
-                print
+                print(passkey)
                 return JsonResponse({"error": f"The password entered is invalid"}, status=400)
 
             return JsonResponse({"message": "Passwords match"}, status=200)
