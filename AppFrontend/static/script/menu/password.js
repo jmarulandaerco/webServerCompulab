@@ -16,6 +16,7 @@
 async function changePassword(){
     const actualPassword = document.getElementById("actualPassword").value;
     const newPassword = document.getElementById("newPassword").value;
+    const replyNewPassword = document.getElementById("replyNewPassword").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try{
         const response = await fetch(changePasswordUrl, {
@@ -24,13 +25,13 @@ async function changePassword(){
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ actualPassword, newPassword }) 
+            body: JSON.stringify({ actualPassword, newPassword,replyNewPassword }) 
      });
 
         const data=await  response.json();
         if (!response.ok) {
             
-            alert("❌ "  + response.message); 
+            alert("❌ "  + data.message); 
 
         }else{
             alert("✅ " + data.message);
