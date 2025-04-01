@@ -50,17 +50,22 @@ class DataBaseMenu:
             return False
 
     def check_password_erco_config(self, password):
-        command = f"echo '{password}' | sudo -S -u erco_config -v"
-
+        command = f"echo {password} | sudo -S -u erco_config -v"
+    
         try:
             result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            print("Salida estándar:")
+            print(result.stdout.decode())  # Esto decodifica y muestra la salida estándar
+
+            print("Salida de error:")
+            print(result.stderr.decode())  # Esto decodifica y muestra los errores si los hay
             
-            print(result)
             if result.returncode == 0:
                 return True
             else:
                 return False
 
         except subprocess.CalledProcessError as e:
-            
+            print(f"Error ejecutando el comando: {e}")
             return False
