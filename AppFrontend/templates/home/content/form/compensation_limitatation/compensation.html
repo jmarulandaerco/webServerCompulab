@@ -10,22 +10,22 @@
                 <div class="form-column">
 
                     <div class="form-group">
-                        <label>Reactive Power Limiter:</label>
-                        <div class="radio-group">
-                            <input type="radio" id="reactive_power_yes" name="reactive_power" value="Yes" required>
-                            <label for="meter_yes">Yes</label>
-                            <input type="radio" id="reactive_power_no" name="reactive_power" value="No" required>
-                            <label for="meter_no">No</label>
-                        </div>
+                        <label for="kindCompensation">Choose a kind of compensation:</label>
+                        <select id="kindCompensation" name="kindCompensation" required>
+                            <option value="inverters">FOR INVERTERS</option>
+                            <option value="smartlogger">FOR SMARTLOGGER</option>
+                        </select>
                     </div>
+
                     <div class="form-group">
                         <label for="meter_ids">Energy Meter IDs:</label>
                         <input type="text" id="meter_ids" name="meter_ids" required>
                     </div>
                     <div class="form-group">
-                        <label for="smart_logger">Smartlogger ID:</label>
-                        <input type="text" id="smart_logger" name="smart_logger" required>
+                        <label for="device_id">Device ID(s):</label>
+                        <input type="text" id="device_id" name="device_id" required>
                     </div>
+                 
                     <div class="form-group">
                         <label for="high">Reactive Power Percentage High:</label>
                         <input type="text" id="high" name="high" required>
@@ -34,6 +34,15 @@
                         <label for="low">Reactive Power Percentege low:</label>
                         <input type="text" id="low" name="low" required>
                     </div>
+                    <div class="form-group">
+                        <label for="lowBand">Reactive band low limit of inverters :</label>
+                        <input type="text" id="lowBand" name="lowBand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hightBand">Reactive band hight limit of inverters:</label>
+                        <input type="text" id="hightBand" name="hightBand" required>
+                    </div>
+
                 </div>
 
                 <div class="form-column">
@@ -47,11 +56,11 @@
                         <input type="text" id="active" name="active" required>
                     </div>
                     <div class="form-group">
-                        <label for="time">Time Active Power:</label>
+                        <label for="time">Power Factor Min:</label>
                         <input type="text" id="time" name="time" required>
                     </div>
                     <div class="form-group">
-                        <label for="factor">Power Factor Min:</label>
+                        <label for="factor">Mu of inverters:</label>
                         <input type="text" id="factor" name="factor" required>
                     </div>
                 </div>

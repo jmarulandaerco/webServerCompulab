@@ -72,16 +72,18 @@ async function loadFormDataCompensation() {
         }
         const data = await response.json();
 
-        const compensation = document.querySelector(`input[name="reactive_power"][value="${data.reactive_power}"]`);
-        if (compensation) {
-            compensation.checked = true;
-        }
+        // const compensation = document.querySelector(`input[name="reactive_power"][value="${data.reactive_power}"]`);
+        // if (compensation) {
+        //     compensation.checked = true;
+        // }
 
-
+        document.getElementById("kindCompensation").value =data.kind
         document.getElementById("meter_ids").value = data.meter_ids;
-        document.getElementById("smart_logger").value = data.smart_logger;
+        document.getElementById("device_id").value=data.device
         document.getElementById("high").value = data.high;
         document.getElementById("low").value = data.low;
+        document.getElementById("hightBand").value = data.band_high;
+        document.getElementById("lowBand").value = data.band_low;
         document.getElementById("reactive").value = data.reactive;
         document.getElementById("active").value = data.active;
         document.getElementById("time").value = data.time;

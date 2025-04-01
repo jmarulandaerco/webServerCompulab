@@ -489,17 +489,18 @@ class FormDataCompensation(View):
         try:
             config.clear()
             config.read(list_path_menu[5])
-            limitation = "Yes" if config.getboolean("Reactive", "reactive_power_limiter", fallback=False) else "No"
             sample_data = {
-                "reactive_power": limitation,
-                "meter_ids": config.get("Reactive", "energy_meter_ids", fallback="4"),
-                "smart_logger": config.get("Reactive", "smartlogger_id", fallback="10"),
-                "high": config.getfloat("Reactive", "reactive_power_percentage_high", fallback=0.40),
-                "low": config.getfloat("Reactive", "reactive_power_percentage_low", fallback=0.30),
-                "reactive": config.getint("Reactive", "reactive_offset", fallback=0),
-                "active": config.getint("Reactive", "active_offset", fallback=0),
-                "time": config.getfloat("Reactive", "time_active_power", fallback=0.1),
-                "factor": config.getfloat("Reactive", "pf_min", fallback=0.91)
+                "kind": config.get("Reactive", "kind_compesation"),
+                "meter_ids": config.get("Reactive", "energy_meter_ids"),
+                "device":config.get("Reactive","devices_ids",),
+                "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
+                "low": config.getfloat("Reactive", "reactive_power_percentage_low"),
+                "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
+                "band_low": config.getfloat("Reactive", "reactive_band_low_limit"),
+                "reactive": config.getint("Reactive", "reactive_offset"),
+                "active": config.getint("Reactive", "active_offset"),
+                "time": config.getfloat("Reactive", "pf_min"),
+                "factor": config.getfloat("Reactive", "mu"),
             }
             return JsonResponse(sample_data)
         except Exception as e:
