@@ -76,8 +76,8 @@ async function loadFormDataCompensation() {
         // if (compensation) {
         //     compensation.checked = true;
         // }
-
-        document.getElementById("kindCompensation").value =data.kind
+        console.log(data);
+        document.getElementById("kindCompensation").value =data.kind;
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value=data.device
         document.getElementById("high").value = data.high;
