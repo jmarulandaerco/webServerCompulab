@@ -72,11 +72,11 @@ class ChangePassword(View):
             new_password = data.get("newPassword")
 
             if not password or not new_password:
-                return JsonResponse({"error": "Both fields are required"}, status=400)
+                return JsonResponse({"message": "Both fields are required"}, status=400)
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password_erco_config(password):
-                return JsonResponse({"error": "The password entered is invalid"}, status=400)
+                return JsonResponse({"message": "The password entered is invalid"}, status=400)
 
             menu = Menu()
             change = menu.change_user_password(new_password)
@@ -86,4 +86,4 @@ class ChangePassword(View):
                 return JsonResponse({"message": "Password not updated."}, status=400)
 
         except json.JSONDecodeError as e:
-            return JsonResponse({"error": "Formato JSON inválido"}, status=400)
+            return JsonResponse({"message": "Formato JSON inválido"}, status=400)
