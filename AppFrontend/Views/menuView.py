@@ -490,7 +490,7 @@ class FormDataCompensation(View):
             config.clear()
             config.read(list_path_menu[5])
             sample_data = {
-                "kind": config.get("Reactive", "kind_compesation"),
+                "kind": config.get("Reactive", "kind_compensation"),
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
                 "device":config.get("Reactive","devices_ids",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
@@ -503,8 +503,8 @@ class FormDataCompensation(View):
                 "factor": config.getfloat("Reactive", "mu"),
             }
             return JsonResponse(sample_data)
-        except Exception as e:
-            return JsonResponse({"error": str(e)})
+        except Exception as ex:
+            return JsonResponse({"message": str(ex)},status=404)
         
     def put(self, request):
         

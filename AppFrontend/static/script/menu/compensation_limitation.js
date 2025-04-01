@@ -68,7 +68,7 @@ async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
         if (!response.ok) {
-            alert("Error in loading the data");
+            alert("❌" + " "+response.message);
         }
         const data = await response.json();
 
