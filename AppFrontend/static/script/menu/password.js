@@ -30,7 +30,7 @@ async function changePassword(){
         const data=await  response.json();
         if (!response.ok) {
             
-            alert("❌ "  + "Validation error"); 
+            alert("❌ "  + response.message); 
 
         }else{
             alert("✅ " + data.message);
