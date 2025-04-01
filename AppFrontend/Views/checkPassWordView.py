@@ -38,6 +38,7 @@ class CheckPassword(View):
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password(password):
+                print(password)
                 load_dotenv()
                 passkey=os.getenv("PASS") 
                 return JsonResponse({"error": f"The password entered is invalid"}, status=400)

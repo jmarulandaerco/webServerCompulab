@@ -71,6 +71,9 @@ class FormModbusReadRtu(APIView):
             device_read =  SingleDeviceRead(
                                             name_config = list_path_menu[6]
                                         )
+            
+            menu=Menu()
+            menu.clear_log_single_device()
             device_read.main()
             return JsonResponse({"message": "Data updated correctly"}, status=200)
 
@@ -138,23 +141,9 @@ class FormModbusReadTCP(APIView):
             with open(list_path_menu[6], "w") as configfile:
                 config.write(configfile)
                 
-            
-            # Asegurarse de que el directorio exista
-            log_dir = "/var/log/enrg"
-            if not os.path.exists(log_dir):
-                os.makedirs(log_dir, exist_ok=True)
-
-            # Configurar el archivo de log correcto
-            log_file = os.path.join(log_dir, "modbus_read.log")
-
-            # Borrar el contenido del archivo si ya existe o crear uno nuevo si no existe
-            if os.path.exists(log_file):
-                with open(log_file, 'w'):  # Abrir en modo 'w' borra el archivo
-                    pass
-            else:
-                # Crear el archivo vacío si no existe
-                open(log_file, 'w').close()
-            
+            menu=Menu()
+            menu.clear_log_single_device()
+          
             device_read =  SingleDeviceRead(
                                             name_config = list_path_menu[6]
                                         )
