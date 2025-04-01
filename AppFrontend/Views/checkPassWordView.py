@@ -20,13 +20,13 @@ class CheckPassword(View):
         Handles POST requests to check if the passwords match and if the password is valid.
         Returns a JSON response with a message indicating success or error.
     """
+
     def post(self, request):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-                        
-            
+
             password = data.get("password")
             confirm_password = data.get("confirmPassword")
 
@@ -40,7 +40,7 @@ class CheckPassword(View):
             if not passwordDatabase.check_password(password):
                 print(password)
                 load_dotenv()
-                passkey=os.getenv("PASS") 
+                passkey = os.getenv("PASS")
                 print
                 return JsonResponse({"error": f"The password entered is invalid"}, status=400)
 
@@ -48,7 +48,7 @@ class CheckPassword(View):
 
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON format"}, status=400)
-        
+
 
 class ChangePassword(View):
     """
@@ -63,30 +63,29 @@ class ChangePassword(View):
         Handles PUT requests to update the user's password after validating the current password.
         Returns a JSON response indicating success or failure of the update.
     """
+
     def put(self, request):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-            
-            
+
             password = data.get("actualPassword")
             new_password = data.get("newPassword")
-            
+
             if not password or not new_password:
                 return JsonResponse({"error": "Both fields are required"}, status=400)
 
-        
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password(password):  
+            if not passwordDatabase.check_password(password):
                 return JsonResponse({"error": "The password entered is invalid"}, status=400)
-            
+
             menu = Menu()
             change = menu.change_user_password(new_password)
             if change:
-                return JsonResponse({"message":"Password updated."})
+                return JsonResponse({"message": "Password updated."})
             else:
-                return JsonResponse({"message":"Password not updated."},status=400)
+                return JsonResponse({"message": "Password not updated."}, status=400)
 
         except json.JSONDecodeError as e:
             return JsonResponse({"error": "Formato JSON inválido"}, status=400)
