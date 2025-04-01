@@ -55,7 +55,7 @@ class DataBaseMenu:
 
         try:
             # Ejecutamos el comando, pasando la contraseña a sudo
-            result = subprocess.run(command, input=password.enconde(), shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result = subprocess.run(command, input=password.encode(), shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             # Si llegamos aquí sin errores, la contraseña es correcta
             print(result)
