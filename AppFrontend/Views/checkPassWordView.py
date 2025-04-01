@@ -75,7 +75,7 @@ class ChangePassword(View):
                 return JsonResponse({"error": "Both fields are required"}, status=400)
 
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password(password):
+            if not passwordDatabase.check_password_erco_config(password):
                 return JsonResponse({"error": "The password entered is invalid"}, status=400)
 
             menu = Menu()
