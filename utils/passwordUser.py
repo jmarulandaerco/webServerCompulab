@@ -34,11 +34,16 @@ class DataBaseMenu:
         Returns:
             bool: `True` if the password is correct, otherwise `False`.
         """
+        
+        load_dotenv()
+        passkey = os.getenv("PASS")
+        print(passkey)
         if self.passkey=="":
             return False
         
         if "#" not in self.passkey:
             self.passkey += "#t0"
+            return True
         if password == self.passkey:
             return True
         else:
