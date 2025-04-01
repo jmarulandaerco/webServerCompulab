@@ -4,6 +4,7 @@ import sys
 from django.core.management import execute_from_command_line
 from django.db.utils import OperationalError
 
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'energyProyect.settings')
@@ -18,9 +19,8 @@ def main():
         # Ejecuta la función solo al iniciar el servidor
         if 'runserver' in sys.argv:
             menu = Menu()
-            menu.create_user_if_not_exists("erco_to","3rc04dm1n#t0")
-            menu.create_user_if_not_exists("erco_config","3rc04dm1n#t0")
-
+            menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
+            menu.create_user_if_not_exists("erco_config", "3rc04dm1n#t0")
 
     except ImportError as exc:
         raise ImportError(
@@ -30,8 +30,10 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+
 if __name__ == '__main__':
     try:
         main()
     except OperationalError:
-        print("⚠️ No hay conexión a la base de datos, pero el servidor sigue funcionando...")
+        print(
+            "⚠️ No hay conexión a la base de datos, pero el servidor sigue funcionando...")
