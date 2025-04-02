@@ -520,7 +520,7 @@ class FormDataCompensation(View):
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
 
-            kind = data.get("selectedValue")
+            kind = data.get("kind")
             meter_ids = data.get("meter_ids")
             device = data.get("device")
             high = data.get("high")
