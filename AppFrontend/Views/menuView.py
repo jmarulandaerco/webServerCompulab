@@ -510,6 +510,7 @@ class FormDataCompensation(View):
             return JsonResponse(sample_data)
         except Exception as ex:
             return JsonResponse({"message": str(ex)}, status=404)
+
     def put(self, request):
         try:
             config.clear()
@@ -524,33 +525,33 @@ class FormDataCompensation(View):
             device = data.get("device")
             high = data.get("high")
             low = data.get("low")
-            band_hight=data.get("band_hight")
-            band_low=data.get("band_low")
+            band_hight = data.get("band_hight")
+            band_low = data.get("band_low")
             reactive = data.get("reactive")
             active = data.get("active")
             time = data.get("time")
             factor = data.get("factor")
-            
-            config.set("Reactive","kind_compensation",kind)
-            config.set("Reactive", "energy_meter_ids", meter_ids)
+
+            config.set("Reactive", "kind_compensation", str(kind))
+            config.set("Reactive", "energy_meter_ids", str(meter_ids))
             config.set(
-                "Reactive", "devices_ids", device)
-            config.set("Reactive","reactive_power_percentage_high",high,)
-            config.set("Reactive","reactive_power_percentage_low",low,
-            
-            )
-            config.set("Reactive","reactive_band_high_limit",band_hight)
-            config.set("Reactive","reactive_band_low_limit",band_low)
-            config.set("Reactive", "reactive_offset", reactive
-            )
+                "Reactive", "devices_ids", str(device))
+            config.set("Reactive", "reactive_power_percentage_high", str(high))
+            config.set("Reactive", "reactive_power_percentage_low", str(low),
+
+                       )
+            config.set("Reactive", "reactive_band_high_limit", str(band_hight))
+            config.set("Reactive", "reactive_band_low_limit", str(band_low))
+            config.set("Reactive", "reactive_offset", str(reactive)
+                       )
             config.set(
-                "Reactive", "active_offset", active
+                "Reactive", "active_offset", str(active)
             )
 
             config.set(
-                "Reactive", "pf_min", time
+                "Reactive", "pf_min", str(time)
             )
-            config.set("Reactive", "mu", factor)
+            config.set("Reactive", "mu", str(factor))
             with open(list_path_menu[5], "w") as configfileChecked:
                 config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
