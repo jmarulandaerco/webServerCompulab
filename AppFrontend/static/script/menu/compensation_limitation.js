@@ -183,7 +183,7 @@ async function updateInformationCompensation() {
     const device=document.getElementById("device_id").value;
     const high = document.getElementById("high").value;
     const low = document.getElementById("low").value;
-    const band_high=document.getElementById("hightBand").value;
+    const band_hight=document.getElementById("hightBand").value;
     const band_low=document.getElementById("lowBand").value;
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
@@ -202,7 +202,7 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({kind,meter_ids,device,high,low,band_high,band_low,reactive,active,time,factor })
+            body: JSON.stringify({kind,meter_ids,device,high,low,band_hight,band_low,reactive,active,time,factor })
         });
 
         const data = await response.json();
