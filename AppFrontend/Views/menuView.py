@@ -12,6 +12,7 @@ config = configparser.ConfigParser(interpolation=None)
 cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
 
+
 class MeasureView(View):
     """
     View class for retrieving and updating measurement-related configuration settings.
@@ -25,65 +26,67 @@ class MeasureView(View):
     --------
     get(request):
         Retrieves the current measurement configuration settings from the configuration storage.
-    
+
     put(request):
         Updates the measurement configuration settings using the data provided in the JSON payload.
     """
+
     def get(self, request):
         try:
             config.clear()
             config.read(list_path_menu[0])
             sample_data = {
                 "zone": config.get('measurementmodbus', 'timezone'),
-                "modbus": config.get('measurementmodbus','sampling_modbus'),
+                "modbus": config.get('measurementmodbus', 'sampling_modbus'),
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }
-            
+
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+
     def put(self, request):
-        
+
         try:
             config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
-           
+
             if any(value is None or value == '' for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-            
-            
+
             zone = data.get("zone")
             modbus = data.get("modbus")
             start = data.get("start")
             stop = data.get("stop")
 
             config.set(
-                                "measurementmodbus", "timezone", zone
-                            )
+                "measurementmodbus", "timezone", zone
+            )
             config.set(
-                                "measurementmodbus",
-                                "sampling_modbus",
-                                modbus,
-                            )
+                "measurementmodbus",
+                "sampling_modbus",
+                modbus,
+            )
             config.set(
-                                "measurementmodbus", "start_hour", start
-                            )
+                "measurementmodbus", "start_hour", start
+            )
             config.set(
-                                "measurementmodbus", "stop_hour", stop
-                            )
-              
+                "measurementmodbus", "stop_hour", stop
+            )
+
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400)
+
 
 class FormDataServer(View):
     """
@@ -98,10 +101,11 @@ class FormDataServer(View):
     --------
     get(request):
         Retrieves the current server configuration settings from the configuration storage.
-    
+
     put(request):
         Updates the server configuration settings using the data provided in the JSON payload.
     """
+
     def get(self, request):
         try:
             sample_data = {
@@ -114,47 +118,46 @@ class FormDataServer(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
     def put(self, request):
-        
+
         try:
-            config.clear() 
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-            
-            
+
             server = data.get("server")
             neu_plus = data.get("neu_plus")
             telemetry = data.get("telemetry")
             mqtt = data.get("mqtt")
             storage = data.get("storage")
 
-                    
             config.set("server", "server_type", server)
             config.set("server", "id_device", neu_plus)
             config.set(
-                                    "server", "identify_id", telemetry
-                                )
+                "server", "identify_id", telemetry
+            )
             config.set(
-                                    "server", "sampling_mqtt", mqtt
-                                )
+                "server", "sampling_mqtt", mqtt
+            )
             config.set(
-                                    "server",
-                                    "sampling_storage_plus",
-                                    storage,
-                                )
+                "server",
+                "sampling_storage_plus",
+                storage,
+            )
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400)
+
 
 class FormDataModes(View):
     """
@@ -170,16 +173,19 @@ class FormDataModes(View):
     --------
     get(request):
         Retrieves the current operational mode settings from the configuration file.
-    
+
     put(request):
         Updates the operational mode settings in the configuration file using data provided in a JSON payload.
     """
+
     def get(self, request):
         try:
-            config.clear() 
+            config.clear()
             config.read(list_path_menu[0])
-            limitation = 'No' if config.get('functioning', 'enable_active_limitation') == "False" else 'Yes'
-            compensation = 'No' if config.get('functioning', 'enable_reactive_compensation') == "False" else 'Yes'
+            limitation = 'No' if config.get(
+                'functioning', 'enable_active_limitation') == "False" else 'Yes'
+            compensation = 'No' if config.get(
+                'functioning', 'enable_reactive_compensation') == "False" else 'Yes'
             sample_data = {
                 "mode": config.get('functioning', 'work_mode'),
                 "limitation": limitation,
@@ -190,69 +196,70 @@ class FormDataModes(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+
     def put(self, request):
-        
+
         try:
-            config.clear() 
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-            
-            
+
             mode = data.get("mode")
             limitation = data.get("limitation")
             compensation = data.get("compensation")
             sampling_limitation = data.get("sampling_limitation")
             sampling_compensation = data.get("sampling_compensation")
-            
+
             config.set("functioning", "work_mode", mode)
             if limitation == "Yes":
                 config.set(
-                                "functioning",
-                                "enable_active_limitation",
-                                str(True),
-                            )
+                    "functioning",
+                    "enable_active_limitation",
+                    str(True),
+                )
             else:
                 config.set(
-                                "functioning",
-                                "enable_active_limitation",
-                                str(False),
-                            )
-                
-            if compensation=="Yes":
+                    "functioning",
+                    "enable_active_limitation",
+                    str(False),
+                )
+
+            if compensation == "Yes":
                 config.set(
-                                "functioning",
-                                "enable_reactive_compensation",
-                                str(True),
-                            )   
+                    "functioning",
+                    "enable_reactive_compensation",
+                    str(True),
+                )
             else:
                 config.set(
-                                "functioning",
-                                "enable_reactive_compensation",
-                                str(False),
-                            ) 
+                    "functioning",
+                    "enable_reactive_compensation",
+                    str(False),
+                )
 
             config.set(
-                                "functioning",
-                                "time_active_power",
-                                sampling_limitation,
-                            )  
+                "functioning",
+                "time_active_power",
+                sampling_limitation,
+            )
             config.set(
-                                "functioning",
-                                "time_reactive_power",
-                                sampling_compensation,
-                            )
+                "functioning",
+                "time_reactive_power",
+                sampling_compensation,
+            )
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400)
+
 
 class FormDataSettingDataBase(View):
     """
@@ -268,13 +275,14 @@ class FormDataSettingDataBase(View):
     --------
     get(request):
         Retrieves the current database configuration settings.
-    
+
     put(request):
         Updates the database configuration settings with new values provided in the JSON payload.
     """
+
     def get(self, request):
         try:
-            config.clear() 
+            config.clear()
             config.read(list_path_menu[0])
             sample_data = {
                 "day": config.get('database', 'old_days'),
@@ -283,38 +291,35 @@ class FormDataSettingDataBase(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-    
+
     def put(self, request):
-        
+
         try:
-            config.clear() 
+            config.clear()
             config.read(list_path_menu[0])
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
-            
-            
+
             day = data.get("day")
             awaitTime = data.get("awaitTime")
-           
-
 
             config.set("database", "old_days", day)
             config.set(
-                                "database", "await_to_while", awaitTime
-                            )
-            
-                                
+                "database", "await_to_while", awaitTime
+            )
+
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error updating data, {e}"}, status=400)
+
 
 class FormDataSettingInterface(View):
     """
@@ -333,6 +338,7 @@ class FormDataSettingInterface(View):
     put(request):
         Updates the internet interface settings in the configuration file using data from a JSON payload.
     """
+
     def get(self, request):
         try:
             sample_data = {
@@ -344,7 +350,7 @@ class FormDataSettingInterface(View):
             return JsonResponse({"error": str(e)})
 
     def put(self, request):
-        
+
         try:
             config.clear()
             config.read(list_path_menu[0])
@@ -352,34 +358,31 @@ class FormDataSettingInterface(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data.s"}, status=400)
-            
-            
+
             interface = data.get("interface")
             connection = data.get("connection")
-           
-
 
             config.set(
-                                "internet_interfaces",
-                                "internet_interface",
-                                interface,
-                            )
+                "internet_interfaces",
+                "internet_interface",
+                interface,
+            )
             config.set(
-                                "internet_interfaces",
-                                "connection_name",
-                                connection,
-                            )
-            
-                                
+                "internet_interfaces",
+                "connection_name",
+                connection,
+            )
+
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Updated data"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error while updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error while updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
+
 
 class FormDataLimitation(View):
     """
@@ -395,15 +398,17 @@ class FormDataLimitation(View):
     --------
     get(request):
         Retrieves the current active energy limitation configuration settings.
-    
+
     put(request):
         Updates the active energy limitation configuration settings after validating the input data.
     """
+
     def get(self, request):
         try:
             config.clear()
             config.read(list_path_menu[4])
-            limitation = "Yes" if config.getboolean('Active', 'energy_meter_3p', fallback=False) else "No"
+            limitation = "Yes" if config.getboolean(
+                'Active', 'energy_meter_3p', fallback=False) else "No"
             sample_data = {
                 "limitation": limitation,
                 "meter_ids": config.get('Active', 'energy_meter_ids', fallback="1"),
@@ -417,9 +422,9 @@ class FormDataLimitation(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
     def put(self, request):
-        
+
         try:
             config.clear()
 
@@ -428,8 +433,7 @@ class FormDataLimitation(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-                        
-                        
+
             selectedValue = data.get("selectedValue")
             meter_ids = data.get("meter_ids")
             inverter_ids = data.get("inverter_ids")
@@ -438,13 +442,13 @@ class FormDataLimitation(View):
             grid_max = data.get("grid_max")
             inverter_min = data.get("inverter_min")
             inverterMax = data.get("inverterMax")
-            
+
             if selectedValue == "Yes":
                 config.set('Active', 'energy_meter_3p', str(True))
 
             else:
-               config.set('Active', 'energy_meter_3p', str(False))
-            
+                config.set('Active', 'energy_meter_3p', str(False))
+
             config.set('Active', 'energy_meter_ids', meter_ids)
 
             config.set('Active', 'inverter_ids', inverter_ids)
@@ -453,18 +457,18 @@ class FormDataLimitation(View):
             config.set('Active', 'active_power_grid_max', grid_max)
             config.set('Active', 'active_power_inv_min', inverter_min)
             config.set('Active', 'active_power_inv_max', inverterMax)
-            
-           
+
             with open(list_path_menu[4], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
-    
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
+
+
 class FormDataCompensation(View):
     """
     View class for retrieving and updating reactive power compensation settings.
@@ -480,11 +484,12 @@ class FormDataCompensation(View):
     --------
     get(request):
         Retrieves the current reactive power compensation settings from the configuration file.
-    
+
     put(request):
         Validates and updates the reactive power compensation settings using data provided 
         in the JSON payload, then writes the updated configuration back to the file.
     """
+
     def get(self, request):
         try:
             config.clear()
@@ -492,7 +497,7 @@ class FormDataCompensation(View):
             sample_data = {
                 "kind": config.get("Reactive", "kind_compensation"),
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
-                "device":config.get("Reactive","devices_ids",),
+                "device": config.get("Reactive", "devices_ids",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
                 "low": config.getfloat("Reactive", "reactive_power_percentage_low"),
                 "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
@@ -504,10 +509,8 @@ class FormDataCompensation(View):
             }
             return JsonResponse(sample_data)
         except Exception as ex:
-            return JsonResponse({"message": str(ex)},status=404)
-        
+            return JsonResponse({"message": str(ex)}, status=404)
     def put(self, request):
-        
         try:
             config.clear()
             config.read(list_path_menu[5])
@@ -515,64 +518,49 @@ class FormDataCompensation(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-                        
-            
-            selectedValue = data.get("selectedValue")
+
+            kind = data.get("selectedValue")
             meter_ids = data.get("meter_ids")
-            smart_logger = data.get("smart_logger")
+            device = data.get("device")
             high = data.get("high")
             low = data.get("low")
+            band_hight=data.get("band_hight")
+            band_low=data.get("band_low")
             reactive = data.get("reactive")
             active = data.get("active")
             time = data.get("time")
             factor = data.get("factor")
             
-            if selectedValue == "Yes":
-                config.set(
-                            "Reactive", "reactive_power_limiter", str(True)
-                        )
-
-            else:
-               config.set(
-                            "Reactive", "reactive_power_limiter", str(False)
-                        )
-            
+            config.set("Reactive","kind_compensation",kind)
             config.set("Reactive", "energy_meter_ids", meter_ids)
             config.set(
-                                "Reactive", "smartlogger_id", smart_logger
-                            )
-            config.set(
-                                "Reactive",
-                                "reactive_power_percentage_high",
-                                high,
-                            )
-            config.set(
-                                "Reactive",
-                                "reactive_power_percentage_low",
-                                low,
-                            )
-                            
-            config.set(
-                                "Reactive", "reactive_offset", reactive
-                            )
+                "Reactive", "devices_ids", device)
+            config.set("Reactive","reactive_power_percentage_high",high,)
+            config.set("Reactive","reactive_power_percentage_low",low,
             
+            )
+            config.set("Reactive","reactive_band_high_limit",band_hight)
+            config.set("Reactive","reactive_band_low_limit",band_low)
+            config.set("Reactive", "reactive_offset", reactive
+            )
             config.set(
-                                "Reactive", "active_offset", active
-                            )
-            
+                "Reactive", "active_offset", active
+            )
+
             config.set(
-                                "Reactive", "time_active_power", time
-                            )
-            config.set("Reactive", "pf_min", factor)
+                "Reactive", "pf_min", time
+            )
+            config.set("Reactive", "mu", factor)
             with open(list_path_menu[5], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
+
 
 class FormDataBasePropierties(View):
     """
@@ -605,13 +593,13 @@ class FormDataBasePropierties(View):
                 "timeout": config.get('DATABASE', 'timeout', fallback='10'),
                 "date": config.get('DATABASE', 'db_date_format', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
             }
-            
+
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
     def put(self, request):
-        
+
         try:
             config.clear()
             config.read(list_path_menu[1])
@@ -619,8 +607,7 @@ class FormDataBasePropierties(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
-            
+
             host = data.get("host")
             port = data.get("port")
             name = data.get("name")
@@ -632,16 +619,16 @@ class FormDataBasePropierties(View):
             config.set("DATABASE", "database", name)
             config.set("DATABASE", "timeout", timeout)
             config.set("DATABASE", "db_date_format", date)
-            
+
             with open(list_path_menu[1], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
 
 
 class FormDataSettingLogs(View):
@@ -657,11 +644,12 @@ class FormDataSettingLogs(View):
     --------
     get(request):
         Retrieves the current logging configuration settings from the configuration file.
-        
+
     put(request):
         Updates the logging configuration settings in the configuration file based on the provided
         JSON payload after validating the input data.
     """
+
     def get(self, request):
         try:
             config.clear()
@@ -679,8 +667,9 @@ class FormDataSettingLogs(View):
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
+
     def put(self, request):
-        
+
         try:
             config.clear()
             config.read(list_path_menu[0])
@@ -688,8 +677,7 @@ class FormDataSettingLogs(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
-            
+
             level = data.get("level")
             stdout = data.get("stdout")
             file = data.get("file")
@@ -697,24 +685,24 @@ class FormDataSettingLogs(View):
             log_size = data.get("log_size")
             backup = data.get("backup")
 
-
             config.set("DEFAULT", "loglevel", level)
-           
-            config.set("DEFAULT", "logstdout", stdout) 
+
+            config.set("DEFAULT", "logstdout", stdout)
 
             config.set("DEFAULT", "logfile", file)
             config.set("DEFAULT", "sampleslog", enable)
             config.set("DEFAULT", "max_size_bytes", log_size)
             config.set("DEFAULT", "backup_count", backup)
             with open(list_path_menu[0], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Invalid data: one or more records contain invalid or null data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Invalid data: one or more records contain invalid or null data, {e}"}, status=400)
+
 
 class FormDataModemChecker(View):
     """
@@ -735,6 +723,7 @@ class FormDataModemChecker(View):
         Validates and updates the modem settings in the configuration file based on 
         the provided JSON payload.
     """
+
     def get(self, request):
         try:
             config.clear()
@@ -742,7 +731,7 @@ class FormDataModemChecker(View):
             sample_data = {
                 "connection": config.get('MODEM_CHECKER', 'connection_name'),
                 "attemts": config.get('MODEM_CHECKER', 'attempts_state'),
-                
+
 
             }
             return JsonResponse(sample_data)
@@ -756,26 +745,26 @@ class FormDataModemChecker(View):
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
 
             connection = data.get("connection")
             attemts = data.get("attemts")
             config.set(
-                                'MODEM_CHECKER', 'connection_name', connection
-                            )
+                'MODEM_CHECKER', 'connection_name', connection
+            )
             config.set(
-                                'MODEM_CHECKER', 'attempts_state', attemts,
-                            )
-            
+                'MODEM_CHECKER', 'attempts_state', attemts,
+            )
+
             with open(list_path_menu[3], "w") as configfileChecked:
-               config.write(configfileChecked)
+                config.write(configfileChecked)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
-            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400) 
+            return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
+
 
 class FormDataSignalChecker(View):
     """
@@ -789,11 +778,12 @@ class FormDataSignalChecker(View):
     --------
     get(request):
         Reads the configuration file and returns the current signal quality parameters.
-    
+
     put(request):
         Updates the configuration file with new signal quality parameters after validating 
         the input data.
     """
+
     def get(self, request):
         """
         Handles GET requests to retrieve the current signal quality configuration values.
@@ -816,13 +806,13 @@ class FormDataSignalChecker(View):
             sample_data = {
                 "onomondo": config.get('SIGNAL_CHECKER', 'min_quality_gsm'),
                 "minimum": config.get('SIGNAL_CHECKER', 'min_quality_wifi'),
-                
+
 
             }
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
     def put(self, request):
         """
         Handles PUT requests to update the signal quality configuration values.
@@ -849,26 +839,26 @@ class FormDataSignalChecker(View):
             config.read(list_path_menu[3])
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
-            
+
             onomondo = data.get("onomondo")
             minimum = data.get("minimum")
             config.set(
-                                'SIGNAL_CHECKER', 'min_quality_gsm', onomondo
-                            )
+                'SIGNAL_CHECKER', 'min_quality_gsm', onomondo
+            )
             config.set(
-                                "SIGNAL_CHECKER", "min_quality_wifi", minimum,
-                            )
+                "SIGNAL_CHECKER", "min_quality_wifi", minimum,
+            )
             with open(list_path_menu[3], "w") as configfile:
-               config.write(configfile)
+                config.write(configfile)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
-    
+
+
 class FormDataServerChecker(View):
     """
     View that handles server configuration data related to server checks. 
@@ -879,24 +869,25 @@ class FormDataServerChecker(View):
     --------
     get(request):
         Handles GET requests to retrieve the current 'max_attempts' configuration value.
-        
+
     put(request):
         Handles PUT requests to update the 'max_attempts' configuration value.
         Validates the input data and writes the changes to the configuration file.
     """
+
     def get(self, request):
         try:
             config.clear()
             config.read(list_path_menu[3])
             sample_data = {
                 "requests": config.get('SERVER_CHECKER', 'max_attempts'),
-                
+
 
             }
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
+
     def put(self, request):
         try:
             config.clear()
@@ -905,63 +896,58 @@ class FormDataServerChecker(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
-            
+
             requests = data.get("requests")
             config.set(
-                                'SERVER_CHECKER', 'max_attempts', requests,
-                            )
+                'SERVER_CHECKER', 'max_attempts', requests,
+            )
             with open(list_path_menu[3], "w") as configfile:
-               config.write(configfile)
+                config.write(configfile)
             return JsonResponse({"message": "Data updated"}, status=200)
 
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
-        
-    
+
+
 class FormDataAwsService(APIView):
-    def get(self,request):
+    def get(self, request):
         try:
             config.clear()
             config.read(list_path_menu[3])
             sample_data = {
                 "client": config.get('AWSIOT_SERVICE', 'client_id'),
                 "certificate": config.get('AWSIOT_SERVICE', 'certificate_path'),
-                "private":config.get('AWSIOT_SERVICE', 'private_key_path')
+                "private": config.get('AWSIOT_SERVICE', 'private_key_path')
 
             }
             return JsonResponse(sample_data)
         except Exception as e:
             return JsonResponse({"error": str(e)})
-        
-    def put(self,request):
+
+    def put(self, request):
         try:
             config.clear()
             config.read(list_path_menu[3])
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data"}, status=400)
-            
+
             client = data.get("client")
             certicate = data.get("certicate")
             private = data.get("private")
-            config.set('AWSIOT_SERVICE','client_id',client)
-            config.set('AWSIOT_SERVICE','certificate_path',certicate)
-            config.set('AWSIOT_SERVICE','private_key_path',private)
+            config.set('AWSIOT_SERVICE', 'client_id', client)
+            config.set('AWSIOT_SERVICE', 'certificate_path', certicate)
+            config.set('AWSIOT_SERVICE', 'private_key_path', private)
 
-            
             with open(list_path_menu[3], "w") as configfile:
-               config.write(configfile)
+                config.write(configfile)
             return JsonResponse({"message": "Data updated"}, status=200)
-            
-            
-            
+
         except json.JSONDecodeError:
-            
-            return JsonResponse({"message": "Error when updating data"}, status=400)    
+
+            return JsonResponse({"message": "Error when updating data"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error when updating data, {e}"}, status=400)
-            

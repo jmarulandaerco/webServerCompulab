@@ -177,16 +177,23 @@ async function updateInformationLimitation() {
  */
 
 async function updateInformationCompensation() {
-    const selectedValue = document.querySelector('input[name="reactive_power"]:checked')?.value;
+
+    const kind = document.getElementById("kindCompensation").value;
     const meter_ids = document.getElementById("meter_ids").value;
-    const smart_logger = document.getElementById("smart_logger").value;
+    const device=document.getElementById("device_id").value;
     const high = document.getElementById("high").value;
     const low = document.getElementById("low").value;
+    const band_high=document.getElementById("hightBand").value;
+    const band_low=document.getElementById("lowBand").value;
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
     const time = document.getElementById("time").value;
     const factor = document.getElementById("factor").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    
+    
+  
+
 
     try {
         const response = await fetch(getFormDataCompensation, {
@@ -195,7 +202,7 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ selectedValue, meter_ids, smart_logger, high, low, reactive, active, time, factor })
+            body: JSON.stringify({kind,meter_ids,device,high,low,band_high,band_low,reactive,active,time,factor })
         });
 
         const data = await response.json();
