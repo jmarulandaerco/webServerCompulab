@@ -172,7 +172,6 @@ async function updateAwsSettings(){
         }
     }catch(error){
         alert("❌ " + error.message);
-        console.log(error)
     }
 
 }

@@ -347,7 +347,6 @@ async function loadFormDataAwsSettings() {
             alert("Error loading data");
         }
         const data = await response.json();
-        console.log(data)
         document.getElementById("clientId").value = data.client;
         document.getElementById("clientCertificate").value = data.certificate;
         document.getElementById("private").value = data.private;
@@ -397,7 +396,6 @@ function loadContentSingleDevice(option) {
 
 
 function loadContent(option) {
-    console.log("Terirr");
     if(option=='form/database/database'){
         url='/home/content/form/database/databaseInformation/'
 
@@ -454,7 +452,6 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-            console.log(error)
             document.getElementById("content").innerHTML = "<h1>Error when loading content</h1>";
         });
 }
@@ -558,8 +555,7 @@ async function updateServerSelection() {
 
 
 function loadDatabase(page) {
-    console.log("Función loadDatabase ejecutada");  // Mensaje de depuración
-    console.log(page)
+
     const perPageSelect = document.getElementById('perPageSelect');
     const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
     const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
@@ -582,8 +578,7 @@ function loadDatabase(page) {
 
 
             document.querySelectorAll("#sidebar a").forEach(a => {
-                console.log("Hola olago")
-                console.log(a.getAttribute("onclick")?.includes(1))
+
                 if (a.getAttribute("onclick")?.includes(1)) {
                     a.classList.add("active");
                 }

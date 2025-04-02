@@ -49,7 +49,7 @@ class WhiteList:
     
     def control_modem_service(self,start_service: bool)->bool:
         action = "start" if start_service else "stop"
-        print("Holaaaa")
+      
         print(action)
         try:
             result = subprocess.run(

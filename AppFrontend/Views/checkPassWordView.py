@@ -38,7 +38,6 @@ class CheckPassword(View):
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password(password):
-                print(password)
                 
                 return JsonResponse({"message": f"The password entered is invalid"}, status=400)
 

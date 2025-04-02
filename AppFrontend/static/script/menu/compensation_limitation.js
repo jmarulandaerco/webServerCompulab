@@ -71,12 +71,7 @@ async function loadFormDataCompensation() {
             alert("❌" + " "+response.message);
         }
         const data = await response.json();
-
-        // const compensation = document.querySelector(`input[name="reactive_power"][value="${data.reactive_power}"]`);
-        // if (compensation) {
-        //     compensation.checked = true;
-        // }
-        console.log(data);
+¿
         document.getElementById("kindCompensation").value =data.kind;
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value=data.device

@@ -203,7 +203,6 @@ async function loadFormDataServerChecker() {
 }
 
 function loadContent(option) {
-    console.log("Terirr");
     if(option=='form/database/database'){
         url='/home/content/form/database/databaseInformation/'
     }else{
@@ -257,7 +256,6 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-            console.log(error)
             document.getElementById("content").innerHTML = "<h1>Error when loading content</h1>";
         });
 }
@@ -319,8 +317,7 @@ async function updateServerSelection() {
 
 
 function loadDatabase(page) {
-    console.log("Función loadDatabase ejecutada");  // Mensaje de depuración
-    console.log(page)
+
     const perPageSelect = document.getElementById('perPageSelect');
     const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
     const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;

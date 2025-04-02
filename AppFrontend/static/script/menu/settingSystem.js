@@ -114,8 +114,7 @@ async function deleteWhiteList() {
         const token = localStorage.getItem("access_token"); 
 
         var modemSelect = document.getElementById("modem").value;
-        console.log(modemSelect)
-        const response =await fetch(viewList, {
+¿        const response =await fetch(viewList, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,  

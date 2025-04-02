@@ -54,7 +54,6 @@ function loadDevices(page) {
     const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
     fetch(fullUrl)  
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 alert(`Error: ${response.statusText}`);
             }
@@ -669,7 +668,6 @@ async function addDeviceTcp() {
 
 async function deleteDevice(device) {
     try {
-        console.log(device)
         if (confirm("Are you sure to erase the device?")) {
             const response = await fetch(mapFolder, {
                 method: "DELETE",
