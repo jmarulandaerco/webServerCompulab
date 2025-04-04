@@ -71,10 +71,12 @@ class ChangePassword(View):
             new_password = data.get("newPassword")
             reply_new_password=data.get("replyNewPassword")
             
+            if password == new_password:
+                return JsonResponse({"message":"The current password is the same as the new one"},status=400)
             if new_password != reply_new_password:
-                return JsonResponse({"message":"passwords do not match"},status=400)
+                return JsonResponse({"message":"Passwords do not match"},status=400)
             if new_password == "" or reply_new_password=="":
-                return JsonResponse({"message":"fields are missing"})
+                return JsonResponse({"message":"Fields are missing"})
             if not password or not new_password:
                 return JsonResponse({"message": "Both fields are required"}, status=400)
 
