@@ -29,3 +29,16 @@ class ModemView(APIView):
 
         except Exception as e:
             return JsonResponse({"message":message})
+
+
+class InterfaceIPView(APIView):
+    def get(self, request, interface):
+        menu=Menu()
+        ip = menu.get_ip_interface(interface)
+        if ip:
+            return JsonResponse({'interface': interface, 'ip': ip})
+        else:
+            return JsonResponse(
+                {'error': f'No se pudo obtener la IP de {interface}'},status=400
+               
+            )

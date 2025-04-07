@@ -11,7 +11,7 @@ from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, 
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataAwsService, FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
-from AppFrontend.Views.modemView import ModemView
+from AppFrontend.Views.modemView import InterfaceIPView, ModemView
 from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
 from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
 from authApp.views.userDetailView import UserDetailView
@@ -80,6 +80,8 @@ urlpatterns = [
     path('api/setting/modemManager/',ModemManager.as_view(),name='modem_manager'),
     
     path('api/read/rtu/',FormModbusReadRtu.as_view(),name='rtu_single_device'),
-    path('api/read/tcp/',FormModbusReadTCP.as_view(),name='tcp_single_device')
+    path('api/read/tcp/',FormModbusReadTCP.as_view(),name='tcp_single_device'),
+    path('api/ip/<str:interface>/', InterfaceIPView.as_view(), name='get_interface_ip'),
+
 
 ]

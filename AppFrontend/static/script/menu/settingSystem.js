@@ -359,3 +359,22 @@ function showModems() {
         })
         .catch(error => { console.error("Error:", error); });
 }
+
+
+async function getIPInterface(interfaceName) {
+    try {
+        const response = await fetch(`/api/ip/${interfaceName}/`);
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log(`IP de ${interfaceName}:`, data.ip);
+            return data.ip;
+        } else {
+            console.error(`Error: ${data.error}`);
+            return null;
+        }
+    } catch (error) {
+        console.error("Error al hacer la petición:", error);
+        return null;
+    }
+}

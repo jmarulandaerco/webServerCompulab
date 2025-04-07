@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from utils.logger import LoggerHandler
 from utils.modem_gsm_driver import SimModem
+import re
 
 
 @dataclass
@@ -287,3 +288,20 @@ class Menu:
         else:
             # Crear el archivo vacío si no existe
             open(log_file, 'w').close()
+
+    def get_ip_interface(self,interface):
+        try:
+            resultado = subprocess.check_output(
+                ['ip', 'addr', 'show', interface], text=True)
+            # Buscar línea con 'inet' que contiene la IP
+            match = re.search(r'inet (\d+\.\d+\.\d+\.\d+)', resultado)
+            if match:
+                return match.group(1)
+            else:
+                return "No se encontró una IP para eth0"
+        except subprocess.CalledProcessError:
+            return "Error al ejecutar el comando"
+
+
+
+    
