@@ -108,6 +108,8 @@ class FormDataServer(View):
 
     def get(self, request):
         try:
+            config.clear()
+            config.read(list_path_menu[0])
             sample_data = {
                 "server": config.get('server', 'server_type'),
                 "neu_plus": config.get('server', 'id_device'),
@@ -341,6 +343,8 @@ class FormDataSettingInterface(View):
 
     def get(self, request):
         try:
+            config.clear()
+            config.read(list_path_menu[0])
             sample_data = {
                 "interface": config.get('internet_interfaces', 'internet_interface'),
                 "connection": config.get('internet_interfaces', 'connection_name'),
