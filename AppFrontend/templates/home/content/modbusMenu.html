@@ -1,3 +1,4 @@
+{% load static %}
 <div class="container">
     <button class="button" onclick="loadDevices('seeDevices')">See devices configured</button>
     <button class="button" onclick="loadContentModbus('newDevice')">Enter a new device</button>
@@ -10,7 +11,7 @@
 <div class="container_log" id="content3"></div>
 
 <div class="container_logs" style="display: none;">
-    <!-- <link rel="stylesheet" href="{% static 'css/logs.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/logs.css' %}">
 
     <div class="log-container" id="content4">
 
