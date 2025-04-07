@@ -71,7 +71,7 @@ async function loadFormDataCompensation() {
             alert("❌" + " "+response.message);
         }
         const data = await response.json();
-¿
+
         document.getElementById("kindCompensation").value =data.kind;
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value=data.device
