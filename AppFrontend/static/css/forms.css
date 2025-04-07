@@ -17,7 +17,7 @@ button{
     margin: auto;
     background: transparent;
     max-height: 200px;
-    padding: 20px;
+    padding: 0px;
     border-radius: 8px;
     max-height: 30px !important;
     overflow-y: auto !important;
