@@ -298,9 +298,9 @@ class Menu:
             if match:
                 return match.group(1)
             else:
-                return "No se encontró una IP para eth0"
+                return ""
         except subprocess.CalledProcessError:
-            return "Error al ejecutar el comando"
+            return ""
     
     def get_gateway_interface(self,interface):
         try:
@@ -313,6 +313,6 @@ class Menu:
             if match:
                 return match.group(1)
             else:
-                return f"No se encontró gateway para {interface}"
+                return f""
         except subprocess.CalledProcessError:
-            return f"Error al ejecutar el comando para {interface}"
+            return f""

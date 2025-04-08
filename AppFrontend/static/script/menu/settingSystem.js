@@ -367,6 +367,7 @@ async function getIPInterface(interfaceName) {
         const data = await response.json();
 
         if (response.ok) {
+            
             if(interfaceName=="eth0"){
                 document.getElementById("ipOne").value = data.ip;
                 document.getElementById("gatewayOne").value = data.gateway;
