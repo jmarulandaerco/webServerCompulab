@@ -90,6 +90,39 @@ async function checked() {
     }
 };
 
+async function checkedPasswordAws() {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+
+    try {
+        const response = await fetch(postCheckPasswordUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken 
+            },
+            body: JSON.stringify({ password, confirmPassword })
+        });
+
+        const data = await response.json();
+      
+        if (!response.ok) {
+            
+            alert("❌ "  + "Validation error"); 
+
+        }else{
+            alert("✅ " + data.message); 
+            await loadContentHttp('awsService')
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message); 
+        console.error("Error:", error);
+    }
+};
+
 
 /**
  * Validates the password and confirmation password entered by the user, then triggers a server-side check.
