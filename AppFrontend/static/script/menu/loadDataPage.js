@@ -390,7 +390,7 @@ async function loadFormDataAwsSettings() {
 
 function loadContentSingleDevice(option) {
     document.querySelector('.container_logs').style.display = 'none';
-    document.getElementById('content3').style.display = 'block';
+    document.getElementById('content3').style.display = 'flex';
 
 
     url=`/home/content/${option}/`
