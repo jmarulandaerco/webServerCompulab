@@ -83,6 +83,8 @@ function startService() {
             .finally(()=>{
                 boton.disabled=false
             });
+    }else{
+        boton.disabled=false   
     }
 }
 
@@ -105,6 +107,8 @@ function startService() {
  */
 
 function stopService() {
+    const boton = document.getElementById("stopServiceButton");
+    boton.disabled=true;
     if (confirm("Are you sure to stop the service?")) {
         const token = localStorage.getItem("access_token"); 
 
@@ -125,7 +129,13 @@ function stopService() {
                     }, 2000);
                 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => console.error("Error:", error)).finally(()=>{
+                boton.disabled=false;
+
+            });
+    }else{
+        boton.disabled=false;
+
     }
 }
 
