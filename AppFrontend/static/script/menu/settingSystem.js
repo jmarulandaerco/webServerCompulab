@@ -152,8 +152,8 @@ async function deleteWhiteList() {
  */
 
 async function interfaceEthernetOne() {
-    const ip = document.getElementById("ip").value;
-    const gateway = document.getElementById("gateway").value;
+    const ip = document.getElementById("ipOne").value;
+    const gateway = document.getElementById("gatewayOne").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
@@ -199,8 +199,8 @@ async function interfaceEthernetOne() {
  * interfaceEthernetOne(); // Sends the IP and gateway values to configure the Ethernet interface.
  */
 async function interfaceEthernetTwo() {
-    const ip = document.getElementById("ip").value;
-    const gateway = document.getElementById("gateway").value;
+    const ip = document.getElementById("ipTwo").value;
+    const gateway = document.getElementById("gatewayTwo").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try {
         const response = await fetch(getInterfaceConnectionTwo, {
