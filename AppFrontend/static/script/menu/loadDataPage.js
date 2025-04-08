@@ -50,6 +50,7 @@ function loadContentMenu(option) {
  */
 
 function loadContentSetting(option) {
+    cont=0
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -59,18 +60,26 @@ function loadContentSetting(option) {
         })
         .then(data => {
             document.getElementById("content5").innerHTML = data;
-            if(option == "interfaceEthernet"){
-                getIPInterface("eth0")
-            }
-
-            if(option=="interfaceEthernetTwo"){
-                getIPInterface("eth1")
-            }
+           
 
         })
         .catch(error => {
+            cont=1
             document.getElementById("content5").innerHTML = "<h1>Error loading content</h1>";
-        });
+        }).finally(()=>{
+            if(cont=0){
+                if(option == "interfaceEthernet"){
+                    getIPInterface("eth0")
+                }
+    
+                if(option=="interfaceEthernetTwo"){
+                    getIPInterface("eth1")
+                }
+            }
+            
+        })
+        
+        ;
 }
 /**
  * Dynamically loads content into the page based on the provided option.
