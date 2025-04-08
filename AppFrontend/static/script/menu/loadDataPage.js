@@ -54,7 +54,7 @@ function loadContentSetting(option) {
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
+                alert(`Error : ${response.message}`);
             }
             return response.text();
         })

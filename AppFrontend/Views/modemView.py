@@ -45,6 +45,6 @@ class InterfaceIPView(APIView):
                 return JsonResponse({'interface': interface, 'ip': ip,'gateway':gateway})
         else:
             return JsonResponse(
-                {'error': f'No se pudo obtener la IP de {interface}'},status=400
+                {'message': f'Could not get the IP from {interface} check if the physical connection to the port is OK. '},status=400
                
             )

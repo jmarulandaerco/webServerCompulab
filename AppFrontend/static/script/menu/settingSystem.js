@@ -382,11 +382,11 @@ async function getIPInterface(interfaceName) {
             
             
         } else {
-            alert("❌ "+`Error: ${data.error}`);
+            alert("❌ "+`Error: ${data.message}`);
             
         }
     } catch (error) {
-        // alert("❌ "+"Error al hacer la petición:", error);
+        alert("❌ "+error);
         console.log(error)
         
     }
