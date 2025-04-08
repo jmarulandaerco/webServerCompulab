@@ -301,7 +301,18 @@ class Menu:
                 return "No se encontró una IP para eth0"
         except subprocess.CalledProcessError:
             return "Error al ejecutar el comando"
-
-
-
     
+    def get_gateway_interface(self,interface):
+        try:
+            resultado = subprocess.check_output(
+                ['ip', 'route', 'show', 'dev', interface],
+                text=True
+            )
+            # Buscar línea que contiene "default via"
+            match = re.search(r'default via (\d+\.\d+\.\d+\.\d+)', resultado)
+            if match:
+                return match.group(1)
+            else:
+                return f"No se encontró gateway para {interface}"
+        except subprocess.CalledProcessError:
+            return f"Error al ejecutar el comando para {interface}"

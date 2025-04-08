@@ -59,6 +59,13 @@ function loadContentSetting(option) {
         })
         .then(data => {
             document.getElementById("content5").innerHTML = data;
+            if(option == "interfaceEthernet"){
+                getIPInterface("eth0")
+            }
+
+            if(option=="interfaceEthernetTwo"){
+                getIPInterface("eth1")
+            }
 
         })
         .catch(error => {

@@ -354,10 +354,10 @@ function showModems() {
         .then(data => {
 
 
-            alert(data.message)
+            alert("❌ "+data.message)
 
         })
-        .catch(error => { console.error("Error:", error); });
+        .catch(error => { alert("❌"+"Error:", error); });
 }
 
 
@@ -367,14 +367,26 @@ async function getIPInterface(interfaceName) {
         const data = await response.json();
 
         if (response.ok) {
-            console.log(`IP de ${interfaceName}:`, data.ip);
-            return data.ip;
+            if(interfaceName=="eth0"){
+                document.getElementById("ipOne").value = data.ip;
+                document.getElementById("gatewayOne").value = data.gateway;
+                return null
+            }
+
+            if (interfaceName =="eth1"){
+                document.getElementById("ipTwo").value = data.ip;
+                document.getElementById("gatewayTwo").value = data.gateway;
+                return null
+            }
+
+            
+            
         } else {
-            console.error(`Error: ${data.error}`);
-            return null;
+            alert("❌ "+`Error: ${data.error}`);
+            
         }
     } catch (error) {
-        console.error("Error al hacer la petición:", error);
-        return null;
+        alert("❌ "+"Error al hacer la petición:", error);
+        
     }
 }
