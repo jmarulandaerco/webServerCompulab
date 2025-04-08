@@ -387,6 +387,7 @@ async function getIPInterface(interfaceName) {
         }
     } catch (error) {
         alert("❌ "+"Error al hacer la petición:", error);
+        console.log(error)
         
     }
 }
