@@ -24,11 +24,11 @@ function checkServiceStatus() {
             if (data.active) {
                 statusCircle.classList.remove('inactive');
                 statusCircle.classList.add('active');
-                statusText.innerText = 'Activo';
+                statusText.innerText = 'Active';
             } else {
                 statusCircle.classList.remove('active');
                 statusCircle.classList.add('inactive');
-                statusText.innerText = 'Inactivo';
+                statusText.innerText = 'Inactive';
             }
         })
         .catch(error => console.error('Error when obtaining the status:', error));
