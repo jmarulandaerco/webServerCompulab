@@ -159,6 +159,8 @@ async function updateSettingDatabase() {
  */
 
 function exportToExcel() {
+    const boton = document.getElementById("refreshButton");
+    boton.disabled=true;
     const url = '/api/inverter/export/';
     const a = document.createElement('a');
     const now = new Date();
@@ -167,6 +169,7 @@ function exportToExcel() {
     a.href = url;
     a.download = `${filename}.xlsx`; 
     a.click();
+    boton.disabled=false;
 }
 
 /**
