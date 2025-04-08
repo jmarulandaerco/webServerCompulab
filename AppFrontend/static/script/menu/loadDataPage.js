@@ -50,7 +50,7 @@ function loadContentMenu(option) {
  */
 
 function loadContentSetting(option) {
-    cont=0
+    cont=0;
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -67,7 +67,7 @@ function loadContentSetting(option) {
             cont=1
             document.getElementById("content5").innerHTML = "<h1>Error loading content</h1>";
         }).finally(()=>{
-            if(cont=0){
+            if(cont==0){
                 if(option == "interfaceEthernet"){
                     getIPInterface("eth0")
                 }
@@ -76,6 +76,7 @@ function loadContentSetting(option) {
                     getIPInterface("eth1")
                 }
             }
+            cont=0;
             
         })
         
