@@ -15,8 +15,7 @@
  */
 
 function checkServiceStatus() {
-    const boton = document.getElementById("startServiceButton");
-    boton.disabled=true;
+    
     fetch(statusService)  
         .then(response => response.json())
         .then(data => {
@@ -33,10 +32,8 @@ function checkServiceStatus() {
                 statusText.innerText = 'Inactive';
             }
         })
-        .catch(error => console.error('Error when obtaining the status:', error))
-        .finally(()=>{
-            boton.disabled=false
-        });
+        .catch(error => console.error('Error when obtaining the status:', error));
+        
 }
 
 /**
@@ -58,6 +55,8 @@ function checkServiceStatus() {
  */
 
 function startService() {
+    const boton = document.getElementById("startServiceButton");
+    boton.disabled=true;
     if (confirm("Are you sure you want to start the service?, it will take 30 seconds to start.")) {
         const token = localStorage.getItem("access_token"); 
         startProgressBar();
@@ -80,7 +79,10 @@ function startService() {
                
 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => console.error("Error:", error))
+            .finally(()=>{
+                boton.disabled=false
+            });
     }
 }
 
