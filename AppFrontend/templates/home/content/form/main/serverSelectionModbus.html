@@ -1,4 +1,4 @@
-{% load static %}
+<{% load static %}
 
 <div class="form-container">
 
@@ -6,7 +6,7 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="Server">Server type:</label>
-            <select id="server" name="Server" required>
+            <select id="server" name="Server" onchange="toggleFields()" >
                 <option value="telemetry">Telemetry</option>
                 <option value="neu_plus">Neu Plus</option>
                 <option value="all_services">All Services</option>
@@ -15,26 +15,26 @@
 
         <div class="form-group">
             <label for="neu_plus">Id device neu plus:</label>
-            <input type="text" id="neu_plus" name="neu_plus" required>
+            <input type="text" id="neu_plus" name="neu_plus" >
         </div>
 
         <div class="form-group">
             <label for="telemetry">Identity id telemetry:</label>
-            <input type="text" id="telemetry" name="telemetry" required>
+            <input type="text" id="telemetry" name="telemetry" >
         </div>
 
         <div class="form-group">
             <label for="mqtt">Sampling mqtt (seconds):</label>
-            <input type="text" id="mqtt" name="mqtt" required>
+            <input type="text" id="mqtt" name="mqtt" >
         </div>
 
         <div class="form-group">
             <label for="storage">sampling storage plus (seconds):</label>
-            <input type="text" id="storage" name="storage" required>
+            <input type="text" id="storage" name="storage" >
         </div>
 
         <button class="buttonClass" type="button" onclick="updateServerSelection()">Save</button>
     </form>
-</div>
+</div>>
 
 

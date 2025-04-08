@@ -392,3 +392,38 @@ async function getIPInterface(interfaceName) {
         
     }
 }
+
+function toggleFields() {
+    const serverValue = document.getElementById("server").value;
+
+    const neuPlus = document.getElementById("neu_plus").parentElement;
+    const telemetry = document.getElementById("telemetry").parentElement;
+    const mqtt = document.getElementById("mqtt").parentElement;
+    const storage = document.getElementById("storage").parentElement;
+
+    // Ocultar todo
+    neuPlus.style.display = "none";
+    telemetry.style.display = "none";
+    mqtt.style.display = "none";
+    storage.style.display = "none";
+
+    if (serverValue === "telemetry") {
+        neuPlus.style.display = "none";
+        mqtt.style.display = "none";
+        storage.style.display = "none";
+
+        telemetry.style.display = "block";
+    } else if (serverValue === "neu_plus") {
+        neuPlus.style.display = "block";
+        storage.style.display = "block";
+        mqtt.style.display = "block";
+        telemetry.style.display = "none";
+
+
+    } else if (serverValue === "all_services") {
+        neuPlus.style.display = "block";
+        telemetry.style.display = "block";
+        mqtt.style.display = "block";
+        storage.style.display = "block";
+    }
+}
