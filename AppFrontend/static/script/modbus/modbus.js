@@ -482,7 +482,7 @@ async function updateDataModes() {
     // const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
     // const sampling_limitation = document.getElementById("sampling_limitation").value;
     // const sampling_compensation = document.getElementById("sampling_compensation").value;
-    // const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
         const response = await fetch(getFormDataUrlServerModes, {
