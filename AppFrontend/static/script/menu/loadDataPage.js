@@ -684,6 +684,7 @@ async function loadFunction(option) {
             break;
         case 'serverSelectionModbus':
             loadFormDataServerSelection();
+            toggleFields();
             break;
         case 'operationModeModbus':
             loadFormDataModes();
