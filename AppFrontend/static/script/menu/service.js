@@ -15,6 +15,8 @@
  */
 
 function checkServiceStatus() {
+    const boton = document.getElementById("startServiceButton");
+    boton.disabled=true;
     fetch(statusService)  
         .then(response => response.json())
         .then(data => {
@@ -31,7 +33,10 @@ function checkServiceStatus() {
                 statusText.innerText = 'Inactive';
             }
         })
-        .catch(error => console.error('Error when obtaining the status:', error));
+        .catch(error => console.error('Error when obtaining the status:', error))
+        .finally(()=>{
+            boton.disabled=false
+        });
 }
 
 /**
