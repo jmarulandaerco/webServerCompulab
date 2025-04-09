@@ -20,7 +20,7 @@ class InverterDataView(APIView):
         
 
         if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
    
@@ -30,14 +30,14 @@ class InverterDataView(APIView):
           
 
             if str(valid_data['user_id']) != str(request.user):
-                return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'detail': 'Petición inautorizada'}, status=status.HTTP_401_UNAUTHORIZED)
             
             inverter_data = InverterData.objects.all()
             serializer = InverterDataSerializer(inverter_data, many=True)
             return Response(serializer.data)
 
         except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
     def delete(self, request, *args, **kwargs):
@@ -45,7 +45,7 @@ class InverterDataView(APIView):
         auth_header = request.headers.get('Authorization')
         
         if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
         # 2️⃣ Extraer el token (lo que viene después de 'Bearer ')
         token = auth_header.split(' ')[1]
@@ -55,14 +55,14 @@ class InverterDataView(APIView):
           
 
             if str(valid_data['user_id']) != str(request.user):
-                return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'detail': 'Petición inautorizado'}, status=status.HTTP_401_UNAUTHORIZED)
 
             InverterData.objects.all().delete()
-            return Response({'detail': 'All records deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'detail': 'Datos elimidando correctamente'}, status=status.HTTP_204_NO_CONTENT)
 
             
         except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 class InverterView(View):
     def get(self, request):

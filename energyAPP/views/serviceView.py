@@ -20,7 +20,7 @@ class StartView(generics.RetrieveAPIView):
             auth_header = request.headers.get('Authorization')
     
             if not auth_header or not auth_header.startswith('Bearer '):
-                return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
             token = auth_header.split(' ')[1]
    
@@ -35,14 +35,14 @@ class StartView(generics.RetrieveAPIView):
             started= Menu()
             start = started.start_service()
             if start==True:
-                return Response({'message':'System restarted'})
+                return Response({'message':'Sistema reiniciado'})
             else:
             
-                return Response({'message':'Error starting the computer'})
+                return Response({'message':'Error empezando el computador'})
 
         except Exception as e:
             
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class StopView(generics.RetrieveAPIView):
@@ -53,7 +53,7 @@ class StopView(generics.RetrieveAPIView):
         auth_header = request.headers.get('Authorization')
  
         if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
    
@@ -63,18 +63,18 @@ class StopView(generics.RetrieveAPIView):
           
 
             if str(valid_data['user_id']) != str(request.user):
-                return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'detail': 'Inautorizada petición'}, status=status.HTTP_401_UNAUTHORIZED)
 
             stopper= Menu()
             stop = stopper.stop_service()
             if stop==True:
-                return Response({'message':'Stopping System'})
+                return Response({'message':'Parando sistema'})
             else:
             
-                return Response({'message':'Service FW_main is already stopped.'})
+                return Response({'message':'Servicio FW_main esta parado'})
 
         except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class Reboot(generics.RetrieveAPIView):
@@ -85,7 +85,7 @@ class Reboot(generics.RetrieveAPIView):
         auth_header = request.headers.get('Authorization')
  
         if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
    
@@ -95,18 +95,18 @@ class Reboot(generics.RetrieveAPIView):
           
 
             if str(valid_data['user_id']) != str(request.user):
-                return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'detail': 'Petición inautorizada'}, status=status.HTTP_401_UNAUTHORIZED)
 
             stopper= Menu()
             stop = stopper.reboot()
             if stop==True:
-                return Response({'message':'Reboot system'})
+                return Response({'message':'Sistema reiniciado'})
             else:
             
-                return Response({'message':'Error rebooting the computer'})
+                return Response({'message':'Error reiniciando el pc'})
 
         except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 
@@ -129,5 +129,5 @@ class StatusService(generics.RetrieveAPIView):
                 return Response({'active':True})
 
         except Exception as e:
-            return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
