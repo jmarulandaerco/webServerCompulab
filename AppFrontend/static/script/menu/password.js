@@ -76,7 +76,7 @@ async function checked() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Validation error"); 
+            alert("❌ "  +"Error en la validación de los datos: "+data.message);
 
         }else{
             alert("✅ " + data.message); 
@@ -109,7 +109,7 @@ async function checkedPasswordAws() {
       
         if (!response.ok) {
             
-            alert("❌ "  + "Validation error"); 
+            alert("❌ "  + "Error en la validación de los datos: "+data.message); 
 
         }else{
             alert("✅ " + data.message); 

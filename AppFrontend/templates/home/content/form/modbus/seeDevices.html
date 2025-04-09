@@ -5,7 +5,7 @@
     <form id="deviceForm">
         {% csrf_token %}
 
-        <h3>Select devices:</h3>
+        <h3>Seleccionar dispositivos</h3>
         <div id="deviceList" class="checkbox-group">
             {% for device in listDevices %}
                 <div class="checkbox-item">
@@ -16,7 +16,7 @@
             {% endfor %}
         </div>
 
-        <button class="buttonClass" type="button" onclick="saveChangesEnableDisableDevices()">Save</button>
+        <button class="buttonClass" type="button" onclick="saveChangesEnableDisableDevices()">Guardar</button>
     </form>
 </div>
 

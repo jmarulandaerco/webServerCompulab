@@ -23,7 +23,7 @@ function loadContentModbus(option) {
     fetch(`/home/content/form/modbus/${option}/`)
         .then(response => {
             if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
+                alert(`Error cargando contenido: ${response.statusText}`);
             }
             return response.text();
         })
@@ -33,7 +33,7 @@ function loadContentModbus(option) {
 
         })
         .catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
+            document.getElementById("content3").innerHTML = "<h1>Error cargando contenido</h1>";
         });
 }
 
@@ -63,8 +63,7 @@ function loadDevices(page) {
             document.getElementById("content3").innerHTML = html;
         })
         .catch(error => {
-            console.error("Error while loading devices:", error);
-            document.getElementById("content3").innerHTML = "<p>Error while loading devices</p>";
+            document.getElementById("content3").innerHTML = "<p>Error cargando información de los dispositivos</p>";
         });
 }
 
@@ -92,7 +91,7 @@ async function loadFormDataSettingModbus() {
     try {
         const response = await fetch(getFormDatasettingModbus);
         if (!response.ok) {
-            alert("Error loading data");
+            alert("Error cargando los datos de configuración Modbus");
         }
         const data = await response.json();
         document.getElementById("debug").value = data.debug;
@@ -155,7 +154,7 @@ function handleSelectChange(event) {
 
 
         }).catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error loading content</h1>";
+            document.getElementById("content3").innerHTML = "<h1>Error cargando el contenido</h1>";
         });
 }
 
@@ -205,13 +204,13 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
             } else if (modbusMapList.length > 0) {
                 modbusMapFolderSelect.value = modbusMapList[0];
             } else {
-                alert("❌ No devices are available for selection.");
+                alert("❌ No hay dispositivos disponibles para la selección");
             }
 
             modbusMapFolderSelect.dispatchEvent(new Event("change"));
         })
         .catch(error => {
-            console.error("Error while loading devices:", error);
+            console.error("Error al cargar dispositivos", error);
         });
 }
 
@@ -260,7 +259,7 @@ function loadAddDevices() {
             }
         })
         .catch(error => {
-            alert("Error while loading devices:", error);
+            alert("Error al cargar dispositivos:", error);
         });
 }
 /**
@@ -285,7 +284,7 @@ async function loadFormDataMeasureModbus() {
     try {
         const response = await fetch(getFormDataUrl);
         if (!response.ok) {
-            alert("Error while loading devices");
+            alert("Error cargando los datos:");
         }
         const data = await response.json();
         document.getElementById("zone").value = data.zone;
@@ -336,7 +335,7 @@ async function updateSettingModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); // Muestra éxito si las contraseñas coinciden
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
@@ -392,7 +391,7 @@ async function updateMeasureModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -500,7 +499,7 @@ async function updateDataModes() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -569,7 +568,7 @@ async function addDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -636,7 +635,8 @@ async function addDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            
+            alert("❌ Error en la validación de los datos: "+data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -671,7 +671,7 @@ async function addDeviceTcp() {
 
 async function deleteDevice(device) {
     try {
-        if (confirm("Are you sure to erase the device?")) {
+        if (confirm("¿Estás seguro de borrar este dispositivo?")) {
             const response = await fetch(mapFolder, {
                 method: "DELETE",
                 headers: {
@@ -683,14 +683,14 @@ async function deleteDevice(device) {
             const result = await response.json();
 
             if (!response.ok) {
-                alert("❌ Error in validation: " + result.message);
+                alert("❌ Error en la operación : " + result.message);
             } else {
                 alert("✅ " + result.message);
                 await loadDevices('seeDevices');
             }
         }
     } catch (error) {
-        console.error("Error in deletion:", error.message);
+        console.error("Error en la eliminación:", error.message);
     }
 }
 
@@ -725,7 +725,7 @@ async function ModifyOption(device) {
         const response = await fetch(url);
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + response.message);
+            alert("❌ Error durante la actualización: " + response.message);
         }
 
         const data = await response.text();
@@ -737,7 +737,7 @@ async function ModifyOption(device) {
 
 
             if (!responseDevice.ok) {
-                alert(" ❌ Error while loading the data device Rtu");
+                alert(" ❌ Error cuando se carga los datos del dispositivo rtu");
             }
             const dataRtu = await responseDevice.json();
             document.getElementById("nameRtu").value = dataRtu.nameRtu;
@@ -760,7 +760,7 @@ async function ModifyOption(device) {
 
 
             if (!responseDevice.ok) {
-                alert(" ❌  Error while loading the data device Rtu");
+                alert(" ❌  Error en la carga de los datos del dispositivo TCP");
             }
             const dataRtu = await responseDevice.json();
             document.getElementById("nameTcp").value = dataRtu.nameTcp;
@@ -845,7 +845,7 @@ async function updateDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            alert("❌ Error al actualizar el dispositivo Tcp: " + data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -913,7 +913,7 @@ async function updateDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            alert("❌ Error en la actualización del dispositivo Rtu: " + data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -950,7 +950,7 @@ async function readDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            alert("❌ Error en la lectura Rtu: " + data.message);
         } else {
             alert("✅ " + data.message);
             getLogSingleDevice();
@@ -989,7 +989,7 @@ async function readDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ Error in validation: " + data.message);
+            alert("❌ Error en la lectura de dispositivo Tcp: " + data.message);
         } else {
             alert("✅ " + data.message);
             getLogSingleDevice();   

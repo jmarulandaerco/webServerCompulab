@@ -9,44 +9,44 @@
                 <!-- Primera columna -->
                 <div class="form-column">
                     <div class="form-group">
-                        <label for="name">Enter new device name (e.g. Huawei_Inv):</label>
+                        <label for="name">Ingresar nombre del nuevo dispositivo(e.g. Huawei_Inv)</label>
                         <input type="text" id="name" name="name" value="Huawei" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="ip_device">Enter IP device:</label>
+                        <label for="ip_device">Ingresar Ip dispositivo</label>
                         <input type="text" id="ip_device" name="ip_device" value="10.6.20.10" required>
                     </div>
                     <div class="form-group">
-                        <label for="port_device">Enter port device:</label>
+                        <label for="port_device">Ingresar puerto dispositivo</label>
                         <input type="text" id="port_device" name="port_device" value="502" required>
                     </div>
                     <div class="form-group">
-                        <label for="offset">Enter OFFSET if reading from a PLC:</label>
+                        <label for="offset">Ingresar OFFSET si lee de un PLC</label>
                         <input type="text" id="offset" name="offset" value="100" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="initial">Enter initial slave ID:</label>
+                        <label for="initial">Ingresar id esclavo inicial</label>
                         <input type="text" id="initial" name="initial" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="end">Enter end slave ID:</label>
+                        <label for="end">Ingresar id esclavo final</label>
                         <input type="text" id="end" name="end" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_function">Choose modbus function:</label>
+                        <label for="modbus_function">Ingresar función modbus</label>
                         <select id="modbus_function" name="modbus_function" required>
-                            <option value="3">Holding register</option>
-                            <option value="4">Input register</option>
-                            <option value="6">Write register</option>
-                            <option value="10">Write multiple registers</option>
+                            <option value="3">Holding register (3)</option>
+                            <option value="4">Input register (4)</option>
+                            <option value="6">Write register (6)</option>
+                            <option value="10">Write multiple registers (10)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="initial_address">Enter initial address:</label>
+                        <label for="initial_address">Ingresar dirección inicial</label>
                         <input type="text" id="initial_address" name="initial_address" value="3208" required>
                     </div>
 
@@ -63,11 +63,11 @@
 
 
                     <div class="form-group">
-                        <label for="total_registers">Enter total number of registers:</label>
+                        <label for="total_registers">Ingresar total registros</label>
                         <input type="text" id="total_registers" name="total_registers" value="100" required>
                     </div>
                     <div class="form-group">
-                        <label for="modbus_map_folder">Choose modbus map folder::</label>
+                        <label for="modbus_map_folder">Seleccionar carpeta mapa modbus</label>
                         <select id="modbus_map_folder" name="modbus_map_folder" required
                             onchange="handleSelectChange()">
 
@@ -75,36 +75,37 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_map_json">Choose json:</label>
+                        <label for="modbus_map_json">Seleccionar json</label>
                         <select id="modbus_map_json" name="modbus_map_json" required>
 
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="modbus_mode">Choose modbus mode:</label>
+                        <label for="device_type">Seleccionar el modo Modbus</label>
                         <select id="modbus_mode" name="modbus_mode" required>
-                            <option value="ModbusMode.READ">Read</option>
-                            <option value="ModbusMode.WRITE">Write</option>
+                            <option value="ModbusMode.READ">Lectura</option>
+                            <option value="ModbusMode.WRITE">Escritura</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="device_type">Choose device type:</label>
+                        <label for="device_type">Seleccionar el tipo de dispositivo</label>
                         <select id="device_type" name="device_type" required>
-                            <option value="1">Inverter</option>
-                            <option value="2">Weather station</option>
-                            <option value="3">Pyranometer</option>
-                            <option value="4">Ambient temperature sensor</option>
-                            <option value="5">Module temperature</option>
-                            <option value="5">6 analyzer telemetry</option>
-                            <option value="7">Soiling sensor</option>
-                            <option value="8">Humidity sensor</option>
-                            <option value="9">Wind speed sensor</option>
-                            <option value="10">Totalizer or main switch</option>
-                            <option value="11">Bidirectional meter</option>
-                            <option value="12">Monitoring unit</option>
-                            <option value="13">Power analyzer neuplus</option>
+                            <option value="1">Inversor</option>
+                            <option value="2">Estación meteorológica</option>
+                            <option value="3">Piranómetro</option>
+                            <option value="4">Sensor de temperatura ambiente</option>
+                            <option value="5">Temperatura del módulo</option>
+                            <option value="6">Telemetría del analizador de potencia</option>
+                            <option value="7">Sensor de suciedad</option>
+                            <option value="8">Sensor de humedad</option>
+                            <option value="9">Sensor de velocidad del viento</option>
+                            <option value="10">Totalizador o interruptor principal</option>
+                            <option value="11">Medidor bidireccional</option>
+                            <option value="12">Unidad de monitoreo</option>
+                            <option value="13">Analizador de potencia Neuplus</option>
+                        
 
                         </select>
                     </div>
@@ -112,17 +113,17 @@
 
 
                     <div class="form-group">
-                        <label for="save_db">Choose if you want to save data in database:</label>
+                        <label for="save_db">Guardar en la base de datos local</label>
                         <select id="save_db" name="save_db" required>
-                            <option value="True">Yes</option>
+                            <option value="True">Si</option>
                             <option value="False">No</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="server_send">Choose if you want to send to server:</label>
+                        <label for="server_send">Enviar a ENRG</label>
                         <select id="server_send" name="server_send" required>
-                            <option value="True">Yes</option>
+                            <option value="True">Si</option>
                             <option value="False">No</option>
                         </select>
                     </div>
@@ -132,7 +133,7 @@
             </div>
 
             <div class="button-container">
-                <button class="buttonClassTwo" type="button" onclick="addDeviceTcp()">Save</button>
+                <button class="buttonClassTwo" type="button" onclick="addDeviceTcp()">Guardar</button>
             </div>
         </form>
     </div>

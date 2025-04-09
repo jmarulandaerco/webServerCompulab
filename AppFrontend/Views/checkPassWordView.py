@@ -25,26 +25,26 @@ class CheckPassword(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos."}, status=400)
 
             password = data.get("password")
             confirm_password = data.get("confirmPassword")
 
             if not password or not confirm_password:
-                return JsonResponse({"message": "Both fields are required"}, status=400)
+                return JsonResponse({"message": "Ambos datos son requeridos"}, status=400)
 
             if password != confirm_password:
-                return JsonResponse({"message": "Passwords do not match"}, status=400)
+                return JsonResponse({"message": "Las contraseñas no son iguales"}, status=400)
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password(password):
                 
-                return JsonResponse({"message": f"The password entered is invalid"}, status=400)
+                return JsonResponse({"message": f"La contraseña ingresada no es valida"}, status=400)
 
-            return JsonResponse({"message": "Passwords match"}, status=200)
+            return JsonResponse({"message": "Contraseñas iguales"}, status=200)
 
         except json.JSONDecodeError:
-            return JsonResponse({"message": "Invalid JSON format"}, status=400)
+            return JsonResponse({"message": "Formato Json invalido"}, status=400)
 
 
 class ChangePassword(View):
@@ -65,29 +65,29 @@ class ChangePassword(View):
         try:
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
 
             password = data.get("actualPassword")
             new_password = data.get("newPassword")
             reply_new_password=data.get("replyNewPassword")
             
             if new_password != reply_new_password:
-                return JsonResponse({"message":"passwords do not match"},status=400)
+                return JsonResponse({"message":"Las contraseñas son diferentes"},status=400)
             if new_password == "" or reply_new_password=="":
-                return JsonResponse({"message":"fields are missing"})
+                return JsonResponse({"message":"Los campos estan vacios"},status=400)
             if not password or not new_password:
-                return JsonResponse({"message": "Both fields are required"}, status=400)
+                return JsonResponse({"message": "Ambos campos son requeridos"}, status=400)
 
             passwordDatabase = DataBaseMenu()
             if not passwordDatabase.check_password_erco_config(password):
-                return JsonResponse({"message": "The actual password entered is invalid"}, status=400)
+                return JsonResponse({"message": "La contraseña actual es invalida"}, status=400)
 
             menu = Menu()
             change = menu.change_user_password(new_password)
             if change:
-                return JsonResponse({"message": "Password updated."})
+                return JsonResponse({"message": "Contraseña actualizada."})
             else:
-                return JsonResponse({"message": "Password not updated."}, status=400)
+                return JsonResponse({"message": "Contraseña no actualizada"}, status=400)
 
         except json.JSONDecodeError as e:
             return JsonResponse({"message": "Formato JSON inválido"}, status=400)

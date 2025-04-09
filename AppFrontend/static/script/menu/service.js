@@ -25,14 +25,14 @@ function checkServiceStatus() {
             if (data.active) {
                 statusCircle.classList.remove('inactive');
                 statusCircle.classList.add('active');
-                statusText.innerText = 'Active';
+                statusText.innerText = 'Activo';
             } else {
                 statusCircle.classList.remove('active');
                 statusCircle.classList.add('inactive');
-                statusText.innerText = 'Inactive';
+                statusText.innerText = 'Inactivo';
             }
         })
-        .catch(error => console.error('Error when obtaining the status:', error));
+        .catch(error => console.error('Error en la obtención del estado:', error));
         
 }
 
@@ -57,7 +57,7 @@ function checkServiceStatus() {
 function startService() {
     const boton = document.getElementById("startServiceButton");
     boton.disabled=true;
-    if (confirm("Are you sure you want to start the service?, it will take 30 seconds to start.")) {
+    if (confirm("¿Estás seguro de iniciar el servicio? Tomará 5 segundos en iniciar")) {
         const token = localStorage.getItem("access_token"); 
         startProgressBar();
         fetch(start, {
@@ -109,7 +109,7 @@ function startService() {
 function stopService() {
     const boton = document.getElementById("stopServiceButton");
     boton.disabled=true;
-    if (confirm("Are you sure to stop the service?")) {
+    if (confirm("¿Estás seguro de parar el servicio?")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(stop, {

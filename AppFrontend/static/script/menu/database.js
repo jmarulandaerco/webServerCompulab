@@ -38,7 +38,7 @@ async function updateInformationDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " +"Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message); 
@@ -76,7 +76,7 @@ async function loadFormDataSettingDatabase() {
     try {
         const response = await fetch(getFormDataUrlSettingDatabase);
         if (!response.ok) {
-            alert("Error loading data");
+            alert("Error cargando data");
         }
         const data = await response.json();
         document.getElementById("day").value = data.day;
@@ -127,7 +127,7 @@ async function updateSettingDatabase() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message); 
@@ -192,7 +192,7 @@ function exportToExcel() {
 
 
 function deleteDatabase() {
-    if (confirm("Are you sure you want to delete the information in the database?")) {
+    if (confirm("¿Estás seguro que deseas borrar la información de la base de datos?")) {
         const token = localStorage.getItem("access_token"); 
         fetch(deleteDatabaseUrl, {
             method: "DELETE",
@@ -233,7 +233,7 @@ async function loadFormDataBase() {
     try {
         const response = await fetch(getFormDataBase);
         if (!response.ok) {
-            throw new Error("Error in loading the data");
+            alert("Error cargando configuraciones de database");
         }
             const data = await response.json();
 

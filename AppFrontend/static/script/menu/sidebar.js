@@ -28,7 +28,7 @@ function downloadCollections() {
     fetch(listCollection)
         .then(response => {
             if (!response.ok) {
-                alert("Error while downloading");
+                alert("Error al descargar la colección");
             }
             return response.blob(); 
         })
@@ -41,7 +41,7 @@ function downloadCollections() {
             a.click();
             window.URL.revokeObjectURL(url);
         })
-        .catch(error => console.error("Error:", error));
+        .catch((error) => {console.error("Error:", error);alert("Error "+ error )});
 }
 
 /**
@@ -65,7 +65,7 @@ function downloadCollections() {
 function rebootErcoPulse() {
     const boton = document.getElementById("reboot");
     boton.disabled=true;
-    if (confirm("Are you sure about restarting the Erco Pulse?")) {
+    if (confirm("¿Estás seguro de iniciar el Erco Pulse?")) {
         const token = localStorage.getItem("access_token"); 
 
         fetch(reboot, {

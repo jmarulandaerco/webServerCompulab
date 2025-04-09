@@ -9,31 +9,31 @@
   
 
                     <div class="form-group">
-                        <label for="ip_device_tcp">Choose host:</label>
+                        <label for="ip_device_tcp">Ingresar host</label>
                         <input type="text" id="ip_device_tcp" name="ip_device_tcp" value="10.6.20.10" required>
                     </div>
                     <div class="form-group">
-                        <label for="port_device_tcp">Choose port:</label>
+                        <label for="port_device_tcp">Ingresar puerto</label>
                         <input type="text" id="port_device_tcp" name="port_device_tcp" value="502" required>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="attempts_tcp">Choose maximum attempts:</label>
+                        <label for="attempts_tcp">Ingresar número máximo de intentos</label>
                         <input type="text" id="attempts_tcp" name="attempts_tcp" value="3" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="timeout_tcp">Choose timeout_attempts:</label>
+                        <label for="timeout_tcp">Ingresar tiempo de espera reintentos</label>
                         <input type="text" id="timeout_tcp" name="timeout_tcp" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="slave_tcp">Choose Id slave:</label>
+                        <label for="slave_tcp">Ingresar id esclavo</label>
                         <input type="text" id="slave_tcp" name="slave_tcp" value="1" required>
                     </div>
                     <div class="form-group">
-                        <label for="modbus_function_tcp">Choose modbus function:</label>
+                        <label for="modbus_function_tcp">Ingresar función Modbus</label>
                         <select id="modbus_function_tcp" name="modbus_function_tcp" required>
                             <option value="3">Holding register</option>
                             <option value="4">Input register</option>
@@ -43,18 +43,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="initial_address_tcp">Choose start adress:</label>
+                        <label for="initial_address_tcp">Ingresar inicio de registros</label>
                         <input type="text" id="initial_address_tcp" name="initial_address_tcp" value="1" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="total_registers_tcp">Choose amount registers:</label>
+                        <label for="total_registers_tcp">Ingresar total registros</label>
                         <input type="text" id="total_registers_tcp" name="total_registers_tcp" value="1" required>
                     </div>
 
 
                 <div class="form-group button-container">
-                    <button class="buttonClass" type="button" onclick="readDeviceTcp()">Read</button>
+                    <button class="buttonClass" type="button" onclick="readDeviceTcp()">Leer</button>
                 </div>
             </form>
 

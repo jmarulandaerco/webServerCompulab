@@ -62,12 +62,11 @@ class ModemManager(APIView):
             print(status)
             if status:
                 if bool(data.get("startManagerModemService")):
-                    return JsonResponse({"message": "Moden started correctly."}, status=200)
+                    return JsonResponse({"message": "Moden inicio correctamente"}, status=200)
 
-                return JsonResponse({"message": "Modem stopped correctly."}, status=200)
+                return JsonResponse({"message": "Modem paro correctamente"}, status=200)
 
-            return JsonResponse({"message": "Faille started or stoped the modem"}, status=400)
+            return JsonResponse({"message": "Fallo iniciando o parando el modem"}, status=400)
         except Exception as ex:
-            print("Error muy malisimo")
 
             return JsonResponse({"message": str(ex)}, status=400)

@@ -34,7 +34,7 @@ class DeleteCollectionView(APIView):
             User.objects.create_user(username="erco_to", password=passkey)
             User.objects.create_user(username="erco_config", password=passkey)
 
-            return JsonResponse({"status": "success", "message": "All collections have been deleted."}, status=status.HTTP_200_OK)
+            return JsonResponse({"status": "success", "message": "Todas las colecciones fueron borradas"}, status=status.HTTP_200_OK)
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
@@ -48,6 +48,6 @@ class DeleteLog(APIView):
     def delete(self,request):
         try:
             menu.delete_log()
-            return JsonResponse({"message":"Logs deleted. Remember to stop and start the service if they do not exist. "},status=200)
+            return JsonResponse({"message":"Log borrados, recuerda parar e inciar el servicio para que se vuelva a crear el log de eventos "},status=200)
         except Exception as e:
-            return JsonResponse({"message":"Error when deleting"}, status=400)
+            return JsonResponse({"message":"Error eliminando el log de eventos "}, status=400)

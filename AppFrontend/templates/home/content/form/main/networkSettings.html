@@ -5,21 +5,21 @@
     <form id="myForm" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="interface">Select internet interface:</label>
+            <label for="interface">Seleccionar interfaz de internet</label>
             <!-- <input type="text" id="interface" name="interface" required> -->
             <select id="interface" name="interface" required>
-                <option value="eth0">ETHERNET0 (eth0)</option>
-                <option value="eth1">ETHERNET1 (eth1)</option>
+                <option value="eth0">Ethernet 0 (eth0)</option>
+                <option value="eth1">Ethernet 1 (eth1)</option>
                 <option value="wlan0">WIFI (wlan0)</option>
                 <option value="wwan0">GRPS (wwan0)</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="connection">Connection name:</label>
+            <label for="connection">Nombre de conexión</label>
             <input type="text" id="connection" name="connection" required>
         </div>
-        <button class="buttonClass" type="button" onclick="updateSettingInterface()">Save</button>
+        <button class="buttonClass" type="button" onclick="updateSettingInterface()">Guardar</button>
     </form>
 </div>
 

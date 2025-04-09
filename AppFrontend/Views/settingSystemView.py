@@ -28,7 +28,7 @@ class InterfaceConnection(APIView):
 
             # Validar que los valores no sean nulos o vacíos
             if not ip:
-                return JsonResponse({"message": "Invalid IP address"}, status=400)
+                return JsonResponse({"message": "Invalida dirrección Ip"}, status=400)
 
             # Construir comando de manera segura
             command = ["sudo", "nmcli", "con", "mod", connection_name, "ipv4.addresses", ip]
@@ -41,12 +41,12 @@ class InterfaceConnection(APIView):
 
             # Verificar si hubo errores
             if result.returncode != 0:
-                return JsonResponse({"message": f"Error configuring network: {result.stderr}"}, status=500)
+                return JsonResponse({"message": f"Error configurando red: {result.stderr}"}, status=500)
 
-            return JsonResponse({"message": "Configuration correctly applied"}, status=200)
+            return JsonResponse({"message": "Configuración correctamente aplicada"}, status=200)
 
         except json.JSONDecodeError:
-            return JsonResponse({"message": "Invalid JSON format"}, status=400)
+            return JsonResponse({"message": "Invalido formato JSON "}, status=400)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=500)
 
@@ -91,7 +91,7 @@ class AddWifi(APIView):
             name = data.get("name")
             menu = Menu()
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
             
             
             response = menu.add_wifi(ssid=ssid,password=password,connection_name=name)

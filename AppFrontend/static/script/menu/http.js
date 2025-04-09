@@ -35,7 +35,7 @@ async function updateModemChecker() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message);
@@ -88,7 +88,7 @@ async function updateModemSignal() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message);
@@ -139,7 +139,7 @@ async function updateModemServer() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " +"Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message); 
@@ -166,7 +166,7 @@ async function updateAwsSettings(){
 
         const data = await response.json();
         if(!response.ok){
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
         }else{
             alert("✅ " + data.message);
         }

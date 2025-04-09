@@ -36,7 +36,7 @@ class BaseContentView(TemplateView):
         except Exception as ex:
             
             self.logger.error(f"Error loding page: {ex}")
-            return HttpResponse(f"<h1>{option} - Error loading page</h1>")
+            return HttpResponse(f"<h1>{option} - Error cargando la pagina</h1>")
 
     def get_template_name(self, option):
         """

@@ -40,13 +40,13 @@ class FormModbusReadRtu(APIView):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
             
             
             name_section = f"Default"
 
             if not config.has_section(name_section):
-                return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
+                return JsonResponse({"message": f"Error: El dispositivo '{name_section}' no existe"}, status=400)
 
             config.set(name_section, "mode_read", str(data.get("typeComunication")))
             config.set(name_section, "max_attempts", str(data.get("attempts")))
@@ -56,7 +56,7 @@ class FormModbusReadRtu(APIView):
             config_section = f"Configuration"
             
             if not config.has_section(name_section):
-                return JsonResponse({"message": f"Error: The device '{config_section}' do no exist"}, status=400)
+                return JsonResponse({"message": f"Error: El dispositivo '{config_section}' no existe"}, status=400)
 
             config.set(config_section, "serial_port", str(data.get("portDevice")))
             config.set(config_section, "baudrate", str(data.get("baudrate")))
@@ -75,12 +75,12 @@ class FormModbusReadRtu(APIView):
             menu=Menu()
             menu.clear_log_single_device()
             device_read.main()
-            return JsonResponse({"message": "Data updated correctly"}, status=200)
+            return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
 
         except json.JSONDecodeError:
-            return JsonResponse({"message": "Error parsing JSON data"}, status=400)
+            return JsonResponse({"message": "Error parsiando datos en el JSON "}, status=400)
         except Exception as ex:
-            return JsonResponse({"message": f"Error updating data: {ex}"}, status=400)
+            return JsonResponse({"message": f"Error actualizando datos: {ex}"}, status=400)
         
         
 class FormModbusReadTCP(APIView):
@@ -111,13 +111,13 @@ class FormModbusReadTCP(APIView):
 
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
-                return JsonResponse({"message": "Invalid data: one or more records contain invalid or null data."}, status=400)
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
             
             
             name_section = f"Default"
 
             if not config.has_section(name_section):
-                return JsonResponse({"message": f"Error: The device '{name_section}' do no exist"}, status=400)
+                return JsonResponse({"message": f"Error: El dispositivo '{name_section}' no existe"}, status=400)
 
             config.set(name_section, "mode_read", str(data.get("typeComunication")))
             config.set(name_section, "max_attempts", str(data.get("attempts")))
@@ -127,7 +127,7 @@ class FormModbusReadTCP(APIView):
             config_section = f"Configuration"
             
             if not config.has_section(config_section):
-                return JsonResponse({"message": f"Error: The device '{config_section}' do no exist"}, status=400)
+                return JsonResponse({"message": f"Error: El dispositivo '{config_section}' no existe"}, status=400)
             
             
             config.set(config_section, "port", str(data.get("port")))
@@ -149,9 +149,9 @@ class FormModbusReadTCP(APIView):
                                         )
             device_read.main()
 
-            return JsonResponse({"message": "Data updated correctly"}, status=200)
+            return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
 
         except json.JSONDecodeError:
-            return JsonResponse({"message": "Error parsing JSON data"}, status=400)
+            return JsonResponse({"message": "Error parciando los datos en el JSON"}, status=400)
         except Exception as ex:
-            return JsonResponse({"message": f"Error updating data: {ex}"}, status=400)
+            return JsonResponse({"message": f"Error actualizando los datos: {ex}"}, status=400)

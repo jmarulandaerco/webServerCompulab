@@ -37,7 +37,7 @@ class GetLogsView(View):
                 logs = file.readlines()
             return JsonResponse({"logs": logs})
         else:
-            return JsonResponse({"message": "Log file not found"}, status=404)
+            return JsonResponse({"message": "Archivo log no encontrado"}, status=404)
 
 class GetLogSingleDeviceView(APIView):
     
@@ -62,7 +62,7 @@ class GetLogSingleDeviceView(APIView):
                 logs = file.readlines()
             return JsonResponse({"logs": logs})
         else:
-            return JsonResponse({"message": "Log file not found"}, status=404)
+            return JsonResponse({"message": "Archivo log no encontrado"}, status=404)
 
 
 
@@ -96,5 +96,5 @@ class DownloadLogsView(View):
         if files_added:
             return FileResponse(open(zip_path, "rb"), as_attachment=True, filename=zip_filename)
         else:
-            return JsonResponse("No log files found")
+            return JsonResponse("Archivo log no encontrado")
 

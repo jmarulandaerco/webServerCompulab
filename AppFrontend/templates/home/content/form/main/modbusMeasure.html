@@ -5,7 +5,7 @@
     <form id="myForm" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="zone">Timezone:</label>
+            <label for="zone">Zona horaria</label>
             <!-- <input type="text" id="zone" name="zone" required> -->
             <select id="zone" name="interface" required>
                 <option value="Africa/Abidjan">Africa/Abidjan</option>
@@ -605,21 +605,21 @@
         </div>
 
         <div class="form-group">
-            <label for="modbus">Sampling Modbus (min):</label>
+            <label for="modbus">Tiempo muestreo Modbus (min)</label>
             <input type="text" id="modbus" name="modbus" required>
         </div>
 
         <div class="form-group">
-            <label for="start">Start hour (h):</label>
+            <label for="start">Hora inicio (h)</label>
             <input type="text" id="start" name="start" required>
         </div>
 
         <div class="form-group">
-            <label for="stop">Stop hour (h):</label>
+            <label for="stop">Hora parada (h)</label>
             <input type="text" id="stop" name="stop" required>
         </div>
 
-        <button class="buttonClass" type="button" onclick="updateMeasureModbus()">Save</button>
+        <button class="buttonClass" type="button" onclick="updateMeasureModbus()">Guardar</button>
     </form>
 </div>
 

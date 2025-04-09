@@ -11,7 +11,7 @@
  */
 
 function deletelog() {
-    if (confirm("Are you sure to delete logs?")) {
+    if (confirm("¿Estás seguro de borrar los log?")) {
         const token = localStorage.getItem("access_token");
 
         fetch(deleteLog, {
@@ -60,10 +60,10 @@ async function fetchLogs() {
                 .map(line => `<div class="log-line">${line}</div>`)
                 .join("");
         } else {
-            logContainer.innerText = "No logs found.";
+            logContainer.innerText = "No se han econtrado logs.";
         }
     } catch (error) {
-        console.error("Error retrieving logs:", error);
+        console.error("Error cargando los logs:", error);
     }
 }
 
@@ -105,7 +105,7 @@ async function downloadLogs() {
         document.body.removeChild(a);
     } catch (error) {
         console.error("Error downloading logs:", error);
-        alert("Error downloading logs. Please try again.");
+        alert("Error descargando los logs. Por favor intenta otra vez.");
     }
 }
 
@@ -128,9 +128,9 @@ async function getLogSingleDevice() {
                 .map(line => `<div class="log-line">${line}</div>`)
                 .join("");
         } else {
-            logContainer.innerText = "No logs found.";
+            logContainer.innerText = "No existen registos de momento.";
         }
     } catch (error) {
-        console.error("Error retrieving logs:", error);
+        console.error("Error al intentar cargar los logs:", error);
     }
 }

@@ -166,7 +166,7 @@ class Menu:
             if not self.modem.is_modem_present():
                 self.logger.warning(f"Modem not present. {e}")
 
-                return "Modem not present."
+                return "Modem no presente"
 
             ip_sim = subprocess.check_output(
                 "ip a show wwan0 | awk '/inet / {print $2}' | cut -d'/' -f1",
@@ -177,19 +177,19 @@ class Menu:
             if self.modem.is_sim_present():
                 sim_info = self.modem.get_sim_info()
                 if not sim_info:
-                    return "SIM is present but unable to retrieve SIM info."
+                    return "La SIM está presente pero no puede recuperar la información de la SIM"
             else:
 
-                return "SIM not present."
+                return "SIM no presente"
 
             if not self.modem.is_modem_connected():
 
-                return "Modem is present but not connected to a network."
+                return "Modem esta presente pero no conectado a la red"
 
             signal_quality = self.modem.get_signal_quality()
             if not signal_quality:
 
-                return "Unable to retrieve signal quality information."
+                return "Incapaz de recuperar información sobre la calidad de la señal"
 
             iccid, operator_id, operator_name = sim_info
             sim_info_text = (
@@ -210,7 +210,7 @@ class Menu:
 
         except Exception as e:
             self.logger.error(f"Error in obtaining data from the modem {e}")
-            return f"Error in obtaining data from the modem {e}"
+            return f"Error en la obtención de datos del modem {e}"
 
     def toggle_wifi(self):
         try:
@@ -223,9 +223,9 @@ class Menu:
             result = subprocess.run(toggle_command, shell=True)
 
             if result.returncode == 0:
-                return f"Wi-Fi antenna is now {new_status}."
+                return f"la antena wi-Fi  esta {new_status}."
             else:
-                return "Failed to change Wi-Fi antenna state."
+                return "Fallo al cambiar el estado de la antena wi-fi"
         except Exception as ex:
             self.logger.error(f"enable-disable wifi: {ex}")
 
@@ -236,15 +236,15 @@ class Menu:
             )
             if result != 0:
 
-                return "Failed to connect to Wi-Fi. Please check your credentials."
+                return "Fallo al conectar a la red Wi-Fi. Por favor revisa las credenciales"
 
             else:
 
-                return f"Connected to Wi-Fi network '{ssid}' with connection name '{connection_name}'."
+                return f"Connectado a la red Wi-Fi  '{ssid}' con nombre '{connection_name}'."
 
         except Exception as ex:
             self.logger.error(f"Error adding wifi network: {ex}")
-            return "Error adding wifi network"
+            return "Error añadiendo la red wi-fi"
 
     def create_user_if_not_exists(self, username, password):
         if not User.objects.filter(username=username).exists():

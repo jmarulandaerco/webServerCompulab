@@ -22,7 +22,7 @@ async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
-            alert("Error in loading the data");
+            alert("Error en la carga de datos");
         }
         const data = await response.json();
         const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
@@ -137,7 +137,7 @@ async function updateInformationLimitation() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -204,7 +204,7 @@ async function updateInformationCompensation() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -213,7 +213,7 @@ async function updateInformationCompensation() {
         }
 
     } catch (error) {
-        alert("❌ " + error.message);
+        alert("❌ " + error);
         console.error("Error:", error);
     }
 };

@@ -20,7 +20,7 @@ function loadContentMenu(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
+                alert(`Error cargando contentenido: ${response.statusText}`);
             }
             return response.text();
         })
@@ -30,7 +30,7 @@ function loadContentMenu(option) {
 
         })
         .catch(error => {
-            document.getElementById("content2").innerHTML = "<h1>Error loading content</h1>";
+            document.getElementById("content2").innerHTML = "<h1>Error cargando contenido</h1>";
         });
 }
 
@@ -65,7 +65,7 @@ function loadContentSetting(option) {
         })
         .catch(error => {
             cont=1
-            document.getElementById("content5").innerHTML = "<h1>Error loading content</h1>";
+            document.getElementById("content5").innerHTML = "<h1>Error cargando contenido</h1>";
         }).finally(()=>{
             if(cont==0){
                 if(option == "interfaceEthernet"){
@@ -101,7 +101,7 @@ function loadContentHttp(option) {
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
-                alert(`Error loading content: ${response.statusText}`);
+                alert(`Error cargando contenido: ${response.statusText}`);
             }
             return response.text();
         })
@@ -111,7 +111,7 @@ function loadContentHttp(option) {
 
         })
         .catch(error => {
-            document.getElementById("content4").innerHTML = "<h1>Error loading content</h1>";
+            document.getElementById("content4").innerHTML = "<h1>Error cargando contenido</h1>";
         });
 }
 /**
@@ -131,7 +131,7 @@ async function loadFormDataSettingLog() {
     try {
         const response = await fetch(getFormDatasettingLog);
         if (!response.ok) {
-            alert("Error loading the data");
+            alert("Error cargando los datos");
         }
         const data = await response.json();
         document.getElementById("level").value = data.level;
@@ -184,7 +184,7 @@ async function updateInformationDataSettingLog() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message); 
@@ -261,7 +261,7 @@ async function updateSettingInterface() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message); 
@@ -424,7 +424,7 @@ function loadContent(option) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                alert(`Error when loading content: ${response.statusText}`);
+                alert(`Error cargando contenido: ${response.statusText}`);
             }
             return response.text();
         })
@@ -469,7 +469,7 @@ function loadContent(option) {
             });
         })
         .catch(error => {
-            document.getElementById("content").innerHTML = "<h1>Error when loading content</h1>";
+            document.getElementById("content").innerHTML = "<h1>Error cargando contenido</h1>";
         });
 }
 
@@ -491,7 +491,7 @@ async function loadFormDataServerSelection() {
     try {
         const response = await fetch(getFormDataUrlServerSelection);
         if (!response.ok) {
-            alert("Error loading data");
+            alert("Error cargando información");
         }
         const data = await response.json();
 
@@ -541,7 +541,7 @@ async function updateServerSelection() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message); 
@@ -585,7 +585,7 @@ function loadDatabase(page) {
     fetch(fullUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
+                alert(`Error: ${response.statusText}`);
             }
             return response.text();
         })
@@ -644,7 +644,7 @@ async function saveChangesEnableDisableDevices() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error in validation"); 
+            alert("❌ " + "Error en la validación de los datos: "+data.message); 
 
         } else {
             alert("✅ " + data.message); 

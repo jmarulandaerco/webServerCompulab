@@ -76,18 +76,18 @@ async function modemManager(startManagerModemService) {
     if(!response.ok){
 
         if(startManagerModemService){
-            alert(`❌ failure to start ModemManager.service: ${data.message}`)
+            alert(`❌ Fallo al iniciar el ModemManager.service: ${data.message}`)
         }else{
-            alert(`❌ failure to stop ModemManager.service ${data.message} `)
+            alert(`❌ Fallo al parar ModemManager.service ${data.message} `)
 
         }
     }else{
         if(startManagerModemService){
-            alert("✅ Modem started correctly")
+            alert("✅ Modem inicio correctamente")
           
         }else{
             
-            alert("✅ Modem stopped correctly")
+            alert("✅ Modem paro correctamente")
 
         }
     }
@@ -110,7 +110,7 @@ async function modemManager(startManagerModemService) {
  */
 
 async function deleteWhiteList() {
-    if(confirm("¿Are you sure you want to delete the whiteList?")){
+    if(confirm("¿Estás seguro que quieres borrar la whitelists?")){
         const token = localStorage.getItem("access_token"); 
 
         var modemSelect = document.getElementById("modem").value;
@@ -126,11 +126,11 @@ async function deleteWhiteList() {
         //La data traera el mensaje que usare en los alert
         const data = await response.json();
         if (!response.ok){
-            alert(`❌ Failed to clear the whitelist: ${data.message}`)
+            alert(`❌ Fallo al limpiar la whitelists: ${data.message}`)
         }else{
-            alert(`✅ Whitelist successfully cleared: ${data.message}`)
+            alert(`✅ Whitelist limpiada correctamente: ${data.message}`)
           
-            alert(`✅ Remember to deactivate your onomondo simcar, edit and select your internet operator, re-activate it, and you can start your modem. `)
+            alert(`✅ Recuerda desactivar la simcard de Onomondo, seleccionar el operador de internet yvolver a activar`)
             modemManager(true)
         }
     }
@@ -170,7 +170,7 @@ async function interfaceEthernetOne() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
             
         } else {
             alert("✅ " + data.message);
@@ -216,7 +216,7 @@ async function interfaceEthernetTwo() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -265,7 +265,7 @@ async function addWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -310,7 +310,7 @@ async function antennaWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error");
+            alert("❌ " + "Error en la validación de los datos: "+data.message);
 
         } else {
             alert("✅ " + data.message);
