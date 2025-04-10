@@ -27,11 +27,8 @@ class DeleteWhiteList(APIView):
             at_command_check = 'AT'
             at_command_clear = 'AT+CRSM=214,28539,0,0,12,"FFFFFFFFFFFFFFFFFFFFFFFF"'
             at_command_restart = 'AT+CFUN=1,1'
-            print("hola")
             data = json.loads(request.body)
-            print(data)
             port = data.get("modemSelect")
-            print(port)
             white_list = WhiteList(port, 115200)
             check = white_list.send_at_command(at_command_check)
             clear = white_list.send_at_command(at_command_clear)
@@ -58,8 +55,7 @@ class ModemManager(APIView):
             control = WhiteList()
             status = control.control_modem_service(
                 bool(data.get("startManagerModemService")))
-            print("Holaaaa")
-            print(status)
+
             if status:
                 if bool(data.get("startManagerModemService")):
                     return JsonResponse({"message": "Moden inicio correctamente"}, status=200)

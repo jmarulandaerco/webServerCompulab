@@ -36,8 +36,7 @@ class InterfaceIPView(APIView):
         menu=Menu()
         ip = menu.get_ip_interface(interface)
         gateway=menu.get_gateway_interface(interface)
-        print("Esta es la ip")
-        print(ip)
+
         if ip:
             if not gateway:
                 return JsonResponse({'interface': interface, 'ip': ip,'gateway':''})

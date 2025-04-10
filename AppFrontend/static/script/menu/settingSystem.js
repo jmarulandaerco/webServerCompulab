@@ -388,7 +388,6 @@ async function getIPInterface(interfaceName) {
         }
     } catch (error) {
         alert("❌ "+error);
-        console.log(error)
         
     }
 }
