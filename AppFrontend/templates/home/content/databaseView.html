@@ -52,7 +52,7 @@
     <span>Página {{ datos.number }} de {{ datos.paginator.num_pages }}</span>
 
     {% if datos.has_next %}
-    <a href="javascript:void(0)" onclick="loadDatabase({{ datos.next_page_number }})">Próximo</a>
+    <a href="javascript:void(0)" onclick="loadDatabase({{ datos.next_page_number }})">Siguiente</a>
     {% endif %}
 
     <!-- Select para cambiar la cantidad de elementos por página -->
