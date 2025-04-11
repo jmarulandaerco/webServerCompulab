@@ -59,7 +59,6 @@ class WhiteList:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            print("Resultado de result")
             if result.returncode == 0:
                
                 return True
@@ -68,7 +67,6 @@ class WhiteList:
                 
                 return False
         except subprocess.CalledProcessError as e:
-            print(f"Error while trying {action} the service: {e.stderr.decode()}")
             self.logger.error(f"Error while trying {action} the service: {e.stderr.decode()}")
             return False
 

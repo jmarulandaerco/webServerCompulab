@@ -35,5 +35,4 @@ if __name__ == '__main__':
     try:
         main()
     except OperationalError:
-        print(
-            "⚠️ No hay conexión a la base de datos, pero el servidor sigue funcionando...")
+        print("")

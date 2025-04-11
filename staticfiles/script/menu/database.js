@@ -29,7 +29,7 @@ async function updateInformationDatabase() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -45,7 +45,7 @@ async function loadFormDataSettingDatabase() {
         document.getElementById("day").value = data.day;
         document.getElementById("awaitTime").value = data.awaitTime;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -80,7 +80,7 @@ async function updateSettingDatabase() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -116,7 +116,11 @@ function deleteDatabase() {
                 alert(data.message)
 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error =>
+                {
+                    //  console.error("Error:", error)
+
+                });
     }
 }
 
@@ -135,6 +139,6 @@ async function loadFormDataBase() {
             document.getElementById("date").value = data.date;
             
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }

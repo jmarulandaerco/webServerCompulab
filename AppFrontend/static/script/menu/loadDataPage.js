@@ -142,7 +142,7 @@ async function loadFormDataSettingLog() {
         document.getElementById("backup").value = data.backup;
 
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -194,7 +194,7 @@ async function updateInformationDataSettingLog() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -222,7 +222,7 @@ async function loadFormDataSettingInterface() {
         document.getElementById("interface").value = data.interface;
         document.getElementById("connection").value = data.connection;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -271,7 +271,7 @@ async function updateSettingInterface() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -298,7 +298,7 @@ async function loadFormDataSignalChecker() {
         document.getElementById("onomondo").value = data.onomondo;
         document.getElementById("minimum").value = data.minimum;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 /**
@@ -325,7 +325,7 @@ async function loadFormDataModemChecker() {
         document.getElementById("connection").value = data.connection;
         document.getElementById("attemts").value = data.attemts;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -352,7 +352,7 @@ async function loadFormDataServerChecker() {
         const data = await response.json();
         document.getElementById("requests").value = data.requests;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -368,7 +368,7 @@ async function loadFormDataAwsSettings() {
         document.getElementById("clientCertificate").value = data.certificate;
         document.getElementById("private").value = data.private;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -501,7 +501,7 @@ async function loadFormDataServerSelection() {
         document.getElementById("mqtt").value = data.mqtt;
         document.getElementById("storage").value = data.storage;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -551,7 +551,7 @@ async function updateServerSelection() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -602,7 +602,7 @@ function loadDatabase(page) {
             });
         })
         .catch(error => {
-            console.error("Error al cargar los datos:", error);
+            // console.error("Error al cargar los datos:", error);
             contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
         });
 }
@@ -654,7 +654,7 @@ async function saveChangesEnableDisableDevices() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 
 }

@@ -20,7 +20,9 @@ function downloadCollections() {
             a.click();
             window.URL.revokeObjectURL(url);
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => {
+            
+        });
 }
 function rebootErcoPulse() {
     if (confirm("Are you sure about restarting the Erco Pulse?")) {
@@ -37,7 +39,9 @@ function rebootErcoPulse() {
             .then(data => {
                 alert(data.message); 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => {
+
+            });
     }
 }
 

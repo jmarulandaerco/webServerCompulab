@@ -23,7 +23,7 @@ async function changePassword(){
         }
     }catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }   
 }
 
@@ -56,7 +56,7 @@ async function checked() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -92,7 +92,7 @@ async function checkedPassWordLog() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 

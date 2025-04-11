@@ -1,45 +1,14 @@
 async function interfaceEthernetOne() {
     const ip = document.getElementById("ip").value;
     const gateway = document.getElementById("gateway").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response =  await fetch(getInterfaceConnectionOne, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
-            },
-            body: JSON.stringify({ ip, gateway })
-        });
-
-        const data =  await response.json();
-
-        if (!response.ok) {
-
-            alert("❌ " + "Validation error"); 
-
-        } else {
-            alert("✅ " + data.message); 
-             
-
-        }
-
-    } catch (error) {
-        alert("❌ " + error.message); 
-        console.error("Error:", error);
-    }
-};
-async function interfaceEthernetTwo() {
-    const ip = document.getElementById("ip").value;
-    const gateway = document.getElementById("gateway").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
-    try {
-        const response =  await fetch(getInterfaceConnectionTwo, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ ip, gateway })
         });
@@ -51,14 +20,45 @@ async function interfaceEthernetTwo() {
             alert("❌ " + "Validation error");
 
         } else {
-            alert("✅ " + data.message); 
-             
+            alert("✅ " + data.message);
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
-        console.error("Error:", error);
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
+    }
+};
+async function interfaceEthernetTwo() {
+    const ip = document.getElementById("ip").value;
+    const gateway = document.getElementById("gateway").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    try {
+        const response =  await fetch(getInterfaceConnectionTwo, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({ ip, gateway })
+        });
+
+        const data =  await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Validation error");
+
+        } else {
+            alert("✅ " + data.message);
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
     }
 };
 async function addWifi() {
@@ -66,14 +66,14 @@ async function addWifi() {
     const password = document.getElementById("password").value;
     const name = document.getElementById("name").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response =  await fetch(postAddWifi, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ ssid, password,name })
         });
@@ -82,25 +82,25 @@ async function addWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error"); 
+            alert("❌ " + "Validation error");
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
-        console.error("Error:", error);
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
     }
 };
 async function antennaWifi() {
-    
+
     try {
         const response =  await fetch(postAntennaWifi, {
             method: "GET",
             headers: {
-                 "Authorization": `Bearer ${token}`, 
+                 "Authorization": `Bearer ${token}`,
                  "Content-Type": "application/json"
             }
         });
@@ -109,17 +109,17 @@ async function antennaWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Validation error"); 
+            alert("❌ " + "Validation error");
 
         } else {
-            alert("✅ " + data.message); 
-             
+            alert("✅ " + data.message);
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
-        console.error("Error:", error);
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
     }
 };
 function showModems() {
@@ -129,7 +129,7 @@ const token = localStorage.getItem("access_token");
 fetch(modem, {
 method: "GET",
 headers: {
-    "Authorization": `Bearer ${token}`, 
+    "Authorization": `Bearer ${token}`,
     "Content-Type": "application/json"
 }
 })
@@ -140,5 +140,7 @@ headers: {
     alert(data.message)
 
 })
-.catch(error => { console.error("Error:", error);  });
+.catch(error => { 
+    
+ });
 }

@@ -13,17 +13,13 @@ class LoggerHandler:
         self.logger = logging.getLogger(self.name)
         self.logger.setLevel(logging.INFO)
 
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
 
         file_handler = logging.FileHandler(self.log_file, mode="a")
         file_handler.setLevel(logging.INFO)
 
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-        console_handler.setFormatter(formatter)
         file_handler.setFormatter(formatter)
 
-        self.logger.addHandler(console_handler)
         self.logger.addHandler(file_handler)
 
     def _check_log_size(self):

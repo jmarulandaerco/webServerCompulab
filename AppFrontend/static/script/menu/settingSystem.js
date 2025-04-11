@@ -180,7 +180,7 @@ async function interfaceEthernetOne() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -226,7 +226,7 @@ async function interfaceEthernetTwo() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -274,7 +274,7 @@ async function addWifi() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -320,7 +320,7 @@ async function antennaWifi() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 

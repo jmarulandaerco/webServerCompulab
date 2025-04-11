@@ -40,7 +40,7 @@ async function loadFormDataLimitation() {
         document.getElementById("inverterMax").value = data.inverterMax;
 
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -85,7 +85,7 @@ async function loadFormDataCompensation() {
         document.getElementById("factor").value = data.factor;
 
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -147,7 +147,7 @@ async function updateInformationLimitation() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -214,6 +214,6 @@ async function updateInformationCompensation() {
 
     } catch (error) {
         alert("❌ " + error);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };

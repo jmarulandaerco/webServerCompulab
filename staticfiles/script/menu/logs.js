@@ -17,7 +17,10 @@ function deletelog() {
                 alert(data.message)
 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => {
+                // console.error("Error:", error)
+
+            });
     }
 }
 async function fetchLogs() {
@@ -37,7 +40,7 @@ async function fetchLogs() {
             logContainer.innerText = "No logs found.";
         }
     } catch (error) {
-        console.error("Error retrieving logs:", error);
+        // console.error("Error retrieving logs:", error);
     }
 }
 
@@ -63,7 +66,7 @@ async function downloadLogs() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     } catch (error) {
-        console.error("Error downloading logs:", error);
+        // console.error("Error downloading logs:", error);
         alert("Error downloading logs. Please try again.");
     }
 }

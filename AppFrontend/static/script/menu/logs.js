@@ -63,7 +63,7 @@ async function fetchLogs() {
             logContainer.innerText = "No se han econtrado logs.";
         }
     } catch (error) {
-        console.error("Error cargando los logs:", error);
+        // console.error("Error cargando los logs:", error);
     }
 }
 
@@ -104,7 +104,7 @@ async function downloadLogs() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     } catch (error) {
-        console.error("Error downloading logs:", error);
+        // console.error("Error downloading logs:", error);
         alert("Error descargando los logs. Por favor intenta otra vez.");
     }
 }
@@ -131,6 +131,6 @@ async function getLogSingleDevice() {
             logContainer.innerText = "No existen registos de momento.";
         }
     } catch (error) {
-        console.error("Error al intentar cargar los logs:", error);
+        // console.error("Error al intentar cargar los logs:", error);
     }
 }

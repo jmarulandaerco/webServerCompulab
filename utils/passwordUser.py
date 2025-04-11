@@ -39,8 +39,7 @@ class DataBaseMenu:
 
         load_dotenv()
         passkey = os.getenv("PASS")
-        print(passkey)
-        print("Holi")
+       
         if self.passkey == "":
             return False
 
@@ -62,7 +61,6 @@ class DataBaseMenu:
             )
 
             # Si llegamos aquí, la contraseña es correcta
-            print(result)
             return True  # Contraseña correcta
 
         except subprocess.CalledProcessError as e:

@@ -41,7 +41,9 @@ function downloadCollections() {
             a.click();
             window.URL.revokeObjectURL(url);
         })
-        .catch((error) => { console.error("Error:", error); alert("Error " + error) });
+        .catch((error) => {
+            
+         });
 }
 
 /**

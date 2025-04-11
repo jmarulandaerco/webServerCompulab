@@ -210,7 +210,7 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
             modbusMapFolderSelect.dispatchEvent(new Event("change"));
         })
         .catch(error => {
-            console.error("Error al cargar dispositivos", error);
+            // console.error("Error al cargar dispositivos", error);
         });
 }
 
@@ -292,7 +292,7 @@ async function loadFormDataMeasureModbus() {
         document.getElementById("start").value = data.start;
         document.getElementById("stop").value = data.stop;
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -345,7 +345,7 @@ async function updateSettingModbus() {
 
     } catch (error) {
         alert("❌ " + error.message); // Muestra error si las contraseñas no coinciden
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -401,7 +401,7 @@ async function updateMeasureModbus() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -450,7 +450,7 @@ async function loadFormDataModes() {
         // document.getElementById("sampling_compensation").value = data.sampling_compensation;
 
     } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -510,7 +510,7 @@ async function updateDataModes() {
 
     } catch (error) {
         alert("❌ " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 
@@ -577,7 +577,7 @@ async function addDeviceRtu() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -645,7 +645,7 @@ async function addDeviceTcp() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -691,7 +691,7 @@ async function deleteDevice(device) {
             }
         }
     } catch (error) {
-        console.error("Error en la eliminación:", error.message);
+        // console.error("Error en la eliminación:", error.message);
     }
 }
 
@@ -854,7 +854,7 @@ async function updateDeviceTcp() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -922,7 +922,7 @@ async function updateDeviceRtu() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -960,7 +960,7 @@ async function readDeviceRtu() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }
 
@@ -998,6 +998,6 @@ async function readDeviceTcp() {
 
     } catch (error) {
         alert("❌ Error: " + error.message);
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 }

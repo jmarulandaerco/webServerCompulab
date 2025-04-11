@@ -15,7 +15,9 @@ function checkServiceStatus() {
                 statusText.innerText = 'Inactivo';
             }
         })
-        .catch(error => console.error('Error when obtaining the status:', error));
+        .catch(
+            
+    );
 }
 function startService() {
     if (confirm("Are you sure you want to start the service?, it will take 30 seconds to start.")) {
@@ -38,7 +40,11 @@ function startService() {
                 });
 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error =>
+            {
+
+            }
+            );
     }
 }
 function stopService() {
@@ -62,7 +68,9 @@ function stopService() {
                     }, 2000);
                 
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => {
+                // console.error("Error:", error)
+            });
     }
 }
 
