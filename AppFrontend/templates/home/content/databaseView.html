@@ -60,12 +60,10 @@
 
     <!-- Select para cambiar la cantidad de elementos por página -->
     <select id="perPageSelect" class="perPageSelect" onchange="loadDatabase(1)">
-        <option value="10" {% if per_page == 10 %}selected{% endif
-            %}>10</option>
-        <option value="20" {% if per_page == 20 %}selected{% endif
-            %}>20</option>
-        <option value="50" {% if per_page == 50 %}selected{% endif
-            %}>50</option>
+        <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+        <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+        <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+
     </select>
 
 </div>
