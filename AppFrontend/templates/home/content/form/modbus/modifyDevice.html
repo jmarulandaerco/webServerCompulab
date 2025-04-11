@@ -6,7 +6,7 @@
         {% csrf_token %}
 
         <h3>Seleccionar el dispositivo a modificar</h3>
-        <div id="deviceList">
+        <div id="deviceList" style="display: flex;align-content: center;" >
             {% for device in listDevices %}
             <button type="button" class="device-button"
                 onclick="ModifyOption('{{ device }}')">
