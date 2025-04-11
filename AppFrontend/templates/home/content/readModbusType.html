@@ -2,16 +2,17 @@
 
 <div class="container">
 
+        <button class="button"
+                onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu')">Modbus
+                RTU</button>
+        <button class="button"
+                onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp')">Modbus
+                TCP</button>
 
-        <button class="button"  onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu')">Modbus RTU</button>
-        <button class="button"  onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp')">Modbus TCP</button>
-    
-    
 </div>
 <div class="container_log" id="content3">
-        
-</div>
 
+</div>
 
 <div class="container_logs" style="display: none;">
         <link rel="stylesheet" href="{% static 'css/logs.css' %}">

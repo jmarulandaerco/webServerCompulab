@@ -13,33 +13,33 @@
  * changePassword(); // Changes the user's password after receiving input for the current and new passwords.
  */
 
-async function changePassword(){
+async function changePassword() {
     const actualPassword = document.getElementById("actualPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const replyNewPassword = document.getElementById("replyNewPassword").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    try{
+    try {
         const response = await fetch(changePasswordUrl, {
-            method: "PUT", 
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ actualPassword, newPassword,replyNewPassword }) 
-     });
+            body: JSON.stringify({ actualPassword, newPassword, replyNewPassword })
+        });
 
-        const data=await  response.json();
+        const data = await response.json();
         if (!response.ok) {
-            
-            alert("❌ "  + data.message); 
 
-        }else{
+            alert("❌ " + data.message);
+
+        } else {
             alert("✅ " + data.message);
         }
-    }catch (error) {
-        alert("❌ " + error.message); 
+    } catch (error) {
+        alert("❌ " + error.message);
         console.error("Error:", error);
-    }   
+    }
 }
 
 /**
@@ -60,32 +60,32 @@ async function changePassword(){
 async function checked() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(postCheckPasswordUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ password, confirmPassword })
         });
 
         const data = await response.json();
-      
-        if (!response.ok) {
-            
-            alert("❌ "  +"Error en la validación de los datos: "+data.message);
 
-        }else{
-            alert("✅ " + data.message); 
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
+
+        } else {
+            alert("✅ " + data.message);
             await loadContent('form/database/databaseSetting')
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -93,32 +93,32 @@ async function checked() {
 async function checkedPasswordAws() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(postCheckPasswordUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ password, confirmPassword })
         });
 
         const data = await response.json();
-      
-        if (!response.ok) {
-            
-            alert("❌ "  + "Error en la validación de los datos: "+data.message); 
 
-        }else{
-            alert("✅ " + data.message); 
+        if (!response.ok) {
+
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
+
+        } else {
+            alert("✅ " + data.message);
             await loadContentHttp('awsService')
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -145,27 +145,27 @@ async function checkedPassWordLog() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(postCheckPasswordUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ password, confirmPassword })
         });
 
         const data = await response.json();
-      
-        if (!response.ok) {
-            
-            alert("❌ "  + data.message); 
-            
 
-        }else{
-            alert("✅ " + data.message); 
+        if (!response.ok) {
+
+            alert("❌ " + data.message);
+
+
+        } else {
+            alert("✅ " + data.message);
             await loadContentMenu('settingLog')
 
         }

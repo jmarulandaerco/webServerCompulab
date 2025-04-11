@@ -8,9 +8,10 @@
         <h3>Seleccionar dispositivo a borrar</h3>
         <div id="deviceList">
             {% for device in listDevices %}
-                <button type="button" class="device-button" onclick="deleteDevice('{{ device }}')">
-                    {{ device }}
-                </button>
+            <button type="button" class="device-button"
+                onclick="deleteDevice('{{ device }}')">
+                {{ device }}
+            </button>
             {% endfor %}
         </div>
 

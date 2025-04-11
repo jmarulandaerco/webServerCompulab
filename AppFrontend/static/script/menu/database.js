@@ -23,31 +23,31 @@ async function updateInformationDatabase() {
     const name = document.getElementById("name").value;
     const timeout = document.getElementById("timeout").value;
     const date = document.getElementById("date").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try {
-        const response =  await fetch(getFormDataBase, {
+        const response = await fetch(getFormDataBase, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ host,port,name,timeout,date })
+            body: JSON.stringify({ host, port, name, timeout, date })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " +"Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
-             
+            alert("✅ " + data.message);
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -109,34 +109,34 @@ async function loadFormDataSettingDatabase() {
 async function updateSettingDatabase() {
     const day = document.getElementById("day").value;
     const awaitTime = document.getElementById("awaitTime").value;
-   
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
-        const response =  await fetch(getFormDataUrlSettingDatabase, {
+        const response = await fetch(getFormDataUrlSettingDatabase, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ day,awaitTime })
+            body: JSON.stringify({ day, awaitTime })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
-             
+            alert("✅ " + data.message);
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -160,16 +160,16 @@ async function updateSettingDatabase() {
 
 function exportToExcel() {
     const boton = document.getElementById("refreshButton");
-    boton.disabled=true;
+    boton.disabled = true;
     const url = '/api/inverter/export/';
     const a = document.createElement('a');
     const now = new Date();
     const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
     const filename = `investor_data${dateString}.txt`;
     a.href = url;
-    a.download = `${filename}.xlsx`; 
+    a.download = `${filename}.xlsx`;
     a.click();
-    boton.disabled=false;
+    boton.disabled = false;
 }
 
 /**
@@ -193,11 +193,11 @@ function exportToExcel() {
 
 function deleteDatabase() {
     if (confirm("¿Estás seguro que deseas borrar la información de la base de datos?")) {
-        const token = localStorage.getItem("access_token"); 
+        const token = localStorage.getItem("access_token");
         fetch(deleteDatabaseUrl, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${token}`,  
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         })
@@ -235,14 +235,14 @@ async function loadFormDataBase() {
         if (!response.ok) {
             alert("Error cargando configuraciones de database");
         }
-            const data = await response.json();
+        const data = await response.json();
 
-            document.getElementById("host").value = data.host;
-            document.getElementById("port").value = data.port;
-            document.getElementById("name").value = data.name;
-            document.getElementById("timeout").value = data.timeout;
-            document.getElementById("date").value = data.date;
-            
+        document.getElementById("host").value = data.host;
+        document.getElementById("port").value = data.port;
+        document.getElementById("name").value = data.name;
+        document.getElementById("timeout").value = data.timeout;
+        document.getElementById("date").value = data.date;
+
     } catch (error) {
         console.error("Error:", error);
     }

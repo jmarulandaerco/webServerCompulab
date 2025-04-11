@@ -3,58 +3,57 @@
 <div class="container">
     <div class="container-column form-wrapper-column">
         <div class="form-container-column">
-    
-        <form id="myForm" method="post">
-            {% csrf_token %}
 
-            <div class="form-group">
-                <label for="level">Nivel log</label>
-                <select id="level" name="level" required>
-                    <option value="DEBUG">DEBUG</option>
-                    <option value="INFO">INFO</option>
-                    <option value="WARNING">PELIGRO</option>
-                </select>
-            </div>
+            <form id="myForm" method="post">
+                {% csrf_token %}
 
-            <div class="form-group">
-                <label for="stdout">Registro en stdout</label>
-                <select id="stdout" name="stdout" required>
-                    <option value="False">Si</option>
-                    <option value="True">No</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="level">Nivel log</label>
+                    <select id="level" name="level" required>
+                        <option value="DEBUG">DEBUG</option>
+                        <option value="INFO">INFO</option>
+                        <option value="WARNING">PELIGRO</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="file">Archivo log</label>
-                <input type="text" id="file" name="file" required>
-            </div>
+                <div class="form-group">
+                    <label for="stdout">Registro en stdout</label>
+                    <select id="stdout" name="stdout" required>
+                        <option value="False">Si</option>
+                        <option value="True">No</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="enable">Activar registros muestra</label>
-                <!-- <input type="text" id="enable" name="enable" required> -->
-                <select id="enable" name="enable" required>
-                    <option value="False">Si</option>
-                    <option value="True">No</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="file">Archivo log</label>
+                    <input type="text" id="file" name="file" required>
+                </div>
 
-            <div class="form-group">
-                <label for="log_size">Máximo tamaño log (byte)</label>
-                <input type="text" id="log_size" name="log_size" required>
-            </div>
+                <div class="form-group">
+                    <label for="enable">Activar registros muestra</label>
+                    <!-- <input type="text" id="enable" name="enable" required> -->
+                    <select id="enable" name="enable" required>
+                        <option value="False">Si</option>
+                        <option value="True">No</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="backup">Número copias log</label>
-                <input type="text" id="backup" name="backup" required>
-            </div>
+                <div class="form-group">
+                    <label for="log_size">Máximo tamaño log (byte)</label>
+                    <input type="text" id="log_size" name="log_size" required>
+                </div>
 
-            
+                <div class="form-group">
+                    <label for="backup">Número copias log</label>
+                    <input type="text" id="backup" name="backup" required>
+                </div>
 
-            <div class="form-group">
-                <button class="buttonClass" type="button" onclick="updateInformationDataSettingLog()">Guardar</button>
-            </div>
+                <div class="form-group">
+                    <button class="buttonClass" type="button"
+                        onclick="updateInformationDataSettingLog()">Guardar</button>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 </div>

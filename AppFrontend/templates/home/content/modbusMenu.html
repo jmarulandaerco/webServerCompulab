@@ -1,12 +1,21 @@
 {% load static %}
 <div class="container">
-    <button class="button" onclick="loadDevices('seeDevices')">Ver dispositivos configurados</button>
-    <button class="button" onclick="loadContentModbus('newDevice')">Ingresar nuevo dispositivo</button>
-    <button class="button" onclick="loadDevices('deleteDevice')">Borrar dispositivo</button>
-    <button class="button" onclick="loadDevices('modifyDevice')">Modificar dispositivo</button>
-    <button class="button" onclick="loadContentModbus('modbusSetting')">Configuraciones</button>
-    <button class="button" onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu')">MODBUS RTU</button>
-    <button class="button" onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp')">MODBUS TCP</button>
+    <button class="button" onclick="loadDevices('seeDevices')">Ver dispositivos
+        configurados</button>
+    <button class="button" onclick="loadContentModbus('newDevice')">Ingresar
+        nuevo dispositivo</button>
+    <button class="button" onclick="loadDevices('deleteDevice')">Borrar
+        dispositivo</button>
+    <button class="button" onclick="loadDevices('modifyDevice')">Modificar
+        dispositivo</button>
+    <button class="button"
+        onclick="loadContentModbus('modbusSetting')">Configuraciones</button>
+    <button class="button"
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu')">MODBUS
+        RTU</button>
+    <button class="button"
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp')">MODBUS
+        TCP</button>
 </div>
 <div class="container" id="content3" style="display: flex;"></div>
 

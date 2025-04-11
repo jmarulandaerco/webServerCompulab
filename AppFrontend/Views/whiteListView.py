@@ -10,17 +10,17 @@ from utils.whitelist import WhiteList
 # Colocar el self.logger
 logger = LoggerHandler().get_logger()
 
-"""
-    Class that handles the removal of a modem from the whitelist using AT commands.
-
-    Methods:
-    - post: This method handles the POST request to remove a modem from the whitelist.
-      It sends three AT commands to the device to check the status, clear the whitelist, and restart the device.
-      Returns a JSON with the status of each operation.
-    """
 
 
 class DeleteWhiteList(APIView):
+    """
+    Class that handles the removal of a modem from the whitelist using AT commands.
+
+    Methods:
+    - post: This method handles the POST request to clear the whitelist of an Onomondo simd. 
+    It sends three AT commands to the device to check the status, clear the whitelist and reset the device. 
+    It returns a JSON with the status of each operation.
+    """
 
     def post(self, request):
         try:
@@ -40,6 +40,8 @@ class DeleteWhiteList(APIView):
             return JsonResponse({"message": str(ex)}, status=400)
 
 
+
+class ModemManager(APIView):
     """
     Class to manage the modem service state.
 
@@ -48,7 +50,7 @@ class DeleteWhiteList(APIView):
       Depending on the provided parameter, the modem service is either started or stopped.
       Returns a JSON with the operation status.
     """
-class ModemManager(APIView):
+
     def post(self, request):
         try:
             data = json.loads(request.body)

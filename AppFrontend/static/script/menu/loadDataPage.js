@@ -50,7 +50,7 @@ function loadContentMenu(option) {
  */
 
 function loadContentSetting(option) {
-    cont=0;
+    cont = 0;
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -60,26 +60,26 @@ function loadContentSetting(option) {
         })
         .then(data => {
             document.getElementById("content5").innerHTML = data;
-           
+
 
         })
         .catch(error => {
-            cont=1
+            cont = 1
             document.getElementById("content5").innerHTML = "<h1>Error cargando contenido</h1>";
-        }).finally(()=>{
-            if(cont==0){
-                if(option == "interfaceEthernet"){
+        }).finally(() => {
+            if (cont == 0) {
+                if (option == "interfaceEthernet") {
                     getIPInterface("eth0")
                 }
-    
-                if(option=="interfaceEthernetTwo"){
+
+                if (option == "interfaceEthernetTwo") {
                     getIPInterface("eth1")
                 }
             }
-            cont=0;
-            
+            cont = 0;
+
         })
-        
+
         ;
 }
 /**
@@ -168,14 +168,14 @@ async function updateInformationDataSettingLog() {
     const log_size = document.getElementById("log_size").value;
     const backup = document.getElementById("backup").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(getFormDatasettingLog, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ level, stdout, file, enable, log_size, backup })
         });
@@ -184,16 +184,16 @@ async function updateInformationDataSettingLog() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -245,32 +245,32 @@ async function updateSettingInterface() {
     const connection = document.getElementById("connection").value;
 
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(getFormDataUrlSettingInterface, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ interface, connection})
+            body: JSON.stringify({ interface, connection })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -393,7 +393,7 @@ function loadContentSingleDevice(option) {
     document.getElementById('content3').style.display = 'flex';
 
 
-    url=`/home/content/${option}/`
+    url = `/home/content/${option}/`
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -413,13 +413,13 @@ function loadContentSingleDevice(option) {
 
 
 function loadContent(option) {
-    if(option=='form/database/database'){
-        url='/home/content/form/database/databaseInformation/'
+    if (option == 'form/database/database') {
+        url = '/home/content/form/database/databaseInformation/'
 
     }
-   
-    else{
-        url=`/home/content/${option}/`
+
+    else {
+        url = `/home/content/${option}/`
     }
     fetch(url)
         .then(response => {
@@ -443,7 +443,7 @@ function loadContent(option) {
                 case "form/database/databaseSetting":
                     loadFormDataBase();
                     break;
-                
+
             }
 
             if (option === "logs") {
@@ -455,7 +455,7 @@ function loadContent(option) {
             } else {
                 if (intervalId) {
                     clearInterval(intervalId);
-                    intervalId = null; 
+                    intervalId = null;
                 }
             }
 
@@ -525,14 +525,14 @@ async function updateServerSelection() {
     const mqtt = document.getElementById("mqtt").value;
     const storage = document.getElementById("storage").value;
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
         const response = await fetch(getFormDataUrlServerSelection, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ server, neu_plus, telemetry, mqtt, storage })
         });
@@ -541,16 +541,16 @@ async function updateServerSelection() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -626,10 +626,10 @@ function loadDatabase(page) {
 
 async function saveChangesEnableDisableDevices() {
     const selectedDevices = Array.from(document.querySelectorAll('input[name="devices"]:checked'))
-                                .map(checkbox => checkbox.value);
+        .map(checkbox => checkbox.value);
 
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
-    
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
     try {
         const response = await fetch(viewDevices, {
             method: "PUT",
@@ -644,10 +644,10 @@ async function saveChangesEnableDisableDevices() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
+            alert("✅ " + data.message);
 
 
         }
@@ -656,7 +656,7 @@ async function saveChangesEnableDisableDevices() {
         alert("❌ " + error.message);
         console.error("Error:", error);
     }
-    
+
 }
 
 /**
@@ -727,7 +727,7 @@ async function loadFunction(option) {
         case 'awsService':
             loadFormDataAwsSettings();
             break;
-   
+
         default:
             break;
 

@@ -87,7 +87,6 @@ class MeasureView(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
 
-
 class FormDataServer(View):
     """
     View class for retrieving and updating server configuration settings.
@@ -159,7 +158,6 @@ class FormDataServer(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataModes(View):
     """
@@ -263,7 +261,6 @@ class FormDataModes(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando los datos, {e}"}, status=400)
 
-
 class FormDataSettingDataBase(View):
     """
     View class for retrieving and updating database retention settings.
@@ -322,7 +319,6 @@ class FormDataSettingDataBase(View):
             return JsonResponse({"message": "Error al actualizando los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataSettingInterface(View):
     """
@@ -387,7 +383,6 @@ class FormDataSettingInterface(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataLimitation(View):
     """
@@ -472,7 +467,6 @@ class FormDataLimitation(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataCompensation(View):
     """
@@ -567,7 +561,6 @@ class FormDataCompensation(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
 
-
 class FormDataBasePropierties(View):
     """
     View class for retrieving and updating database configuration properties.
@@ -635,7 +628,6 @@ class FormDataBasePropierties(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataSettingLogs(View):
     """
@@ -709,7 +701,6 @@ class FormDataSettingLogs(View):
         except Exception as e:
             return JsonResponse({"message": f"datos invalidos: uno o más registros contienen datos no válidos o nulos, {e}"}, status=400)
 
-
 class FormDataModemChecker(View):
     """
     View class for retrieving and updating modem checker configuration data.
@@ -770,7 +761,6 @@ class FormDataModemChecker(View):
             return JsonResponse({"message": "Error al actualizar los datos"}, status=400)
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
-
 
 class FormDataSignalChecker(View):
     """
@@ -864,7 +854,6 @@ class FormDataSignalChecker(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
 
-
 class FormDataServerChecker(View):
     """
     View that handles server configuration data related to server checks. 
@@ -917,8 +906,37 @@ class FormDataServerChecker(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400)
 
-
 class FormDataAwsService(APIView):
+    """
+    API view to manage AWS IoT configuration settings stored in an INI file.
+
+    Methods:
+    --------
+    get(request):
+        Reads the current AWS IoT settings from the configuration file and returns them
+        as a JSON response. Includes:
+            - client_id
+            - certificate_path
+            - private_key_path
+
+        Returns:
+            JsonResponse containing AWS IoT credentials or an error message.
+
+    put(request):
+        Updates the AWS IoT settings in the configuration file based on the received JSON payload.
+
+        Expected JSON structure:
+            {
+                "client": "client_id_value",
+                "certicate": "path_to_certificate",  # Note: typo in "certificate"
+                "private": "path_to_private_key"
+            }
+
+        Validates that none of the fields are null or empty.
+        Returns:
+            JsonResponse with a success message if updated correctly,
+            or an error message with a 400 status code in case of invalid data or exceptions.
+    """
     def get(self, request):
         try:
             config.clear()

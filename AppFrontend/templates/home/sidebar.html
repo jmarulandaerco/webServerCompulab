@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="{% static 'css/form_three_columns.css' %}">
     <link rel="stylesheet" href="{% static 'css/table.css' %}">
 
-
     <a href="#" onclick="loadContent('mainMenu')">
-        <img src="{% static 'images/home.svg' %}" height="20" width="20" alt="Logo" />
+        <img src="{% static 'images/home.svg' %}" height="20" width="20"
+            alt="Logo" />
         Principal
     </a>
     <a href="#" onclick="loadContent('modbusMenu')">
-        <img src="{% static 'images/message.svg' %}" height="20" width="20" alt="Logo" />
+        <img src="{% static 'images/message.svg' %}" height="20" width="20"
+            alt="Logo" />
         Modbus
     </a>
     <!-- <a href="#" onclick="loadContent('form/compensation-limitation/limitation')">
@@ -33,27 +34,32 @@
         Stop Service FW
     </a> -->
     <a href="#" onclick="loadContent('logs')">
-        <img src="{% static 'images/log.svg' %}" height="20" width="20" alt="Logo" />
+        <img src="{% static 'images/log.svg' %}" height="20" width="20"
+            alt="Logo" />
         Ver Logs
     </a>
     <a href="#" onclick="loadDatabase(1)">
-        <img src="{% static 'images/view.svg' %}" height="20" width="20" alt="Logo" />
-        Ver datos 
+        <img src="{% static 'images/view.svg' %}" height="20" width="20"
+            alt="Logo" />
+        Ver datos
     </a>
     <!-- <a href="#" onclick="deleteDatabase()">
         <img src="{% static 'images/delete.svg' %}" height="20" width="20" alt="Logo" />
         Delete all records database
     </a> -->
     <a href="#" onclick="loadContent('form/database/password')">
-        <img src="{% static 'images/database.svg' %}" height="20" width="20" alt="Logo" />
+        <img src="{% static 'images/database.svg' %}" height="20" width="20"
+            alt="Logo" />
         Base de datos *
     </a>
     <a href="#" onclick="loadContent('http')">
-        <img src="{% static 'images/http.svg' %}" height="20" width="20" alt="Logo" />
-        Data HTTP  
+        <img src="{% static 'images/http.svg' %}" height="20" width="20"
+            alt="Logo" />
+        Data HTTP
     </a>
     <a href="#" onclick="loadContent('setting')">
-        <img src="{% static 'images/setting.svg' %}" height="30" width="30" alt="Logo" />
+        <img src="{% static 'images/setting.svg' %}" height="30" width="30"
+            alt="Logo" />
         Configuraciones del sistema
     </a>
     <!-- <a href="#" onclick="rebootErcoPulse()">
@@ -124,8 +130,6 @@
 <script src="{% static 'script/menu/service.js' %}"></script>
 <script src="{% static 'script/menu/http.js' %}"></script>
 <script src="{% static 'script/menu/database.js' %}"></script>
-
-
 
 <script>
     const token = localStorage.getItem('access_token');

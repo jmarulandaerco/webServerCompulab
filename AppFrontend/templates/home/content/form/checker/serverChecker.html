@@ -4,16 +4,14 @@
 
     <form id="myForm" method="post">
         {% csrf_token %}
-        
 
         <div class="form-group">
-            <label for="requests">Máximo de intentos para el envío de la petición</label>
+            <label for="requests">Máximo de intentos para el envío de la
+                petición</label>
             <input type="text" id="requests" name="requests" required>
         </div>
 
-        
-        <button class="buttonClass" type="button" onclick="updateModemServer()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="updateModemServer()">Guardar</button>
     </form>
 </div>
-
-

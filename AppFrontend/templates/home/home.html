@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    {% load static %}
+    <head>
+        {% load static %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Erco Pulse</title>
-    <link rel="icon" type="image/svg+xml" sizes="64x64" href="{% static 'images/logo.svg' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Menú Erco Pulse</title>
+        <link rel="icon" type="image/svg+xml" sizes="64x64"
+            href="{% static 'images/logo.svg' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 
-
-    <style>
+        <style>
         link[rel="icon"] {
             width: 64px;
             height: 64px;
@@ -32,30 +32,30 @@
             padding: 20px;
         }
     </style>
-</head>
+    </head>
 
-<body>
-    <!-- Header -->
-    {% include 'home/header.html' %}
+    <body>
+        <!-- Header -->
+        {% include 'home/header.html' %}
 
-    <!-- Sidebar -->
-    {% include 'home/sidebar.html' %}
+        <!-- Sidebar -->
+        {% include 'home/sidebar.html' %}
 
-    <!-- Content -->
-    {% block content %}
-    {% endblock %}
+        <!-- Content -->
+        {% block content %}
+        {% endblock %}
 
-    <!-- Footer -->
-    {% include 'home/footer.html' %}
+        <!-- Footer -->
+        {% include 'home/footer.html' %}
 
-    {% load static %}
+        {% load static %}
 
-</body>
-<script>
+    </body>
+    <script>
         const statusService = "{% url 'status_service' %}";
 
 </script>
-<script>
+    <script>
     checkServiceStatus();
 </script>
 </html>

@@ -34,21 +34,22 @@ class UserDetailView(generics.RetrieveAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
 
     logger = LoggerHandler().get_logger()
+
     def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
- 
+
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
-   
+
         try:
-            token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-            valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
-          
+            token_backend = TokenBackend(
+                algorithm=settings.SIMPLE_JWT['ALGORITHM'])
+            # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
+            valid_data = token_backend.decode(token, verify=False)
 
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -61,21 +62,20 @@ class UserDetailView(generics.RetrieveAPIView):
             self.logger.warning(f"Invalid token {ex}")
             return Response({'detail': 'Invalid token', 'error': str(ex)}, status=status.HTTP_401_UNAUTHORIZED)
 
-
     def post(self, request, *args, **kwargs):
-        
+
         auth_header = request.headers.get('Authorization')
- 
+
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
-   
-        try:
-            token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-            valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
-          
 
+        try:
+            token_backend = TokenBackend(
+                algorithm=settings.SIMPLE_JWT['ALGORITHM'])
+            # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
+            valid_data = token_backend.decode(token, verify=False)
 
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -85,40 +85,42 @@ class UserDetailView(generics.RetrieveAPIView):
             if serializer.is_valid():
                 if User.objects.filter(username=request.data['username']).exists():
                     return Response(
-                        {"status": "error", "message": "El nombre de usuario ya está en uso."},
+                        {"status": "error",
+                            "message": "El nombre de usuario ya está en uso."},
                         status=status.HTTP_400_BAD_REQUEST
                     )
-                User.objects.create_user(username=request.data['username'], password=request.data['password'])
+                User.objects.create_user(
+                    username=request.data['username'], password=request.data['password'])
 
                 return Response({"message": "User created successfully", "user": serializer.data}, status=status.HTTP_201_CREATED)
-            
+
             return Response({"detail": "Invalid data", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': 'Invalid token', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
-    
-    
+
     def delete(self, request, *args, **kwargs):
         user_id = kwargs.get('user_id')
 
         auth_header = request.headers.get('Authorization')
 
-     
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token missing or invalid'}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header.split(' ')[1]
-   
+
         try:
-            token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-            valid_data = token_backend.decode(token, verify=False)  # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
-          
+            token_backend = TokenBackend(
+                algorithm=settings.SIMPLE_JWT['ALGORITHM'])
+            # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
+            valid_data = token_backend.decode(token, verify=False)
 
             if str(valid_data['user_id']) != str(request.user):
                 return Response({'detail': 'Unauthorized Request'}, status=status.HTTP_401_UNAUTHORIZED)
-            user = User.objects.get(_id=ObjectId(user_id))  # Usa ObjectId para convertir la cadena en el formato correcto
-            user.delete()  
+            # Usa ObjectId para convertir la cadena en el formato correcto
+            user = User.objects.get(_id=ObjectId(user_id))
+            user.delete()
             return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        
+
         except User.DoesNotExist:
 
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)

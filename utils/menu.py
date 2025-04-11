@@ -121,7 +121,7 @@ class Menu:
             self.logger.error(f"Error started service {ex}")
             return False
 
-    def change_user_password(self, new_password):
+    def change_user_password(self, new_password:str)->bool:
         try:
             os.system(f"echo 'erco_config:{new_password}' | sudo chpasswd")
             return True
@@ -129,7 +129,7 @@ class Menu:
             self.logger.error(f"Error changing password: {e}")
             return False
 
-    def delete_log(self):
+    def delete_log(self) -> bool:
         try:
             os.system("rm /var/log/enrg/main.log")
             return True
@@ -137,7 +137,7 @@ class Menu:
             self.logger.error(f"Error delete log: {e}")
             return False
 
-    def stop_service(self):
+    def stop_service(self) -> bool:
         """Stop and disable a systemd service."""
         status = self.check_service_status()
         if status == "inactive":
@@ -212,7 +212,7 @@ class Menu:
             self.logger.error(f"Error in obtaining data from the modem {e}")
             return f"Error en la obtención de datos del modem {e}"
 
-    def toggle_wifi(self):
+    def toggle_wifi(self)->str:
         try:
             result = subprocess.run(
                 "nmcli radio wifi", shell=True, capture_output=True, text=True
@@ -229,7 +229,7 @@ class Menu:
         except Exception as ex:
             self.logger.error(f"enable-disable wifi: {ex}")
 
-    def add_wifi(self, ssid, password, connection_name):
+    def add_wifi(self, ssid:str, password:str, connection_name:str)->str:
         try:
             result = os.system(
                 f"sudo nmcli dev wifi con '{ssid}' password '{password}' name '{connection_name}'"

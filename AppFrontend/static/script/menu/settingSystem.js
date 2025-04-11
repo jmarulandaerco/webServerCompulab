@@ -23,14 +23,14 @@
 
 function handleButtonClick(buttonId) {
     // Dependiendo del botón presionado, cambia la visibilidad de los otros botones
-   
+
     modemManager(false)
     deleteWhiteList()
-        
-    
+
+
 }
 
-    
+
 
 
 /**
@@ -61,10 +61,10 @@ function handleButtonClick(buttonId) {
 
 
 async function modemManager(startManagerModemService) {
-    const response = await fetch(modemManagerService,{
-        method:"POST",
-        headers:{
-            "Authorization": `Bearer ${token}`,  
+    const response = await fetch(modemManagerService, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ startManagerModemService })
@@ -73,20 +73,20 @@ async function modemManager(startManagerModemService) {
     });
 
     const data = await response.json();
-    if(!response.ok){
+    if (!response.ok) {
 
-        if(startManagerModemService){
+        if (startManagerModemService) {
             alert(`❌ Fallo al iniciar el ModemManager.service: ${data.message}`)
-        }else{
+        } else {
             alert(`❌ Fallo al parar ModemManager.service ${data.message} `)
 
         }
-    }else{
-        if(startManagerModemService){
+    } else {
+        if (startManagerModemService) {
             alert("✅ Modem inicio correctamente")
-          
-        }else{
-            
+
+        } else {
+
             alert("✅ Modem paro correctamente")
 
         }
@@ -110,14 +110,14 @@ async function modemManager(startManagerModemService) {
  */
 
 async function deleteWhiteList() {
-    if(confirm("¿Estás seguro que quieres borrar la whitelists?")){
-        const token = localStorage.getItem("access_token"); 
+    if (confirm("¿Estás seguro que quieres borrar la whitelists?")) {
+        const token = localStorage.getItem("access_token");
 
         var modemSelect = document.getElementById("modem").value;
-            const response =await fetch(viewList, {
+        const response = await fetch(viewList, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`,  
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ modemSelect })
@@ -125,11 +125,11 @@ async function deleteWhiteList() {
         });
         //La data traera el mensaje que usare en los alert
         const data = await response.json();
-        if (!response.ok){
+        if (!response.ok) {
             alert(`❌ Fallo al limpiar la whitelists: ${data.message}`)
-        }else{
+        } else {
             alert(`✅ Whitelist limpiada correctamente: ${data.message}`)
-          
+
             alert(`✅ Recuerda desactivar la simcard de Onomondo, seleccionar el operador de internet yvolver a activar`)
             modemManager(true)
         }
@@ -170,11 +170,11 @@ async function interfaceEthernetOne() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
-            
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
+
         } else {
             alert("✅ " + data.message);
-            
+
 
         }
 
@@ -216,7 +216,7 @@ async function interfaceEthernetTwo() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -265,7 +265,7 @@ async function addWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -310,7 +310,7 @@ async function antennaWifi() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -354,10 +354,10 @@ function showModems() {
         .then(data => {
 
 
-            alert("❌ "+data.message)
+            alert("❌ " + data.message)
 
         })
-        .catch(error => { alert("❌"+"Error:", error); });
+        .catch(error => { alert("❌" + "Error:", error); });
 }
 
 
@@ -367,28 +367,28 @@ async function getIPInterface(interfaceName) {
         const data = await response.json();
 
         if (response.ok) {
-            
-            if(interfaceName=="eth0"){
+
+            if (interfaceName == "eth0") {
                 document.getElementById("ipOne").value = data.ip;
                 document.getElementById("gatewayOne").value = data.gateway;
                 return null
             }
 
-            if (interfaceName =="eth1"){
+            if (interfaceName == "eth1") {
                 document.getElementById("ipTwo").value = data.ip;
                 document.getElementById("gatewayTwo").value = data.gateway;
                 return null
             }
 
-            
-            
+
+
         } else {
-            alert("❌ "+`Error: ${data.message}`);
-            
+            alert("❌ " + `Error: ${data.message}`);
+
         }
     } catch (error) {
-        alert("❌ "+error);
-        
+        alert("❌ " + error);
+
     }
 }
 

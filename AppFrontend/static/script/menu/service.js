@@ -15,8 +15,8 @@
  */
 
 function checkServiceStatus() {
-    
-    fetch(statusService)  
+
+    fetch(statusService)
         .then(response => response.json())
         .then(data => {
             const statusCircle = document.getElementById('statusCircle');
@@ -33,7 +33,7 @@ function checkServiceStatus() {
             }
         })
         .catch(error => console.error('Error en la obtención del estado:', error));
-        
+
 }
 
 /**
@@ -56,14 +56,14 @@ function checkServiceStatus() {
 
 function startService() {
     const boton = document.getElementById("startServiceButton");
-    boton.disabled=true;
-    if (confirm("¿Estás seguro de iniciar el servicio? Tomará 5 segundos en iniciar")) {
-        const token = localStorage.getItem("access_token"); 
+    boton.disabled = true;
+    if (confirm("¿Estás seguro de iniciar el servicio? Tomará 30 segundos en iniciar")) {
+        const token = localStorage.getItem("access_token");
         startProgressBar();
         fetch(start, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,  
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         })
@@ -71,20 +71,20 @@ function startService() {
             .then(data => {
 
 
-                
-                setTimeout(function() {
+
+                setTimeout(function () {
                     checkServiceStatus();
                     alert(data.message);
-                },5000);
-               
+                }, 31000);
+
 
             })
             .catch(error => console.error("Error:", error))
-            .finally(()=>{
-                boton.disabled=false
+            .finally(() => {
+                boton.disabled = false
             });
-    }else{
-        boton.disabled=false   
+    } else {
+        boton.disabled = false
     }
 }
 
@@ -108,33 +108,33 @@ function startService() {
 
 function stopService() {
     const boton = document.getElementById("stopServiceButton");
-    boton.disabled=true;
+    boton.disabled = true;
     if (confirm("¿Estás seguro de parar el servicio?")) {
-        const token = localStorage.getItem("access_token"); 
+        const token = localStorage.getItem("access_token");
 
         fetch(stop, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`, 
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
             .then(data => {
-             alert(data.message);
+                alert(data.message);
 
-                
-                    setTimeout(() => {
-                        checkServiceStatus(); 
-                    }, 2000);
-                
+
+                setTimeout(() => {
+                    checkServiceStatus();
+                }, 2000);
+
             })
-            .catch(error => console.error("Error:", error)).finally(()=>{
-                boton.disabled=false;
+            .catch(error => console.error("Error:", error)).finally(() => {
+                boton.disabled = false;
 
             });
-    }else{
-        boton.disabled=false;
+    } else {
+        boton.disabled = false;
 
     }
 }
@@ -162,7 +162,7 @@ function startProgressBar() {
     progressBar.style.width = "0%"; // Resetear
 
     let startTime = Date.now();
-    let duration = 5000; // 5 segundos
+    let duration = 31000; // 5 segundos
 
     function updateProgress() {
         let elapsedTime = Date.now() - startTime;
@@ -172,10 +172,10 @@ function startProgressBar() {
 
         if (percentage < 100) {
             requestAnimationFrame(updateProgress);
-        }else {
+        } else {
             setTimeout(() => {
                 progressContainer.style.display = "none";
-            }, 500); 
+            }, 500);
         }
     }
 

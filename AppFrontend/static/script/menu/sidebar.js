@@ -30,7 +30,7 @@ function downloadCollections() {
             if (!response.ok) {
                 alert("Error al descargar la colección");
             }
-            return response.blob(); 
+            return response.blob();
         })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
@@ -41,7 +41,7 @@ function downloadCollections() {
             a.click();
             window.URL.revokeObjectURL(url);
         })
-        .catch((error) => {console.error("Error:", error);alert("Error "+ error )});
+        .catch((error) => { console.error("Error:", error); alert("Error " + error) });
 }
 
 /**
@@ -64,27 +64,27 @@ function downloadCollections() {
 
 function rebootErcoPulse() {
     const boton = document.getElementById("reboot");
-    boton.disabled=true;
+    boton.disabled = true;
     if (confirm("¿Estás seguro de iniciar el Erco Pulse?")) {
-        const token = localStorage.getItem("access_token"); 
+        const token = localStorage.getItem("access_token");
 
         fetch(reboot, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,  
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
             .then(data => {
-                alert(data.message); 
+                alert(data.message);
             })
-            .catch(error => console.error("Error:", error)).finally(()=>{
-                boton.disabled=false;
+            .catch(error => console.error("Error:", error)).finally(() => {
+                boton.disabled = false;
 
             });
-    }else{
-        boton.disabled=false;
+    } else {
+        boton.disabled = false;
     }
 }
 

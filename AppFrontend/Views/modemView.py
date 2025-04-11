@@ -32,6 +32,21 @@ class ModemView(APIView):
 
 
 class InterfaceIPView(APIView):
+    """
+    Retrieves the IP address and gateway of a given network interface.
+
+    GET:
+    - URL parameter: `interface` (str) - Name of the network interface.
+    - Calls `Menu.get_ip_interface(interface)` and `Menu.get_gateway_interface(interface)` 
+      to obtain the IP and gateway of the specified interface.
+
+    Responses:
+    - 200 OK: Returns JSON with the interface name, IP address, and gateway (if available).
+        Example: {"interface": "eth0", "ip": "192.168.1.10", "gateway": "192.168.1.1"}
+    - 400 Bad Request: If the IP cannot be retrieved. This usually indicates that the interface
+      is disconnected or does not have a configured IP.
+        Example: {"message": "Could not retrieve the IP for eth0. Check physical connection or if the interface has no configured IP."}
+    """
     def get(self, request, interface):
         menu=Menu()
         ip = menu.get_ip_interface(interface)

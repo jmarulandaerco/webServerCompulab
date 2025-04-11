@@ -17,7 +17,7 @@ function deletelog() {
         fetch(deleteLog, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${token}`,  
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         })
@@ -112,7 +112,7 @@ async function downloadLogs() {
 
 async function getLogSingleDevice() {
     try {
-        
+
         document.querySelector('.container_logs').style.display = 'block';
         document.getElementById('content3').style.display = 'none';
 

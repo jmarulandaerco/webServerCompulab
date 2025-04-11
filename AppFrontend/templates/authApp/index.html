@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  {% load static %}
+  <head>
+    {% load static %}
 
-  <meta charset="UTF-8">
-  <title> Login Erco Pulse</title>
-  <link rel="icon" type="image/svg+xml" sizes="64x64" href="{% static 'images/logo.svg' %}">
+    <meta charset="UTF-8">
+    <title> Login Erco Pulse</title>
+    <link rel="icon" type="image/svg+xml" sizes="64x64"
+      href="{% static 'images/logo.svg' %}">
 
-
-  <style>
+    <style>
     link[rel="icon"] {
       width: 64px;
       height: 64px;
     }
   </style>
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
 
-<body>
-  <section>
-    <div class="signin">
-      <div class="content">
-        {% load static %}
-        <img src="{% static 'images/logo.svg' %}" alt="Sign In">
-        <div class="form">
+  <body>
+    <section>
+      <div class="signin">
+        <div class="content">
+          {% load static %}
+          <img src="{% static 'images/logo.svg' %}" alt="Sign In">
+          <div class="form">
 
+            <form method="POST" action="{% url 'login' %}" id="loginForm">
+              {% csrf_token %}
+              <div class="inputBox">
+                <input type="text" name="username" id="username" required
+                  autocomplete="off">
+                <i>Usuario</i>
+              </div>
 
-          <form method="POST" action="{% url 'login' %}" id="loginForm">
-            {% csrf_token %}
-            <div class="inputBox">
-              <input type="text" name="username" id="username" required autocomplete="off">
-              <i>Usuario</i>
-            </div>
+              <div class="inputBox">
+                <input type="password" name="password" id="password" required
+                  autocomplete="off">
+                <i>Contraseña</i>
+              </div>
 
-            <div class="inputBox">
-              <input type="password" name="password" id="password" required autocomplete="off">
-              <i>Contraseña</i>
-            </div>
+              <div class="inputBox">
+                <input type="submit" value="Login">
+              </div>
+            </form>
 
-            <div class="inputBox">
-              <input type="submit" value="Login">
-            </div>
-          </form>
-
-
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <script>
+    <script>
     const token = localStorage.getItem('access_token');
     if (token) {
       window.location.href = "{% url 'home' %}";
@@ -80,7 +80,7 @@
           if (data.access) {
 
             localStorage.setItem('access_token', data.access); // Guarda el token de acceso en el almacenamiento local
-            localStorage.setItem('username',username)
+            localStorage.setItem('username', username)
             window.location.href = "{% url 'home' %}";  // Redirige a la página de inicio usando el nombre de la URL
           } else {
             // Si no hay token de acceso, muestra el mensaje de error
@@ -93,6 +93,6 @@
         });
     });
   </script>
-</body>
+  </body>
 
 </html>

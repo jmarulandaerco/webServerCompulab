@@ -4,7 +4,6 @@
 
     <form id="myForm" method="post">
         {% csrf_token %}
-        
 
         <div class="form-group">
             <label for="clientId">Id client</label>
@@ -12,15 +11,16 @@
         </div>
 
         <div class="form-group">
-            <label for="clientCertificate">Dirección certificado del cliente</label>
-            <input type="text" id="clientCertificate" name="clientCertificate" required>
+            <label for="clientCertificate">Dirección certificado del
+                cliente</label>
+            <input type="text" id="clientCertificate" name="clientCertificate"
+                required>
         </div>
         <div class="form-group">
             <label for="private">Dirección clave privada del cliente</label>
             <input type="text" id="private" name="private" required>
         </div>
-        <button class="buttonClass" type="button" onclick="updateAwsSettings()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="updateAwsSettings()">Guardar</button>
     </form>
 </div>
-
-

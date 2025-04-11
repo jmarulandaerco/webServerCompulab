@@ -8,15 +8,16 @@
         <h3>Seleccionar dispositivos</h3>
         <div id="deviceList" class="checkbox-group">
             {% for device in listDevices %}
-                <div class="checkbox-item">
-                    <input class="input_checkbox_one_choce" type="checkbox" id="{{ device }}" name="devices" value="{{ device }}"
-                        {% if device in listSelectedDevices %}checked{% endif %}>
-                    <label for="{{ device }}">{{ device }}</label>
-                </div>
+            <div class="checkbox-item">
+                <input class="input_checkbox_one_choce" type="checkbox"
+                    id="{{ device }}" name="devices" value="{{ device }}"
+                    {% if device in listSelectedDevices %}checked{% endif %}>
+                <label for="{{ device }}">{{ device }}</label>
+            </div>
             {% endfor %}
         </div>
 
-        <button class="buttonClass" type="button" onclick="saveChangesEnableDisableDevices()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="saveChangesEnableDisableDevices()">Guardar</button>
     </form>
 </div>
-

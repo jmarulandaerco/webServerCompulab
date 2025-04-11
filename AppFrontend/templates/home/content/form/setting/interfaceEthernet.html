@@ -4,19 +4,19 @@
 
     <form id="myForm" method="post">
         {% csrf_token %}
-     
 
         <div class="form-group">
-            <label for="ipOne">Ingresar dirección IP puerto ethernet eth0  (e.j., 10.6.20.5/24):</label>
+            <label for="ipOne">Ingresar dirección IP puerto ethernet eth0 (e.j.,
+                10.6.20.5/24):</label>
             <input type="text" id="ipOne" name="ipOne" required>
         </div>
 
         <div class="form-group">
-            <label for="gatewayOne">Ingresar gateway (dejar vacío si no es necesario . e.g.,10.6.20.1):</label>
+            <label for="gatewayOne">Ingresar gateway (dejar vacío si no es
+                necesario . e.g.,10.6.20.1):</label>
             <input type="text" id="gatewayOne" name="gatewayOne">
         </div>
-        <button class="buttonClass" type="button" onclick="interfaceEthernetOne()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="interfaceEthernetOne()">Guardar</button>
     </form>
 </div>
-
-

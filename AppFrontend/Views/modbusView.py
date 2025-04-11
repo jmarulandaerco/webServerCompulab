@@ -129,8 +129,6 @@ class FormModbusDevicesView(View):
         except Exception as e:
             return JsonResponse({"message": f"Error actualizando datos, {e}"}, status=400) 
 
-
-
 class FormModbusGetDevicesView(APIView):
     """
     View for retrieving Modbus devices and their configuration.
@@ -202,6 +200,53 @@ class FormModbusGetDevicesView(APIView):
             return JsonResponse({"message": f"Error: {str(e)}"}, status=400)
 
 class FormModbusAddDeviceRtu(View):
+    """
+    Handles creation and updating of Modbus RTU device configurations.
+
+    POST:
+        Creates a new Modbus RTU device section in the configuration file.
+
+        Request Body (JSON):
+            {
+                "nameDevice": str,
+                "portDevice": str,
+                "baudrate": int,
+                "initial": int,
+                "end": int,
+                "modbus_function": str,
+                "initial_address": int,
+                "total_registers": int,
+                "modbus_mode": str,
+                "device_type": str,
+                "save_db": bool,
+                "server_send": bool,
+                "modbus_map_folder": str,
+                "modbus_map_json": str
+            }
+
+        Responses:
+            - 200 OK: Device configuration successfully added.
+                Example: {"message": "Datos actualizados"}
+            - 400 Bad Request: If any required field is missing or the device already exists.
+                Example: {"message": "Error dispositivo ya existe"}
+
+    PUT:
+        Updates an existing Modbus RTU device configuration in the config file.
+
+        Request Body (JSON):
+            Same fields as the POST request.
+
+        Responses:
+            - 200 OK: Device configuration successfully updated.
+                Example: {"message": "Datos actualizados correctamente"}
+            - 400 Bad Request: If the device does not exist, or fields are missing/invalid.
+                Example: {"message": "Error: El dispositivo 'Modbus-RTU-X' no existe"}
+
+    Notes:
+        - Configuration changes are written to the file specified in `list_path_menu[2]`.
+        - The section name for each device is prefixed with "Modbus-RTU-".
+        - All fields must be present and non-empty.
+    """
     def post(self,request):
         try:
             data = json.loads(request.body)
@@ -295,10 +340,29 @@ class FormModbusAddDeviceRtu(View):
         except json.JSONDecodeError:
             return JsonResponse({"message": "Error parciando los datos en el JSON"}, status=400)
         except Exception as ex:
-            return JsonResponse({"message": f"Error actualizando los datos: {ex}"}, status=400)
-            
+            return JsonResponse({"message": f"Error actualizando los datos: {ex}"}, status=400)         
 
 class FormModbusAddDeviceTcp(View):
+    """
+    View responsible for handling the creation and updating of Modbus TCP devices 
+    in the application's INI configuration file.
+
+    Methods:
+    --------
+    post(request):
+        Creates a new Modbus TCP device configuration section in the INI file,
+        using the format "Modbus-TCP-{device_name}".
+        Validates that all required fields are present and not empty.
+        Sets parameters such as IP address, port, slave ID range, Modbus function, etc.
+        Returns a JSON response indicating success or failure.
+
+    put(request):
+        Updates an existing Modbus TCP device configuration in the INI file.
+        Requires that the device already exists in the file.
+        Replaces the configuration values with those provided in the request body.
+        Calculates the `attempts_wait` based on the offset value.
+        Returns a JSON response indicating success or failure.
+    """
     def post(self,request):
         try:
             data = json.loads(request.body)
@@ -401,6 +465,28 @@ class FormModbusAddDeviceTcp(View):
             return JsonResponse({"message": f"Error actualizando datos: {ex}"}, status=400)   
 
 class FormModbusDeviceRtuView(View):
+    """
+    View responsible for retrieving the configuration of a specific Modbus device (RTU or TCP) 
+    from the application's INI configuration file.
+
+    Methods:
+    --------
+    get(request):
+        Retrieves and returns the configuration of a Modbus RTU or TCP device based on the 
+        `device` parameter in the query string.
+        
+        - If the `device` parameter is missing or empty, returns an error message.
+        - If the specified device section does not exist in the INI file, returns an error.
+        - Parses device configuration and extracts key Modbus parameters including slave ID range,
+          function code, address, total registers, communication details, and paths to map files.
+        - Detects if the device is RTU or TCP based on its name and returns the appropriate structure.
+
+        Returns:
+        ---------
+        JsonResponse containing:
+            - All configuration parameters of the device in a structured format.
+            - Error message and 400 status code if the request is invalid or the device is not found.
+    """
     def get(self, request):
         try:
             device_param = request.GET.get('device', '')  

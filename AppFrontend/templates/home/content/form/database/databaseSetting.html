@@ -6,10 +6,9 @@
 <div class="container" id="content2">
     <div class="form-container">
         <link rel="stylesheet" href="{% static 'css/form_large.css' %}">
-    
+
         <form id="myForm" method="post">
             {% csrf_token %}
-
 
             <div class="form-group">
                 <label for="host">Host base de datos</label>
@@ -36,13 +35,14 @@
                 <input type="text" id="date" name="date" required>
             </div>
 
-            
-
             <div class="form-group">
-                <button class="buttonClass" type="button" onclick="updateInformationDatabase()">Guardar</button>
+                <button class="buttonClass" type="button"
+                    onclick="updateInformationDatabase()">Guardar</button>
             </div>
             <div class="form-group">
-                <button class="buttonClass" type="button" onclick="deleteDatabase()">Borrar datos base de datos</button>
+                <button class="buttonClass" type="button"
+                    onclick="deleteDatabase()">Borrar datos base de
+                    datos</button>
             </div>
 
         </form>

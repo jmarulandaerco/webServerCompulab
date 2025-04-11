@@ -4,7 +4,6 @@
 
     <form id="myForm" method="post">
         {% csrf_token %}
-        
 
         <div class="form-group">
             <label for="onomondo">Minima cantidad de señal de Onomondo</label>
@@ -15,8 +14,7 @@
             <label for="minimum">Minima cantidad de señal wifi</label>
             <input type="text" id="minimum" name="minimum" required>
         </div>
-        <button class="buttonClass" type="button" onclick="updateModemSignal()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="updateModemSignal()">Guardar</button>
     </form>
 </div>
-
-

@@ -64,9 +64,6 @@ class GetLogSingleDeviceView(APIView):
         else:
             return JsonResponse({"message": "Archivo log no encontrado"}, status=404)
 
-
-
-
 class DownloadLogsView(View):
     """
     API View to download logs as a text file.

@@ -20,31 +20,31 @@
 async function updateModemChecker() {
     const connection = document.getElementById("connection").value;
     const attemts = document.getElementById("attemts").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try {
-        const response =  await fetch(getFormDataModemChecker, {
+        const response = await fetch(getFormDataModemChecker, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ connection, attemts })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
-             
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -72,32 +72,32 @@ async function updateModemChecker() {
 async function updateModemSignal() {
     const onomondo = document.getElementById("onomondo").value;
     const minimum = document.getElementById("minimum").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
-        const response =  await fetch(getFormDataSignalChecker, {
+        const response = await fetch(getFormDataSignalChecker, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ onomondo, minimum })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
-             
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
@@ -123,54 +123,69 @@ async function updateModemSignal() {
 
 async function updateModemServer() {
     const requests = document.getElementById("requests").value;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; 
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     try {
-        const response =  await fetch(getFormDataServerChecker, {
+        const response = await fetch(getFormDataServerChecker, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken 
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({ requests })
         });
 
-        const data =  await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " +"Error en la validación de los datos: "+data.message); 
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
-            alert("✅ " + data.message); 
-             
+            alert("✅ " + data.message);
+
 
         }
 
     } catch (error) {
-        alert("❌ " + error.message); 
+        alert("❌ " + error.message);
         console.error("Error:", error);
     }
 };
 
-async function updateAwsSettings(){
+/**
+ * Actualiza la configuración de AWS mediante una solicitud PUT.
+ * 
+ * Esta función obtiene los valores de los campos de entrada del documento HTML:
+ * - clientId (ID del cliente)
+ * - clientCertificate (certificado del cliente)
+ * - private (clave privada)
+ * 
+ * Luego envía estos datos como un objeto JSON al endpoint `awsSettings`.
+ * Muestra una alerta indicando si la operación fue exitosa o si ocurrió un error.
+ * 
+ * @async
+ * @function updateAwsSettings
+ * @returns {void}
+ */
+async function updateAwsSettings() {
     const client = document.getElementById("clientId").value;
-    const certicate = document.getElementById("clientCertificate").value;   
-    const private = document.getElementById("private").value;   
-    try{
-        const response = await fetch(awsSettings,{
-            method:"PUT",
-           
-            body:JSON.stringify({client,certicate,private})
+    const certicate = document.getElementById("clientCertificate").value;
+    const private = document.getElementById("private").value;
+    try {
+        const response = await fetch(awsSettings, {
+            method: "PUT",
+
+            body: JSON.stringify({ client, certicate, private })
         });
 
         const data = await response.json();
-        if(!response.ok){
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
-        }else{
+        if (!response.ok) {
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
+        } else {
             alert("✅ " + data.message);
         }
-    }catch(error){
+    } catch (error) {
         alert("❌ " + error.message);
     }
 

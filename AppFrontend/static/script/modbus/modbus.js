@@ -51,8 +51,8 @@ function loadContentModbus(option) {
  */
 
 function loadDevices(page) {
-    const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`; 
-    fetch(fullUrl)  
+    const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`;
+    fetch(fullUrl)
         .then(response => {
             if (!response.ok) {
                 alert(`Error: ${response.statusText}`);
@@ -120,7 +120,7 @@ async function loadFormDataSettingModbus() {
  */
 function handleSelectChange(event) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
-    const selectedValue = modbusMapFolderSelect.value;  
+    const selectedValue = modbusMapFolderSelect.value;
     fetch(mapFolder, {
         method: "POST",
         headers: {
@@ -132,7 +132,7 @@ function handleSelectChange(event) {
     })
         .then(response => response.json())
         .then(data => {
-          
+
             const modbusMapList = data.data;
 
             const modbusMapFolderSelect = document.getElementById("modbus_map_json");
@@ -335,7 +335,7 @@ async function updateSettingModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message); // Muestra éxito si las contraseñas coinciden
@@ -391,7 +391,7 @@ async function updateMeasureModbus() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -448,7 +448,7 @@ async function loadFormDataModes() {
         // // Llenar los campos de sampling
         // document.getElementById("sampling_limitation").value = data.sampling_limitation;
         // document.getElementById("sampling_compensation").value = data.sampling_compensation;
-        
+
     } catch (error) {
         console.error("Error:", error);
     }
@@ -490,16 +490,17 @@ async function updateDataModes() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ mode
+            body: JSON.stringify({
+                mode
                 // ,limitation, compensation, sampling_limitation, sampling_compensation
-                 })
+            })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -568,7 +569,7 @@ async function addDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -635,8 +636,8 @@ async function addDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            
-            alert("❌ Error en la validación de los datos: "+data.message);
+
+            alert("❌ Error en la validación de los datos: " + data.message);
         } else {
             alert("✅ " + data.message);
             await loadDevices('seeDevices');
@@ -938,12 +939,12 @@ async function readDeviceRtu() {
         const modbus_function = document.getElementById("modbus_function_rtu").value;
         const initial_address = document.getElementById("initial_address_rtu").value;
         const total_registers = document.getElementById("total_registers_rtu").value;
-        
+
         const response = await fetch(logRtu, {
             method: "PUT",
-          
+
             body: JSON.stringify({
-                typeComunication,portDevice,baudrate,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
+                typeComunication, portDevice, baudrate, attempts, timeout, idSlave, modbus_function, initial_address, total_registers
             })
         });
 
@@ -954,7 +955,7 @@ async function readDeviceRtu() {
         } else {
             alert("✅ " + data.message);
             getLogSingleDevice();
-            
+
         }
 
     } catch (error) {
@@ -976,13 +977,13 @@ async function readDeviceTcp() {
         const modbus_function = document.getElementById("modbus_function_tcp").value;
         const initial_address = document.getElementById("initial_address_tcp").value;
         const total_registers = document.getElementById("total_registers_tcp").value;
-        
+
         const response = await fetch(logTcp, {
             method: "PUT",
-           
-            
+
+
             body: JSON.stringify({
-                typeComunication,host,port,attempts,timeout,idSlave,modbus_function,initial_address,total_registers
+                typeComunication, host, port, attempts, timeout, idSlave, modbus_function, initial_address, total_registers
             })
         });
 
@@ -992,7 +993,7 @@ async function readDeviceTcp() {
             alert("❌ Error en la lectura de dispositivo Tcp: " + data.message);
         } else {
             alert("✅ " + data.message);
-            getLogSingleDevice();   
+            getLogSingleDevice();
         }
 
     } catch (error) {

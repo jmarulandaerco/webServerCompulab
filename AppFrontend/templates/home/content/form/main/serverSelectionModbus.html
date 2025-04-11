@@ -6,7 +6,7 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="Server">Tipo servicio</label>
-            <select id="server" name="Server" onchange="toggleFields()" >
+            <select id="server" name="Server" onchange="toggleFields()">
                 <option value="telemetry">Telemetry</option>
                 <!-- <option value="neu_plus">Neu Plus</option>
                 <option value="all_services">All Services</option> -->
@@ -15,26 +15,25 @@
 
         <div class="form-group">
             <label for="neu_plus">Id dispositivo neu plus</label>
-            <input type="text" id="neu_plus" name="neu_plus" >
+            <input type="text" id="neu_plus" name="neu_plus">
         </div>
 
         <div class="form-group">
             <label for="telemetry">Id identidad telemetry</label>
-            <input type="text" id="telemetry" name="telemetry" >
+            <input type="text" id="telemetry" name="telemetry">
         </div>
 
         <div class="form-group">
             <label for="mqtt">Muestreo mqtt (Segundos)</label>
-            <input type="text" id="mqtt" name="mqtt" >
+            <input type="text" id="mqtt" name="mqtt">
         </div>
 
         <div class="form-group">
             <label for="storage">Almacenamiento muestras plus (Segundos)</label>
-            <input type="text" id="storage" name="storage" >
+            <input type="text" id="storage" name="storage">
         </div>
 
-        <button class="buttonClass" type="button" onclick="updateServerSelection()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="updateServerSelection()">Guardar</button>
     </form>
 </div>
-
-

@@ -68,13 +68,13 @@ async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
         if (!response.ok) {
-            alert("❌" + " "+response.message);
+            alert("❌" + " " + response.message);
         }
         const data = await response.json();
 
-        document.getElementById("kindCompensation").value =data.kind;
+        document.getElementById("kindCompensation").value = data.kind;
         document.getElementById("meter_ids").value = data.meter_ids;
-        document.getElementById("device_id").value=data.device
+        document.getElementById("device_id").value = data.device
         document.getElementById("high").value = data.high;
         document.getElementById("low").value = data.low;
         document.getElementById("hightBand").value = data.band_high;
@@ -137,7 +137,7 @@ async function updateInformationLimitation() {
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -175,19 +175,19 @@ async function updateInformationCompensation() {
 
     const kind = document.getElementById("kindCompensation").value;
     const meter_ids = document.getElementById("meter_ids").value;
-    const device=document.getElementById("device_id").value;
+    const device = document.getElementById("device_id").value;
     const high = document.getElementById("high").value;
     const low = document.getElementById("low").value;
-    const band_hight=document.getElementById("hightBand").value;
-    const band_low=document.getElementById("lowBand").value;
+    const band_hight = document.getElementById("hightBand").value;
+    const band_low = document.getElementById("lowBand").value;
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
     const time = document.getElementById("time").value;
     const factor = document.getElementById("factor").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    
-    
-  
+
+
+
 
 
     try {
@@ -197,14 +197,14 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({kind,meter_ids,device,high,low,band_hight,band_low,reactive,active,time,factor })
+            body: JSON.stringify({ kind, meter_ids, device, high, low, band_hight, band_low, reactive, active, time, factor })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
 
-            alert("❌ " + "Error en la validación de los datos: "+data.message);
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);

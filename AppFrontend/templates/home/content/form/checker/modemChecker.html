@@ -4,7 +4,6 @@
 
     <form id="myForm" method="post">
         {% csrf_token %}
-        
 
         <div class="form-group">
             <label for="connection">Nombre conexión</label>
@@ -15,8 +14,7 @@
             <label for="attemts">Número de intentos conexión</label>
             <input type="text" id="attemts" name="attemts" required>
         </div>
-        <button class="buttonClass" type="button" onclick="updateModemChecker()">Guardar</button>
+        <button class="buttonClass" type="button"
+            onclick="updateModemChecker()">Guardar</button>
     </form>
 </div>
-
-
