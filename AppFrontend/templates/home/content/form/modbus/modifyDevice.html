@@ -2,11 +2,12 @@
 
 <div class="form-container">
 
-    <form id="deviceForm"  style="display: flex;align-content: center;">
+    <form id="deviceForm" >
         {% csrf_token %}
 
         <h3>Seleccionar el dispositivo a modificar</h3>
-        <div id="deviceList" style="display: flex;align-content: center;" >
+        <div id="deviceList" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+
             {% for device in listDevices %}
             <button type="button" class="device-button"
                 onclick="ModifyOption('{{ device }}')">
