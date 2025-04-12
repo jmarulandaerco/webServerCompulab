@@ -19,6 +19,19 @@ button{
     max-height: 200px;
     padding: 0px;
     border-radius: 8px;
+    max-height: 30px !important;
+    overflow-y: auto !important;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    overflow-y: visible !important;
+}
+
+.form-container-device{
+    max-width: 600px;
+    margin: auto;
+    background: transparent;
+    max-height: 200px;
+    padding: 0px;
+    border-radius: 8px;
     max-height: 200px !important;
     overflow-y: auto !important;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
