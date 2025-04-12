@@ -118,45 +118,45 @@ async function loadFormDataSettingModbus() {
  * @example
  * handleSelectChange(event);
  */
-function handleSelectChange(event) {
+function handleSelectChange(event, preselectValue = null) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;
+    
     fetch(mapFolder, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ selectedValue })
-
     })
-        .then(response => response.json())
-        .then(data => {
+    .then(response => response.json())
+    .then(data => {
+        const modbusMapList = data.data;
+        const modbusMapJsonSelect = document.getElementById("modbus_map_json");
 
-            const modbusMapList = data.data;
+        modbusMapJsonSelect.innerHTML = "";
 
-            const modbusMapFolderSelect = document.getElementById("modbus_map_json");
-
-            modbusMapFolderSelect.innerHTML = "";
-
-            modbusMapList.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;
-                optionElement.textContent = option;
-                modbusMapFolderSelect.appendChild(optionElement);
-            });
-
-            if (modbusMapList.length > 0) {
-                modbusMapFolderSelect.value = modbusMapList[0];
-
-                modbusMapFolderSelect.dispatchEvent(new Event("change"));
-            }
-
-
-        }).catch(error => {
-            document.getElementById("content3").innerHTML = "<h1>Error cargando el contenido</h1>";
+        modbusMapList.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.textContent = option;
+            modbusMapJsonSelect.appendChild(optionElement);
         });
+
+        // Aquí seleccionas el valor recibido si existe
+        if (preselectValue && modbusMapList.includes(preselectValue)) {
+            modbusMapJsonSelect.value = preselectValue;
+        } else if (modbusMapList.length > 0) {
+            modbusMapJsonSelect.value = modbusMapList[0];
+        }
+
+        modbusMapJsonSelect.dispatchEvent(new Event("change"));
+    })
+    .catch(error => {
+        document.getElementById("content3").innerHTML = "<h1>Error cargando el contenido</h1>";
+    });
 }
+
+
+
 
 
 /**
@@ -178,7 +178,7 @@ function handleSelectChange(event) {
  * loadAddDevicesUpdateDevice("device1");
  */
 
-function loadAddDevicesUpdateDevice(selectedDevice) {
+function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
     fetch(mapFolder)
         .then(response => {
             if (!response.ok) {
@@ -207,12 +207,13 @@ function loadAddDevicesUpdateDevice(selectedDevice) {
                 alert("❌ No hay dispositivos disponibles para la selección");
             }
 
-            modbusMapFolderSelect.dispatchEvent(new Event("change"));
+            handleSelectChange(null, rtu);
         })
         .catch(error => {
-            // console.error("Error al cargar dispositivos", error);
+            // console.error("Error al cargar dispositivos",modbus_map_json error);
         });
 }
+
 
 
 /**
@@ -742,7 +743,7 @@ async function ModifyOption(device) {
             }
             const dataRtu = await responseDevice.json();
             console.log(dataRtu.modbus_map_folder_rtu);
-            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu);
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu, dataRtu.modbus_mode_rtu);
 
             document.getElementById("nameRtu").value = dataRtu.nameRtu;
             document.getElementById("portRtu").value = dataRtu.portRtu;
@@ -767,24 +768,24 @@ async function ModifyOption(device) {
             if (!responseDevice.ok) {
                 alert(" ❌  Error en la carga de los datos del dispositivo TCP");
             }
-            const dataRtu = await responseDevice.json();
-            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
+            const dataTcp = await responseDevice.json();
+            loadAddDevicesUpdateDevice(dataTcp.modbus_map_folder_tcp,dataTcp.modbus_map_json_tcp)
 
-            document.getElementById("nameTcp").value = dataRtu.nameTcp;
-            document.getElementById("ip_device_tcp").value = dataRtu.ip_device_tcp;
-            document.getElementById("port_device_tcp").value = dataRtu.port_device_tcp;
-            document.getElementById("offset_tcp").value = dataRtu.offset_tcp;
-            document.getElementById("initial_tcp").value = dataRtu.initial_tcp;
-            document.getElementById("end_tcp").value = dataRtu.end_tcp;
-            document.getElementById("modbus_function_tcp").value = dataRtu.modbus_function_tcp;
-            document.getElementById("initial_address_tcp").value = dataRtu.initial_address_tcp;
-            document.getElementById("total_registers_tcp").value = dataRtu.total_registers_tcp;
-            document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_tcp;
-            document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
-            document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
-            document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
-            document.getElementById("save_db_tcp").value = dataRtu.save_db_tcp;
-            document.getElementById("server_send_tcp").value = dataRtu.server_send_tcp;
+            document.getElementById("nameTcp").value = dataTcp.nameTcp;
+            document.getElementById("ip_device_tcp").value = dataTcp.ip_device_tcp;
+            document.getElementById("port_device_tcp").value = dataTcp.port_device_tcp;
+            document.getElementById("offset_tcp").value = dataTcp.offset_tcp;
+            document.getElementById("initial_tcp").value = dataTcp.initial_tcp;
+            document.getElementById("end_tcp").value = dataTcp.end_tcp;
+            document.getElementById("modbus_function_tcp").value = dataTcp.modbus_function_tcp;
+            document.getElementById("initial_address_tcp").value = dataTcp.initial_address_tcp;
+            document.getElementById("total_registers_tcp").value = dataTcp.total_registers_tcp;
+            document.getElementById("modbus_map_folder").value = dataTcp.modbus_map_folder_tcp;
+            document.getElementById("modbus_map_json").value = dataTcp.modbus_map_json_tcp;
+            document.getElementById("modbus_mod_tcp").value = dataTcp.modbus_mod_tcp;
+            document.getElementById("device_type_tcp").value = dataTcp.device_type_tcp;
+            document.getElementById("save_db_tcp").value = dataTcp.save_db_tcp;
+            document.getElementById("server_send_tcp").value = dataTcp.server_send_tcp;
 
 
         }
