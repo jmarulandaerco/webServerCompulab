@@ -279,16 +279,7 @@ class Menu:
             self.logger.error(f"❌ Error creating user '{username}': {e}")
             
             
-    def ensure_user_collection(self):
-        client = MongoClient('mongodb://localhost:27017')
-        db = client['device_local_database']
-
-        if 'authApp_user' not in db.list_collection_names():
-            print("Funciono")
-            self.logger.info("Colección 'authApp_user' no existe. Ejecutando migraciones...")
-            call_command('migrate', interactive=False)
-        else:
-            self.logger.info("La colección 'authApp_user' ya existe.")
+ 
     def setup_folder_path(self):
         try:
             folders_devices = []
