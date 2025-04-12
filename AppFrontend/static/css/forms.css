@@ -25,6 +25,15 @@ button{
     overflow-y: visible !important;
 }
 
+.input_checkbox_one_choce{
+    width: 50%;
+    padding: 8px;
+    margin-top: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: 'Sora Light';
+  }
 .form-container-device{
     max-width: 500px;
     margin: auto;
@@ -143,7 +152,7 @@ input {
 }
 
 .checkbox-item input {
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .button-group {
