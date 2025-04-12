@@ -22,8 +22,8 @@ django.setup()
 from utils.menu import Menu
 call_command('migrate', interactive=False)
 
-menu = Menu()
-menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
-menu.create_user_if_not_exists("erco_config", "3rc04dm1n#t0")
+# menu = Menu()
+# menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
+# menu.create_user_if_not_exists("erco_config", "3rc04dm1n#t0")
 
 application = get_wsgi_application()

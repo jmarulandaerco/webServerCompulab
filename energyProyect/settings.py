@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'authApp',
     'energyAPP',
     'AppFrontend',
+    'accounts',
 ]
 
 SIMPLE_JWT = { 
