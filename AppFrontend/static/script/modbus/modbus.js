@@ -20,6 +20,7 @@
  */
 
 function loadContentModbus(option) {
+    document.querySelector('.container_logs').style.display = 'none';
     fetch(`/home/content/form/modbus/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -51,6 +52,7 @@ function loadContentModbus(option) {
  */
 
 function loadDevices(page) {
+    document.querySelector('.container_logs').style.display = 'none';
     const fullUrl = `/api/modbus/devices/?device=${encodeURIComponent(page)}`;
     fetch(fullUrl)
         .then(response => {
