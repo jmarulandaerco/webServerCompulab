@@ -48,6 +48,6 @@ class DeleteLog(APIView):
     def delete(self,request):
         try:
             menu.delete_log()
-            return JsonResponse({"message":"Log borrados, recuerda parar e inciar el servicio para que se vuelva a crear el log de eventos "},status=200)
+            return JsonResponse({"message":"Log borrados, recuerda parar e iniciar el servicio para que se vuelva a crear el log de eventos "},status=200)
         except Exception as e:
             return JsonResponse({"message":"Error eliminando el log de eventos "}, status=400)
