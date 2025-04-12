@@ -789,6 +789,11 @@ async function ModifyOption(device) {
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
+    } finally{
+        console.log("ejkkj")
+        // loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
+        document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
+
     }
 }
 
