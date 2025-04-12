@@ -249,18 +249,14 @@ class Menu:
     def create_user_if_not_exists(self, username, password):
         try:
             user = User.objects.filter(username=username).first()
-            print("🔍 Buscando usuario:", username)
-            print("🔎 Resultado de la búsqueda:", user)
+         
 
             if user is not None:
-                print(f"⚠️ El usuario '{username}' ya existe. No se crea de nuevo.")
                 self.logger.info(f"⚠️ The user '{username}' already exists. Skipping creation.")
                 return
 
-            print(f"✅ El usuario '{username}' no existe. Se procede a crear.")
             User.objects.create_user(username=username, password=password)
             self.logger.info(f"✅ User '{username}' created successfully.")
-            print(f"🎉 Usuario '{username}' creado correctamente.")
 
         except Exception as e:
             print(f"❌ Error creando el usuario '{username}':", e)
