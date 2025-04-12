@@ -766,6 +766,8 @@ async function ModifyOption(device) {
                 alert(" ❌  Error en la carga de los datos del dispositivo TCP");
             }
             const dataRtu = await responseDevice.json();
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
+
             document.getElementById("nameTcp").value = dataRtu.nameTcp;
             document.getElementById("ip_device_tcp").value = dataRtu.ip_device_tcp;
             document.getElementById("port_device_tcp").value = dataRtu.port_device_tcp;
@@ -776,7 +778,6 @@ async function ModifyOption(device) {
             document.getElementById("initial_address_tcp").value = dataRtu.initial_address_tcp;
             document.getElementById("total_registers_tcp").value = dataRtu.total_registers_tcp;
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_tcp;
-            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
             document.getElementById("modbus_mod_tcp").value = dataRtu.modbus_mod_tcp;
             document.getElementById("device_type_tcp").value = dataRtu.device_type_tcp;
@@ -789,12 +790,7 @@ async function ModifyOption(device) {
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-    } finally{
-        console.log("ejkkj")
-        // loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_tcp)
-        document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_tcp;
-
-    }
+    } 
 }
 
 
