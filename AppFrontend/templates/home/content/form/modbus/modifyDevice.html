@@ -5,7 +5,7 @@
     <form id="deviceForm" >
         {% csrf_token %}
 
-        <h3>Seleccionar el dispositivo a modificar</h3>
+        <div style="align-content: center;"><h3>Seleccionar el dispositivo a modificar</h3></div>
         <div id="deviceList" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
 
             {% for device in listDevices %}

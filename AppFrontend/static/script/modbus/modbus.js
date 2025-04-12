@@ -142,8 +142,7 @@ function handleSelectChange(event, preselectValue=null) {
         });
 
         // Aquí seleccionas el valor recibido si existe
-        console.log("Hola")
-        console.log(preselectValue)
+       
         if (preselectValue && modbusMapList.includes(preselectValue)) {
             console.log("Se hizo algo")
             modbusMapJsonSelect.value = preselectValue;

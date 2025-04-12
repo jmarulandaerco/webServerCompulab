@@ -19,10 +19,10 @@ button{
     max-height: 200px;
     padding: 0px;
     border-radius: 8px;
-    max-height: 30px !important;
+    max-height: 200px !important;
     overflow-y: auto !important;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    overflow-y: visible !important;
+    overflow-y: auto !important;
 }
 option {
     font-size: 10px;  /* Ajustamos el tamaño del texto */
