@@ -247,12 +247,19 @@ class Menu:
             return "Error añadiendo la red wi-fi"
 
     def create_user_if_not_exists(self, username, password):
-        if not User.objects.filter(username=username).exists():
-            user = User.objects.create_user(
-                username=username, password=password)
-            self.logger.info(f"✅ User '{username}' creater correct.")
-        else:
-            self.logger.info(f"⚠️ The user '{username}' already exist.")
+        try:
+            user = User.objects.filter(username=username).first()
+            print("HOLA")
+            print(user)
+            if user:
+                self.logger.info(f"⚠️ The user '{username}' already exists. Skipping creation.")
+                return  # No hace nada si ya existe
+
+            User.objects.create_user(username=username, password=password)
+            self.logger.info(f"✅ User '{username}' created successfully.")
+
+        except Exception as e:
+            self.logger.error(f"❌ Error creating user '{username}': {e}")
 
     def setup_folder_path(self):
         try:
