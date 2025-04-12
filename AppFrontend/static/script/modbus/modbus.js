@@ -751,6 +751,8 @@ async function ModifyOption(device) {
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
             loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu)
+            console.log("Cosas")
+            console.log(dataRtu.modbus_map_json_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
             document.getElementById("modbus_mode_rtu").value = dataRtu.modbus_mode_rtu;
             document.getElementById("device_type_rtu").value = dataRtu.device_type_rtu;
@@ -891,7 +893,6 @@ async function updateDeviceRtu() {
         const total_registers = document.getElementById("total_registers_rtu").value;
         const modbus_map_folder = document.getElementById("modbus_map_folder").value;
         const modbus_map_json = document.getElementById("modbus_map_json").value;
-        console.log(modbus_map_json);
         const modbus_mode = document.getElementById("modbus_mode_rtu").value;
         const device_type = document.getElementById("device_type_rtu").value;
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
