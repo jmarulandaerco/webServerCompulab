@@ -891,6 +891,7 @@ async function updateDeviceRtu() {
         const total_registers = document.getElementById("total_registers_rtu").value;
         const modbus_map_folder = document.getElementById("modbus_map_folder").value;
         const modbus_map_json = document.getElementById("modbus_map_json").value;
+        console.log(modbus_map_json);
         const modbus_mode = document.getElementById("modbus_mode_rtu").value;
         const device_type = document.getElementById("device_type_rtu").value;
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
