@@ -180,6 +180,10 @@ function handleSelectChange(event, preselectValue = null) {
  * loadAddDevicesUpdateDevice("device1");
  */
 
+function locura(rtu){
+    document.getElementById("modbus_map_json").value = rtu;
+
+}
 function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
     fetch(mapFolder)
         .then(response => {
@@ -208,8 +212,9 @@ function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
             } else {
                 alert("❌ No hay dispositivos disponibles para la selección");
             }
-
-            handleSelectChange(null, rtu);
+            
+            console.log("Holi")
+            locura(rtu);
         })
         .catch(error => {
             // console.error("Error al cargar dispositivos",modbus_map_json error);
