@@ -741,6 +741,9 @@ async function ModifyOption(device) {
                 alert(" ❌ Error cuando se carga los datos del dispositivo rtu");
             }
             const dataRtu = await responseDevice.json();
+            console.log(dataRtu.modbus_map_folder_rtu);
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu);
+
             document.getElementById("nameRtu").value = dataRtu.nameRtu;
             document.getElementById("portRtu").value = dataRtu.portRtu;
             document.getElementById("baudrateRtu").value = dataRtu.baudrateRtu;
@@ -750,7 +753,6 @@ async function ModifyOption(device) {
             document.getElementById("initial_address_rtu").value = dataRtu.initial_address_rtu;
             document.getElementById("total_registers_rtu").value = dataRtu.total_registers_rtu;
             document.getElementById("modbus_map_folder").value = dataRtu.modbus_map_folder_rtu;
-            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu)
             console.log("Cosas")
             console.log(dataRtu.modbus_map_json_rtu)
             document.getElementById("modbus_map_json").value = dataRtu.modbus_map_json_rtu;
