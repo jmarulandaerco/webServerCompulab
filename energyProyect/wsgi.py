@@ -8,15 +8,20 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 """
 
 import os
+import django
 
 from django.core.wsgi import get_wsgi_application
 
-from utils.menu import Menu
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'energyProyect.settings')
 
-application = get_wsgi_application()
+# Asegura que Django esté completamente configurado antes de usar modelos o utilidades
+django.setup()
+
+# Ahora se puede acceder con seguridad a cualquier lógica que dependa de Django
+from utils.menu import Menu
 
 menu = Menu()
 menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
 menu.create_user_if_not_exists("erco_config", "3rc04dm1n#t0")
+
+application = get_wsgi_application()
