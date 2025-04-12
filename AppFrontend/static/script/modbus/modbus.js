@@ -118,7 +118,7 @@ async function loadFormDataSettingModbus() {
  * @example
  * handleSelectChange(event);
  */
-function handleSelectChange( preselectValue) {
+function handleSelectChange(event, preselectValue=null) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;
     
@@ -215,7 +215,7 @@ function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
             }
             
             console.log("Holi")
-            handleSelectChange(rtu);
+            handleSelectChange(null,rtu);
         })
         .catch(error => {
             // console.error("Error al cargar dispositivos",modbus_map_json error);
