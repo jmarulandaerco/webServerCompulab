@@ -34,7 +34,7 @@ class DeleteCollectionView(APIView):
             User.objects.create_user(username="erco_to", password=passkey)
             User.objects.create_user(username="erco_config", password=passkey)
 
-            return JsonResponse({"status": "success", "message": "Todas las colecciones fueron borradas"}, status=status.HTTP_200_OK)
+            return JsonResponse({"status": "success", "message": "Todos los registros fueron borrados"}, status=status.HTTP_200_OK)
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 

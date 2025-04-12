@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="offset">Ingresar OFFSET si lee de un
                             PLC</label>
-                        <input type="text" id="offset" name="offset" value="100"
+                        <input type="text" id="offset" name="offset" value="0"
                             required>
                     </div>
 
@@ -97,7 +97,7 @@
                         <label for="device_type">Seleccionar el modo
                             Modbus</label>
                         <select id="modbus_mode" name="modbus_mode" required>
-                            <option value="ModbusMode.READ">Lectura</option>
+                            <option value="ModbusMode.READ" selected>Lectura</option>
                             <option value="ModbusMode.WRITE">Escritura</option>
                         </select>
                     </div>
@@ -132,7 +132,7 @@
                         <label for="save_db">Guardar en la base de datos
                             local</label>
                         <select id="save_db" name="save_db" required>
-                            <option value="True">Si</option>
+                            <option value="True" selected>Si</option>
                             <option value="False">No</option>
                         </select>
                     </div>
@@ -141,7 +141,7 @@
                         <label for="server_send">Enviar a ENRG</label>
                         <select id="server_send" name="server_send" required>
                             <option value="True">Si</option>
-                            <option value="False">No</option>
+                            <option value="False" selected>No</option>
                         </select>
                     </div>
                 </div>

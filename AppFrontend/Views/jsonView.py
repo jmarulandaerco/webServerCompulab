@@ -26,7 +26,7 @@ class ListColections(APIView):
 
             data = {}
             for collection in collections:
-                if collection != 'authApp_user':
+                if collection != 'authApp_user' and collection != 'auth_group' and collection != 'auth_group_permissions' and collection != 'auth_permission' and collection != 'django_admin_log' and collection != 'django_content_type' and collection != 'django_migrations' and collection !='django_session':
                     collection_ref = db.cursor().db_conn[collection]
                     data[collection] = list(collection_ref.find({}, {"_id": 0}))
             json_data = json.dumps({"collections": data}, indent=4, default=str)

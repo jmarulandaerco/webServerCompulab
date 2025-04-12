@@ -41,7 +41,7 @@ class CheckPassword(View):
                 
                 return JsonResponse({"message": f"La contraseña ingresada no es valida"}, status=400)
 
-            return JsonResponse({"message": "Contraseñas iguales"}, status=200)
+            return JsonResponse({"message": "Contraseñas Correcta"}, status=200)
 
         except json.JSONDecodeError:
             return JsonResponse({"message": "Formato Json invalido"}, status=400)

@@ -21,7 +21,7 @@
                         <select id="port" name="port" required>
                             <option value="/dev/ttymxc0">Puerto serial
                                 0</option>
-                            <option value="/dev/ttymxc1">Puerto serial
+                            <option value="/dev/ttymxc1" selected>Puerto serial
                                 1</option>
                         </select>
                     </div>
@@ -31,7 +31,7 @@
                             transmisión</label>
                         <select id="baudrate" name="baudrate" required>
                             <option value="4800">4800 bps</option>
-                            <option value="9600">9600 bps</option>
+                            <option value="9600" selected>9600 bps</option>
                             <option value="19200">19200 bps</option>
                         </select>
                     </div>
@@ -53,7 +53,7 @@
                             modbus</label>
                         <select id="modbus_function" name="modbus_function"
                             required>
-                            <option value="3">Holding register (3)</option>
+                            <option value="3" selected>Holding register (3)</option>
                             <option value="4">Input register (4)</option>
                             <option value="6">Write register (6)</option>
                             <option value="10">Write multiple registers
@@ -99,7 +99,7 @@
                     <div class="form-group">
                         <label for="modbus_mode">Seleccionar modo Modbus</label>
                         <select id="modbus_mode" name="modbus_mode" required>
-                            <option value="ModbusMode.READ">Lectura</option>
+                            <option value="ModbusMode.READ" selected>Lectura</option>
                             <option value="ModbusMode.WRITE">Escritura</option>
                         </select>
                     </div>
@@ -133,7 +133,7 @@
                         <label for="save_db">Guardar en base de datos
                             local</label>
                         <select id="save_db" name="save_db" required>
-                            <option value="True">Si</option>
+                            <option value="True" selected>Si</option>
                             <option value="False">No</option>
                         </select>
                     </div>
@@ -142,7 +142,7 @@
                         <label for="server_send">Enviar a ENRG</label>
                         <select id="server_send" name="server_send" required>
                             <option value="True">Si</option>
-                            <option value="False">No</option>
+                            <option value="False" selected>No</option>
                         </select>
                     </div>
                 </div>
