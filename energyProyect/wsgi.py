@@ -20,7 +20,7 @@ django.setup()
 
 # Ahora se puede acceder con seguridad a cualquier lógica que dependa de Django
 # from utils.menu import Menu
-call_command('migrate', interactive=False)
+# call_command('migrate', interactive=False)
 
 # menu = Menu()
 # menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
