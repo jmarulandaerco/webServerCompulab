@@ -253,8 +253,9 @@ class Menu:
             print(user)
             if user == "erco_to" or user =="erco_config":
                 self.logger.info(f"⚠️ The user '{username}' already exists. Skipping creation.")
+                print("Aca")
                 return  # No hace nada si ya existe
-
+            print("No es aca")
             User.objects.create_user(username=username, password=password)
             self.logger.info(f"✅ User '{username}' created successfully.")
 
