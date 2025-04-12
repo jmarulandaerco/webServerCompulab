@@ -181,10 +181,7 @@ function handleSelectChange(event, preselectValue=null) {
  * loadAddDevicesUpdateDevice("device1");
  */
 
-function locura(rtu){
-    document.getElementById("modbus_map_json").value = rtu;
 
-}
 function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
     fetch(mapFolder)
         .then(response => {
