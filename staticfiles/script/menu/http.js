@@ -26,7 +26,7 @@ async function updateModemChecker() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 async function updateModemSignal() {
@@ -58,7 +58,7 @@ async function updateModemSignal() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };
 async function updateModemServer() {
@@ -89,6 +89,6 @@ async function updateModemServer() {
 
     } catch (error) {
         alert("❌ " + error.message); 
-        console.error("Error:", error);
+        // console.error("Error:", error);
     }
 };

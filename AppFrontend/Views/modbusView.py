@@ -154,8 +154,7 @@ class FormModbusGetDevicesView(APIView):
             
             
             url =data.get("selectedValue")
-            print("hola")
-            print(url)
+      
             path_modbus = "/usr/share/enrg/utilitymanager/modbusmaps"+"/"+url
 
             

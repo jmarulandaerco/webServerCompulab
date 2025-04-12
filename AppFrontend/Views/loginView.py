@@ -5,6 +5,7 @@ from utils.menu import Menu
 
 class IndexView(TemplateView):
     menu = Menu()
+    menu.ensure_user_collection()
     menu.create_user_if_not_exists("erco_to", "erco.123")
     menu.create_user_if_not_exists("erco_config", "erco.1233")
     template_name = 'authApp/index.html'

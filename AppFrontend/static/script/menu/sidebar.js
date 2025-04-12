@@ -81,7 +81,9 @@ function rebootErcoPulse() {
             .then(data => {
                 alert(data.message);
             })
-            .catch(error => console.error("Error:", error)).finally(() => {
+            .catch(error => {
+                
+            }).finally(() => {
                 boton.disabled = false;
 
             });

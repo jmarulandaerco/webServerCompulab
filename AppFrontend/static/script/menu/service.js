@@ -32,7 +32,9 @@ function checkServiceStatus() {
                 statusText.innerText = 'Inactivo';
             }
         })
-        .catch(error => console.error('Error en la obtención del estado:', error));
+        .catch(error =>{
+            
+        });
 
 }
 
@@ -79,7 +81,9 @@ function startService() {
 
 
             })
-            .catch(error => console.error("Error:", error))
+            .catch(error => {
+                
+            })
             .finally(() => {
                 boton.disabled = false
             });
@@ -129,7 +133,9 @@ function stopService() {
                 }, 2000);
 
             })
-            .catch(error => console.error("Error:", error)).finally(() => {
+            .catch(error => {
+                
+            }).finally(() => {
                 boton.disabled = false;
 
             });

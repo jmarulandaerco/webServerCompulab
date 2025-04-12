@@ -11,53 +11,70 @@ from django.conf import settings
 from utils.logger import LoggerHandler
 from utils.modem_gsm_driver import SimModem
 import re
-
+from pymongo import MongoClient
+from django.core.management import call_command
 
 @dataclass
 class Menu:
     """
-    Provides functionalities to manage system services, user authentication, 
-    modem information, Wi-Fi configuration, and file management.
+    Clase Menu
 
-    Attributes:
-        modem (SimModem): An instance of SimModem used to manage modem operations.
+    Proporciona una interfaz para la administración del sistema, incluyendo servicios del sistema,
+    usuarios, configuración de red, información del módem, manipulación de archivos de registro,
+    y gestión de carpetas para dispositivos.
 
-    Methods:
+    Atributos:
+        modem (SimModem): Instancia del módem utilizada para obtener información del dispositivo.
+        logger (logging.Logger): Instancia del logger personalizada para registrar eventos y errores.
+
+    Métodos:
         check_service_status() -> bool:
-            Checks if the 'FW_main.service' systemd service is active.
+            Verifica si el servicio 'enrg-utilitymanager.service' está activo.
 
         execute_command(command: str):
-            Executes a command in a separate thread with a timeout of 30 seconds.
+            Ejecuta un comando en un hilo separado con control de errores.
 
         start_service() -> bool:
-            Starts or restarts the 'FW_main.service' systemd service.
+            Inicia o reinicia el servicio 'enrg-utilitymanager.service'.
 
         change_user_password(new_password: str) -> bool:
-            Changes the password of the user 'erco_config'.
+            Cambia la contraseña del usuario 'erco_config'.
 
         delete_log() -> bool:
-            Deletes the system log file located at '/FW/log.log'.
+            Elimina el archivo de log principal del sistema.
 
         stop_service() -> bool:
-            Stops the 'FW_main.service' systemd service.
+            Detiene el servicio 'enrg-utilitymanager.service'.
 
-        reboot():
-            Reboots the system.
+        reboot() -> bool:
+            Reinicia el sistema operativo.
 
         view_modem_info() -> str:
-            Retrieves and returns modem, SIM, and network signal information.
+            Recupera y muestra información del módem, la SIM y la calidad de la señal.
 
         toggle_wifi() -> str:
-            Toggles the Wi-Fi antenna state between on and off.
+            Activa o desactiva la antena Wi-Fi.
 
         add_wifi(ssid: str, password: str, connection_name: str) -> str:
-            Connects to a Wi-Fi network with the given SSID and password.
+            Se conecta a una red Wi-Fi especificada.
 
         create_user_if_not_exists(username: str, password: str):
-            Creates a new user if it does not already exist in the database.
+            Crea un usuario si no existe ya en la base de datos.
+
+        ensure_user_collection():
+            Verifica la existencia de la colección de usuarios en MongoDB y ejecuta migraciones si no existe.
 
         setup_folder_path() -> List[List[str]]:
-            Retrieves available Modbus device folders and returns them as choices.
+            Devuelve las carpetas de dispositivos disponibles como opciones.
+
+        clear_log_single_device():
+            Limpia el contenido del log de lectura del dispositivo Modbus.
+
+        get_ip_interface(interface: str) -> str:
+            Obtiene la dirección IP asociada a una interfaz de red.
+
+        get_gateway_interface(interface: str) -> str:
+            Obtiene la puerta de enlace asociada a una interfaz de red.
     """
     modem: SimModem = field(init=False)
     logger: logging.Logger = field(init=False)
@@ -259,8 +276,19 @@ class Menu:
             self.logger.info(f"✅ User '{username}' created successfully.")
 
         except Exception as e:
-            print(f"❌ Error creando el usuario '{username}':", e)
             self.logger.error(f"❌ Error creating user '{username}': {e}")
+            
+            
+    def ensure_user_collection(self):
+        client = MongoClient('mongodb://localhost:27017')
+        db = client['device_local_database']
+
+        if 'authApp_user' not in db.list_collection_names():
+            print("Funciono")
+            self.logger.info("Colección 'authApp_user' no existe. Ejecutando migraciones...")
+            call_command('migrate', interactive=False)
+        else:
+            self.logger.info("La colección 'authApp_user' ya existe.")
     def setup_folder_path(self):
         try:
             folders_devices = []
