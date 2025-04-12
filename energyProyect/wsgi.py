@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 
 import os
 import django
+from django.core.management import call_command
 
 from django.core.wsgi import get_wsgi_application
 
@@ -19,6 +20,7 @@ django.setup()
 
 # Ahora se puede acceder con seguridad a cualquier lógica que dependa de Django
 from utils.menu import Menu
+call_command('migrate', interactive=False)
 
 menu = Menu()
 menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
