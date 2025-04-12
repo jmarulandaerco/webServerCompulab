@@ -19,7 +19,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'energyProyect.settings')
 django.setup()
 
 # Ahora se puede acceder con seguridad a cualquier lógica que dependa de Django
-from utils.menu import Menu
+# from utils.menu import Menu
 call_command('migrate', interactive=False)
 
 # menu = Menu()
