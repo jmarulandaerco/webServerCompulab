@@ -26,13 +26,13 @@ button{
 }
 
 .form-container-device{
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
     background: transparent;
     max-height: 200px;
     padding: 0px;
     border-radius: 8px;
-    max-height: 200px !important;
+    max-height: 400px !important;
     overflow-y: auto !important;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     overflow-y: auto !important;
