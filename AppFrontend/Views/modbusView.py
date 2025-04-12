@@ -154,6 +154,8 @@ class FormModbusGetDevicesView(APIView):
             
             
             url =data.get("selectedValue")
+            print("hola")
+            print(url)
             path_modbus = "/usr/share/enrg/utilitymanager/modbusmaps"+"/"+url
 
             
@@ -316,7 +318,6 @@ class FormModbusAddDeviceRtu(View):
             if not config.has_section(nombre_seccion):
                 return JsonResponse({"message": f"Error: El dispositivo '{nombre_seccion}' no existe"}, status=400)
 
-            print(f"/usr/share/enrg/utilitymanager/modbusmaps/{str(data.get('modbus_map_folder'))}/{str(data.get('modbus_map_json'))}")
             config.set(nombre_seccion, "serial_port", str(data.get("portDevice")))
             config.set(nombre_seccion, "baudrate", str(data.get("baudrate")))
             config.set(nombre_seccion, "slave_id_start", str(data.get("initial")))
