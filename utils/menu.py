@@ -251,7 +251,7 @@ class Menu:
             user = User.objects.filter(username=username).first()
             print("HOLA")
             print(user)
-            if user:
+            if user == "erco_to" or user =="erco_config":
                 self.logger.info(f"⚠️ The user '{username}' already exists. Skipping creation.")
                 return  # No hace nada si ya existe
 
