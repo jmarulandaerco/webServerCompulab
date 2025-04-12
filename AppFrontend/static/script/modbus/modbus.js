@@ -751,7 +751,7 @@ async function ModifyOption(device) {
             }
             const dataRtu = await responseDevice.json();
             console.log(dataRtu.modbus_map_folder_rtu);
-            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu, dataRtu.modbus_mode_rtu);
+            loadAddDevicesUpdateDevice(dataRtu.modbus_map_folder_rtu, dataRtu.modbus_map_json_rtu);
 
             document.getElementById("nameRtu").value = dataRtu.nameRtu;
             document.getElementById("portRtu").value = dataRtu.portRtu;
