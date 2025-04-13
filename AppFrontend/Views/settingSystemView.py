@@ -31,6 +31,7 @@ class InterfaceConnection(APIView):
                 return JsonResponse({"message": "Invalida dirrección Ip"}, status=400)
 
             # Construir comando de manera segura
+            print(connection_name)
             command = ["sudo", "nmcli", "con", "mod", connection_name, "ipv4.addresses", ip]
             if gateway:
                 command += ["ipv4.gateway", gateway]

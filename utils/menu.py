@@ -336,7 +336,6 @@ class Menu:
             )
             # Buscar línea que contiene "default via"
             match = re.search(r'default via (\d+\.\d+\.\d+\.\d+)', resultado)
-            print(match)
             if match:
                 return match.group(1)
             else:
