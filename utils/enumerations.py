@@ -34,7 +34,14 @@ class InternetInterfaceEnum(str, Enum):
 
 
 class ModemSignalQualityEnum(str, Enum):
+    """
+    Enumeration representing different types of modem signal quality.
 
+    This enum defines common network types and signal metrics used to describe
+    the quality of a modem's connection, including LTE, GSM, UMTS, UNKNOWN, and RSSI.
+
+    Each value is a string and returns its value when converted to string.
+    """
     LTE = "LTE"
     GSM = "GSM"
     UMTS = "UMTS"
