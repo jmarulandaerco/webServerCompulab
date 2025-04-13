@@ -20,6 +20,6 @@ class IndexView(TemplateView):
         - Creates the user 'erco_config' with password 'erco.1233' if not present.
     """
     menu = Menu()
-    menu.create_user_if_not_exists("erco_to", "erco.123")
-    menu.create_user_if_not_exists("erco_config", "erco.1233")
+    menu.create_user_if_not_exists("erco_to", "3rc04dm1n#t0")
+    menu.create_user_if_not_exists("erco_config", "3rc04dm1n#t0")
     template_name = 'authApp/index.html'
