@@ -37,7 +37,7 @@ class CheckPassword(View):
                 return JsonResponse({"message": "Las contraseñas no son iguales"}, status=400)
 
             passwordDatabase = DataBaseMenu()
-            if not passwordDatabase.check_password_erco_config(password):
+            if not passwordDatabase.check_password(password):
                 
                 return JsonResponse({"message": f"La contraseña ingresada no es valida"}, status=400)
 
