@@ -9,26 +9,22 @@
         <thead>
             <tr>
                 <th>Fecha </th>
-                <th>Id dispositivo</th>
                 <th>Tipo dispositivo</th>
-                <th>Irradiancia</th>
-                <th>Temperatura ambiental</th>
-                <th>Temperatura del panel</th>
+                <th>Tipo fallo uno</th>
+                <th>Tipo fallo dos</th>
+                <th>Tipo fallo tres</th>
                 <th>Enviado</th>
-                <th>Enviar al servidor</th>
             </tr>
         </thead>
         <tbody>
             {% for item in datos %}
             <tr>
                 <td>{{ item.DATE }}</td>
-                <td>{{ item.id_slave }}</td>
                 <td>{{ item.device_type }}</td>
-                <td>{{ item.IRRADIANCE }}</td>
-                <td>{{ item.TEMPERATURE_ENVIRONMENT }}</td>
-                <td>{{ item.TEMPERATURE_PANEL }}</td>
+                <td>{{ item.F1 }}</td>
+                <td>{{ item.F2 }}</td>
+                <td>{{ item.F3 }}</td>
                 <td>{{ item.sent }}</td>
-                <td>{{ item.send_server }}</td>
             </tr>
             {% endfor %}
         </tbody>
