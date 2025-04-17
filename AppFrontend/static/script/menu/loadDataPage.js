@@ -603,15 +603,16 @@ function loadDatabase(page) {
         })
         .then(html => {
             contentElement.innerHTML = html; // Actualiza el contenido de la página
-            // document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
 
 
-            // document.querySelectorAll("#sidebar a").forEach(a => {
-
-            //     if (a.getAttribute("onclick")?.includes(1)) {
-            //         a.classList.add("active");
-            //     }
-            // });
+            document.querySelectorAll("#sidebar a").forEach(a => {
+                if (a.textContent.trim() === "Ver datos") {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active"); // Quita el active de los demás
+                }
+            });
         })
         .catch(error => {
             // console.error("Error al cargar los datos:", error);
