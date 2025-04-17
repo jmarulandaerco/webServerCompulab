@@ -459,6 +459,18 @@ function loadContent(option) {
                 }
             }
 
+            if (option =="ViewDatabaseMenu"){
+                document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+
+
+                document.querySelectorAll("#sidebar a").forEach(a => {
+
+                    if (a.getAttribute("onclick")?.includes(1)) {
+                        a.classList.add("active");
+                    }
+                });
+            }
+
             document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
 
 
