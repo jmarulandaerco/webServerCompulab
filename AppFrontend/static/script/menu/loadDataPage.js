@@ -620,13 +620,81 @@ function loadDatabaseInverters(page) {
         });
 }
 
-
+/**
+ * Loads weather station data from the server and displays it in the main content area of the page.
+ *
+ * This function retrieves the number of items per page from a dropdown selector (default is 10 if not present),
+ * constructs the API URL with `page` and `per_page` parameters, performs a `fetch` request to the server,
+ * and dynamically updates the element with id `content` using the returned HTML.
+ * It also manages the visual highlighting of the "View Data" link in the sidebar.
+ *
+ * @param {number} page - The page number to be loaded.
+ *
+ * Behavior:
+ * - Displays a "Loading data..." message while fetching data.
+ * - If an error occurs during the request, an error message is shown in the content area.
+ * - Highlights the "View Data" link in the sidebar and removes highlighting from other links.
+ */
 
 function loadDatabaseWeatherStation(page) {
 
     const perPageSelect = document.getElementById('perPageSelect');
     const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
     const fullUrl = `/api/weather/status/?page=${page}&per_page=${perPage}`;
+
+    const contentElement = document.getElementById("content");
+
+    // Mostrar mensaje de carga mientras se hace la petición
+    contentElement.innerHTML = "<p>Cargando datos...</p>";
+
+    fetch(fullUrl)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            contentElement.innerHTML = html; // Actualiza el contenido de la página
+            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+
+
+            document.querySelectorAll("#sidebar a").forEach(a => {
+                if (a.textContent.trim() === "Ver datos") {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active"); // Quita el active de los demás
+                }
+            });
+        })
+        .catch(error => {
+            // console.error("Error al cargar los datos:", error);
+            contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
+        });
+}
+
+/**
+ * Loads power meter data from the server and displays it in the main content area of the page.
+ *
+ * This function retrieves the number of items per page from a dropdown selector (default is 10 if not present),
+ * constructs the API URL with `page` and `per_page` parameters, performs a `fetch` request to the power meter
+ * data endpoint, and dynamically updates the HTML content of the element with id `content`.
+ * It also manages the active state styling of the "View Data" link in the sidebar.
+ *
+ * @param {number} page - The page number to be loaded.
+ *
+ * Behavior:
+ * - Displays a "Loading data..." message while the request is in progress.
+ * - If an error occurs during the request, an error message is displayed in the content area.
+ * - Highlights the "View Data" link in the sidebar and removes highlighting from other links.
+ */
+
+
+function loadDatabasePowerMeter(page) {
+
+    const perPageSelect = document.getElementById('perPageSelect');
+    const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
+    const fullUrl = `/api/power/status/?page=${page}&per_page=${perPage}`;
 
     const contentElement = document.getElementById("content");
 

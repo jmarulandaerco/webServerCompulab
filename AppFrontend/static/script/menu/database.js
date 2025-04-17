@@ -179,13 +179,27 @@ function exportToExcelWeatherStation() {
     const a = document.createElement('a');
     const now = new Date();
     const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
-    const filename = `investor_data${dateString}.txt`;
+    const filename = `weather_data${dateString}.txt`;
     a.href = url;
     a.download = `${filename}.xlsx`;
     a.click();
     boton.disabled = false;
 }
 
+
+function exportToExcelPowerMeter() {
+    const boton = document.getElementById("refreshButton");
+    boton.disabled = true;
+    const url = '/api/power/export/';
+    const a = document.createElement('a');
+    const now = new Date();
+    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
+    const filename = `power_data${dateString}.txt`;
+    a.href = url;
+    a.download = `${filename}.xlsx`;
+    a.click();
+    boton.disabled = false;
+}
 /**
  * Prompts the user for confirmation to delete the database and sends a DELETE request to the server.
  * 
