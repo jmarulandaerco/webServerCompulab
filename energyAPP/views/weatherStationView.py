@@ -78,7 +78,7 @@ class WeatherStation(View):
         paginator = Paginator(weather_stations_data, per_page)
         data_paginader = paginator.get_page(page)
         
-        return render(request, 'home/content/form/databaseWeatherStation.html', {
+        return render(request, 'home/content/form/tables/databaseWeatherStation.html', {
             'datos': data_paginader,
             'per_page': per_page,
         })
