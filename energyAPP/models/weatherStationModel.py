@@ -29,7 +29,6 @@ class WeatherStationData(models.Model):
     TEMPERATURE_ENVIRONMENT = models.FloatField()
     TEMPERATURE_PANEL = models.FloatField()
     id_slave = models.IntegerField()
-    id_inserted = models.ObjectIdField()
     device_type = models.CharField(max_length=255)
     sent = models.BooleanField(default=False)
 
