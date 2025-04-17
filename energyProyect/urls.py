@@ -76,7 +76,7 @@ urlpatterns = [
     path('api/database/delete/',DeleteCollectionView.as_view(),name='delete_database'),
     path('api/logs/delete/',DeleteLog.as_view(),name='delete_log'),
     path('api/inverter/status/',InverterView.as_view(), name='inverter_status'),
-    path('api/weather/status/',WeatherStation.as_view(), name='inverter_status'),
+    path('api/weather/status/',WeatherStation.as_view(), name='wheader_status'),
 
     path('api/inverter/export/', InverterApiView.as_view(), name='export_inverter_data'),
     path('api/setting/whitelist/',DeleteWhiteList.as_view(),name='view_list'),
