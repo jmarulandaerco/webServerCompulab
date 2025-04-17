@@ -143,77 +143,50 @@ async function updateSettingDatabase() {
 
 
 /**
- * Exports inverter data to an Excel file by initiating a download.
+ * Exports data to an Excel file by initiating a download.
  * 
- * This function creates a dynamic link (`<a>`) to the `/api/inverter/export/` URL, which triggers the download of inverter data 
- * in an Excel file format. The file is named with the current timestamp to ensure uniqueness (e.g., 'investor_dataYYYYMMDDHHMMSS.xlsx').
+ * This function triggers the download of data from a specified type ('inverter', 'weather', 'power', or 'fault')
+ * in Excel format. The file name is generated dynamically with the current timestamp.
  * 
- * The function does not take any input parameters and automatically generates a file name based on the current date and time.
+ * @param {string} type - The type of data to export ('inverter', 'weather', 'power', 'fault').
  * 
- * @function
- * 
- * @returns {void} This function does not return a value, but it triggers the download of an Excel file.
- * 
- * @example
- * exportToExcel(); // Initiates the download of the inverter data as an Excel file.
+ * @returns {void}
  */
-
-function exportToExcel() {
+function exportToExcel(type) {
     const boton = document.getElementById("refreshButton");
-    boton.disabled = true;
-    const url = '/api/inverter/export/';
-    const a = document.createElement('a');
+    if (boton) boton.disabled = true;
+
     const now = new Date();
-    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
-    const filename = `investor_data${dateString}.txt`;
-    a.href = url;
-    a.download = `${filename}.xlsx`;
+    const dateString = now.toISOString().replace(/[-:.]/g, ''); // 'YYYYMMDDHHMMSS'
+
+    let filenamePrefix = '';
+    switch (type) {
+        case 'inverter':
+            filenamePrefix = 'investor_data';
+            break;
+        case 'weather':
+            filenamePrefix = 'weather_data';
+            break;
+        case 'power':
+            filenamePrefix = 'power_data';
+            break;
+        case 'fault':
+            filenamePrefix = 'fault_data';
+            break;
+        default:
+            console.error('Tipo de exportación no válido');
+            if (boton) boton.disabled = false;
+            return;
+    }
+
+    const a = document.createElement('a');
+    a.href = `/api/${type}/export/`;
+    a.download = `${filenamePrefix}${dateString}.xlsx`;
     a.click();
-    boton.disabled = false;
+
+    if (boton) boton.disabled = false;
 }
 
-function exportToExcelWeatherStation() {
-    const boton = document.getElementById("refreshButton");
-    boton.disabled = true;
-    const url = '/api/weather/export/';
-    const a = document.createElement('a');
-    const now = new Date();
-    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
-    const filename = `weather_data${dateString}.txt`;
-    a.href = url;
-    a.download = `${filename}.xlsx`;
-    a.click();
-    boton.disabled = false;
-}
-
-
-function exportToExcelPowerMeter() {
-    const boton = document.getElementById("refreshButton");
-    boton.disabled = true;
-    const url = '/api/power/export/';
-    const a = document.createElement('a');
-    const now = new Date();
-    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
-    const filename = `power_data${dateString}.txt`;
-    a.href = url;
-    a.download = `${filename}.xlsx`;
-    a.click();
-    boton.disabled = false;
-}
-
-function exportToExcelFaults() {
-    const boton = document.getElementById("refreshButton");
-    boton.disabled = true;
-    const url = '/api/fault/export/';
-    const a = document.createElement('a');
-    const now = new Date();
-    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
-    const filename = `power_data${dateString}.txt`;
-    a.href = url;
-    a.download = `${filename}.xlsx`;
-    a.click();
-    boton.disabled = false;
-}
 /**
  * Prompts the user for confirmation to delete the database and sends a DELETE request to the server.
  * 
