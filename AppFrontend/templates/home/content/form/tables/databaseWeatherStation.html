@@ -1,6 +1,6 @@
 <h1>Datos estaciones meteorológicas</h1>
 <div>
-    <button onclick="loadDatabaseWeatherStation(1)"
+    <button onclick="loadDatabase('weather',1)"
         style="margin-left: 10px;">Actualizar</button>
     <button id="refreshButton" onclick="exportToExcelWeatherStation()">Descargar</button>
 </div>
@@ -39,18 +39,18 @@
 <div class="pagination">
     {% if datos.has_previous %}
     <a href="javascript:void(0)"
-        onclick="loadDatabaseWeatherStation({{ datos.previous_page_number }})">Anterior</a>
+        onclick="loadDatabase('weather',{{ datos.previous_page_number }})">Anterior</a>
     {% endif %}
 
     <span>Página {{ datos.number }} de {{ datos.paginator.num_pages }}</span>
 
     {% if datos.has_next %}
     <a href="javascript:void(0)"
-        onclick="loadDatabaseWeatherStation({{ datos.next_page_number }})">Siguiente</a>
+        onclick="loadDatabase('weather',{{ datos.next_page_number }})">Siguiente</a>
     {% endif %}
 
     <!-- Select para cambiar la cantidad de elementos por página -->
-    <select id="perPageSelect" class="perPageSelect" onchange="loadDatabaseWeatherStation(1)">
+    <select id="perPageSelect" class="perPageSelect" onchange="loadDatabase('weather',1)">
         <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
         <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
         <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
