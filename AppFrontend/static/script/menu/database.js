@@ -172,6 +172,20 @@ function exportToExcel() {
     boton.disabled = false;
 }
 
+function exportToExcelWeatherStation() {
+    const boton = document.getElementById("refreshButton");
+    boton.disabled = true;
+    const url = '/api/weather/export/';
+    const a = document.createElement('a');
+    const now = new Date();
+    const dateString = now.toISOString().replace(/[-:.]/g, ''); // Formato 'YYYYMMDDHHMMSS'
+    const filename = `investor_data${dateString}.txt`;
+    a.href = url;
+    a.download = `${filename}.xlsx`;
+    a.click();
+    boton.disabled = false;
+}
+
 /**
  * Prompts the user for confirmation to delete the database and sends a DELETE request to the server.
  * 
