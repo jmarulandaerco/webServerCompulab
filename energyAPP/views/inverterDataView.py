@@ -54,7 +54,6 @@ class InverterDataView(APIView):
         try:
             token_backend = TokenBackend(
                 algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-            # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
             valid_data = token_backend.decode(token, verify=False)
 
             if str(valid_data['user_id']) != str(request.user):
@@ -68,18 +67,15 @@ class InverterDataView(APIView):
             return Response({'detail': 'Token invalido', 'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
     def delete(self, request, *args, **kwargs):
-        # 1️⃣ Obtener el encabezado 'Authorization'
         auth_header = request.headers.get('Authorization')
 
         if not auth_header or not auth_header.startswith('Bearer '):
             return Response({'detail': 'Token invalido'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # 2️⃣ Extraer el token (lo que viene después de 'Bearer ')
         token = auth_header.split(' ')[1]
         try:
             token_backend = TokenBackend(
                 algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-            # ⚠️ `verify=False` para pruebas, usa `verify=True` en producción
             valid_data = token_backend.decode(token, verify=False)
 
             if str(valid_data['user_id']) != str(request.user):
@@ -120,21 +116,18 @@ class InverterView(View):
         db = client[settings.DATABASES['default']['NAME']]
         inverters_collection = db['inverters']
 
-        # Obtener todos los datos y convertir _id a string
         inverters_data = list(inverters_collection.find().sort('_id', -1))
         for inverter in inverters_data:
             inverter['_id'] = str(inverter['_id'])
 
-        # Obtener el número de registros por página desde los parámetros GET (por defecto 10)
         per_page = int(request.GET.get('per_page', 10))
         page = int(request.GET.get('page', 1))
 
-        # Crear paginador
         paginator = Paginator(inverters_data, per_page)
-        datos_paginados = paginator.get_page(page)
+        data_paginader = paginator.get_page(page)
 
-        return render(request, 'home/content/databaseView.html', {
-            'datos': datos_paginados,
+        return render(request, 'home/content/tables/databaseView.html', {
+            'datos': data_paginader,
             'per_page': per_page,
         })
 

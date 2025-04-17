@@ -1,1 +1,2 @@
-from .inverterData import InverterData
+from .inverterModel import InverterData
+from .weatherStationModel import WeatherStationData

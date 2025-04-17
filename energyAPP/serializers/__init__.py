@@ -1,1 +1,2 @@
 from .inverterDataSerializer import InverterDataSerializer
+from .weatherStationSerializer import WeatherStationSerializer
