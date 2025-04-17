@@ -728,6 +728,52 @@ function loadDatabasePowerMeter(page) {
 }
 
 /**
+ * Loads fault data from the server and updates the page content.
+ *
+ * This function fetches paginated fault data from the server based on the current page number
+ * and the selected number of items per page. It updates the DOM element with ID "content" with
+ * the received HTML and highlights the "View Data" menu item in the sidebar.
+ *
+ * @param {number} page - The page number to load.
+ */
+
+function loadDatabaseFault(page) {
+
+    const perPageSelect = document.getElementById('perPageSelect');
+    const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
+    const fullUrl = `/api/fault/status/?page=${page}&per_page=${perPage}`;
+
+    const contentElement = document.getElementById("content");
+
+    // Mostrar mensaje de carga mientras se hace la petición
+    contentElement.innerHTML = "<p>Cargando datos...</p>";
+
+    fetch(fullUrl)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            contentElement.innerHTML = html; // Actualiza el contenido de la página
+            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+
+
+            document.querySelectorAll("#sidebar a").forEach(a => {
+                if (a.textContent.trim() === "Ver datos") {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active"); // Quita el active de los demás
+                }
+            });
+        })
+        .catch(error => {
+            // console.error("Error al cargar los datos:", error);
+            contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
+        });
+}
+/**
  * Saves the changes for enabling or disabling selected devices based on user input.
  * 
  * This function gathers the devices that the user has selected through checkboxes, sends the selected devices
