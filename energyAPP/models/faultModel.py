@@ -22,7 +22,6 @@ class FaultData(models.Model):
         __str__(): Returns a human-readable representation of the model instance.
     """
     _id = models.ObjectIdField(primary_key=True)
-    device_id = models.ObjectIdField()
     device_type = models.CharField(max_length=100)
     DATE = models.DateTimeField()
     F1 = models.FloatField(null=True, blank=True)
