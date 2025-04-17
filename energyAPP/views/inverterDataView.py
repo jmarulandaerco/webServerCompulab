@@ -126,7 +126,7 @@ class InverterView(View):
         paginator = Paginator(inverters_data, per_page)
         data_paginader = paginator.get_page(page)
 
-        return render(request, 'home/content/form/tables/databaseView.html', {
+        return render(request, 'home/content/form/tables/databaseInvertersView.html', {
             'datos': data_paginader,
             'per_page': per_page,
         })

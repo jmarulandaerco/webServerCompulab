@@ -583,7 +583,7 @@ async function updateServerSelection() {
  */
 
 
-function loadDatabase(page) {
+function loadDatabaseInverters(page) {
 
     const perPageSelect = document.getElementById('perPageSelect');
     const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
@@ -620,6 +620,44 @@ function loadDatabase(page) {
         });
 }
 
+
+
+function loadDatabaseWeatherStation(page) {
+
+    const perPageSelect = document.getElementById('perPageSelect');
+    const perPage = perPageSelect ? perPageSelect.value : 10; // Valor predeterminado: 10
+    const fullUrl = `/api/inverter/status/?page=${page}&per_page=${perPage}`;
+
+    const contentElement = document.getElementById("content");
+
+    // Mostrar mensaje de carga mientras se hace la petición
+    contentElement.innerHTML = "<p>Cargando datos...</p>";
+
+    fetch(fullUrl)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            contentElement.innerHTML = html; // Actualiza el contenido de la página
+            document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
+
+
+            document.querySelectorAll("#sidebar a").forEach(a => {
+                if (a.textContent.trim() === "Ver datos") {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active"); // Quita el active de los demás
+                }
+            });
+        })
+        .catch(error => {
+            // console.error("Error al cargar los datos:", error);
+            contentElement.innerHTML = `<p>Error al cargar los datos: ${error.message}</p>`;
+        });
+}
 
 /**
  * Saves the changes for enabling or disabling selected devices based on user input.
