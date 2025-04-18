@@ -30,7 +30,11 @@ async function changePassword() {
 
         const data = await response.json();
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + data.message);
 
         } else {
@@ -75,7 +79,11 @@ async function checked() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -108,7 +116,11 @@ async function checkedPasswordAws() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -160,7 +172,11 @@ async function checkedPassWordLog() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + data.message);
 
 

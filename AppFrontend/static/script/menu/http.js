@@ -34,7 +34,11 @@ async function updateModemChecker() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -87,7 +91,11 @@ async function updateModemSignal() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -138,7 +146,11 @@ async function updateModemServer() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -181,6 +193,11 @@ async function updateAwsSettings() {
 
         const data = await response.json();
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
         } else {
             alert("✅ " + data.message);

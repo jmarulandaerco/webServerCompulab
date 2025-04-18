@@ -22,6 +22,11 @@ async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
             alert("Error en la carga de datos");
         }
         const data = await response.json();
@@ -68,6 +73,11 @@ async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
             alert("❌" + " " + response.message);
         }
         const data = await response.json();
@@ -136,7 +146,11 @@ async function updateInformationLimitation() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -203,7 +217,11 @@ async function updateInformationCompensation() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {

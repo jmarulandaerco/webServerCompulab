@@ -28,6 +28,11 @@ function downloadCollections() {
     fetch(listCollection)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 401){
+                    localStorage.removeItem('access_token');
+                    window.location.href = "{% url 'index' %}"; 
+
+                }
                 alert("Error al descargar la colección");
             }
             return response.blob();

@@ -87,7 +87,12 @@ async function downloadLogs() {
         const response = await fetch(downloadLog); // Reemplaza con la URL real
 
         if (!response.ok) {
-            throw new Error("Failed to fetch logs");
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
+            alert("Failed to fetch logs");
         }
 
         const blob = await response.blob(); // Convertir la respuesta en un blob

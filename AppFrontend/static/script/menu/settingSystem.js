@@ -74,7 +74,11 @@ async function modemManager(startManagerModemService) {
 
     const data = await response.json();
     if (!response.ok) {
+        if (response.status === 401){
+            localStorage.removeItem('access_token');
+            window.location.href = "{% url 'index' %}"; 
 
+        }
         if (startManagerModemService) {
             alert(`❌ Fallo al iniciar el ModemManager.service: ${data.message}`)
         } else {
@@ -126,6 +130,11 @@ async function deleteWhiteList() {
         //La data traera el mensaje que usare en los alert
         const data = await response.json();
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
             alert(`❌ Fallo al limpiar la whitelists: ${data.message}`)
         } else {
             alert(`✅ Whitelist limpiada correctamente: ${data.message}`)
@@ -169,6 +178,11 @@ async function interfaceEthernetOne() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
 
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
@@ -215,7 +229,11 @@ async function interfaceEthernetTwo() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -264,7 +282,11 @@ async function addWifi() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -309,7 +331,11 @@ async function antennaWifi() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                    localStorage.removeItem('access_token');
+                    window.location.href = "{% url 'index' %}"; 
 
+                }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -383,6 +409,11 @@ async function getIPInterface(interfaceName) {
 
 
         } else {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
             alert("❌ " + `Error: ${data.message}`);
 
         }

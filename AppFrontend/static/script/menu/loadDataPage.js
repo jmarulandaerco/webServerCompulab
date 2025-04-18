@@ -584,6 +584,11 @@ function loadDatabase(type, page) {
     fetch(fullUrl)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 401){
+                    localStorage.removeItem('access_token');
+                    window.location.href = "{% url 'index' %}"; 
+
+                }
                 alert(`Error: ${response.statusText}`);
             }
             return response.text();
@@ -639,7 +644,11 @@ async function saveChangesEnableDisableDevices() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
