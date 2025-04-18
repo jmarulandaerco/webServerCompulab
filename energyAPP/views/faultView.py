@@ -19,6 +19,26 @@ from energyAPP.serializers.faultSerializer import FaultDataSerializer
 
 
 class FaultDataView(APIView):
+    """
+    API View for retrieving and deleting fault data with JWT authentication.
+
+    This view provides two methods:
+    
+    - GET: Returns a list of all fault data records in the database. It verifies the JWT 
+      token provided in the 'Authorization' header. If the token is missing, invalid, or 
+      does not match the authenticated user, it returns a 401 Unauthorized response.
+
+    - DELETE: Deletes all fault data records from the database. It also requires a valid 
+      JWT token and performs the same validation as the GET method. On successful deletion, 
+      it returns a 204 No Content response.
+
+    Both methods expect the JWT token in the following format:
+        Authorization: Bearer <your_token>
+
+    If an error occurs during token decoding or validation, a 401 Unauthorized response 
+    is returned with the error details.
+    """
+
     def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
 
@@ -65,7 +85,26 @@ class FaultDataView(APIView):
 
 
 class Fault(View):
-    
+    """
+    Django view for displaying fault data from a MongoDB collection with pagination.
+
+    This view connects to the MongoDB database configured in the Django settings,
+    retrieves all documents from the 'faults' collection, sorts them in descending order 
+    by their `_id`, and converts the `_id` field to a string for template rendering.
+
+    The view supports pagination using `per_page` and `page` parameters from the query string:
+        - `per_page`: Number of items per page (default: 10)
+        - `page`: The current page number (default: 1)
+
+    The paginated fault data is rendered in the 'databaseFault.html' template.
+
+    Template context:
+        - 'datos': Paginated fault data for the current page
+        - 'per_page': Number of items per page
+
+    Example URL:
+        /faults/?page=2&per_page=20
+    """
     def get(self, request):
         client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
         db = client[settings.DATABASES['default']['NAME']]
@@ -87,7 +126,21 @@ class Fault(View):
         })
         
 class FaultApiView(APIView):
-    
+    """
+    API View for exporting fault data stored in a MongoDB database.
+
+    This endpoint handles GET requests and generates an Excel (.xlsx) file 
+    containing the data retrieved from the 'faults' collection. The file is 
+    returned as a downloadable response.
+
+    Methods:
+        get(request):
+            Connects to MongoDB using the configuration defined in settings.DATABASES.
+            Retrieves documents from the 'faults' collection, converts them into a 
+            pandas DataFrame, and writes them to an Excel file attached to the HTTP response.
+            
+            If an error occurs, returns an HTTP response with the exception message.
+    """
     def get(self, request):
         try:
             client = MongoClient(

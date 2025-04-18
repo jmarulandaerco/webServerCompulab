@@ -16,6 +16,24 @@ from django.core.paginator import Paginator
 
 
 class WeatherStationDataView(APIView):
+    """
+    API view that handles retrieval and deletion of Weather Station data with token-based authentication.
+
+    Methods:
+        get(request, *args, **kwargs): 
+            Retrieves all weather station records from the database, 
+            serializes the data, and returns it in the response. 
+            Requires a valid Bearer token for authorization.
+
+        delete(request, *args, **kwargs): 
+            Deletes all weather station records from the database. 
+            Also requires a valid Bearer token for authorization.
+
+    Authorization:
+        This view uses JWT-based token authentication. If the token is missing,
+        invalid, or the user ID in the token does not match the authenticated user,
+        it returns a 401 Unauthorized response.
+    """
     def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
 
@@ -62,7 +80,20 @@ class WeatherStationDataView(APIView):
 
 
 class WeatherStation(View):
-    
+    """
+    Django view that retrieves and paginates weather station data from a MongoDB collection 
+    and renders it to an HTML template.
+
+    Methods:
+        get(request):
+            Connects to the MongoDB database, retrieves all records from the 'weather_stations' collection,
+            sorts them in descending order by '_id', paginates the data based on query parameters,
+            and renders the result to the 'databaseWeatherStation.html' template.
+
+    Query Parameters:
+        per_page (int): Number of records to display per page (default: 10).
+        page (int): Page number to display (default: 1).
+    """
     def get(self, request):
         client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
         db = client[settings.DATABASES['default']['NAME']]
@@ -84,7 +115,19 @@ class WeatherStation(View):
         })
         
 class WeatherStationApiView(APIView):
+    """
+    Django API view that retrieves weather station data from a MongoDB collection, 
+    converts it to a pandas DataFrame, and returns it as an Excel file.
+
+    Methods:
+        get(request):
+            Connects to the MongoDB database, retrieves all records from the 'weather_stations' collection,
+            converts the data to a pandas DataFrame, and returns it as an Excel file attachment.
     
+    Response:
+        Returns an Excel file with the weather station data.
+        In case of an error, a generic error message is returned.
+    """
     def get(self, request):
         try:
             client = MongoClient(

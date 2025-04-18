@@ -19,6 +19,27 @@ from energyAPP.serializers.powerMeterSerializer import PowerMeterSerializer
 
 
 class PowerMeterDataView(APIView):
+    """
+    API view for retrieving and deleting Power Meter data.
+
+    This view provides two HTTP methods:
+    
+    - GET: Returns all power meter records serialized as JSON.
+    - DELETE: Deletes all power meter records from the database.
+
+    Both methods require Bearer Token authentication. The token is extracted from the 
+    'Authorization' header and decoded to verify that the request user matches the token's user_id.
+
+    If the token is missing, invalid, or does not match the authenticated user, a 401 Unauthorized 
+    response is returned.
+
+    Attributes:
+        None
+
+    Methods:
+        get(request): Returns a list of all Power Meter records if authorized.
+        delete(request): Deletes all Power Meter records if authorized.
+    """
     def get(self, request, *args, **kwargs):
         auth_header = request.headers.get('Authorization')
 
@@ -65,7 +86,22 @@ class PowerMeterDataView(APIView):
 
 
 class PowerMeter(View):
-    
+    """
+    Django view for displaying Power Meter data in a paginated HTML table.
+
+    This view retrieves data from the 'power_meters' collection in a MongoDB database,
+    sorts it in descending order by `_id`, and renders it in an HTML template with pagination.
+
+    Query Parameters:
+        per_page (int, optional): Number of items per page. Defaults to 10.
+        page (int, optional): Page number to display. Defaults to 1.
+
+    Template:
+        Renders the 'databasePowerMeter.html' template with the paginated data.
+
+    Returns:
+        HttpResponse: Rendered HTML page with power meter data.
+    """
     def get(self, request):
         client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
         db = client[settings.DATABASES['default']['NAME']]
@@ -87,7 +123,16 @@ class PowerMeter(View):
         })
         
 class PowerMeterApiView(APIView):
-    
+    """
+    API view that retrieves Power Meter data from MongoDB and returns it as a downloadable Excel file.
+
+    This endpoint connects to the MongoDB database, fetches all documents from the 'power_meters' collection,
+    and converts the data into an Excel file that is sent as an HTTP response.
+
+    Returns:
+        HttpResponse: An Excel file named "datos_power_meter.xlsx" containing all the Power Meter data.
+                      If an error occurs, returns an HTTP response with the error message.
+    """
     def get(self, request):
         try:
             client = MongoClient(
