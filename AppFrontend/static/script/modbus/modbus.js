@@ -487,10 +487,10 @@ async function loadFormDataModes() {
 
         document.getElementById("mode").value = data.mode;
 
-        // const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
-        // if (limitationRadio) {
-        //     limitationRadio.checked = true;
-        // }
+        const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
+        if (limitationRadio) {
+            limitationRadio.checked = true;
+        }
 
         // const compensationRadio = document.querySelector(`input[name="compensation"][value="${data.compensation}"]`);
         // if (compensationRadio) {
@@ -498,7 +498,7 @@ async function loadFormDataModes() {
         // }
 
         // // Llenar los campos de sampling
-        // document.getElementById("sampling_limitation").value = data.sampling_limitation;
+        document.getElementById("sampling_limitation").value = data.sampling_limitation;
         // document.getElementById("sampling_compensation").value = data.sampling_compensation;
 
     } catch (error) {
