@@ -432,9 +432,9 @@ function loadContent(option) {
             document.getElementById("content").innerHTML = data;
 
             switch (option) {
-                case "form/compensation-limitation/limitation":
-                    loadFormDataLimitation();
-                    break;
+                // case "form/compensation-limitation/limitation":
+                //     loadFormDataLimitation();
+                //     break;
 
                 case "form/compensation-limitation/compensation":
                     loadFormDataCompensation();
@@ -731,6 +731,10 @@ async function loadFunction(option) {
             break;
         case 'awsService':
             loadFormDataAwsSettings();
+            break;
+
+        case 'limitation':
+            loadFormDataLimitation();
             break;
 
         default:
