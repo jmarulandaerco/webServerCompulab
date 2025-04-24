@@ -529,9 +529,9 @@ async function loadFormDataModes() {
 
 async function updateDataModes() {
     const mode = document.getElementById("mode").value;
-    // const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
+    const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
     // const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
-    // const sampling_limitation = document.getElementById("sampling_limitation").value;
+    const sampling_limitation = document.getElementById("sampling_limitation").value;
     // const sampling_compensation = document.getElementById("sampling_compensation").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
@@ -544,7 +544,8 @@ async function updateDataModes() {
             },
             body: JSON.stringify({
                 mode
-                // ,limitation, compensation, sampling_limitation, sampling_compensation
+                ,limitation,sampling_limitation
+                // ,  compensation, sampling_compensation
             })
         });
 
