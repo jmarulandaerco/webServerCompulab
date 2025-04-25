@@ -72,6 +72,8 @@ async function loadFormDataLimitation() {
 async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
+        console.log("Hola")
+        console.log(response)
         if (!response.ok) {
             if (response.status === 401){
                 localStorage.removeItem('access_token');
