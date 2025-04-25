@@ -41,10 +41,10 @@ async function loadFormDataLimitation() {
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("inverter_ids").value = data.inverter_ids;
         document.getElementById("porcentage").value = data.porcentage;
-        document.getElementById("grid_min").value = data.inverter_ids;
-        document.getElementById("grid_max").value = data.meter_ids;
-        document.getElementById("inverter_min").value = data.inverter_ids;
-        document.getElementById("inverterMax").value = data.inverterMax;
+        document.getElementById("grid_min").value = data.grid_min;
+        document.getElementById("grid_max").value = data.grid_max;
+        document.getElementById("inverter_min").value = data.active_power_inv_min;
+        document.getElementById("inverterMax").value = data.active_power_inv_max;
 
     } catch (error) {
         // console.error("Error:", error);
