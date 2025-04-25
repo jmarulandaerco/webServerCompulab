@@ -416,8 +416,8 @@ class FormDataLimitation(View):
                 "porcentage": config.getfloat('Active', 'active_power_percentage', fallback=0.02),
                 "grid_min": config.getfloat('Active', 'active_power_grid_min', fallback=5.0),
                 "grid_max": config.getfloat('Active', 'active_power_grid_max', fallback=10.0),
-                "inverter_min": config.getint('Active', 'active_power_inv_min', fallback=0),
-                "inverterMax": config.getint('Active', 'active_power_inv_max', fallback=1000),
+                "active_power_inv_min": config.getint('Active', 'active_power_inv_min', fallback=0),
+                "active_power_inv_max": config.getint('Active', 'active_power_inv_max', fallback=1000),
             }
             return JsonResponse(sample_data)
         except Exception as e:
