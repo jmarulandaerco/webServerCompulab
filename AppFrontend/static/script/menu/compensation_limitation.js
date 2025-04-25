@@ -30,6 +30,8 @@ async function loadFormDataLimitation() {
             alert("Error en la carga de datos");
         }
         const data = await response.json();
+        console.log("Data")
+        console.log( data)
         const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
         if (limitationRadio) {
             limitationRadio.checked = true;
