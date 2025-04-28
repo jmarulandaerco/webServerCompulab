@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView) 
+from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView) 
 from django.urls import path
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuChecker, ContentViewMenuCompensationLimitation, ContentViewMenuDatabase, ContentViewMenuMain, ContentViewMenuModbus, ContentViewMenuSetting, ContentViewSingleDevice
@@ -24,6 +24,8 @@ from energyAPP.views.weatherStationView import WeatherStation, WeatherStationApi
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('login/', TokenObtainPairView.as_view(), name='login'),
+    path('verify-token/', TokenVerifyView.as_view(), name='verify-token'),
+
     path('home/', HomeView.as_view(), name='home'),
     path('home/content/<str:option>/', ContentView.as_view(), name='get_content'),
     path('home/content/form/<str:option>/', ContentViewMenuMain.as_view(), name='get_main_menu_content'),

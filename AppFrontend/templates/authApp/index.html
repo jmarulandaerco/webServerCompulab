@@ -52,10 +52,28 @@
     </section>
 
     <script>
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      window.location.href = "{% url 'home' %}";
-    }
+      const token = localStorage.getItem('access_token');
+      if (token) {
+    fetch('/verify-token/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token: token })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Token válido, redirigir a home
+        window.location.href = "{% url 'home' %}";
+      } else {
+        // Token inválido, no hacer nada (o podrías mostrar un mensaje)
+        console.log('Token inválido o expirado');
+      }
+    })
+    .catch(error => {
+      console.error('Error al verificar el token:', error);
+    });
+  }
     // Captura el formulario y maneja el evento de envío
     document.getElementById('loginForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Evita el envío tradicional del formulario
