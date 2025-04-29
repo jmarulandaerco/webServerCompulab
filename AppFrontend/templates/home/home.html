@@ -69,9 +69,9 @@
   .then(data => {
     if (data.valid) {
       console.log('Token válido');
-      window.location.href = "{% url 'home' %}";
+      
     } else {
-      console.log('Token inválido');
+        window.location.href = "{% url 'index' %}";
     }
   })
   .catch(error => {
