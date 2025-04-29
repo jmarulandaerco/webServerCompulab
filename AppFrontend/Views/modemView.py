@@ -77,7 +77,7 @@ class Wlan(APIView):
                     print(f"{iface}: {ip or '(sin IP)'}")
             
       
-                    if ip:
+                    if ip!="":
                         
                             return JsonResponse({'message': ip})
                         

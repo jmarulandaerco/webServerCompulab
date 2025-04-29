@@ -346,10 +346,10 @@ class Menu:
         
     
 
-    def get_wlan_ip(self,ifname='wlan0') -> str | None:
+    def get_wlan_ip(self,ifname='wlan0') -> str :
         if ifname in netifaces.interfaces():
             addrs = netifaces.ifaddresses(ifname)
             ipv4 = addrs.get(netifaces.AF_INET)
             if ipv4:
                 return ipv4[0].get('addr')
-        return None
+        return ""
