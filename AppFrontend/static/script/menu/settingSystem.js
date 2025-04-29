@@ -460,7 +460,7 @@ function toggleFields() {
 
 
 function WLan(){
-    fetch('/Wlan/', {
+    fetch(wlan, {
         method: 'get',
         headers: {
             "Content-Type": "application/json"
@@ -476,6 +476,6 @@ function WLan(){
       }
     })
     .catch(error => {
-      alert("❌ " +'Error al verificar el token:', error);
+      alert("❌ " +'Error al verificar la ip:', error);
     });
 }
