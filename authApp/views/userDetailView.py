@@ -7,7 +7,8 @@ from authApp.models.user import User
 from authApp.serializers.userSerializer import UserSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from bson import ObjectId
-
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import AccessToken, TokenError
 from utils.logger import LoggerHandler  # Necesario para trabajar con ObjectId
 
 
@@ -124,3 +125,14 @@ class UserDetailView(generics.RetrieveAPIView):
         except User.DoesNotExist:
 
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class CustomTokenVerifyView(APIView):
+    def post(self, request, *args, **kwargs):
+        token = request.data.get('token')
+
+        try:
+            AccessToken(token)
+            return Response({'valid': True}, status=status.HTTP_200_OK)
+        except TokenError:
+            return Response({'valid': False}, status=status.HTTP_401_UNAUTHORIZED)

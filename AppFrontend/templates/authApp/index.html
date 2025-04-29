@@ -61,19 +61,20 @@
       },
       body: JSON.stringify({ token: token })
     })
-    .then(response => {
-      if (response.ok) {
-        // Token válido, redirigir a home
-        window.location.href = "{% url 'home' %}";
-      } else {
-        // Token inválido, no hacer nada (o podrías mostrar un mensaje)
-        console.log('Token inválido o expirado');
-      }
-    })
-    .catch(error => {
-      console.error('Error al verificar el token:', error);
-    });
-  }
+    .then(response => response.json())
+  .then(data => {
+    if (data.valid) {
+      console.log('Token válido');
+      window.location.href = "{% url 'home' %}";
+    } else {
+      console.log('Token inválido');
+    }
+  })
+  .catch(error => {
+    console.error('Error al verificar el token:', error);
+  });
+}
+
     // Captura el formulario y maneja el evento de envío
     document.getElementById('loginForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Evita el envío tradicional del formulario

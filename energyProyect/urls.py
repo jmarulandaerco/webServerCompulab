@@ -14,7 +14,7 @@ from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDe
 from AppFrontend.Views.modemView import InterfaceIPView, ModemView
 from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
 from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
-from authApp.views.userDetailView import UserDetailView
+from authApp.views.userDetailView import CustomTokenVerifyView, UserDetailView
 from energyAPP.views.faultView import Fault, FaultApiView
 from energyAPP.views.inverterDataView import InverterApiView, InverterDataView, InverterView
 from energyAPP.views.powerMeterView import PowerMeter, PowerMeterApiView
@@ -24,7 +24,7 @@ from energyAPP.views.weatherStationView import WeatherStation, WeatherStationApi
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('login/', TokenObtainPairView.as_view(), name='login'),
-    path('verify-token/', TokenVerifyView.as_view(), name='verify-token'),
+    path('verify-token/', CustomTokenVerifyView.as_view(), name='verify-token'),
 
     path('home/', HomeView.as_view(), name='home'),
     path('home/content/<str:option>/', ContentView.as_view(), name='get_content'),
