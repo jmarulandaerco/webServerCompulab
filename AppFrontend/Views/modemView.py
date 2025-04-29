@@ -68,23 +68,26 @@ class InterfaceIPView(APIView):
 class Wlan(APIView):
     
     
-    def get(self, request, interface):
-        try:
-            menu=Menu()
-            for iface in netifaces.interfaces():
-                if iface.startswith('wlan') or iface.startswith('wwan'):
-                    ip = menu.get_wlan_ip(interface)
-                    print(f"{iface}: {ip or '(sin IP)'}")
-            
-      
-                    if ip!="":
-                        
-                            return JsonResponse({'message': ip})
-                        
-                    else:
-                        return JsonResponse(
-                            {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión  WLAN'},status=400
-                        
-                        )
-        except Exception as e:
-            return JsonResponse({"message":"Error al tratar de encontrar la ip asignada"})
+    permission_classes = []         # ajusta según tu autenticación
+    authentication_classes = []
+
+    def get(self, request):
+        menu = Menu()
+
+        for iface in netifaces.interfaces():
+            if iface.startswith('wlan'):
+                ip = menu.get_wlan_ip(iface)
+                if ip is not None:
+                    # Éxito: enviamos únicamente la IP
+                    return JsonResponse({'message': ip}, status=200)
+                # Error: no hay IP en esta interfaz
+                return JsonResponse(
+                    {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
+                    status=400
+                )
+
+        # No encontró ninguna interfaz wlan*
+        return JsonResponse(
+            {'message': 'No se detectaron interfaces wlan en este dispositivo.'},
+            status=404
+        )

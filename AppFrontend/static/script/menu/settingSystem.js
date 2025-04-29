@@ -463,7 +463,7 @@ function WLan(){
     fetch('/Wlan/', {
         method: 'get',
         headers: {
-          'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
       })
       .then(response => response.json())
@@ -472,10 +472,10 @@ function WLan(){
        
         alert(data.message)
       } else {
-        alert(data.message)
+        alert("❌ " +data.message)
       }
     })
     .catch(error => {
-      console.error('Error al verificar el token:', error);
+      alert("❌ " +'Error al verificar el token:', error);
     });
 }
