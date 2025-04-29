@@ -352,4 +352,4 @@ class Menu:
             ipv4 = addrs.get(netifaces.AF_INET)
             if ipv4:
                 return ipv4[0].get('addr')
-        return ""
+        return None
