@@ -2,6 +2,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.db import connections
 from rest_framework.views import APIView
+import netifaces
 
 from utils.menu import Menu
 
@@ -62,3 +63,28 @@ class InterfaceIPView(APIView):
                 {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión física o que la interfaz no tenga una IP sin configurar'},status=400
                
             )
+
+
+class Wlan(APIView):
+    
+    
+    def get(self, request, interface):
+        try:
+            menu=Menu()
+            for iface in netifaces.interfaces():
+                if iface.startswith('wlan') or iface.startswith('wwan'):
+                    ip = menu.get_wlan_ip(interface)
+                    print(f"{iface}: {ip or '(sin IP)'}")
+            
+      
+                    if ip:
+                        
+                            return JsonResponse({'message': ip})
+                        
+                    else:
+                        return JsonResponse(
+                            {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión  WLAN'},status=400
+                        
+                        )
+        except Exception as e:
+            return JsonResponse({"message":"Error al tratar de encontrar la ip asignada"})

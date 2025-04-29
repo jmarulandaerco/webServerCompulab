@@ -457,3 +457,25 @@ function toggleFields() {
         storage.style.display = "block";
     }
 }
+
+
+function WLan(){
+    fetch('/Wlan/', {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+       
+        alert(data.message)
+      } else {
+        alert(data.message)
+      }
+    })
+    .catch(error => {
+      console.error('Error al verificar el token:', error);
+    });
+}

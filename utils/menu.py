@@ -13,6 +13,7 @@ from utils.modem_gsm_driver import SimModem
 import re
 from pymongo import MongoClient
 from django.core.management import call_command
+import netifaces
 
 @dataclass
 class Menu:
@@ -342,3 +343,13 @@ class Menu:
                 return f""
         except subprocess.CalledProcessError:
             return f""
+        
+    
+
+    def get_wlan_ip(self,ifname='wlan0') -> str | None:
+        if ifname in netifaces.interfaces():
+            addrs = netifaces.ifaddresses(ifname)
+            ipv4 = addrs.get(netifaces.AF_INET)
+            if ipv4:
+                return ipv4[0].get('addr')
+        return None

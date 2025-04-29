@@ -11,7 +11,7 @@ from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, 
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataAwsService, FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
-from AppFrontend.Views.modemView import InterfaceIPView, ModemView
+from AppFrontend.Views.modemView import InterfaceIPView, ModemView, Wlan
 from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
 from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
 from authApp.views.userDetailView import CustomTokenVerifyView, UserDetailView
@@ -25,7 +25,7 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path('verify-token/', CustomTokenVerifyView.as_view(), name='verify-token'),
-
+    path('wlan/',Wlan.as_view(),name="wlan"),
     path('home/', HomeView.as_view(), name='home'),
     path('home/content/<str:option>/', ContentView.as_view(), name='get_content'),
     path('home/content/form/<str:option>/', ContentViewMenuMain.as_view(), name='get_main_menu_content'),
