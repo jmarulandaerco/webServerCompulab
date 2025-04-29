@@ -472,7 +472,7 @@ function WLan(){
        
         alert(data.message)
       } else {
-        alert("❌ " +data.message)
+        alert(data.message)
       }
     })
     .catch(error => {
