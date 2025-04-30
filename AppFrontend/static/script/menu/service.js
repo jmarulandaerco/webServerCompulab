@@ -77,7 +77,7 @@ function startService() {
                 setTimeout(function () {
                     checkServiceStatus();
                     alert(data.message);
-                }, 31000);
+                }, 30000);
 
 
             })
@@ -130,7 +130,7 @@ function stopService() {
 
                 setTimeout(() => {
                     checkServiceStatus();
-                }, 2000);
+                }, 1000);
 
             })
             .catch(error => {
