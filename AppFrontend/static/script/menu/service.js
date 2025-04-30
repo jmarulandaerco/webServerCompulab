@@ -76,7 +76,6 @@ function startService() {
 
                 setTimeout(function () {
                     checkServiceStatus();
-                    alert(data.message);
                 }, 30000);
 
 
@@ -169,7 +168,7 @@ function startProgressBar() {
     progressBar.style.width = "0%"; // Resetear
 
     let startTime = Date.now();
-    let duration = 31000; // 5 segundos
+    let duration = 30000; // 5 segundos
 
     function updateProgress() {
         let elapsedTime = Date.now() - startTime;
