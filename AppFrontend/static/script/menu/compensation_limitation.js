@@ -74,8 +74,7 @@ async function loadFormDataLimitation() {
 async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
-        console.log("Hola")
-        console.log(response)
+        
         if (!response.ok) {
             if (response.status === 401){
                 localStorage.removeItem('access_token');
@@ -99,7 +98,7 @@ async function loadFormDataCompensation() {
         document.getElementById("factor").value = data.factor;
 
     } catch (error) {
-        // console.error("Error:", error);
+        alert("❌" + "No fue posible cargar la información del compensación reactiva" );
     }
 }
 
