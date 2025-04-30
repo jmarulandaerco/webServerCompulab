@@ -85,6 +85,7 @@ function startService() {
                 
             })
             .finally(() => {
+                checkServiceStatus();
                 boton.disabled = false
             });
     } else {
@@ -186,4 +187,5 @@ function startProgressBar() {
     }
 
     requestAnimationFrame(updateProgress);
+    checkServiceStatus()
 }
