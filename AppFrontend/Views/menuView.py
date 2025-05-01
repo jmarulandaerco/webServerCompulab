@@ -184,14 +184,14 @@ class FormDataModes(View):
             config.read(list_path_menu[0])
             limitation = 'No' if config.get(
                 'functioning', 'enable_active_limitation') == "False" else 'Yes'
-            # compensation = 'No' if config.get(
-            #     'functioning', 'enable_reactive_compensation') == "False" else 'Yes'
+            compensation = 'No' if config.get(
+                'functioning', 'enable_reactive_compensation') == "False" else 'Yes'
             sample_data = {
                 "mode": config.get('functioning', 'work_mode'),
                 "limitation": limitation,
-                # "compensation": compensation,
+                "compensation": compensation,
                 "sampling_limitation": config.get('functioning', 'time_active_power'),
-                # "sampling_compensation": config.get('functioning', 'time_reactive_power'),
+                "sampling_compensation": config.get('functioning', 'time_reactive_power'),
             }
             return JsonResponse(sample_data)
         except Exception as e:
@@ -209,9 +209,9 @@ class FormDataModes(View):
 
             mode = data.get("mode")
             limitation = data.get("limitation")
-            # compensation = data.get("compensation")
+            compensation = data.get("compensation")
             sampling_limitation = data.get("sampling_limitation")
-            # sampling_compensation = data.get("sampling_compensation")
+            sampling_compensation = data.get("sampling_compensation")
 
             config.set("functioning", "work_mode", mode)
             if limitation == "Yes":
@@ -227,29 +227,29 @@ class FormDataModes(View):
                     str(False),
                 )
 
-            # if compensation == "Yes":
-            #     config.set(
-            #         "functioning",
-            #         "enable_reactive_compensation",
-            #         str(True),
-            #     )
-            # else:
-            #     config.set(
-            #         "functioning",
-            #         "enable_reactive_compensation",
-            #         str(False),
-            #     )
+            if compensation == "Yes":
+                config.set(
+                    "functioning",
+                    "enable_reactive_compensation",
+                    str(True),
+                )
+            else:
+                config.set(
+                    "functioning",
+                    "enable_reactive_compensation",
+                    str(False),
+                )
 
             config.set(
                 "functioning",
                 "time_active_power",
                 sampling_limitation,
             )
-            # config.set(
-            #     "functioning",
-            #     "time_reactive_power",
-            #     sampling_compensation,
-            # )
+            config.set(
+                "functioning",
+                "time_reactive_power",
+                sampling_compensation,
+            )
           
             with open(list_path_menu[0], "w") as configfileChecked:
                 config.write(configfileChecked)
