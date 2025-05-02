@@ -90,6 +90,10 @@ async function loadFormDataCompensation() {
         if (reactiveLimiter) {
             reactiveLimiter.checked = true;
         }
+        const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
+        if (limitationRadio) {
+            limitationRadio.checked = true;
+        }
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value = data.device
         document.getElementById("high").value = data.high;
@@ -194,7 +198,8 @@ async function updateInformationLimitation() {
 
 async function updateInformationCompensation() {
 
-    const kind = document.getElementById("kindCompensation").value;
+    const kind = document.querySelector('input[name="kindCompensation"]:checked')?.value;
+
     const meter_ids = document.getElementById("meter_ids").value;
     const device = document.getElementById("device_id").value;
     const high = document.getElementById("high").value;

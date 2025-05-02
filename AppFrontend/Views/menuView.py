@@ -493,8 +493,10 @@ class FormDataCompensation(View):
         try:
             config.clear()
             config.read(list_path_menu[5])
+            reactive = "Yes" if config.getboolean(
+                'Reactive', 'reactive_power_limiter', fallback=False) else "No"
             sample_data = {
-                "kind": config.get("Reactive", "reactive_power_limiter"),
+                "kind": reactive,
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
                 "device": config.get("Reactive", "smartlogger_id",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
@@ -530,8 +532,13 @@ class FormDataCompensation(View):
             active = data.get("active")
             time = data.get("time")
             factor = data.get("factor")
+            
+            if kind == "Yes":
+                config.set('Reactive', 'reactive_power_limiter', str(True))
 
-            config.set("Reactive", "reactive_power_limiter ", str(kind))
+            else:
+                config.set('Reactive', 'reactive_power_limiter', str(False))
+                
             config.set("Reactive", "energy_meter_ids", str(meter_ids))
             config.set(
                 "Reactive", "smartlogger_id ", str(device))
