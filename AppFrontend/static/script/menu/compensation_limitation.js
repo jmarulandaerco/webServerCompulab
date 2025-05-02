@@ -84,7 +84,7 @@ async function loadFormDataCompensation() {
             alert("❌" + " " + response.message);
         }
         const data = await response.json();
-
+        console.log(data)
         
         const reactiveLimiter = document.querySelector(`input[name="kindCompensation"][value="${data.kind}"]`);
         if (reactiveLimiter) {
