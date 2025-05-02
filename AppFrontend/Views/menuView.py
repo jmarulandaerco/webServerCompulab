@@ -541,7 +541,7 @@ class FormDataCompensation(View):
                 
             config.set("Reactive", "energy_meter_ids", str(meter_ids))
             config.set(
-                "Reactive", "smartlogger_id ", str(device))
+                "Reactive", "smartlogger_id", str(device))
             config.set("Reactive", "reactive_power_percentage_high", str(high))
             config.set("Reactive", "reactive_power_percentage_low", str(low),
 
@@ -555,9 +555,9 @@ class FormDataCompensation(View):
             )
 
             config.set(
-                "Reactive", "time_active_power ", str(time)
+                "Reactive", "time_active_power", str(time)
             )
-            config.set("Reactive", "pf_min ", str(factor))
+            config.set("Reactive", "pf_min", str(factor))
             with open(list_path_menu[5], "w") as configfileChecked:
                 config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)
