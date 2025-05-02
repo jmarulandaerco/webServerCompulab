@@ -737,6 +737,10 @@ async function loadFunction(option) {
             loadFormDataLimitation();
             break;
 
+        case 'compensation':
+            loadFormDataCompensation();
+            break;
+
         default:
             break;
 

@@ -494,17 +494,17 @@ class FormDataCompensation(View):
             config.clear()
             config.read(list_path_menu[5])
             sample_data = {
-                "kind": config.get("Reactive", "kind_compensation"),
+                "kind": config.get("Reactive", "reactive_power_limiter "),
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
-                "device": config.get("Reactive", "devices_ids",),
+                "device": config.get("Reactive", "smartlogger_id",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
                 "low": config.getfloat("Reactive", "reactive_power_percentage_low"),
                 "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
                 "band_low": config.getfloat("Reactive", "reactive_band_low_limit"),
                 "reactive": config.getint("Reactive", "reactive_offset"),
                 "active": config.getint("Reactive", "active_offset"),
-                "time": config.getfloat("Reactive", "pf_min"),
-                "factor": config.getfloat("Reactive", "mu"),
+                "time": config.getfloat("Reactive", "time_active_power "),
+                "factor": config.getfloat("Reactive", "pf_min "),
             }
             return JsonResponse(sample_data)
         except Exception as ex:
@@ -531,10 +531,10 @@ class FormDataCompensation(View):
             time = data.get("time")
             factor = data.get("factor")
 
-            config.set("Reactive", "kind_compensation", str(kind))
+            config.set("Reactive", "reactive_power_limiter ", str(kind))
             config.set("Reactive", "energy_meter_ids", str(meter_ids))
             config.set(
-                "Reactive", "devices_ids", str(device))
+                "Reactive", "smartlogger_id ", str(device))
             config.set("Reactive", "reactive_power_percentage_high", str(high))
             config.set("Reactive", "reactive_power_percentage_low", str(low),
 
@@ -548,9 +548,9 @@ class FormDataCompensation(View):
             )
 
             config.set(
-                "Reactive", "pf_min", str(time)
+                "Reactive", "time_active_power ", str(time)
             )
-            config.set("Reactive", "mu", str(factor))
+            config.set("Reactive", "pf_min ", str(factor))
             with open(list_path_menu[5], "w") as configfileChecked:
                 config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)

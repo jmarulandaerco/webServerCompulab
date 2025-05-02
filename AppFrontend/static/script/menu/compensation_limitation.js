@@ -85,7 +85,11 @@ async function loadFormDataCompensation() {
         }
         const data = await response.json();
 
-        document.getElementById("kindCompensation").value = data.kind;
+        
+        const reactiveLimiter = document.querySelector(`input[name="kindCompensation"][value="${data.kind}"]`);
+        if (reactiveLimiter) {
+            reactiveLimiter.checked = true;
+        }
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value = data.device
         document.getElementById("high").value = data.high;
