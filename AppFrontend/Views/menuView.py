@@ -494,7 +494,7 @@ class FormDataCompensation(View):
             config.clear()
             config.read(list_path_menu[5])
             sample_data = {
-                "kind": config.get("Reactive", "reactive_power_limiter "),
+                "kind": config.get("Reactive", "reactive_power_limiter"),
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
                 "device": config.get("Reactive", "smartlogger_id",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
@@ -504,7 +504,7 @@ class FormDataCompensation(View):
                 "reactive": config.getint("Reactive", "reactive_offset"),
                 "active": config.getint("Reactive", "active_offset"),
                 "time": config.getfloat("Reactive", "time_active_power "),
-                "factor": config.getfloat("Reactive", "pf_min "),
+                "factor": config.getfloat("Reactive", "pf_min"),
             }
             return JsonResponse(sample_data)
         except Exception as ex:
