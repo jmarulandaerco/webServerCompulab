@@ -503,7 +503,7 @@ class FormDataCompensation(View):
                 "band_low": config.getfloat("Reactive", "reactive_band_low_limit"),
                 "reactive": config.getint("Reactive", "reactive_offset"),
                 "active": config.getint("Reactive", "active_offset"),
-                "time": config.getfloat("Reactive", "time_active_power "),
+                "time": config.getfloat("Reactive", "time_active_power"),
                 "factor": config.getfloat("Reactive", "pf_min"),
             }
             return JsonResponse(sample_data)
