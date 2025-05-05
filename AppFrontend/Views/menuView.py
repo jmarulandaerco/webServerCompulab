@@ -501,8 +501,6 @@ class FormDataCompensation(View):
                 "device": config.get("Reactive", "smartlogger_id",),
                 "high": config.getfloat("Reactive", "reactive_power_percentage_high"),
                 "low": config.getfloat("Reactive", "reactive_power_percentage_low"),
-                "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
-                "band_low": config.getfloat("Reactive", "reactive_band_low_limit"),
                 "reactive": config.getint("Reactive", "reactive_offset"),
                 "active": config.getint("Reactive", "active_offset"),
                 "time": config.getfloat("Reactive", "time_active_power"),
@@ -526,8 +524,6 @@ class FormDataCompensation(View):
             device = data.get("device")
             high = data.get("high")
             low = data.get("low")
-            band_hight = data.get("band_hight")
-            band_low = data.get("band_low")
             reactive = data.get("reactive")
             active = data.get("active")
             time = data.get("time")
@@ -546,8 +542,7 @@ class FormDataCompensation(View):
             config.set("Reactive", "reactive_power_percentage_low", str(low),
 
                        )
-            config.set("Reactive", "reactive_band_high_limit", str(band_hight))
-            config.set("Reactive", "reactive_band_low_limit", str(band_low))
+           
             config.set("Reactive", "reactive_offset", str(reactive)
                        )
             config.set(
