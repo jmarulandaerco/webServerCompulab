@@ -12,7 +12,6 @@ from utils.menu import Menu
 from utils.menu_single_device import SingleDeviceRead
 
 
-config = configparser.ConfigParser(interpolation=None)
 cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
 
@@ -35,7 +34,9 @@ class FormModbusReadRtu(APIView):
     """
     def put(self, request):
         try:
-            config.clear() 
+            config = configparser.ConfigParser(interpolation=None)
+
+              
             config.read(list_path_menu[6])
 
             data = json.loads(request.body)
@@ -106,7 +107,9 @@ class FormModbusReadTCP(APIView):
         """
     def put(self, request):
         try:
-            config.clear() 
+            config = configparser.ConfigParser(interpolation=None)
+
+              
             config.read(list_path_menu[6])
 
             data = json.loads(request.body)
