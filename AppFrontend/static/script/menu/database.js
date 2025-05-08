@@ -23,8 +23,9 @@ async function updateInformationDatabase() {
     const name = document.getElementById("name").value;
     const timeout = document.getElementById("timeout").value;
     const date = document.getElementById("date").value;
-    const send_average_measure = Array.from(document.querySelectorAll('input[name="average_measure"]:checked'))
-        .map(checkbox => checkbox.value);
+    const send_average_measure = document.querySelector('input[name="average_measure"]:checked')?.value;
+
+   
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
     try {
         const response = await fetch(getFormDataBase, {

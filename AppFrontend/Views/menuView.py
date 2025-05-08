@@ -610,7 +610,7 @@ class FormDataBasePropierties(View):
                 "port": config.get('DATABASE', 'port', fallback='27017'),
                 "name": config.get('DATABASE', 'database', fallback='device_local_database'),
                 "timeout": config.get('DATABASE', 'timeout', fallback='10'),
-                "date": config.get('DATABASE', 'send_average_measurement', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
+                "date": config.get('DATABASE', 'db_date_format', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
             }
 
             return JsonResponse(sample_data)
