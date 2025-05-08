@@ -602,12 +602,15 @@ class FormDataBasePropierties(View):
             config = configparser.ConfigParser(interpolation=None)
 
             config.read(list_path_menu[1])
+            send_average = "Yes" if config.getboolean(
+                'DATABASE', 'send_average_measurement', fallback=False) else "No"
             sample_data = {
+                "avegare":send_average,
                 "host": config.get('DATABASE', 'host', fallback='localhost'),
                 "port": config.get('DATABASE', 'port', fallback='27017'),
                 "name": config.get('DATABASE', 'database', fallback='device_local_database'),
                 "timeout": config.get('DATABASE', 'timeout', fallback='10'),
-                "date": config.get('DATABASE', 'db_date_format', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
+                "date": config.get('DATABASE', 'send_average_measurement', fallback='%%Y-%%m-%%d %%H:%%M:%%S')
             }
 
             return JsonResponse(sample_data)
@@ -624,7 +627,14 @@ class FormDataBasePropierties(View):
             data = json.loads(request.body)
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
+            
+            
+            if data.get("send_average_measure") == "Yes":
+                config.set('DATABASE', 'send_average_measurement', str(True))
 
+            else:
+                config.set('DATABASE', 'send_average_measurement', str(False))
+                
             host = data.get("host")
             port = data.get("port")
             name = data.get("name")

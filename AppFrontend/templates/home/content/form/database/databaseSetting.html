@@ -35,6 +35,19 @@
                 <input type="text" id="date" name="date" required>
             </div>
 
+            
+            <div class="form-group">
+                <label>Enviar promedio medición</label>
+                <div class="radio-group">
+                    <input type="radio" id="average_measure_yes"
+                        name="average_measure" value="Yes" required>
+                    <label for="average_measure_yes">Si</label>
+                    <input type="radio" id="average_measure_no"
+                        name="average_measure" value="No" required>
+                    <label for="average_measure_no">No</label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <button class="buttonClass" type="button"
                     onclick="updateInformationDatabase()">Guardar</button>
