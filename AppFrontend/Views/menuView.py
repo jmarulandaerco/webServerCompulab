@@ -77,7 +77,7 @@ class MeasureView(View):
             config.set(
                 "measurementmodbus",
                 "sampling_mean_server",
-                modbus_average,
+                modbus_average
             )
            
             config.set(
