@@ -84,16 +84,8 @@ async function loadFormDataCompensation() {
             alert("❌" + " " + response.message);
         }
         const data = await response.json();
-        console.log(data)
         
-        const reactiveLimiter = document.querySelector(`input[name="kindCompensation"][value="${data.kind}"]`);
-        if (reactiveLimiter) {
-            reactiveLimiter.checked = true;
-        }
-        const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
-        if (limitationRadio) {
-            limitationRadio.checked = true;
-        }
+       
         document.getElementById("kind_compensation").value = data.kind_compensation;
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value = data.device
