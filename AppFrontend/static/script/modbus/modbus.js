@@ -490,19 +490,19 @@ async function loadFormDataModes() {
 
         document.getElementById("mode").value = data.mode;
 
-        const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
-        if (limitationRadio) {
-            limitationRadio.checked = true;
-        }
+        // const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
+        // if (limitationRadio) {
+        //     limitationRadio.checked = true;
+        // }
 
-        const compensationRadio = document.querySelector(`input[name="compensation"][value="${data.compensation}"]`);
-        if (compensationRadio) {
-            compensationRadio.checked = true;
-        }
+        // const compensationRadio = document.querySelector(`input[name="compensation"][value="${data.compensation}"]`);
+        // if (compensationRadio) {
+        //     compensationRadio.checked = true;
+        // }
 
-        // // Llenar los campos de sampling
-        document.getElementById("sampling_limitation").value = data.sampling_limitation;
-        document.getElementById("sampling_compensation").value = data.sampling_compensation;
+        // // // Llenar los campos de sampling
+        // document.getElementById("sampling_limitation").value = data.sampling_limitation;
+        // document.getElementById("sampling_compensation").value = data.sampling_compensation;
 
     } catch (error) {
         // console.error("Error:", error);
@@ -532,10 +532,10 @@ async function loadFormDataModes() {
 
 async function updateDataModes() {
     const mode = document.getElementById("mode").value;
-    const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
-    const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
-    const sampling_limitation = document.getElementById("sampling_limitation").value;
-    const sampling_compensation = document.getElementById("sampling_compensation").value;
+    // const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
+    // const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
+    // const sampling_limitation = document.getElementById("sampling_limitation").value;
+    // const sampling_compensation = document.getElementById("sampling_compensation").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
@@ -547,7 +547,7 @@ async function updateDataModes() {
             },
             body: JSON.stringify({
                 mode
-                ,limitation,sampling_limitation,compensation, sampling_compensation
+                // ,limitation,sampling_limitation,compensation, sampling_compensation
             })
         });
 
