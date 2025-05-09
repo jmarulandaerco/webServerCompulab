@@ -75,14 +75,14 @@ class Wlan(APIView):
         menu = Menu()
 
         for iface in netifaces.interfaces():
-            if iface.startswith('wlan'):
+            if iface.startswith('mlan'):
                 ip = menu.get_wlan_ip(iface)
                 if ip is not None:
                     # Éxito: enviamos únicamente la IP
                     return JsonResponse({'message': ip}, status=200)
                 # Error: no hay IP en esta interfaz
                 return JsonResponse(
-                    {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
+                    {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión MLAN.'},
                     status=400
                 )
 
