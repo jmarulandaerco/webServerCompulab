@@ -61,7 +61,7 @@ class MeasureView(View):
 
             zone = data.get("zone")
             modbus = data.get("modbus")
-            modbus_average =data.get("timeout"),
+            modbus_average =data.get("timeout")
 
             start = data.get("start")
             stop = data.get("stop")
