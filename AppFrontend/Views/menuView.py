@@ -72,7 +72,7 @@ class MeasureView(View):
             config.set(
                 "measurementmodbus",
                 "sampling_modbus",
-                modbus,
+                modbus
             )
             config.set(
                 "measurementmodbus",
