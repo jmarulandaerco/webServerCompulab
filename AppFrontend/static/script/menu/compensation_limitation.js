@@ -37,7 +37,7 @@ async function loadFormDataLimitation() {
             limitationRadio.checked = true;
         }
 
-
+        
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("inverter_ids").value = data.inverter_ids;
         document.getElementById("porcentage").value = data.porcentage;
@@ -94,16 +94,17 @@ async function loadFormDataCompensation() {
         if (limitationRadio) {
             limitationRadio.checked = true;
         }
+        document.getElementById("kind_compensation").value = data.kind_compensation;
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("device_id").value = data.device
-        document.getElementById("high").value = data.high;
-        document.getElementById("low").value = data.low;
-        // document.getElementById("hightBand").value = data.band_high;
-        // document.getElementById("lowBand").value = data.band_low;
+        document.getElementById("high_porcentage").value = data.high_porcentage;
+        document.getElementById("low_porcentage").value = data.low_porcentage;
+        document.getElementById("hightBand").value = data.band_high;
+        document.getElementById("lowBand").value = data.band_low;
         document.getElementById("reactive").value = data.reactive;
         document.getElementById("active").value = data.active;
-        document.getElementById("time").value = data.time;
         document.getElementById("factor").value = data.factor;
+        document.getElementById("mu").value = data.mu;
 
     } catch (error) {
         alert("❌" + "No fue posible cargar la información del compensación reactiva" );
@@ -198,19 +199,22 @@ async function updateInformationLimitation() {
 
 async function updateInformationCompensation() {
 
-    const kind = document.querySelector('input[name="kindCompensation"]:checked')?.value;
+    const kind = document.getElementById("kind_compensation").value
 
     const meter_ids = document.getElementById("meter_ids").value;
     const device = document.getElementById("device_id").value;
-    const high = document.getElementById("high").value;
-    const low = document.getElementById("low").value;
+    const high = document.getElementById("high_porcentage").value;
+    const low = document.getElementById("low_porcentage").value;
+    const hightBand = document.getElementById("band_high").value;
+    const lowBand = document.getElementById("band_low").value;
     
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
-    const time = document.getElementById("time").value;
     const factor = document.getElementById("factor").value;
+    const mu = document.getElementById("mu").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
+ 
 
 
 
@@ -222,7 +226,7 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ kind, meter_ids, device, high, low,  reactive, active, time, factor })
+            body: JSON.stringify({ kind, meter_ids, device, high, low,hightBand,lowBand,  reactive, active, factor,mu })
         });
 
         const data = await response.json();
