@@ -510,7 +510,7 @@ class FormDataCompensation(View):
             sample_data = {
                 "kind_compensation": config.get("Reactive", "kind_compensation"),
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
-                "device": config.get("Reactive", "smartlogger_id",),
+                "device": config.get("Reactive", "devices_ids",),
                 "high_porcentage": config.getfloat("Reactive", "reactive_power_percentage_high"),
                 "low_porcentage": config.getfloat("Reactive", "reactive_power_percentage_low"),
                 "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
