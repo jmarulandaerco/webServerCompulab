@@ -38,7 +38,7 @@ class MeasureView(View):
             sample_data = {
                 "zone": config.get('measurementmodbus', 'timezone'),
                 "modbus": config.get('measurementmodbus', 'sampling_modbus'),
-                "modbus_average":config.get('measurementmodbus', 'sampling_mean_server'),
+                # "modbus_average":config.get('measurementmodbus', 'sampling_mean_server'),
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }
@@ -61,7 +61,7 @@ class MeasureView(View):
 
             zone = data.get("zone")
             modbus = data.get("modbus")
-            modbus_average =data.get("timeout")
+            # modbus_average =data.get("timeout")
 
             start = data.get("start")
             stop = data.get("stop")
@@ -74,11 +74,11 @@ class MeasureView(View):
                 "sampling_modbus",
                 modbus
             )
-            config.set(
-                "measurementmodbus",
-                "sampling_mean_server",
-                modbus_average
-            )
+            # config.set(
+            #     "measurementmodbus",
+            #     "sampling_mean_server",
+            #     modbus_average
+            # )
            
             config.set(
                 "measurementmodbus", "start_hour", start
@@ -609,10 +609,10 @@ class FormDataBasePropierties(View):
             config = configparser.ConfigParser(interpolation=None)
 
             config.read(list_path_menu[1])
-            send_average = "Yes" if config.getboolean(
-                'DATABASE', 'send_average_measurement', fallback=False) else "No"
+            # send_average = "Yes" if config.getboolean(
+            #     'DATABASE', 'send_average_measurement', fallback=False) else "No"
             sample_data = {
-                "avegare":send_average,
+                # "avegare":send_average,
                 "host": config.get('DATABASE', 'host', fallback='localhost'),
                 "port": config.get('DATABASE', 'port', fallback='27017'),
                 "name": config.get('DATABASE', 'database', fallback='device_local_database'),
@@ -636,11 +636,11 @@ class FormDataBasePropierties(View):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
             
             
-            if data.get("send_average_measure") == "Yes":
-                config.set('DATABASE', 'send_average_measurement', str(True))
+            # if data.get("send_average_measure") == "Yes":
+            #     config.set('DATABASE', 'send_average_measurement', str(True))
 
-            else:
-                config.set('DATABASE', 'send_average_measurement', str(False))
+            # else:
+            #     config.set('DATABASE', 'send_average_measurement', str(False))
                 
             host = data.get("host")
             port = data.get("port")

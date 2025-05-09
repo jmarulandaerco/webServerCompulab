@@ -23,7 +23,7 @@ async function updateInformationDatabase() {
     const name = document.getElementById("name").value;
     const timeout = document.getElementById("timeout").value;
     const date = document.getElementById("date").value;
-    const send_average_measure = document.querySelector('input[name="average_measure"]:checked')?.value;
+    // const send_average_measure = document.querySelector('input[name="average_measure"]:checked')?.value;
 
    
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -34,7 +34,7 @@ async function updateInformationDatabase() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ host, port, name, timeout, date,send_average_measure})
+            body: JSON.stringify({ host, port, name, timeout, date})
         });
 
         const data = await response.json();
@@ -269,10 +269,10 @@ async function loadFormDataBase() {
         const data = await response.json();
 
 
-        const send_average_measure = document.querySelector(`input[name="average_measure"][value="${data.avegare}"]`);
-        if (send_average_measure) {
-            send_average_measure.checked = true;
-        }
+        // const send_average_measure = document.querySelector(`input[name="average_measure"][value="${data.avegare}"]`);
+        // if (send_average_measure) {
+        //     send_average_measure.checked = true;
+        // }
 
         document.getElementById("host").value = data.host;
         document.getElementById("port").value = data.port;

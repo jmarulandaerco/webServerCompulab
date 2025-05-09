@@ -327,7 +327,7 @@ async function loadFormDataMeasureModbus() {
         const data = await response.json();
         document.getElementById("zone").value = data.zone;
         document.getElementById("modbus").value = data.modbus;
-        document.getElementById("modbus_average").value = data.modbus_average;
+        // document.getElementById("modbus_average").value = data.modbus_average;
 
         document.getElementById("start").value = data.start;
         document.getElementById("stop").value = data.stop;
@@ -418,7 +418,7 @@ async function updateSettingModbus() {
 async function updateMeasureModbus() {
     const zone = document.getElementById("zone").value;
     const modbus = document.getElementById("modbus").value;
-    const timeout =  document.getElementById("modbus_average").value;
+    // const timeout =  document.getElementById("modbus_average").value;
     const start = document.getElementById("start").value;
     const stop = document.getElementById("stop").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -430,7 +430,7 @@ async function updateMeasureModbus() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ zone, modbus,timeout, start, stop })
+            body: JSON.stringify({ zone, modbus, start, stop })
         });
 
         const data = await response.json();
