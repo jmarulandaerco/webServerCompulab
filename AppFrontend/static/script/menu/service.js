@@ -21,7 +21,7 @@ function checkServiceStatus() {
         .then(data => {
             const statusCircle = document.getElementById('statusCircle');
             const statusText = document.getElementById('statusText');
-
+            console.log(data)
             if (data.active) {
                 statusCircle.classList.remove('inactive');
                 statusCircle.classList.add('active');

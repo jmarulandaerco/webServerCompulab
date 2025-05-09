@@ -346,7 +346,7 @@ class Menu:
         
     
 
-    def get_wlan_ip(self,ifname='wlan0') -> str :
+    def get_wlan_ip(self,ifname='mlan0') -> str :
         if ifname in netifaces.interfaces():
             addrs = netifaces.ifaddresses(ifname)
             ipv4 = addrs.get(netifaces.AF_INET)
