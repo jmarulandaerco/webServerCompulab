@@ -197,8 +197,8 @@ async function updateInformationCompensation() {
     const device = document.getElementById("device_id").value;
     const high = document.getElementById("high_porcentage").value;
     const low = document.getElementById("low_porcentage").value;
-    const hightBand = document.getElementById("band_high").value;
-    const lowBand = document.getElementById("band_low").value;
+    const hightBand = document.getElementById("hightBand").value;
+    const lowBand = document.getElementById("lowBand").value;
     
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
