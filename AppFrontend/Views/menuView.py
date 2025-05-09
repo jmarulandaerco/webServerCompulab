@@ -38,6 +38,7 @@ class MeasureView(View):
             sample_data = {
                 "zone": config.get('measurementmodbus', 'timezone'),
                 "modbus": config.get('measurementmodbus', 'sampling_modbus'),
+                "modbus_average":config.get('measurementmodbus', 'sampling_mean_server'),
                 "start": config.get('measurementmodbus', 'start_hour'),
                 "stop": config.get('measurementmodbus', 'stop_hour'),
             }
@@ -60,6 +61,8 @@ class MeasureView(View):
 
             zone = data.get("zone")
             modbus = data.get("modbus")
+            modbus_average =data.get("timeout"),
+
             start = data.get("start")
             stop = data.get("stop")
 
@@ -71,6 +74,12 @@ class MeasureView(View):
                 "sampling_modbus",
                 modbus,
             )
+            config.set(
+                "measurementmodbus",
+                "sampling_mean_server",
+                modbus_average,
+            )
+           
             config.set(
                 "measurementmodbus", "start_hour", start
             )
