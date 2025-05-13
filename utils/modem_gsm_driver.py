@@ -94,7 +94,7 @@ class SimModem:
                 return val_return
 
             sim_status = self.__run_bash_command(
-                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F'{{print $2}}'"
+                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
             )
             val_return = "SIM" in sim_status
         except Exception as e:
