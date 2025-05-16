@@ -280,7 +280,21 @@ class Menu:
             self.logger.error(f"❌ Error creating user '{username}': {e}")
             
             
- 
+    def update_user_password(self, username, new_password):
+        try:
+            user = User.objects.filter(username=username).first()
+            
+            if user is None:
+                self.logger.warning(f"⚠️ User '{username}' does not exist. Cannot update password.")
+                return
+
+            user.set_password(new_password)
+            user.save()
+            self.logger.info(f"🔐 Password for user '{username}' updated successfully.")
+        
+        except Exception as e:
+            self.logger.error(f"❌ Error updating password for user '{username}': {e}")
+           
     def setup_folder_path(self):
         try:
             folders_devices = []
