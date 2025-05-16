@@ -16,7 +16,12 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu(option) {
+function loadContentMenu(option,clickedButton) {
+
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    clickedButton.classList.add('active');
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -98,7 +103,6 @@ function loadContentSetting(option) {
  */
 
 function loadContentHttp(option, clickedButton) {
-    console.log('Cargando:', option);
 
     const buttons = document.querySelectorAll('button');
     buttons.forEach(btn => btn.classList.remove('active'));
