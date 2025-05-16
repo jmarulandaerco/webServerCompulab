@@ -16,12 +16,14 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu(option,clickedButton) {
+function loadContentMenu(option,clickedButton=null) {
 
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => btn.classList.remove('active'));
+    if(clickedButton!=null){
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => btn.classList.remove('active'));
 
-    clickedButton.classList.add('active');
+        clickedButton.classList.add('active');
+    }
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
