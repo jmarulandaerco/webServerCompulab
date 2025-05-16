@@ -85,6 +85,7 @@ class ChangePassword(View):
             menu = Menu()
             change = menu.change_user_password(new_password)
             if change:
+                menu.update_user_password("erco_config",new_password)
                 return JsonResponse({"message": "Contraseña actualizada."})
             else:
                 return JsonResponse({"message": "Contraseña no actualizada"}, status=400)
