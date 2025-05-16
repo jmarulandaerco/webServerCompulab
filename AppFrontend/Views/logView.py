@@ -34,7 +34,7 @@ class GetLogsView(View):
     def get(self, request):
         if os.path.exists(LOG_FILE_PATH):
             with open(LOG_FILE_PATH, "r", encoding="utf-8") as file:
-                logs = file.readlines()
+                logs = file.readlines()[-1000:]
             return JsonResponse({"logs": logs})
         else:
             return JsonResponse({"message": "Archivo log no encontrado"}, status=404)

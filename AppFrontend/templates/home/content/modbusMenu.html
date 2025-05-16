@@ -2,19 +2,19 @@
 <div class="container">
     <button class="button" onclick="loadDevices('seeDevices',this)">Ver dispositivos
         configurados</button>
-    <button class="button" onclick="loadContentModbus('newDevice')">Ingresar
+    <button class="button" onclick="loadContentModbus('newDevice',this)">Ingresar
         nuevo dispositivo</button>
     <button class="button" onclick="loadDevices('deleteDevice',this)">Borrar
         dispositivo</button>
     <button class="button" onclick="loadDevices('modifyDevice',this)">Modificar
         dispositivo</button>
     <button class="button"
-        onclick="loadContentModbus('modbusSetting')">Configuraciones</button>
+        onclick="loadContentModbus('modbusSetting',this)">Configuraciones</button>
     <button class="button"
-        onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu')">MODBUS
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu',this)">MODBUS
         RTU</button>
     <button class="button"
-        onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp')">MODBUS
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp',this)">MODBUS
         TCP</button>
 </div>
 <div class="container" id="content3" style="display: flex;"></div>

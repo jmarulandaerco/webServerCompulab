@@ -53,7 +53,10 @@ function loadContentMenu(option,clickedButton=null) {
  * loadContentSetting('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentSetting(option) {
+function loadContentSetting(option,clickedButton=null) {
+    if(clickedButton!=null){
+            activateButton(clickedButton);
+        }
     cont = 0;
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
