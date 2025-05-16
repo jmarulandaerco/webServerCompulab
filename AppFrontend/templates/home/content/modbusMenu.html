@@ -1,12 +1,12 @@
 {% load static %}
 <div class="container">
-    <button class="button" onclick="loadDevices('seeDevices')">Ver dispositivos
+    <button class="button" onclick="loadDevices('seeDevices',this)">Ver dispositivos
         configurados</button>
     <button class="button" onclick="loadContentModbus('newDevice')">Ingresar
         nuevo dispositivo</button>
-    <button class="button" onclick="loadDevices('deleteDevice')">Borrar
+    <button class="button" onclick="loadDevices('deleteDevice',this)">Borrar
         dispositivo</button>
-    <button class="button" onclick="loadDevices('modifyDevice')">Modificar
+    <button class="button" onclick="loadDevices('modifyDevice',this)">Modificar
         dispositivo</button>
     <button class="button"
         onclick="loadContentModbus('modbusSetting')">Configuraciones</button>

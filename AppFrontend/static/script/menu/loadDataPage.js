@@ -19,10 +19,7 @@ let intervalId;
 function loadContentMenu(option,clickedButton=null) {
 
     if(clickedButton!=null){
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(btn => btn.classList.remove('active'));
-
-        clickedButton.classList.add('active');
+        activateButton(clickedButton);
     }
     fetch(`/home/content/form/${option}/`)
         .then(response => {
@@ -106,10 +103,9 @@ function loadContentSetting(option) {
 
 function loadContentHttp(option, clickedButton) {
 
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => btn.classList.remove('active'));
-
-    clickedButton.classList.add('active');
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
 
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
@@ -401,7 +397,10 @@ async function loadFormDataAwsSettings() {
  */
 
 
-function loadContentSingleDevice(option) {
+function loadContentSingleDevice(option,clickedButton=null) {
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
     document.querySelector('.container_logs').style.display = 'none';
     document.getElementById('content3').style.display = 'flex';
 
