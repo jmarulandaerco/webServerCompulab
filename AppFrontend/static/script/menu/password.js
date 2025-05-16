@@ -182,7 +182,7 @@ async function checkedPassWordLog() {
 
         } else {
             alert("✅ " + data.message);
-            await loadContentMenu('settingLog',this)
+            await loadContentMenu('settingLog')
 
         }
 
