@@ -55,9 +55,9 @@ class InterfaceIPView(APIView):
 
         if ip:
             if not gateway:
-                return JsonResponse({'interface': interface, 'ip': ip,'gateway':''})
+                return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':''})
             else:
-                return JsonResponse({'interface': f"{interface}/24", 'ip': ip,'gateway':gateway})
+                return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':gateway})
         else:
             return JsonResponse(
                 {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión física o que la interfaz no tenga una IP sin configurar'},status=400
