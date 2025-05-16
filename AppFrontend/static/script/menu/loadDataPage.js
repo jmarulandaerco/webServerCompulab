@@ -98,6 +98,15 @@ function loadContentSetting(option) {
  */
 
 function loadContentHttp(option) {
+    console.log('Cargando:', target);
+
+
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    const clickedButton = event.currentTarget;
+    clickedButton.classList.add('active');
+  
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
