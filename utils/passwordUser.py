@@ -50,19 +50,18 @@ class DataBaseMenu:
 
     def check_password_erco_config(self, password):
         try:
-            # Ejecutamos 'su -' para cambiar al usuario especificado y verificar la contraseña
             result = subprocess.run(
-                ['su', '-', 'erco_config'],  # Comando para cambiar al usuario
-                input=password + '\n',  # Proporcionamos la contraseña como entrada
-                text=True,  # Aseguramos que el 'input' sea texto
-                check=True,  # Si el comando falla, se lanzará una excepción
-                stdout=subprocess.PIPE,  # Captura la salida estándar
-                stderr=subprocess.PIPE   # Captura los errores
+                ['su', '-', 'erco_config'],  
+                input=password + '\n', 
+                text=True,  
+                check=True,  
+                stdout=subprocess.PIPE,  
+                stderr=subprocess.PIPE  
             )
 
-            # Si llegamos aquí, la contraseña es correcta
-            return True  # Contraseña correcta
+            
+            return True  
 
         except subprocess.CalledProcessError as e:
-            # Si ocurre un error, significa que la contraseña es incorrecta
-            return False  # Contraseña incorrecta
+            
+            return False  
