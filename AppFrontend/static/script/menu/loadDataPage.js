@@ -97,16 +97,14 @@ function loadContentSetting(option) {
  * loadContentHttp('checkerStatus'); // Loads content related to 'checkerStatus' and triggers `loadFunction` for further actions.
  */
 
-function loadContentHttp(option) {
-    console.log('Cargando:', target);
-
+function loadContentHttp(option, clickedButton) {
+    console.log('Cargando:', option);
 
     const buttons = document.querySelectorAll('button');
     buttons.forEach(btn => btn.classList.remove('active'));
 
-    const clickedButton = event.currentTarget;
     clickedButton.classList.add('active');
-  
+
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -117,12 +115,12 @@ function loadContentHttp(option) {
         .then(data => {
             document.getElementById("content4").innerHTML = data;
             loadFunction(option);
-
         })
         .catch(error => {
             document.getElementById("content4").innerHTML = "<h1>Error cargando contenido</h1>";
         });
 }
+
 /**
  * Loads form data for the logging settings from the server and populates the form fields.
  * 
