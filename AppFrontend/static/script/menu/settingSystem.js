@@ -489,6 +489,8 @@ async function addPLC(){
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+
             },
             body: JSON.stringify({ interface, ip })
         });

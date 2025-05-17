@@ -3,7 +3,6 @@ import os
 import subprocess
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 
 from utils.menu import Menu
 
@@ -104,25 +103,22 @@ class AddWifi(APIView):
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
 
-class PLC(APIView):
-    authentication_classes = []  # Desactiva autenticaciones que imponen CSRF
-    permission_classes = [AllowAny]
+@method_decorator(csrf_exempt, name='dispatch')
 
-    def post(self, request):
+class PLC(APIView):
+    def post(self,request):
         try:
             data = json.loads(request.body)
             interface = data.get("interface")
             ip = data.get("ip")
             menu = Menu()
-
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
-            
-            status = menu.configure_iptables(interface, ip)
-
-            if status:
-                return JsonResponse({"message": "Configuración exitosa"}, status=200)
+           
+            status =menu.configure_iptables(interface,ip)
+            if(status):
+                return JsonResponse({"message":data.message},status=200)
             else:
-                return JsonResponse({"message": "Falló la configuración"}, status=400)
+                return JsonResponse({"message":data.message},status=400)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
