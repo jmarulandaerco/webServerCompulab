@@ -103,7 +103,6 @@ class AddWifi(APIView):
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
 
-@method_decorator(csrf_exempt, name='dispatch')
 
 class PLC(APIView):
     def post(self,request):
