@@ -3,7 +3,8 @@ import os
 import subprocess
 from django.http import JsonResponse
 from rest_framework.views import APIView
-
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from utils.menu import Menu
 
 class InterfaceConnection(APIView):
@@ -103,6 +104,7 @@ class AddWifi(APIView):
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class PLC(APIView):
     def post(self,request):
         try:
