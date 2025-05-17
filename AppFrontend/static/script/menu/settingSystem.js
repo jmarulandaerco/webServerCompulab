@@ -487,7 +487,7 @@ async function addPLC(){
 
     
     try {
-        const response = await fetch(getFormDataUrlSettingInterface, {
+        const response = await fetch(plc, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
