@@ -5,7 +5,7 @@ from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuChecker, ContentViewMenuCompensationLimitation, ContentViewMenuDatabase, ContentViewMenuMain, ContentViewMenuModbus, ContentViewMenuSetting, ContentViewSingleDevice
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
 from AppFrontend.Views.homeView import HomeView
-from AppFrontend.Views.settingSystemView import AddWifi, AntennaWifi, InterfaceConnection
+from AppFrontend.Views.settingSystemView import PLC, AddWifi, AntennaWifi, InterfaceConnection
 from AppFrontend.Views.jsonView import ListColections
 from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, GetLogsView
 from AppFrontend.Views.loginView import IndexView
@@ -92,6 +92,7 @@ urlpatterns = [
 
     path('api/setting/whitelist/',DeleteWhiteList.as_view(),name='view_list'),
     path('api/setting/modemManager/',ModemManager.as_view(),name='modem_manager'),
+    path('api/setting/plc/',PLC.as_view(),name='plc'),
     
     path('api/read/rtu/',FormModbusReadRtu.as_view(),name='rtu_single_device'),
     path('api/read/tcp/',FormModbusReadTCP.as_view(),name='tcp_single_device'),

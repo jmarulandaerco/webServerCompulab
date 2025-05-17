@@ -479,3 +479,34 @@ function WLan(){
       alert("❌ " +'Error al verificar la ip:', error);
     });
 }
+
+async function addPLC(){
+    const interface = document.getElementById("interface").value;
+    const ip = document.getElementById("connection").value;
+    
+    try {
+        const response = await fetch(getFormDataUrlSettingInterface, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ interface, ip })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error, comando no aplicado " + data.message);
+
+        } else {
+            alert("✅ " + data.message);
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
+    }
+};

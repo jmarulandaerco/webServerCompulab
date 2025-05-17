@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="form-container">
+
+    <form id="myForm" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+                    <label for="plc">Interfaces de red</label>
+                    <select id="plc" name="plc" required>
+                        <option value="eth0">Ethernet 0 (eth0)</option>
+                        <option value="eth1">Ethernet 1 (eth1)</option>
+                    </select>
+                </div>
+
+        <div class="form-group">
+            <label for="plcIp">Ingresar ip</label>
+            <input type="text" id="plcIp" name="plcIp">
+        </div>
+
+        
+        <button class="buttonClass" type="button"
+            onclick="addPLC()">Guardar</button>
+    </form>
+</div>

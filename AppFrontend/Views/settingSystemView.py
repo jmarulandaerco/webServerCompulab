@@ -102,3 +102,18 @@ class AddWifi(APIView):
             return JsonResponse({"message": f"{response}"}, status=200)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
+
+class PLC(APIView):
+    def post(self,request):
+        try:
+            data = json.loads(request.body)
+            interface = data.get("interface")
+            ip = data.get("ip")
+            menu = Menu()
+            status =menu.configure_iptables(interface,ip)
+            if(status):
+                return JsonResponse({"message":data.message},status=200)
+            else:
+                return JsonResponse({"message":data.message},status=400)
+        except Exception as e:
+            return JsonResponse({"message": str(e)}, status=400)
