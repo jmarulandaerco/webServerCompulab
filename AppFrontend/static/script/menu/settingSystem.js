@@ -481,8 +481,8 @@ function WLan(){
 }
 
 async function addPLC(){
-    const interface = document.getElementById("interface").value;
-    const ip = document.getElementById("connection").value;
+    const interface = document.getElementById("plc").value;
+    const ip = document.getElementById("plcIp").value;
     
     try {
         const response = await fetch(getFormDataUrlSettingInterface, {
