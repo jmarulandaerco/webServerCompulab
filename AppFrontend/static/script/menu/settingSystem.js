@@ -483,6 +483,8 @@ function WLan(){
 async function addPLC(){
     const interface = document.getElementById("plc").value;
     const ip = document.getElementById("plcIp").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
     
     try {
         const response = await fetch(getFormDataUrlSettingInterface, {
