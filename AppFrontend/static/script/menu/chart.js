@@ -1,4 +1,5 @@
 function showGraphic() {
+    console.log("Mi prueba")
     const canvas = document.getElementById('miGrafica');
     canvas.style.display = 'block'; // Muestra el canvas si estaba oculto
 
