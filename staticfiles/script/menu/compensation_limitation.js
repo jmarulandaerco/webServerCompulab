@@ -1,55 +1,129 @@
+/**
+ * Loads form data for the energy meter limitation configuration.
+ * 
+ * This function sends a GET request to the server to retrieve the energy meter limitation data. 
+ * It populates the form fields with the retrieved values, including the meter IDs, inverter IDs, percentage, 
+ * grid and inverter limits. It also sets the appropriate radio button based on the retrieved limitation value.
+ * If the request is successful, the form fields are updated with the corresponding data. 
+ * If an error occurs during the request or while processing the data, an error message is logged to the console.
+ * 
+ * @async
+ * @function
+ * 
+ * @returns {void} This function does not return a value. It updates the DOM with the fetched limitation settings.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the network request or processing the response.
+ * 
+ * @example
+ * loadFormDataLimitation(); // Fetches and populates the form with energy meter limitation data.
+ */
+
 async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
-            alert("Error in loading the data");
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
+            alert("Error en la carga de datos");
         }
         const data = await response.json();
+        console.log("Data")
+        console.log( data)
         const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
         if (limitationRadio) {
             limitationRadio.checked = true;
         }
 
-
+        
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("inverter_ids").value = data.inverter_ids;
         document.getElementById("porcentage").value = data.porcentage;
-        document.getElementById("grid_min").value = data.inverter_ids;
-        document.getElementById("grid_max").value = data.meter_ids;
-        document.getElementById("inverter_min").value = data.inverter_ids;
-        document.getElementById("inverterMax").value = data.inverterMax;
+        document.getElementById("grid_min").value = data.grid_min;
+        document.getElementById("grid_max").value = data.grid_max;
+        document.getElementById("inverter_min").value = data.active_power_inv_min;
+        document.getElementById("inverterMax").value = data.active_power_inv_max;
 
     } catch (error) {
         // console.error("Error:", error);
     }
 }
+
+/**
+ * Loads form data for the energy meter limitation configuration.
+ * 
+ * This function sends a GET request to the server to retrieve the energy meter limitation data. 
+ * It populates the form fields with the retrieved values, including the meter IDs, inverter IDs, percentage, 
+ * grid and inverter limits. It also sets the appropriate radio button based on the retrieved limitation value.
+ * If the request is successful, the form fields are updated with the corresponding data. 
+ * If an error occurs during the request or while processing the data, an error message is logged to the console.
+ * 
+ * @async
+ * @function
+ * 
+ * @returns {void} This function does not return a value. It updates the DOM with the fetched limitation settings.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the network request or processing the response.
+ * 
+ * @example
+ * loadFormDataLimitation(); // Fetches and populates the form with energy meter limitation data.
+ */
+
 async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
+        
         if (!response.ok) {
-            alert("Error in loading the data");
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
+
+            }
+            alert("❌" + " " + response.message);
         }
         const data = await response.json();
-
-        const compensation = document.querySelector(`input[name="reactive_power"][value="${data.reactive_power}"]`);
-        if (compensation) {
-            compensation.checked = true;
-        }
-
-
+        
+       
+        document.getElementById("kind_compensation").value = data.kind_compensation;
         document.getElementById("meter_ids").value = data.meter_ids;
-        document.getElementById("smart_logger").value = data.smart_logger;
-        document.getElementById("high").value = data.high;
-        document.getElementById("low").value = data.low;
+        document.getElementById("device_id").value = data.device
+        document.getElementById("high_porcentage").value = data.high_porcentage;
+        document.getElementById("low_porcentage").value = data.low_porcentage;
+        document.getElementById("hightBand").value = data.band_high;
+        document.getElementById("lowBand").value = data.band_low;
         document.getElementById("reactive").value = data.reactive;
         document.getElementById("active").value = data.active;
-        document.getElementById("time").value = data.time;
         document.getElementById("factor").value = data.factor;
+        document.getElementById("mu").value = data.mu;
 
     } catch (error) {
-        // console.error("Error:", error);
+        alert("❌" + "No fue posible cargar la información del compensación reactiva" );
     }
 }
+
+
+/**
+ * Updates the energy meter limitation configuration based on user input.
+ * 
+ * This function sends a PUT request to the server to update the energy meter limitation settings. 
+ * It collects values from the form inputs, including the selected limitation type, meter IDs, inverter IDs, 
+ * percentage, and grid/inverter limits. The function sends these values in a JSON format to the server 
+ * for processing. If the request is successful, a confirmation message is displayed. If there's an error 
+ * during the request or validation, an error message is shown.
+ * 
+ * @async
+ * @function
+ * 
+ * @returns {void} This function does not return a value. It triggers an alert based on the success or failure of the operation.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the network request or processing the response.
+ * 
+ * @example
+ * updateInformationLimitation(); // Updates the energy meter limitation settings based on form data.
+ */
+
 async function updateInformationLimitation() {
     const selectedValue = document.querySelector('input[name="energy_meter"]:checked')?.value;
     const meter_ids = document.getElementById("meter_ids").value;
@@ -76,8 +150,12 @@ async function updateInformationLimitation() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
-            alert("❌ " + "Error in validation");
+            }
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -90,17 +168,48 @@ async function updateInformationLimitation() {
         // console.error("Error:", error);
     }
 };
+
+/**
+ * Updates the compensation configuration for the reactive and active power settings.
+ * 
+ * This function sends a PUT request to the server to update the compensation settings based on the user input.
+ * It gathers values from form fields, including the selected reactive power type, meter IDs, smart logger setting, 
+ * high/low compensation thresholds, reactive power, active power, time, and compensation factor. These values are then 
+ * sent as a JSON object in the body of the PUT request. If the update is successful, a success message is shown. 
+ * If there is any error during the update or validation process, an error message is displayed.
+ * 
+ * @async
+ * @function
+ * 
+ * @returns {void} This function does not return a value. It triggers an alert based on the success or failure of the operation.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the network request or processing the response.
+ * 
+ * @example
+ * updateInformationCompensation(); // Updates the compensation configuration with the form data.
+ */
+
 async function updateInformationCompensation() {
-    const selectedValue = document.querySelector('input[name="reactive_power"]:checked')?.value;
+
+    const kind = document.getElementById("kind_compensation").value
+
     const meter_ids = document.getElementById("meter_ids").value;
-    const smart_logger = document.getElementById("smart_logger").value;
-    const high = document.getElementById("high").value;
-    const low = document.getElementById("low").value;
+    const device = document.getElementById("device_id").value;
+    const high = document.getElementById("high_porcentage").value;
+    const low = document.getElementById("low_porcentage").value;
+    const hightBand = document.getElementById("hightBand").value;
+    const lowBand = document.getElementById("lowBand").value;
+    
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
-    const time = document.getElementById("time").value;
     const factor = document.getElementById("factor").value;
+    const mu = document.getElementById("mu").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+ 
+
+
+
 
     try {
         const response = await fetch(getFormDataCompensation, {
@@ -109,14 +218,18 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ selectedValue, meter_ids, smart_logger, high, low, reactive, active, time, factor })
+            body: JSON.stringify({ kind, meter_ids, device, high, low,hightBand,lowBand,  reactive, active, factor,mu })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401){
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}"; 
 
-            alert("❌ " + "Error in validation");
+            }
+            alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
             alert("✅ " + data.message);
@@ -125,7 +238,7 @@ async function updateInformationCompensation() {
         }
 
     } catch (error) {
-        alert("❌ " + error.message);
+        alert("❌ " + error);
         // console.error("Error:", error);
     }
 };

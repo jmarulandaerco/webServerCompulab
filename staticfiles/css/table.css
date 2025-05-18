@@ -16,6 +16,16 @@ h1 {
   -webkit-overflow-scrolling: touch;
 }
 
+.input_checkbox_one_choce{
+  width: 50%;
+  padding: 8px;
+  margin-top: px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: 'Sora Light';
+}
+
 .perPageSelect {
   font-family: 'Sora Light';
   font-size: 12px;
@@ -68,7 +78,7 @@ td {
   font-family: 'Sora Light';
   font-size: 12px;
   height: 20px;
-  max-width: 30px;
+  max-width: 50px;
   padding: 2px;
 }
 

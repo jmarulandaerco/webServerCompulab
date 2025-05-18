@@ -9,12 +9,21 @@
     display: flex;
     justify-content: center; /* Centra horizontalmente los botones */
     flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
-    gap: 10px; /* Espaciado entre los botones */
+    gap: 3px; /* Espaciado entre los botones */
     width: calc(100% - 220px); /* Evita que los botones queden detrás del sidebar */
     margin-left: 10px; /* Asegura que no se superpongan con el sidebar */
     
 }
 
+.container_log {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los botones */
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
+    gap: 10px; /* Espaciado entre los botones */
+    width: 100%;
+    margin-left: 10px; /* Asegura que no se superpongan con el sidebar */
+    
+}
 button {
     padding: 5px;
     cursor: pointer;
@@ -32,8 +41,12 @@ button {
     font-family: 'Sora Light';
 }
 
+
 .button:hover {
     background-color: #E4DD00;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+button.active {
+    background-color: #E4DD00; /* Un verde más oscuro para indicar selección */
+}
