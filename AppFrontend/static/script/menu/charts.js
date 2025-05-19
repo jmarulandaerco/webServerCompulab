@@ -45,7 +45,7 @@
 
 
     async function showGraphic() {
-        const response = await fetch('/api/memoria/');
+        const response = await fetch(ram);
         const data = await response.json();
 
         const canvas = document.getElementById('miGrafica');
