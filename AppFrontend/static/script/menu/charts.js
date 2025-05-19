@@ -64,7 +64,7 @@
             parseMem(data.memoria.disponible)
         ];
 
-        if (window.miGrafica) {
+        if (window.miGrafica instanceof Chart) {
             window.miGrafica.destroy();
         }
 
