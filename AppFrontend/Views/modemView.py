@@ -1,4 +1,5 @@
 import json
+import subprocess
 from django.http import HttpResponse, JsonResponse
 from django.db import connections
 from rest_framework.views import APIView
@@ -55,6 +56,12 @@ class InterfaceIPView(APIView):
 
         if ip:
             if not gateway:
+                # Define el comando
+                cmd = [['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth0'],['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth1']]
+
+                for i in cmd:
+                    result = subprocess.run(i, check=True, text=True, capture_output=True)
+                
                 return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':''})
             else:
                 return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':gateway})
