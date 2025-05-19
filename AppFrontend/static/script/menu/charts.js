@@ -48,7 +48,7 @@
         const response = await fetch(ram);
         const data = await response.json();
 
-        const canvas = document.getElementById('miGrafica');
+        const canvas = document.getElementById('myChart');
         canvas.style.display = 'block';
 
         const ctx = canvas.getContext('2d');
@@ -64,11 +64,11 @@
             parseMem(data.memoria.disponible)
         ];
 
-        if (window.miGrafica instanceof Chart) {
-            window.miGrafica.destroy();
+        if (window.myChart instanceof Chart) {
+            window.myChart.destroy();
         }
 
-        window.miGrafica = new Chart(ctx, {
+        window.myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -76,7 +76,7 @@
                     label: 'Memoria (MB)',
                     data: values,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: 'rgba(73, 189, 0, 0.6)',
                     borderWidth: 1
                 }]
             },
