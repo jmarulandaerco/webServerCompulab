@@ -514,3 +514,39 @@ async function addPLC(){
         // console.error("Error:", error);
     }
 };
+
+
+async function deletePLC(){
+    const interface = document.getElementById("plc").value;
+    const ip = document.getElementById("plcIp").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+    
+    try {
+        const response = await fetch(plc, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+
+            },
+            body: JSON.stringify({ interface, ip })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error, comando no aplicado " + data.message);
+
+        } else {
+            alert("✅ " + data.message);
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
+    }
+};
