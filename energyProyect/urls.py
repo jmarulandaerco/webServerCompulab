@@ -1,6 +1,7 @@
 from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView) 
 from django.urls import path
+from AppFrontend.Views.chartView import chartRAM
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuChecker, ContentViewMenuCompensationLimitation, ContentViewMenuDatabase, ContentViewMenuMain, ContentViewMenuModbus, ContentViewMenuSetting, ContentViewSingleDevice
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
@@ -83,6 +84,7 @@ urlpatterns = [
     path('api/weather/status/',WeatherStation.as_view(), name='wheader_status'),
     path('api/power/status/',PowerMeter.as_view(), name='power_status'),
     path('api/fault/status/',Fault.as_view(), name='power_status'),
+    
 
 
     path('api/inverter/export/', InverterApiView.as_view(), name='export_inverter_data'),
@@ -97,6 +99,9 @@ urlpatterns = [
     path('api/read/rtu/',FormModbusReadRtu.as_view(),name='rtu_single_device'),
     path('api/read/tcp/',FormModbusReadTCP.as_view(),name='tcp_single_device'),
     path('api/ip/<str:interface>/', InterfaceIPView.as_view(), name='get_interface_ip'),
+    
+    path('api/memory/', chartRAM.as_view(), name='memory'),
+
 
 
 ]

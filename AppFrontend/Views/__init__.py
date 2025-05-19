@@ -3,3 +3,4 @@ from .loginView import IndexView
 from .menuView import MeasureView
 from .checkPassWordView import CheckPassword
 from .deleteView import DeleteCollectionView
+from .chartView import chartRAM
