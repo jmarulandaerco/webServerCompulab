@@ -60,7 +60,10 @@ class InterfaceIPView(APIView):
                 cmd = [['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth0'],['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth1']]
 
                 for i in cmd:
-                    result = subprocess.run(i, check=True, text=True, capture_output=True)
+                    try:   
+                        result = subprocess.run(i, check=True, text=True, capture_output=True)
+                    except:
+                        print("Hola")
                 
                 return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':''})
             else:
