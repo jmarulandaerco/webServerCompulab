@@ -408,3 +408,7 @@ class Menu:
 
         except Exception:
             return False
+        
+    def clear_word(self,texto: str) -> str:
+        # Elimina cualquier palabra que contenga "Modbus" o "TCP", sin importar mayúsculas/minúsculas
+        return re.sub(r'\b\w*(modbus|tcp|rtu)\w*\b', '', texto, flags=re.IGNORECASE).strip()
