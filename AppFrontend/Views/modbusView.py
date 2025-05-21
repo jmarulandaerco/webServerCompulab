@@ -265,8 +265,8 @@ class FormModbusAddDeviceRtu(View):
 
               
             config.read(list_path_menu[2])
-            
-            new_name_device="Modbus-RTU-"+data.get("nameDevice")
+            menu=Menu()
+            new_name_device="Modbus-RTU-"+menu.clear_word(data.get("nameDevice"))
             
             current_devices =config.get("Default", "devices_config")
             current_sections = config.sections()
@@ -384,8 +384,8 @@ class FormModbusAddDeviceTcp(View):
 
               
             config.read(list_path_menu[2])
-            
-            new_name_device="Modbus-TCP-"+data.get("nameDevice")
+            menu=Menu()
+            new_name_device="Modbus-TCP-"+menu.clear_word(data.get("nameDevice"))
             
             current_devices =config.get("Default", "devices_config")
             current_sections = config.sections()
