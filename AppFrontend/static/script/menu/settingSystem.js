@@ -564,7 +564,10 @@ async function deletePLC(interfaceEntry = null, ipEntry = null, portEntry = null
         if (!response.ok) {
             alert("❌ " + "Error, comando no aplicado " + data.message);
         } else {
-            alert("✅ " + data.message);
+            if(interfaceValue===null){
+                alert("✅ " + data.message);
+            }
+           
         }
 
     } catch (error) {
