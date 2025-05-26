@@ -91,7 +91,7 @@ async function loadFormDataCompensation() {
         }
 
         document.getElementById("meter_ids").value = data.meter_ids;
-        document.getElementById("device_id").value = data.device
+        document.getElementById("smartlogger").value = data.device
         document.getElementById("high_porcentage").value = data.high_porcentage;
         document.getElementById("low_porcentage").value = data.low_porcentage;
        
