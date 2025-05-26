@@ -506,6 +506,13 @@ async function addPLC(){
 
         } else {
             alert("✅ " + data.message);
+            const minutes = 1;
+            const delay = minutes * 60 * 1000; 
+
+            setTimeout(() => {
+                deletePLC(interface,ip,port);
+                console.log("Se logro")
+            }, delay);
 
 
         }
@@ -517,39 +524,48 @@ async function addPLC(){
 };
 
 
-async function deletePLC(){
-    const interface = document.getElementById("plc").value;
-    const ip = document.getElementById("plcIp").value;
-    const port = document.getElementById("port_device").value;
+async function deletePLC(interfaceEntry = null, ipEntry = null, portEntry = null) {
+    let interfaceValue, ip, port;
+
+    if (interfaceEntry === null) {
+        interfaceValue = document.getElementById("plc").value;
+    } else {
+        interfaceValue = interfaceEntry;
+    }
+
+    if (ipEntry === null) {
+        ip = document.getElementById("plcIp").value;
+    } else {
+        ip = ipEntry;
+    }
+
+    if (portEntry === null) {
+        port = document.getElementById("port_device").value;
+    } else {
+        port = portEntry;
+    }
 
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-    
     try {
         const response = await fetch(plc, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
-
             },
-            body: JSON.stringify({ interface, ip,port })
+            body: JSON.stringify({ interface: interfaceValue, ip, port })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-
             alert("❌ " + "Error, comando no aplicado " + data.message);
-
         } else {
             alert("✅ " + data.message);
-
-
         }
 
     } catch (error) {
         alert("❌ " + error.message);
-        // console.error("Error:", error);
     }
-};
+}
