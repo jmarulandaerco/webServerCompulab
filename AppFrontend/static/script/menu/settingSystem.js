@@ -506,7 +506,7 @@ async function addPLC() {
 
         } else {
             alert("✅ " + data.message);
-            const minutes = 1;
+            const minutes = 360;
             const delay = minutes * 60 * 1000;
 
             setTimeout(() => {
