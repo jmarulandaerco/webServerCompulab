@@ -110,11 +110,12 @@ class PLC(APIView):
             data = json.loads(request.body)
             interface = data.get("interface")
             ip = data.get("ip")
+            port = data.get("port")
             menu = Menu()
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
            
-            status =menu.configure_iptables(interface,ip)
+            status =menu.configure_iptables(interface,ip,port)
             if status:
                 return JsonResponse({"message": "Configuración aplicada correctamente"}, status=200)
             else:
@@ -127,11 +128,13 @@ class PLC(APIView):
             data = json.loads(request.body)
             interface = data.get("interface")
             ip = data.get("ip")
+            port = data.get("port")
+
             menu = Menu()
             if any(value is None or value == "" for value in data.values()):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
            
-            status =menu.not_configure_iptables(interface,ip)
+            status =menu.not_configure_iptables(interface,ip,port)
             if status:
                 return JsonResponse({"message": "Configuración aplicada correctamente"}, status=200)
             else:

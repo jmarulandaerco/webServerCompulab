@@ -483,6 +483,7 @@ function WLan(){
 async function addPLC(){
     const interface = document.getElementById("plc").value;
     const ip = document.getElementById("plcIp").value;
+    const port = document.getElementById("port_device").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     
@@ -494,7 +495,7 @@ async function addPLC(){
                 "X-CSRFToken": csrfToken
 
             },
-            body: JSON.stringify({ interface, ip })
+            body: JSON.stringify({ interface, ip,port })
         });
 
         const data = await response.json();
@@ -519,6 +520,8 @@ async function addPLC(){
 async function deletePLC(){
     const interface = document.getElementById("plc").value;
     const ip = document.getElementById("plcIp").value;
+    const port = document.getElementById("port_device").value;
+
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     
@@ -530,7 +533,7 @@ async function deletePLC(){
                 "X-CSRFToken": csrfToken
 
             },
-            body: JSON.stringify({ interface, ip })
+            body: JSON.stringify({ interface, ip,port })
         });
 
         const data = await response.json();

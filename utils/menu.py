@@ -369,12 +369,12 @@ class Menu:
         return None
     
 
-    def configure_iptables(self,eth_interface: str, destination_ip: str) -> bool:
+    def configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
         try:
             commands = [
                 f"sudo iptables -A FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
                 f"sudo iptables -A FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
-                f"sudo iptables -t nat -A PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:102",
+                f"sudo iptables -t nat -A PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:{port}",
                 "sudo iptables -t nat -A POSTROUTING -o wwan0 -j MASQUERADE",
                 f"sudo iptables -t nat -A POSTROUTING -o {eth_interface} -j MASQUERADE"
             ]
@@ -389,12 +389,12 @@ class Menu:
         except Exception:
             return False
 
-    def not_configure_iptables(self,eth_interface: str, destination_ip: str) -> bool:
+    def not_configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
         try:
             commands = [
                 f"sudo iptables -D FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
                 f"sudo iptables -D FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
-                f"sudo iptables -t nat -D PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:102",
+                f"sudo iptables -t nat -D PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:{port}",
                 "sudo iptables -t nat -D POSTROUTING -o wwan0 -j MASQUERADE",
                 f"sudo iptables -t nat -D POSTROUTING -o {eth_interface} -j MASQUERADE"
             ]
