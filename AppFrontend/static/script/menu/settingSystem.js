@@ -512,6 +512,8 @@ async function addPLC(){
             setTimeout(() => {
                 deletePLC(interface,ip,port);
                 console.log("Se logro")
+                console.log(port)
+
             }, delay);
 
 
