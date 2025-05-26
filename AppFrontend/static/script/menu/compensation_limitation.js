@@ -22,22 +22,22 @@ async function loadFormDataLimitation() {
     try {
         const response = await fetch(getFormDataLimitation);
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("Error en la carga de datos");
         }
         const data = await response.json();
         console.log("Data")
-        console.log( data)
+        console.log(data)
         const limitationRadio = document.querySelector(`input[name="energy_meter"][value="${data.limitation}"]`);
         if (limitationRadio) {
             limitationRadio.checked = true;
         }
 
-        
+
         document.getElementById("meter_ids").value = data.meter_ids;
         document.getElementById("inverter_ids").value = data.inverter_ids;
         document.getElementById("porcentage").value = data.porcentage;
@@ -74,34 +74,34 @@ async function loadFormDataLimitation() {
 async function loadFormDataCompensation() {
     try {
         const response = await fetch(getFormDataCompensation);
-        
+
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌" + " " + response.message);
         }
         const data = await response.json();
-        
-       const compensation = document.querySelector(`input[name="kind_compensation"][value="${data.limitation}"]`);
+        console.log(data)
+        const compensation = document.querySelector(`input[name="kind_compensation"][value="${data.limitation}"]`);
         if (compensation) {
             compensation.checked = true;
         }
 
         document.getElementById("meter_ids").value = data.meter_ids;
-        document.getElementById("smartlogger").value = data.device
+        document.getElementById("device_id").value = data.smartlogger
         document.getElementById("high_porcentage").value = data.high_porcentage;
         document.getElementById("low_porcentage").value = data.low_porcentage;
-       
+
         document.getElementById("reactive").value = data.reactive;
         document.getElementById("active").value = data.active;
         document.getElementById("factor").value = data.factor;
         document.getElementById("time_power").value = data.time;
 
     } catch (error) {
-        alert("❌" + "No fue posible cargar la información del compensación reactiva" );
+        alert("❌" + "No fue posible cargar la información del compensación reactiva");
     }
 }
 
@@ -152,9 +152,9 @@ async function updateInformationLimitation() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
@@ -200,7 +200,7 @@ async function updateInformationCompensation() {
     const high = document.getElementById("high_porcentage").value;
     const low = document.getElementById("low_porcentage").value;
 
-    
+
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
 
@@ -209,7 +209,7 @@ async function updateInformationCompensation() {
     const factor = document.getElementById("factor").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
- 
+
 
 
 
@@ -221,15 +221,15 @@ async function updateInformationCompensation() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ selectedValue,meter_ids,smartLogger,high,low,reactive,active,time,factor })
+            body: JSON.stringify({ selectedValue, meter_ids, smartLogger, high, low, reactive, active, time, factor })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
