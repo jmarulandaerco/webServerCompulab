@@ -74,9 +74,9 @@ async function modemManager(startManagerModemService) {
 
     const data = await response.json();
     if (!response.ok) {
-        if (response.status === 401){
+        if (response.status === 401) {
             localStorage.removeItem('access_token');
-            window.location.href = "{% url 'index' %}"; 
+            window.location.href = "{% url 'index' %}";
 
         }
         if (startManagerModemService) {
@@ -130,9 +130,9 @@ async function deleteWhiteList() {
         //La data traera el mensaje que usare en los alert
         const data = await response.json();
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert(`❌ Fallo al limpiar la whitelists: ${data.message}`)
@@ -178,9 +178,9 @@ async function interfaceEthernetOne() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
 
@@ -229,9 +229,9 @@ async function interfaceEthernetTwo() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
@@ -282,9 +282,9 @@ async function addWifi() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
@@ -331,11 +331,11 @@ async function antennaWifi() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
-                    localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+            if (response.status === 401) {
+                localStorage.removeItem('access_token');
+                window.location.href = "{% url 'index' %}";
 
-                }
+            }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
 
         } else {
@@ -409,9 +409,9 @@ async function getIPInterface(interfaceName) {
 
 
         } else {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + `Error: ${data.message}`);
@@ -459,34 +459,34 @@ function toggleFields() {
 }
 
 
-function WLan(){
+function WLan() {
     fetch(wlan, {
         method: 'get',
         headers: {
             "Content-Type": "application/json"
         },
-      })
-      .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-       
-        alert(data.message)
-      } else {
-        alert(data.message)
-      }
     })
-    .catch(error => {
-      alert("❌ " +'Error al verificar la ip:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+
+                alert(data.message)
+            } else {
+                alert(data.message)
+            }
+        })
+        .catch(error => {
+            alert("❌ " + 'Error al verificar la ip:', error);
+        });
 }
 
-async function addPLC(){
+async function addPLC() {
     const interface = document.getElementById("plc").value;
     const ip = document.getElementById("plcIp").value;
     const port = document.getElementById("port_device").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-    
+
     try {
         const response = await fetch(plc, {
             method: "POST",
@@ -495,7 +495,7 @@ async function addPLC(){
                 "X-CSRFToken": csrfToken
 
             },
-            body: JSON.stringify({ interface, ip,port })
+            body: JSON.stringify({ interface, ip, port })
         });
 
         const data = await response.json();
@@ -507,10 +507,10 @@ async function addPLC(){
         } else {
             alert("✅ " + data.message);
             const minutes = 1;
-            const delay = minutes * 60 * 1000; 
+            const delay = minutes * 60 * 1000;
 
             setTimeout(() => {
-                deletePLC(interface,ip,port);
+                deletePLC(interface, ip, port);
                 console.log("Se logro")
                 console.log(port)
 
@@ -562,12 +562,14 @@ async function deletePLC(interfaceEntry = null, ipEntry = null, portEntry = null
         const data = await response.json();
 
         if (!response.ok) {
-            alert("❌ " + "Error, comando no aplicado " + data.message);
+            if (interfaceEntry === null) {
+                alert("❌ " + "Error, comando no aplicado " + data.message);
+            }
         } else {
-            if(interfaceValue===null){
+            if (interfaceEntry === null) {
                 alert("✅ " + data.message);
             }
-           
+
         }
 
     } catch (error) {
