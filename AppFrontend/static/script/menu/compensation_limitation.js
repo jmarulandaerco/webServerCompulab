@@ -85,7 +85,7 @@ async function loadFormDataCompensation() {
         }
         const data = await response.json();
         console.log(data)
-        const compensation = document.querySelector(`input[name="kind_compensation"][value="${data.limitation}"]`);
+        const compensation = document.querySelector(`input[name="kind_compensation"][value="${data.compensation}"]`);
         if (compensation) {
             compensation.checked = true;
         }
