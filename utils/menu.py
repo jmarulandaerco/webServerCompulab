@@ -367,3 +367,74 @@ class Menu:
             if ipv4:
                 return ipv4[0].get('addr')
         return None
+    
+
+    def get_gateway_interface(self,interface):
+        try:
+            resultado = subprocess.check_output(
+                ['ip', 'route', 'show', 'dev', interface],
+                text=True
+            )
+            # Buscar línea que contiene "default via"
+            match = re.search(r'default via (\d+\.\d+\.\d+\.\d+)', resultado)
+            if match:
+                return match.group(1)
+            else:
+                return f""
+        except subprocess.CalledProcessError:
+            return f""
+        
+    
+
+    def get_wlan_ip(self,ifname='Wlan0') -> str :
+        if ifname in netifaces.interfaces():
+            addrs = netifaces.ifaddresses(ifname)
+            ipv4 = addrs.get(netifaces.AF_INET)
+            if ipv4:
+                return ipv4[0].get('addr')
+        return None
+    
+
+    def configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
+        try:
+            commands = [
+                f"sudo iptables -A FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
+                f"sudo iptables -A FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
+                f"sudo iptables -t nat -A PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:{port}",
+                "sudo iptables -t nat -A POSTROUTING -o wwan0 -j MASQUERADE",
+                f"sudo iptables -t nat -A POSTROUTING -o {eth_interface} -j MASQUERADE"
+            ]
+
+            for command in commands:
+                result = subprocess.run(command, shell=True, capture_output=True)
+                if result.returncode != 0:
+                    return False  
+
+            return True 
+
+        except Exception:
+            return False
+
+    def not_configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
+        try:
+            commands = [
+                f"sudo iptables -D FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
+                f"sudo iptables -D FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
+                f"sudo iptables -t nat -D PREROUTING -p TCP --dport 1422 -j DNAT --to-destination {destination_ip}:{port}",
+                "sudo iptables -t nat -D POSTROUTING -o wwan0 -j MASQUERADE",
+                f"sudo iptables -t nat -D POSTROUTING -o {eth_interface} -j MASQUERADE"
+            ]
+
+            for command in commands:
+                result = subprocess.run(command, shell=True, capture_output=True)
+                if result.returncode != 0:
+                    return False  
+
+            return True 
+
+        except Exception:
+            return False
+        
+    def clear_word(self,texto: str) -> str:
+        # Elimina cualquier palabra que contenga "Modbus" o "TCP", sin importar mayúsculas/minúsculas
+        return re.sub(r'\b\w*(modbus|tcp|rtu)\w*\b', '', texto, flags=re.IGNORECASE).strip()
