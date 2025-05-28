@@ -400,7 +400,9 @@ async function loadFormDataAwsSettings() {
 
 
 function loadContentSingleDevice(option,clickedButton=null) {
+    console.log("HOla")
     if(clickedButton!=null){
+        console.log("Estoy entrando")
         activateButton(clickedButton);
     }
     document.querySelector('.container_logs').style.display = 'none';
