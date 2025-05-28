@@ -16,9 +16,11 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu(option,clickedButton=null) {
+function loadContentMenu(option, clickedButton = null) {
 
-    if(clickedButton!=null){
+    console.log("HOla")
+    if (clickedButton != null) {
+        console.log("Estoy entrando")
         activateButton(clickedButton);
     }
     fetch(`/home/content/form/${option}/`)
@@ -53,10 +55,10 @@ function loadContentMenu(option,clickedButton=null) {
  * loadContentSetting('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentSetting(option,clickedButton=null) {
-    if(clickedButton!=null){
-            activateButton(clickedButton);
-        }
+function loadContentSetting(option, clickedButton = null) {
+    if (clickedButton != null) {
+        activateButton(clickedButton);
+    }
     cont = 0;
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
@@ -106,7 +108,7 @@ function loadContentSetting(option,clickedButton=null) {
 
 function loadContentHttp(option, clickedButton) {
 
-    if(clickedButton!=null){
+    if (clickedButton != null) {
         activateButton(clickedButton);
     }
 
@@ -399,9 +401,9 @@ async function loadFormDataAwsSettings() {
  */
 
 
-function loadContentSingleDevice(option,clickedButton=null) {
+function loadContentSingleDevice(option, clickedButton = null) {
     console.log("HOla")
-    if(clickedButton!=null){
+    if (clickedButton != null) {
         console.log("Estoy entrando")
         activateButton(clickedButton);
     }
@@ -475,7 +477,7 @@ function loadContent(option) {
                 }
             }
 
-            if (option =="ViewDatabaseMenu"){
+            if (option == "ViewDatabaseMenu") {
                 document.querySelectorAll("#sidebar a").forEach(a => a.classList.remove("active"));
 
 
@@ -600,9 +602,9 @@ function loadDatabase(type, page) {
     fetch(fullUrl)
         .then(response => {
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(`Error: ${response.statusText}`);
@@ -660,9 +662,9 @@ async function saveChangesEnableDisableDevices() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
