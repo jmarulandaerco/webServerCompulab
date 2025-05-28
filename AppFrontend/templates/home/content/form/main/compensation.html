@@ -1,6 +1,7 @@
 {% load static %}
 
-<div class="container" style="overflow-y: auto;max-height: 300px;"  id="content2">
+<div class="container" style="overflow-y: auto;max-height: 300px;"
+    id="content2">
 
     <div class="container form-container-column">
 
@@ -9,13 +10,24 @@
             <div class="form-columns">
                 <div class="form-column">
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="kind_compensation">Tipo de compensación</label>
                         <select id="kind_compensation" name="kind_compensation" required>
                             <option value="inverters">Para inversores</option>
                             <option value="smartlogger">Para SmartLogger</option>
                            
                         </select>
+                    </div> -->
+                    <div class="form-group">
+                        <label>Limitador potencia reactiva:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="compensation_yes"
+                                name="kind_compensation" value="Yes" required>
+                            <label for="compensation_yes">Yes</label>
+                            <input type="radio" id="compensation_no"
+                                name="kind_compensation" value="No" required>
+                            <label for="compensation_no">No</label>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -25,38 +37,43 @@
                             required>
                     </div>
                     <div class="form-group">
-                        <label for="device_id">Id dispositivos (e.g. 1,2,3)</label>
+                        <label for="device_id">Id Smartlogger (e.g.
+                            1,2,3)</label>
                         <input type="text" id="device_id" name="device_id"
                             required>
                     </div>
 
                     <div class="form-group">
-                        <label for="high_porcentage">Porcentaje de potencia reactiva
+                        <label for="high_porcentage">Porcentaje de potencia
+                            reactiva
                             alto</label>
-                        <input type="text" id="high_porcentage" name="high_porcentage" required>
+                        <input type="text" id="high_porcentage"
+                            name="high_porcentage" required>
                     </div>
                     <div class="form-group">
-                        <label for="low_porcentage">Porcentaje de potencia reactiva
+                        <label for="low_porcentage">Porcentaje de potencia
+                            reactiva
                             baja</label>
-                        <input type="text" id="low_porcentage" name="low_porcentage" required>
+                        <input type="text" id="low_porcentage"
+                            name="low_porcentage" required>
                     </div>
-                    <div class="form-group">
-                        <label for="hightBand">Límite superior de la banda reactiva
-                            </label>
+                    <!-- <div class="form-group">
+                        <label for="hightBand">Límite superior de la banda
+                            reactiva
+                        </label>
                         <input type="text" id="hightBand" name="hightBand"
                             required>
-                    </div>
-
-                    
+                    </div> -->
 
                 </div>
 
                 <div class="form-column">
-                    <div class="form-group">
-                        <label for="lowBand">Límite inferior de la banda reactiva
-                            </label>
+                    <!-- <div class="form-group">
+                        <label for="lowBand">Límite inferior de la banda
+                            reactiva
+                        </label>
                         <input type="text" id="lowBand" name="lowBand" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="reactive">Offset reactiva</label>
                         <input type="text" id="reactive" name="reactive"
@@ -66,15 +83,19 @@
                         <label for="active">Offset activa</label>
                         <input type="text" id="active" name="active" required>
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="time_power">Tiempo potencia activa</label>
+                        <input type="text" id="time_power" name="time_power" required>
+                    </div>
+
                     <div class="form-group">
                         <label for="factor">Factor de potencia mínima</label>
                         <input type="text" id="factor" name="factor" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="mu">Mu de inversores</label>
                         <input type="text" id="mu" name="mu" required>
-                    </div>
+                    </div> -->
 
                 </div>
 

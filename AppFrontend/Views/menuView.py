@@ -516,18 +516,22 @@ class FormDataCompensation(View):
 
             config.read(list_path_menu[5])
             
+            compensation = "Yes" if config.getboolean(
+                'Reactive', 'reactive_power_limiter', fallback=False) else "No"
+            
             sample_data = {
-                "kind_compensation": config.get("Reactive", "kind_compensation"),
+                
+                
+                "compensation":compensation,
                 "meter_ids": config.get("Reactive", "energy_meter_ids"),
-                "device": config.get("Reactive", "devices_ids",),
+                "smartlogger": config.get("Reactive", "smartlogger_id",),
                 "high_porcentage": config.getfloat("Reactive", "reactive_power_percentage_high"),
                 "low_porcentage": config.getfloat("Reactive", "reactive_power_percentage_low"),
-                "band_high": config.getfloat("Reactive", "reactive_band_high_limit"),
-                "band_low": config.getfloat("Reactive", "reactive_band_low_limit"),
+               
                 "reactive": config.getint("Reactive", "reactive_offset"),
                 "active": config.getint("Reactive", "active_offset"),
                 "factor": config.getfloat("Reactive", "pf_min"),
-                "mu":config.get("Reactive", "mu"),
+                "time":config.get("Reactive", "time_active_power"),
             }
             return JsonResponse(sample_data)
         except Exception as ex:
@@ -545,26 +549,26 @@ class FormDataCompensation(View):
 
 
        
-            kind_compensation= data.get("kind")
+            selectedValue = data.get("selectedValue")
+            if selectedValue == "Yes":
+                config.set('Reactive', 'reactive_power_limiter', str(True))
+
+            else:
+                config.set('Reactive', 'reactive_power_limiter', str(False))
             meter_ids = data.get("meter_ids")
-            device = data.get("device")
+            device = data.get("smartLogger")
             high = data.get("high")
             low = data.get("low")
-            high_band = data.get("hightBand")
-            high_band = data.get("lowBand")
             reactive = data.get("reactive")
             active = data.get("active")
             factor = data.get("factor")
-            mu=data.get("mu")
+            time=data.get("time")
             
-            config.set("Reactive", "kind_compensation", kind_compensation)
             config.set("Reactive", "energy_meter_ids", str(meter_ids))
-            config.set("Reactive", "devices_ids", device)
+            config.set("Reactive", "smartlogger_id", device)
             config.set("Reactive", "reactive_power_percentage_high", str(high))
             config.set("Reactive", "reactive_power_percentage_low", str(low))
-            config.set("Reactive", "reactive_band_high_limit", str(high_band))
-            config.set("Reactive", "reactive_band_low_limit", str(high_band))
-           
+
             config.set("Reactive", "reactive_offset", str(reactive)
                        )
             config.set(
@@ -573,7 +577,7 @@ class FormDataCompensation(View):
 
             
             config.set("Reactive", "pf_min", str(factor))
-            config.set("Reactive", "mu", str(mu))
+            config.set("Reactive", "time_active_power", str(time))
             with open(list_path_menu[5], "w") as configfileChecked:
                 config.write(configfileChecked)
             return JsonResponse({"message": "Datos actualizados"}, status=200)

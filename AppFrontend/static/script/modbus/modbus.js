@@ -19,6 +19,14 @@
  * loadContentModbus("config");
  */
 
+function activateButton(clickedButton) {
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    if (clickedButton) {
+        clickedButton.classList.add('active');
+    }
+}
 function loadContentModbus(option) {
     document.querySelector('.container_logs').style.display = 'none';
     document.getElementById('content3').style.display = 'flex';
@@ -58,7 +66,12 @@ function loadContentModbus(option) {
  * @returns {void}
  */
 
-function loadDevices(page) {
+function loadDevices(page,clickedButton=null) {
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
+ 
+
     document.getElementById('content3').style.display = 'flex';
 
     document.querySelector('.container_logs').style.display = 'none';

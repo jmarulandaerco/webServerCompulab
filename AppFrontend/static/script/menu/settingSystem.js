@@ -380,7 +380,7 @@ function showModems() {
         .then(data => {
 
 
-            alert("❌ " + data.message)
+            alert("✅ " + data.message)
 
         })
         .catch(error => { alert("❌" + "Error:", error); });
@@ -478,4 +478,103 @@ function WLan(){
     .catch(error => {
       alert("❌ " +'Error al verificar la ip:', error);
     });
+}
+
+
+
+async function addPLC() {
+    const interface = document.getElementById("plc").value;
+    const ip = document.getElementById("plcIp").value;
+    const port = document.getElementById("port_device").value;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+
+    try {
+        const response = await fetch(plc, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+
+            },
+            body: JSON.stringify({ interface, ip, port })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert("❌ " + "Error, comando no aplicado " + data.message);
+
+        } else {
+            alert("✅ " + data.message);
+            const minutes = 360;
+            const delay = minutes * 60 * 1000;
+
+            setTimeout(() => {
+                deletePLC(interface, ip, port);
+                console.log("Se logro")
+                console.log(port)
+
+            }, delay);
+
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message);
+        // console.error("Error:", error);
+    }
+};
+
+
+async function deletePLC(interfaceEntry = null, ipEntry = null, portEntry = null) {
+    let interfaceValue, ip, port;
+
+    if (interfaceEntry === null) {
+        interfaceValue = document.getElementById("plc").value;
+    } else {
+        interfaceValue = interfaceEntry;
+    }
+
+    if (ipEntry === null) {
+        ip = document.getElementById("plcIp").value;
+    } else {
+        ip = ipEntry;
+    }
+
+    if (portEntry === null) {
+        port = document.getElementById("port_device").value;
+    } else {
+        port = portEntry;
+    }
+
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+    try {
+        const response = await fetch(plc, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({ interface: interfaceValue, ip, port })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            if (interfaceEntry === null) {
+                alert("❌ " + "Error, comando no aplicado " + data.message);
+            }
+        } else {
+            if (interfaceEntry === null) {
+                alert("✅ " + data.message);
+            }
+
+        }
+
+    } catch (error) {
+        alert("❌ " + error.message);
+    }
 }

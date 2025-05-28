@@ -46,8 +46,11 @@ function deletelog() {
  * fetchLogs(); // Fetches logs and displays them in the log container element.
  */
 
-async function fetchLogs() {
+async function fetchLogs(clickedButton=null) {
     try {
+        if(clickedButton!=null){
+            activateButton(clickedButton);
+        }
         const response = await fetch(fetchLog);
         const data = await response.json();
         const logContainer = document.getElementById("log-container");
@@ -82,8 +85,11 @@ async function fetchLogs() {
  * downloadLogs(); // Initiates the process of downloading the logs as a zip file.
  */
 
-async function downloadLogs() {
+async function downloadLogs(clickedButton=null) {
     try {
+        if(clickedButton!=null){
+            activateButton(clickedButton);
+        }
         const response = await fetch(downloadLog); // Reemplaza con la URL real
 
         if (!response.ok) {

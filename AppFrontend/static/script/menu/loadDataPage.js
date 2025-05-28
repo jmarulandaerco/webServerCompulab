@@ -16,7 +16,11 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu(option) {
+function loadContentMenu(option,clickedButton=null) {
+
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -49,7 +53,10 @@ function loadContentMenu(option) {
  * loadContentSetting('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentSetting(option) {
+function loadContentSetting(option,clickedButton=null) {
+    if(clickedButton!=null){
+            activateButton(clickedButton);
+        }
     cont = 0;
     fetch(`/home/content/form/setting/${option}/`)
         .then(response => {
@@ -97,7 +104,12 @@ function loadContentSetting(option) {
  * loadContentHttp('checkerStatus'); // Loads content related to 'checkerStatus' and triggers `loadFunction` for further actions.
  */
 
-function loadContentHttp(option) {
+function loadContentHttp(option, clickedButton) {
+
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
+
     fetch(`/home/content/form/checker/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -108,7 +120,6 @@ function loadContentHttp(option) {
         .then(data => {
             document.getElementById("content4").innerHTML = data;
             loadFunction(option);
-
         })
         .catch(error => {
             document.getElementById("content4").innerHTML = "<h1>Error cargando contenido</h1>";
@@ -388,7 +399,10 @@ async function loadFormDataAwsSettings() {
  */
 
 
-function loadContentSingleDevice(option) {
+function loadContentSingleDevice(option,clickedButton=null) {
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
     document.querySelector('.container_logs').style.display = 'none';
     document.getElementById('content3').style.display = 'flex';
 
