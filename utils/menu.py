@@ -371,7 +371,7 @@ class Menu:
 
     def configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
         try:
-            if port != 22:
+            if port != "22":
                 commands = [
                     f"sudo iptables -A FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
                     f"sudo iptables -A FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
@@ -394,7 +394,7 @@ class Menu:
 
     def not_configure_iptables(self,eth_interface: str, destination_ip: str,port:str) -> bool:
         try:
-            if port != 22:
+            if port != "22":
                 commands = [
                     f"sudo iptables -D FORWARD -i {eth_interface} -o wwan0 -j ACCEPT",
                     f"sudo iptables -D FORWARD -i wwan0 -o {eth_interface} -j ACCEPT",
