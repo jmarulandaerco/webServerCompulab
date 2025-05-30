@@ -198,19 +198,19 @@ async function updateInformationCompensation() {
 
     const kind = document.getElementById("kind_compensation").value;
 
-    const meter_ids = document.getElementById("meter_ids").value = data.meter_ids;
-    const device_ids =  document.getElementById("device_id").value = data.devices_ids
+    const meter_ids = document.getElementById("meter_ids").value;
+    const device_ids =  document.getElementById("device_id").value;
     const high = document.getElementById("high_porcentage").value;
     const low = document.getElementById("low_porcentage").value;
-    const highBand = document.getElementById("hightBand").value = data.high_band_porcentage;
-    const lowBand = document.getElementById("lowBand").value = data.low_band_porcentage;
+    const highBand = document.getElementById("hightBand").value;
+    const lowBand = document.getElementById("lowBand").value;
 
     const reactive = document.getElementById("reactive").value;
     const active = document.getElementById("active").value;
 
 
     const factor = document.getElementById("factor").value;
-    const mu = document.getElementById("mu").value = data.mu;
+    const mu = document.getElementById("mu").value;
 
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
