@@ -222,7 +222,7 @@ class SimModem:
 
         return val_return
 
-    def get_signal_quality(self) -> Union[None, ModemSignalQuality]:
+    def get_signal_quality(self,device:str) -> Union[None, ModemSignalQuality]:
         """
         Retrieves the modem's signal quality.
 
@@ -236,8 +236,8 @@ class SimModem:
 
             if (
                 not self.is_modem_present()
-                or not self.is_sim_present()
-                or not self.is_modem_connected()
+                or not self.is_sim_present(device)
+                or not self.is_modem_connected(device)
             ):
                 
                 return val_return
