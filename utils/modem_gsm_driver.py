@@ -81,7 +81,7 @@ class SimModem:
     def is_modem_present(self) -> bool:
         return self.__modem_id is not None
 
-    def is_sim_present(self) -> bool:
+    def is_sim_present(self,device:str) -> bool:
         """
         Checks if a SIM card is inserted in the modem.
 
@@ -92,9 +92,14 @@ class SimModem:
         try:
             if not self.__modem_id:
                 return val_return
-
-            sim_status = self.__run_bash_command(
-                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
+            
+            if device == "IOT-GATE-IMX8PLUS":
+                sim_status = self.__run_bash_command(
+                    f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
+                )
+            elif device == "IOT-DIN-IMX8PLUS":
+                sim_status = self.__run_bash_command(
+                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
             )
             val_return = "SIM" in sim_status
         except Exception as e:
@@ -104,7 +109,7 @@ class SimModem:
 
         return val_return
 
-    def get_sim_info(self) -> Union[None, tuple[str, str, str]]:
+    def get_sim_info(self,device:str) -> Union[None, tuple[str, str, str]]:
         """
         Retrieves SIM card information, including ICCID, operator ID, and operator name.
 
@@ -114,11 +119,14 @@ class SimModem:
         try:
             if not self.__modem_id:
                 return None
-
-            sim_path = self.__run_bash_command(
-                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
+            if device == "IOT-GATE-IMX8PLUS":
+                sim_path = self.__run_bash_command(
+                    f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
+                )
+            elif device == "IOT-DIN-IMX8PLUS":
+                sim_path = self.__run_bash_command(
+                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
             )
-
             if not sim_path:
                 return None
 

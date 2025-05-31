@@ -178,7 +178,7 @@ class Menu:
 
             return False
 
-    def view_modem_info(self):
+    def view_modem_info(self,device:str):
         """Displays modem, SIM, and signal information in a dialog menu."""
         try:
             if not self.modem.is_modem_present():
@@ -192,8 +192,8 @@ class Menu:
                 text=True,
             ).strip()
             sim_info = None
-            if self.modem.is_sim_present():
-                sim_info = self.modem.get_sim_info()
+            if self.modem.is_sim_present(device):
+                sim_info = self.modem.get_sim_info(device)
                 if not sim_info:
                     return "La SIM está presente pero no puede recuperar la información de la SIM"
             else:

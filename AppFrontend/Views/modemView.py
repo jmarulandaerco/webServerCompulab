@@ -23,9 +23,10 @@ class ModemView(APIView):
     def get(self, request):
         try:
             
-
+            data = json.loads(request.body)
+            device = data.get("device_type")
             menu=Menu()
-            message = menu.view_modem_info()
+            message = menu.view_modem_info(device)
            
             return JsonResponse({"message":message})
 
