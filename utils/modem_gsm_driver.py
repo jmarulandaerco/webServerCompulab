@@ -54,7 +54,6 @@ class SimModem:
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             val_return = result.stdout.strip()
-            print(f"vval_return: {val_return}")
         except Exception as e:
             self.logger.error(f"Error execute a bash command and returns its output.{e}")
             return None
@@ -72,7 +71,6 @@ class SimModem:
             modem = self.__run_bash_command("mmcli -L")
             if modem:
                 val_return = modem.split()[0]
-                print(f"Vas : {val_return}")
         except Exception as e:
             self.logger.error(f"Error get modem id: {e}")
 
@@ -83,7 +81,7 @@ class SimModem:
     def is_modem_present(self) -> bool:
         return self.__modem_id is not None
 
-    def is_sim_present(self,device:str) -> bool:
+    def is_sim_present(self) -> bool:
         """
         Checks if a SIM card is inserted in the modem.
 
@@ -94,18 +92,10 @@ class SimModem:
         try:
             if not self.__modem_id:
                 return val_return
-            
-            if device == "IOT-GATE-IMX8PLUS":
-                print("Estoy entrando")
-                sim_status = self.__run_bash_command(
-                    f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
-                )
-            elif device == "IOT-DIN-IMX8PLUS":
-                sim_status = self.__run_bash_command(
-                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
+
+            sim_status = self.__run_bash_command(
+                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
             )
-            print("Jose")
-            print(f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'")
             val_return = "SIM" in sim_status
         except Exception as e:
             self.logger.error(f"Error status sim: {e}")
@@ -114,7 +104,7 @@ class SimModem:
 
         return val_return
 
-    def get_sim_info(self,device:str) -> Union[None, tuple[str, str, str]]:
+    def get_sim_info(self) -> Union[None, tuple[str, str, str]]:
         """
         Retrieves SIM card information, including ICCID, operator ID, and operator name.
 
@@ -124,15 +114,11 @@ class SimModem:
         try:
             if not self.__modem_id:
                 return None
-            if device == "IOT-GATE-IMX8PLUS":
-                print("Estoy entrando")
-                sim_path = self.__run_bash_command(
-                    f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
-                )
-            elif device == "IOT-DIN-IMX8PLUS":
-                sim_path = self.__run_bash_command(
-                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
+
+            sim_path = self.__run_bash_command(
+                f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
             )
+
             if not sim_path:
                 return None
 
@@ -230,8 +216,6 @@ class SimModem:
             Union[None, ModemSignalQuality]: A `ModemSignalQuality` object if successful, otherwise None.
         """
         try:
-            print("loco")
-            print(self.__modem_id)
             val_return = None
 
             if (
@@ -239,7 +223,6 @@ class SimModem:
                 or not self.is_sim_present()
                 or not self.is_modem_connected()
             ):
-                
                 return val_return
 
             self.__run_bash_command(
@@ -248,8 +231,7 @@ class SimModem:
             command_response = self.__run_bash_command(
                 f"mmcli -m {self.__modem_id} --signal-get"
             )
-            
-            print(command_response)
+
             signal_quality_data = self.parse_modem_info(command_response)
 
             if signal_quality_data:
