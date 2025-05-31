@@ -54,6 +54,7 @@ class SimModem:
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             val_return = result.stdout.strip()
+            print(f"vval_return: {val_return}")
         except Exception as e:
             self.logger.error(f"Error execute a bash command and returns its output.{e}")
             return None
@@ -71,6 +72,7 @@ class SimModem:
             modem = self.__run_bash_command("mmcli -L")
             if modem:
                 val_return = modem.split()[0]
+                print(f"Vas : {val_return}")
         except Exception as e:
             self.logger.error(f"Error get modem id: {e}")
 
@@ -102,6 +104,8 @@ class SimModem:
                 sim_status = self.__run_bash_command(
                 f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'sim path' | awk -F': ' '{{print $2}}'"
             )
+            print("Jose")
+            print(f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'")
             val_return = "SIM" in sim_status
         except Exception as e:
             self.logger.error(f"Error status sim: {e}")
