@@ -192,9 +192,8 @@ class Menu:
                 text=True,
             ).strip()
             sim_info = None
-            print(ip_sim)
-            if self.modem.is_sim_present(device):
-                sim_info = self.modem.get_sim_info(device)
+            if self.modem.is_sim_present():
+                sim_info = self.modem.get_sim_info()
                 if not sim_info:
                     return "La SIM está presente pero no puede recuperar la información de la SIM"
             else:
