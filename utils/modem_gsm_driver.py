@@ -94,6 +94,7 @@ class SimModem:
                 return val_return
             
             if device == "IOT-GATE-IMX8PLUS":
+                print("Estoy entrando")
                 sim_status = self.__run_bash_command(
                     f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
                 )
@@ -120,6 +121,7 @@ class SimModem:
             if not self.__modem_id:
                 return None
             if device == "IOT-GATE-IMX8PLUS":
+                print("Estoy entrando")
                 sim_path = self.__run_bash_command(
                     f"mmcli -m {self.__modem_id} | grep 'SIM' | grep 'dbus path' | awk '{{print $5}}'"
                 )

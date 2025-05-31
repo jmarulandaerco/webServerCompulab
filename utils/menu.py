@@ -192,6 +192,7 @@ class Menu:
                 text=True,
             ).strip()
             sim_info = None
+            print(ip_sim)
             if self.modem.is_sim_present(device):
                 sim_info = self.modem.get_sim_info(device)
                 if not sim_info:
