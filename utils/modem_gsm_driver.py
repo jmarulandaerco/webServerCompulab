@@ -233,6 +233,8 @@ class SimModem:
                 or not self.is_sim_present()
                 or not self.is_modem_connected()
             ):
+                print("loco")
+                print(self.__modem_id)
                 return val_return
 
             self.__run_bash_command(
