@@ -20,7 +20,7 @@ class ModemView(APIView):
     get(request)
         Handles GET requests to retrieve modem information.
     """
-    def get(self, request):
+    def post(self, request):
         try:
             
             data = json.loads(request.body)

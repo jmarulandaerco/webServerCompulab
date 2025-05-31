@@ -370,7 +370,7 @@ function showModems() {
     const token = localStorage.getItem("access_token");
     device_type = document.getElementById("device_type").value
     fetch(modem, {
-        method: "GET",
+        method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
@@ -384,7 +384,7 @@ function showModems() {
             alert("✅ " + data.message)
 
         })
-        .catch(error => { alert("❌" + "Error: "+ data.message); });
+        .catch(error => { alert("❌" + "Error: "+ error); });
 }
 
 
