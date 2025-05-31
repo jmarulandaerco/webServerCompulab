@@ -243,7 +243,8 @@ class SimModem:
             command_response = self.__run_bash_command(
                 f"mmcli -m {self.__modem_id} --signal-get"
             )
-
+            
+            print(command_response)
             signal_quality_data = self.parse_modem_info(command_response)
 
             if signal_quality_data:
