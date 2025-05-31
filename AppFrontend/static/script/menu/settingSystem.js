@@ -369,6 +369,7 @@ function showModems() {
 
     const token = localStorage.getItem("access_token");
     device_type = document.getElementById("device_type").value
+    console.log(device_type)
     fetch(modem, {
         method: "POST",
         headers: {
