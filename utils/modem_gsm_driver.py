@@ -226,6 +226,8 @@ class SimModem:
             Union[None, ModemSignalQuality]: A `ModemSignalQuality` object if successful, otherwise None.
         """
         try:
+            print("loco")
+            print(self.__modem_id)
             val_return = None
 
             if (
@@ -233,8 +235,7 @@ class SimModem:
                 or not self.is_sim_present()
                 or not self.is_modem_connected()
             ):
-                print("loco")
-                print(self.__modem_id)
+                
                 return val_return
 
             self.__run_bash_command(
