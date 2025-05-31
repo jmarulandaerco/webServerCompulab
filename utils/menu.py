@@ -192,8 +192,9 @@ class Menu:
                 text=True,
             ).strip()
             sim_info = None
-            if self.modem.is_sim_present():
-                sim_info = self.modem.get_sim_info()
+            print(ip_sim)
+            if self.modem.is_sim_present(device):
+                sim_info = self.modem.get_sim_info(device)
                 if not sim_info:
                     return "La SIM está presente pero no puede recuperar la información de la SIM"
             else:
@@ -204,7 +205,7 @@ class Menu:
 
                 return "Modem esta presente pero no conectado a la red"
 
-            signal_quality = self.modem.get_signal_quality()
+            signal_quality = self.modem.get_signal_quality(device)
             if not signal_quality:
 
                 return "Incapaz de recuperar información sobre la calidad de la señal"
