@@ -384,7 +384,7 @@ function showModems() {
             alert("✅ " + data.message)
 
         })
-        .catch(error => { alert("❌" + "Error:", error); });
+        .catch(error => { alert("❌" + "Error: "+ data.message); });
 }
 
 
