@@ -1,3 +1,4 @@
+import configparser
 import json
 import subprocess
 from django.http import HttpResponse, JsonResponse
@@ -5,8 +6,11 @@ from django.db import connections
 from rest_framework.views import APIView
 import netifaces
 
+from utils.configfiles import ConfigFilePaths
 from utils.menu import Menu
 
+cf = ConfigFilePaths()
+list_path_menu = cf.to_list()
 class ModemView(APIView):
     """
     API View for retrieving modem information.
@@ -20,11 +24,16 @@ class ModemView(APIView):
     get(request)
         Handles GET requests to retrieve modem information.
     """
-    def post(self, request):
+    
+    def get(self, request):
         try:
             
-            data = json.loads(request.body)
-            device = data.get("device_type")
+            config = configparser.ConfigParser(interpolation=None)
+
+            config.read(list_path_menu[0])
+            device =config.get(
+                "functioning", "type_device"
+            )
             menu=Menu()
             message = menu.view_modem_info(device)
            

@@ -368,15 +368,12 @@ async function antennaWifi() {
 function showModems() {
 
     const token = localStorage.getItem("access_token");
-    device_type = document.getElementById("device_type").value
-    console.log(device_type)
     fetch(modem, {
-        method: "POST",
+        method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ device_type })
     })
         .then(response => response.json())
         .then(data => {
