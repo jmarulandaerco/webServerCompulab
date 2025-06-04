@@ -439,6 +439,7 @@ function toggleFields() {
     mqtt.style.display = "none";
     storage.style.display = "none";
 
+    console.log(serverValue)
     if (serverValue === "telemetry") {
         neuPlus.style.display = "none";
         mqtt.style.display = "none";
