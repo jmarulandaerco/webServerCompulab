@@ -1,65 +1,72 @@
 {% load static %}
 
-<div class="form-container" style="overflow-y: visible;">
+<div class="container" style="overflow-y: auto; max-height: 300px;" id="content2">
 
-    <form id="myForm" method="post">
-        {% csrf_token %}
-        <!-- Campo de texto normal -->
-        <div class="form-group">
-            <label for="mode">Modo de operación modbus</label>
-            <!-- <input type="text" id="mode" name="mode" required> -->
-            <select id="mode" name="mode" required>
-                <option value="read_only">Lectura</option>
-                <option value="read_storage_only">Lectura y almacenamiento</option>
-                <option value="read_storage_send">Lectura, almacenamiento  y envío</option>
-            </select>
+    <div class="container form-container-compensation">
 
-        </div>
+        <form id="myForm" method="post">
+            {% csrf_token %}
+            <div class="form-columns">
 
-         <div class="form-group">
-            <label for="device_type">Escoger dispositivo</label>
-            <select id="device_type" name="device_type" required>
-                <option value="IOT-GATE-iMX8">IOT-GATE-iMX8 (Viejo)</option>
-                <option value="IOT-DIN-IMX8PLUS">IOT-DIN-IMX8PLUS (Nuevo)</option>
-            </select>
-        </div>
+                <!-- Columna 1 -->
+                <div class="form-column">
 
-        
-        <div class="form-group">
-            <label>Limitación activa:</label>
-            <div class="radio-group">
-                <input type="radio" id="limitation_yes" name="limitation" value="Yes" required>
-                <label for="limitation_yes">Si</label>
-                <input type="radio" id="limitation_no" name="limitation" value="No" required>
-                <label for="limitation_no">No</label>
+                    <div class="form-group">
+                        <label for="mode">Modo de operación modbus</label>
+                        <select id="mode" name="mode" required>
+                            <option value="read_only">Lectura</option>
+                            <option value="read_storage_only">Lectura y almacenamiento</option>
+                            <option value="read_storage_send">Lectura, almacenamiento y envío</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="device_type">Escoger dispositivo</label>
+                        <select id="device_type" name="device_type" required>
+                            <option value="IOT-GATE-iMX8">IOT-GATE-iMX8 (Viejo)</option>
+                            <option value="IOT-DIN-IMX8PLUS">IOT-DIN-IMX8PLUS (Nuevo)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Limitación activa:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="limitation_yes" name="limitation" value="Yes" required>
+                            <label for="limitation_yes">Sí</label>
+                            <input type="radio" id="limitation_no" name="limitation" value="No" required>
+                            <label for="limitation_no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sampling_limitation">Tiempo de muestreo limitación activa (segundos):</label>
+                        <input type="text" id="sampling_limitation" name="sampling_limitation" required>
+                    </div>
+
+                </div>
+
+                <!-- Columna 2 -->
+                <div class="form-column">
+
+                    <div class="form-group">
+                        <label>Reactive compensation:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="compensation_yes" name="compensation" value="Yes" required>
+                            <label for="compensation_yes">Yes</label>
+                            <input type="radio" id="compensation_no" name="compensation" value="No" required>
+                            <label for="compensation_no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sampling_compensation">Tiempo de muestreo compensación reactiva (segundos):</label>
+                        <input type="text" id="sampling_compensation" name="sampling_compensation" required>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-       
-        <div class="form-group">
-            <label>Reactive compensation:</label>
-            <div class="radio-group">
-                <input type="radio" id="compensation_yes" name="compensation" value="Yes" required>
-                <label for="compensation_yes">Yes</label>
-                <input type="radio" id="compensation_no" name="compensation" value="No" required>
-                <label for="compensation_no">No</label>
-            </div>
-        </div>
-
-      
-        <div class="form-group">
-            <label for="sampling_limitation">Tiempo de muestreo limitación activa (segundos):</label>
-            <input type="text" id="sampling_limitation" name="sampling_limitation" required>
-        </div>
-
-        <div class="form-group">
-            <label for="sampling_compensation">Tiempo de muestreo compensación reactiva (segundos):</label>
-            <input type="text" id="sampling_compensation" name="sampling_compensation" required>
-        </div>
-   
-
-        <button class="buttonClass" type="button" onclick="updateDataModes()">Guardar</button>
-    </form>
+            <button class="buttonClass" type="button" onclick="updateDataModes()">Guardar</button>
+        </form>
+    </div>
 </div>
-
-</script>
