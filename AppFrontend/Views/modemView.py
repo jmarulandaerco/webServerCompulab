@@ -94,7 +94,7 @@ class Wlan(APIView):
     permission_classes = []         # ajusta según tu autenticación
     authentication_classes = []
 
-    def GET(self, request):
+    def get(self, request):
         menu = Menu()
         config = configparser.ConfigParser(interpolation=None)
 
