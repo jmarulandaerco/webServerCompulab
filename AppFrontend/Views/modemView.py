@@ -64,8 +64,11 @@ class InterfaceIPView(APIView):
                     try:   
                         result = subprocess.run(i, check=True, text=True, capture_output=True)
                     except:
-                        print("Hola")
-                
+                       return JsonResponse(
+                            {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión física o que la interfaz no tenga una IP sin configurar'},status=400
+                        
+                        )
+                            
                 return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':''})
             else:
                 return JsonResponse({'interface': interface, 'ip': f"{ip}/24",'gateway':gateway})
@@ -100,7 +103,7 @@ class Wlan(APIView):
                     )
         elif (device == "IOT-DIN-IMX8PLUS"):
             for iface in netifaces.interfaces():
-                if iface.startswith('wlan'):
+                if iface.startswith('mlan'):
                     ip = menu.get_wlan_ip(iface)
                     if ip is not None:
                         # Éxito: enviamos únicamente la IP
@@ -108,7 +111,7 @@ class Wlan(APIView):
                     # Error: no hay IP en esta interfaz
                     return JsonResponse(
                         {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
-                        status=400
+                        status=400)
         # No encontró ninguna interfaz wlan*
         return JsonResponse(
             {'message': 'No se detectaron interfaces wlan en este dispositivo.'},
