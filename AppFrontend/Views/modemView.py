@@ -94,10 +94,14 @@ class Wlan(APIView):
     permission_classes = []         # ajusta según tu autenticación
     authentication_classes = []
 
-    def post(self, request):
+    def GET(self, request):
         menu = Menu()
-        data = json.loads(request.body)
-        device = data.get("device_type")
+        config = configparser.ConfigParser(interpolation=None)
+
+        config.read(list_path_menu[0])
+        device =config.get(
+                "functioning", "type_device"
+            )
         if (device == "IOT-GATE-iMX8"):
             for iface in netifaces.interfaces():
                 if iface.startswith('wlan'):
