@@ -6,12 +6,12 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="device_type">Escoger dispositivo</label>
-            <select id="device_type" name="device_type" required>
-                <option value="IOT-GATE-iMX8">IOT-GATE-iMX8 (Viejo)</option>
+            <select id="device_type_wlan" name="device_type" required>
+                <option value="IOT-GATE-IMX8PLUS">IOT-GATE-IMX8PLUS (Viejo)</option>
                 <option value="IOT-DIN-IMX8PLUS">IOT-DIN-IMX8PLUS (Nuevo)</option>
             </select>
         </div>
         <button class="buttonClass" type="button"
-            onclick="showModems()">Guardar</button>
+            onclick="Wlan()">Guardar</button>
     </form>
 </div>

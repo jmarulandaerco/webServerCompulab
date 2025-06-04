@@ -82,21 +82,33 @@ class Wlan(APIView):
     permission_classes = []         # ajusta según tu autenticación
     authentication_classes = []
 
-    def get(self, request):
+    def post(self, request):
         menu = Menu()
-
-        for iface in netifaces.interfaces():
-            if iface.startswith('wlan'):
-                ip = menu.get_wlan_ip(iface)
-                if ip is not None:
-                    # Éxito: enviamos únicamente la IP
-                    return JsonResponse({'message': ip}, status=200)
-                # Error: no hay IP en esta interfaz
-                return JsonResponse(
-                    {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
-                    status=400
-                )
-
+        data = json.loads(request.body)
+        device = data.get("device_type")
+        if (device == "IOT-GATE-iMX8"):
+            for iface in netifaces.interfaces():
+                if iface.startswith('wlan'):
+                    ip = menu.get_wlan_ip(iface)
+                    if ip is not None:
+                        # Éxito: enviamos únicamente la IP
+                        return JsonResponse({'message': ip}, status=200)
+                    # Error: no hay IP en esta interfaz
+                    return JsonResponse(
+                        {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
+                        status=400
+                    )
+        elif (device == "IOT-DIN-IMX8PLUS"):
+            for iface in netifaces.interfaces():
+                if iface.startswith('wlan'):
+                    ip = menu.get_wlan_ip(iface)
+                    if ip is not None:
+                        # Éxito: enviamos únicamente la IP
+                        return JsonResponse({'message': ip}, status=200)
+                    # Error: no hay IP en esta interfaz
+                    return JsonResponse(
+                        {'message': f'No se pudo obtener la IP en {iface}. Verifica la conexión WLAN.'},
+                        status=400
         # No encontró ninguna interfaz wlan*
         return JsonResponse(
             {'message': 'No se detectaron interfaces wlan en este dispositivo.'},

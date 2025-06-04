@@ -461,13 +461,21 @@ function toggleFields() {
     }
 }
 
-
+//   method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "X-CSRFToken": csrfToken
+//             },
+//             body: JSON.stringify({ ssid, password, name })
 function WLan() {
+    device_type = document.getElementById("device_type_wlan").value
+
     fetch(wlan, {
-        method: 'get',
+        method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
+        body:JSON.stringify({device_type})
     })
         .then(response => response.json())
         .then(data => {
