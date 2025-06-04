@@ -527,8 +527,12 @@ async function loadFormDataServerSelection() {
         document.getElementById("telemetry").value = data.telemetry;
         document.getElementById("mqtt").value = data.mqtt;
         document.getElementById("storage").value = data.storage;
+
+        toggleFields();
+
     } catch (error) {
-        // console.error("Error:", error);
+         alert("❌ " + error.message);
+
     }
 }
 
