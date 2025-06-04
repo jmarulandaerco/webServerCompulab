@@ -201,6 +201,7 @@ class FormDataModes(View):
                 'functioning', 'enable_reactive_compensation') == "False" else 'Yes'
             sample_data = {
                 "mode": config.get('functioning', 'work_mode'),
+                "type_device":config.get('functioning','type_device'),
                 "limitation": limitation,
                 "compensation": compensation,
                 "sampling_limitation": config.get('functioning', 'time_active_power'),
@@ -222,12 +223,15 @@ class FormDataModes(View):
                 return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
 
             mode = data.get("mode")
+            device=data.get("device")
             limitation = data.get("limitation")
             compensation = data.get("compensation")
             sampling_limitation = data.get("sampling_limitation")
             sampling_compensation = data.get("sampling_compensation")
 
             config.set("functioning", "work_mode", mode)
+            config.set("functioning", "type_device", device)
+
             if limitation == "Yes":
                 config.set(
                     "functioning",

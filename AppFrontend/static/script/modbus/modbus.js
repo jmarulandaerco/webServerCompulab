@@ -27,8 +27,8 @@ function activateButton(clickedButton) {
         clickedButton.classList.add('active');
     }
 }
-function loadContentModbus(option,clickedButton=null) {
-    if(clickedButton!=null){
+function loadContentModbus(option, clickedButton = null) {
+    if (clickedButton != null) {
         activateButton(clickedButton);
     }
     document.querySelector('.container_logs').style.display = 'none';
@@ -37,9 +37,9 @@ function loadContentModbus(option,clickedButton=null) {
     fetch(`/home/content/form/modbus/${option}/`)
         .then(response => {
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(`Error cargando contenido: ${response.statusText}`);
@@ -69,11 +69,11 @@ function loadContentModbus(option,clickedButton=null) {
  * @returns {void}
  */
 
-function loadDevices(page,clickedButton=null) {
-    if(clickedButton!=null){
+function loadDevices(page, clickedButton = null) {
+    if (clickedButton != null) {
         activateButton(clickedButton);
     }
- 
+
 
     document.getElementById('content3').style.display = 'flex';
 
@@ -82,9 +82,9 @@ function loadDevices(page,clickedButton=null) {
     fetch(fullUrl)
         .then(response => {
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(`Error: ${response.statusText}`);
@@ -123,9 +123,9 @@ async function loadFormDataSettingModbus() {
     try {
         const response = await fetch(getFormDatasettingModbus);
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("Error cargando los datos de configuración Modbus");
@@ -155,42 +155,42 @@ async function loadFormDataSettingModbus() {
  * @example
  * handleSelectChange(event);
  */
-function handleSelectChange(event, preselectValue=null) {
+function handleSelectChange(event, preselectValue = null) {
     const modbusMapFolderSelect = document.getElementById("modbus_map_folder");
     const selectedValue = modbusMapFolderSelect.value;
-    
+
     fetch(mapFolder, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ selectedValue })
     })
-    .then(response => response.json())
-    .then(data => {
-        const modbusMapList = data.data;
-        const modbusMapJsonSelect = document.getElementById("modbus_map_json");
+        .then(response => response.json())
+        .then(data => {
+            const modbusMapList = data.data;
+            const modbusMapJsonSelect = document.getElementById("modbus_map_json");
 
-        modbusMapJsonSelect.innerHTML = "";
+            modbusMapJsonSelect.innerHTML = "";
 
-        modbusMapList.forEach(option => {
-            const optionElement = document.createElement("option");
-            optionElement.value = option;
-            optionElement.textContent = option;
-            modbusMapJsonSelect.appendChild(optionElement);
+            modbusMapList.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                modbusMapJsonSelect.appendChild(optionElement);
+            });
+
+            // Aquí seleccionas el valor recibido si existe
+
+            if (preselectValue && modbusMapList.includes(preselectValue)) {
+                modbusMapJsonSelect.value = preselectValue;
+            } else if (modbusMapList.length > 0) {
+                modbusMapJsonSelect.value = modbusMapList[0];
+            }
+
+            modbusMapJsonSelect.dispatchEvent(new Event("change"));
+        })
+        .catch(error => {
+            document.getElementById("content3").innerHTML = "<h1>Error cargando el contenido</h1>";
         });
-
-        // Aquí seleccionas el valor recibido si existe
-       
-        if (preselectValue && modbusMapList.includes(preselectValue)) {
-            modbusMapJsonSelect.value = preselectValue;
-        } else if (modbusMapList.length > 0) {
-            modbusMapJsonSelect.value = modbusMapList[0];
-        }
-
-        modbusMapJsonSelect.dispatchEvent(new Event("change"));
-    })
-    .catch(error => {
-        document.getElementById("content3").innerHTML = "<h1>Error cargando el contenido</h1>";
-    });
 }
 
 
@@ -217,13 +217,13 @@ function handleSelectChange(event, preselectValue=null) {
  */
 
 
-function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
+function loadAddDevicesUpdateDevice(selectedDevice, rtu) {
     fetch(mapFolder)
         .then(response => {
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(`Error: ${response.statusText}`);
@@ -250,8 +250,8 @@ function loadAddDevicesUpdateDevice(selectedDevice,rtu) {
             } else {
                 alert("❌ No hay dispositivos disponibles para la selección");
             }
-            
-            handleSelectChange(null,rtu);
+
+            handleSelectChange(null, rtu);
         })
         .catch(error => {
             // console.error("Error al cargar dispositivos",modbus_map_json error);
@@ -280,9 +280,9 @@ function loadAddDevices() {
     fetch(mapFolder)
         .then(response => {
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
             }
@@ -333,9 +333,9 @@ async function loadFormDataMeasureModbus() {
     try {
         const response = await fetch(getFormDataUrl);
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("Error cargando los datos:");
@@ -390,9 +390,9 @@ async function updateSettingModbus() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
 
@@ -434,7 +434,7 @@ async function updateSettingModbus() {
 async function updateMeasureModbus() {
     const zone = document.getElementById("zone").value;
     const modbus = document.getElementById("modbus").value;
-    const timeout =  document.getElementById("modbus_average").value;
+    const timeout = document.getElementById("modbus_average").value;
     const start = document.getElementById("start").value;
     const stop = document.getElementById("stop").value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -446,15 +446,15 @@ async function updateMeasureModbus() {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify({ zone, modbus,timeout, start, stop })
+            body: JSON.stringify({ zone, modbus, timeout, start, stop })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
@@ -495,9 +495,9 @@ async function loadFormDataModes() {
     try {
         const response = await fetch(getFormDataUrlServerModes);
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("Error while loading data");
@@ -505,6 +505,7 @@ async function loadFormDataModes() {
         const data = await response.json();
 
         document.getElementById("mode").value = data.mode;
+        document.getElementById("device_type").value = data.type_device;
 
         const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
         if (limitationRadio) {
@@ -548,6 +549,7 @@ async function loadFormDataModes() {
 
 async function updateDataModes() {
     const mode = document.getElementById("mode").value;
+    const device = document.getElementById("device_type").value
     const limitation = document.querySelector('input[name="limitation"]:checked')?.value;
     const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
     const sampling_limitation = document.getElementById("sampling_limitation").value;
@@ -562,17 +564,17 @@ async function updateDataModes() {
                 "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
-                mode
-                ,limitation,sampling_limitation,compensation, sampling_compensation
+                mode, device,
+                limitation, sampling_limitation, compensation, sampling_compensation
             })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
 
@@ -645,9 +647,9 @@ async function addDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ " + "Error en la validación de los datos: " + data.message);
@@ -717,9 +719,9 @@ async function addDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error en la validación de los datos: " + data.message);
@@ -769,9 +771,9 @@ async function deleteDevice(device) {
             const result = await response.json();
 
             if (!response.ok) {
-                if (response.status === 401){
+                if (response.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert("❌ Error en la operación : " + result.message);
@@ -816,9 +818,9 @@ async function ModifyOption(device) {
         const response = await fetch(url);
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error durante la actualización: " + response.message);
@@ -833,9 +835,9 @@ async function ModifyOption(device) {
 
 
             if (!responseDevice.ok) {
-                if (responseDevice.status === 401){
+                if (responseDevice.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(" ❌ Error cuando se carga los datos del dispositivo rtu");
@@ -863,15 +865,15 @@ async function ModifyOption(device) {
 
 
             if (!responseDevice.ok) {
-                if (responseDevice.status === 401){
+                if (responseDevice.status === 401) {
                     localStorage.removeItem('access_token');
-                    window.location.href = "{% url 'index' %}"; 
+                    window.location.href = "{% url 'index' %}";
 
                 }
                 alert(" ❌  Error en la carga de los datos del dispositivo TCP");
             }
             const dataTcp = await responseDevice.json();
-            loadAddDevicesUpdateDevice(dataTcp.modbus_map_folder_tcp,dataTcp.modbus_map_json_tcp)
+            loadAddDevicesUpdateDevice(dataTcp.modbus_map_folder_tcp, dataTcp.modbus_map_json_tcp)
 
             document.getElementById("nameTcp").value = dataTcp.nameTcp;
             document.getElementById("ip_device_tcp").value = dataTcp.ip_device_tcp;
@@ -895,7 +897,7 @@ async function ModifyOption(device) {
 
     } catch (error) {
         document.getElementById("content3").innerHTML = "<h1>Error al cargar el contenido</h1>";
-    } 
+    }
 }
 
 
@@ -954,9 +956,9 @@ async function updateDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error al actualizar el dispositivo Tcp: " + data.message);
@@ -1027,9 +1029,9 @@ async function updateDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error en la actualización del dispositivo Rtu: " + data.message);
@@ -1069,9 +1071,9 @@ async function readDeviceRtu() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error en la lectura Rtu: " + data.message);
@@ -1113,9 +1115,9 @@ async function readDeviceTcp() {
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401){
+            if (response.status === 401) {
                 localStorage.removeItem('access_token');
-                window.location.href = "{% url 'index' %}"; 
+                window.location.href = "{% url 'index' %}";
 
             }
             alert("❌ Error en la lectura de dispositivo Tcp: " + data.message);
