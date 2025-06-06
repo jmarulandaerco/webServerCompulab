@@ -1,7 +1,7 @@
 from django.contrib import admin
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView) 
 from django.urls import path
-from AppFrontend.Views.chartView import chartRAM
+from AppFrontend.Views.chartView import TopCPUProcesses, chartRAM
 from AppFrontend.Views.checkPassWordView import ChangePassword, CheckPassword
 from AppFrontend.Views.contenView import ContentView, ContentViewMenuChecker, ContentViewMenuCompensationLimitation, ContentViewMenuDatabase, ContentViewMenuMain, ContentViewMenuModbus, ContentViewMenuSetting, ContentViewSingleDevice
 from AppFrontend.Views.deleteView import DeleteCollectionView,DeleteLog
@@ -101,7 +101,7 @@ urlpatterns = [
     path('api/ip/<str:interface>/', InterfaceIPView.as_view(), name='get_interface_ip'),
     
     path('api/memory/', chartRAM.as_view(), name='memory'),
-
+    path('api/use/',TopCPUProcesses.as_view(),name='use')
 
 
 ]

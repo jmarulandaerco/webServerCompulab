@@ -55,3 +55,38 @@ class chartRAM(APIView):
             return JsonResponse({"message": "Error parciando los datos en el JSON"}, status=400)
         except Exception as ex:
             return JsonResponse({"message": f"Error actualizando los datos: {ex}"}, status=400)
+
+class TopCPUProcesses(APIView):
+    def get(self, request):
+        try:
+            # Ejecutar comando
+            cmd = "ps -eo pid,comm,%cpu,%mem --sort=-%cpu | grep -v -E 'sshd|ps' | head -n 5"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            output = result.stdout.strip()
+
+            # Separar líneas
+            lines = output.splitlines()
+
+            # La primera línea es encabezado: PID COMMAND %CPU %MEM
+            # parsear el resto de líneas
+            processes = []
+            for line in lines[1:]:
+                # Separar por espacios múltiples
+                parts = line.split()
+                if len(parts) == 4:
+                    pid, command, cpu, mem = parts
+                    processes.append({
+                        "pid": int(pid),
+                        "command": command,
+                        "cpu": float(cpu),
+                        "mem": float(mem),
+                    })
+
+            data = {
+                "top_processes": processes
+            }
+
+            return JsonResponse(data)
+
+        except Exception as ex:
+            return JsonResponse({"message": f"Error obteniendo los datos: {ex}"}, status=400)
