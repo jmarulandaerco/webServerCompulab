@@ -12,7 +12,7 @@ from AppFrontend.Views.logView import DownloadLogsView, GetLogSingleDeviceView, 
 from AppFrontend.Views.loginView import IndexView
 from AppFrontend.Views.menuView import FormDataAwsService, FormDataBasePropierties, FormDataCompensation, FormDataLimitation, FormDataModemChecker, FormDataModes, FormDataServer, FormDataServerChecker, FormDataSettingDataBase, FormDataSettingInterface, FormDataSettingLogs, FormDataSignalChecker, MeasureView
 from AppFrontend.Views.modbusView import FormModbusAddDeviceRtu, FormModbusAddDeviceTcp, FormModbusDeviceRtuView, FormModbusDevicesView, FormModbusGetDevicesView, FormModbusView
-from AppFrontend.Views.modemView import InterfaceIPView, ModemView, Wlan
+from AppFrontend.Views.modemView import MAC, InterfaceIPView, ModemView, Wlan
 from AppFrontend.Views.singleDeviceView import FormModbusReadRtu, FormModbusReadTCP
 from AppFrontend.Views.whiteListView import DeleteWhiteList, ModemManager
 from authApp.views.userDetailView import CustomTokenVerifyView, UserDetailView
@@ -69,7 +69,7 @@ urlpatterns = [
     path('api/password/change/',ChangePassword.as_view(),name='change_password'),
     path('api/collections/', ListColections.as_view(), name="list_colections"),
     path('api/modem/status/', ModemView.as_view(), name="modem_status"),
-    path('api/mac/', ModemView.as_view(), name="mac"),
+    path('api/mac/', MAC.as_view(), name="mac"),
 
     path('network/interface-1/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 1'},name="connection_one"),
     path('network/interface-2/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 2'},name="connection_two"),
