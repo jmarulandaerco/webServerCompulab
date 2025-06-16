@@ -69,6 +69,8 @@ urlpatterns = [
     path('api/password/change/',ChangePassword.as_view(),name='change_password'),
     path('api/collections/', ListColections.as_view(), name="list_colections"),
     path('api/modem/status/', ModemView.as_view(), name="modem_status"),
+    path('api/mac/', ModemView.as_view(), name="mac"),
+
     path('network/interface-1/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 1'},name="connection_one"),
     path('network/interface-2/', InterfaceConnection.as_view(), {'connection_name': 'Wired connection 2'},name="connection_two"),
     path('network/wifi/toggle/', AntennaWifi.as_view(),name="toggle_wifi"),

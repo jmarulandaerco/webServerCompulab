@@ -14,6 +14,7 @@ import re
 from pymongo import MongoClient
 from django.core.management import call_command
 import netifaces
+import psutil
 
 @dataclass
 class Menu:
@@ -417,3 +418,16 @@ class Menu:
     def clear_word(self,texto: str) -> str:
         # Elimina cualquier palabra que contenga "Modbus" o "TCP", sin importar mayúsculas/minúsculas
         return re.sub(r'\b\w*(modbus|tcp|rtu)\w*\b', '', texto, flags=re.IGNORECASE).strip()
+    
+
+
+    def get_mac(self,interface="eth0"):
+        # Retrieve network interface addresses
+        addrs = psutil.net_if_addrs().get(interface, [])
+        # Iterate through the addresses to find the MAC address
+        for addr in addrs:
+            if addr.family == psutil.AF_LINK:
+                return addr.address
+        return None
+
+ 

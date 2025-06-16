@@ -130,3 +130,29 @@ class Wlan(APIView):
             {'message': 'No se detectaron interfaces wlan en este dispositivo.'},
             status=404
         )
+
+class MAC(APIView):
+    """
+    API View for retrieving modem information.
+
+    This view handles GET requests to fetch the current modem information.
+    It uses the `Menu` class to retrieve modem data and return it as a JSON response.
+    If an error occurs during the process, it catches the exception and returns an error message.
+
+    Methods:
+    -------
+    get(request)
+        Handles GET requests to retrieve modem information.
+    """
+    
+    def get(self, request):
+        try:
+            
+           
+            menu=Menu()
+            message = menu.get_mac("eth0")
+           
+            return JsonResponse({"message":f"MAC address of eth0: {message}"})
+
+        except Exception as e:
+            return JsonResponse({"message":message})

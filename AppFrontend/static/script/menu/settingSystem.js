@@ -385,6 +385,26 @@ function showModems() {
         .catch(error => { alert("❌" + "Error: "+ error); });
 }
 
+function showMac() {
+
+    const token = localStorage.getItem("access_token");
+    fetch(mac, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+
+
+            alert("✅ " + data.message)
+
+        })
+        .catch(error => { alert("❌" + "Error: "+ error); });
+}
+
 
 async function getIPInterface(interfaceName) {
     try {
