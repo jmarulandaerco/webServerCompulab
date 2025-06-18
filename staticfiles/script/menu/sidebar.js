@@ -72,7 +72,7 @@ function downloadCollections() {
 function rebootErcoPulse() {
     const boton = document.getElementById("reboot");
     boton.disabled = true;
-    if (confirm("¿Estás seguro de iniciar el Erco Pulse?")) {
+    if (confirm("¿Estás seguro de iniciar el servicio de minitoreo?")) {
         const token = localStorage.getItem("access_token");
 
         fetch(reboot, {
