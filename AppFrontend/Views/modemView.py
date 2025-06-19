@@ -152,7 +152,7 @@ class MAC(APIView):
             menu=Menu()
             message = menu.get_mac("eth0")
            
-            return JsonResponse({"message":f"La direccion MAC de eth0: {message}"})
+            return JsonResponse({"message":f"La dirección MAC de eth0: {message}"})
 
         except Exception as e:
             return JsonResponse({"message":message})
