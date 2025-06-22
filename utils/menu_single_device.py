@@ -241,7 +241,7 @@ class SingleDeviceRead:
                 datefmt="%Y-%m-%d %H:%M:%S"
             )
 
-            file_handler = logging.FileHandler("/var/log/enrg/modbus_write.log")
+            file_handler = logging.FileHandler("/var/log/enrg/modbus_read.log")
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
 
