@@ -1143,9 +1143,8 @@ async function writeDeviceRtu() {
         const idSlave = document.getElementById("slave_rtu").value;
         const modbus_function = document.getElementById("modbus_function_rtu").value;
         const initial_address = document.getElementById("initial_address_rtu").value;
-        const values_str = document.getElementById("write_values_rtu").value;
+        const values = document.getElementById("write_values_rtu").value;
 
-        const values = values_str.split(",").map(val => parseInt(val.trim(), 10));
 
         const response = await fetch(logRtu, {
             method: "POST",  // <-- Escritura, mejor POST
@@ -1196,9 +1195,8 @@ async function writeDeviceTcp() {
         const idSlave = document.getElementById("slave_tcp").value;
         const modbus_function = document.getElementById("modbus_function_tcp").value;
         const initial_address = document.getElementById("initial_address_tcp").value;
-        const values_str = document.getElementById("values_tcp").value;
+        const values = document.getElementById("values_tcp").value;
 
-        const values = values_str.split(",").map(val => parseInt(val.trim(), 10));
 
         const response = await fetch(logTcp, {
             method: "POST",  // <-- Escritura, mejor POST
