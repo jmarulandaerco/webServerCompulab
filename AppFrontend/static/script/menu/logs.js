@@ -146,27 +146,3 @@ async function getLogSingleDevice() {
     }
 }
 
-async function getWriteLogSingleDevice() {
-    try {
-
-        document.querySelector('.container_logs').style.display = 'block';
-        document.getElementById('content3').style.display = 'none';
-
-        const response = await fetch(fetchSingleDevice);
-        const data = await response.json();
-        const logContainer = document.getElementById("content4");
-
-
-
-        if (data.logs) {
-            logContainer.innerHTML = data.logs
-                .reverse()
-                .map(line => `<div class="log-line">${line}</div>`)
-                .join("");
-        } else {
-            logContainer.innerText = "No existen registos de momento.";
-        }
-    } catch (error) {
-        // console.error("Error al intentar cargar los logs:", error);
-    }
-}
