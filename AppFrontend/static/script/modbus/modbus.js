@@ -1131,3 +1131,107 @@ async function readDeviceTcp() {
         // console.error("Error:", error);
     }
 }
+
+
+async function writeDeviceRtu() {
+    try {
+        const typeComunication = "RTU";
+        const portDevice = document.getElementById("port_rtu").value;
+        const baudrate = document.getElementById("baudrate_rtu").value;
+        const attempts = document.getElementById("attempts_rtu").value;
+        const timeout = document.getElementById("timeout_rtu").value;
+        const idSlave = document.getElementById("slave_rtu").value;
+        const modbus_function = document.getElementById("modbus_function_rtu").value;
+        const initial_address = document.getElementById("initial_address_rtu").value;
+        const values_str = document.getElementById("write_values_rtu").value;
+
+        const values = values_str.split(",").map(val => parseInt(val.trim(), 10));
+
+        const response = await fetch(logRtu, {
+            method: "POST",  // <-- Escritura, mejor POST
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                typeComunication,
+                portDevice,
+                baudrate,
+                attempts,
+                timeout,
+                idSlave,
+                modbus_function,
+                initial_address,
+                values
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem("access_token");
+                window.location.href = "{% url 'index' %}";
+            }
+            alert("❌ Error al escribir en RTU: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            getLogSingleDevice();  // Si usas logs en frontend
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+    }
+}
+
+
+
+
+async function writeDeviceTcp() {
+    try {
+        const typeComunication = "TCP";
+        const host = document.getElementById("ip_device_tcp").value;
+        const port = document.getElementById("port_device_tcp").value;
+        const attempts = document.getElementById("attempts_tcp").value;
+        const timeout = document.getElementById("timeout_tcp").value;
+        const idSlave = document.getElementById("slave_tcp").value;
+        const modbus_function = document.getElementById("modbus_function_tcp").value;
+        const initial_address = document.getElementById("initial_address_tcp").value;
+        const values_str = document.getElementById("values_tcp").value;
+
+        const values = values_str.split(",").map(val => parseInt(val.trim(), 10));
+
+        const response = await fetch(logTcp, {
+            method: "POST",  // <-- Escritura, mejor POST
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                typeComunication,
+                host,
+                port,
+                attempts,
+                timeout,
+                idSlave,
+                modbus_function,
+                initial_address,
+                values
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem("access_token");
+                window.location.href = "{% url 'index' %}";
+            }
+            alert("❌ Error al escribir en TCP: " + data.message);
+        } else {
+            alert("✅ " + data.message);
+            getLogSingleDevice();  // Si aplicable
+        }
+
+    } catch (error) {
+        alert("❌ Error: " + error.message);
+    }
+}

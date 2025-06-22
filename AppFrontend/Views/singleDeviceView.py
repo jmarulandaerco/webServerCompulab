@@ -32,6 +32,56 @@ class FormModbusReadRtu(APIView):
 
         The method also handles errors like invalid or missing data, as well as issues with file writing and JSON parsing.
     """
+
+    def post(self,request):
+        try:
+            config = configparser.ConfigParser(interpolation=None)
+
+              
+            config.read(list_path_menu[6])
+
+            data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
+            
+            
+            name_section = f"Default"
+
+            if not config.has_section(name_section):
+                return JsonResponse({"message": f"Error: El dispositivo '{name_section}' no existe"}, status=400)
+
+            config.set(name_section, "mode_read", str(data.get("typeComunication")))
+            config.set(name_section, "max_attempts", str(data.get("attempts")))
+            config.set(name_section, "timeout_attempts", str(data.get("timeout")))
+            
+            
+            config_section = f"Configuration"
+            
+            if not config.has_section(name_section):
+                return JsonResponse({"message": f"Error: El dispositivo '{config_section}' no existe"}, status=400)
+
+            config.set(config_section, "serial_port", str(data.get("portDevice")))
+            config.set(config_section, "baudrate", str(data.get("baudrate")))
+            config.set(config_section, "slave_id", str(data.get("idSlave")))
+            config.set(config_section, "modbus_function", str(data.get("modbus_function")))
+            config.set(config_section, "address_init", str(data.get("initial_address")))
+            config.set(config_section, "values",str(data.get("values")))
+
+            with open(list_path_menu[6], "w") as configfile:
+                config.write(configfile)
+            device_read =  SingleDeviceRead(
+                                            name_config = list_path_menu[6]
+                                        )
+            
+            menu=Menu()
+            menu.clear_log_single_device()
+            device_read.main()
+            return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Error parsiando datos en el JSON "}, status=400)
+        except Exception as ex:
+            return JsonResponse({"message": f"Error actualizando datos: {ex}"}, status=400)
     def put(self, request):
         try:
             config = configparser.ConfigParser(interpolation=None)
@@ -105,6 +155,60 @@ class FormModbusReadTCP(APIView):
             - Status code 200 for success.
             - Status code 400 for errors such as invalid data or issues with the configuration file.
         """
+    
+    def post(self, request):
+        try:
+            config = configparser.ConfigParser(interpolation=None)
+
+              
+            config.read(list_path_menu[6])
+
+            data = json.loads(request.body)
+            if any(value is None or value == "" for value in data.values()):
+                return JsonResponse({"message": "Datos invalidos: uno o más registros contienen datos no válidos o nulos"}, status=400)
+            
+            
+            name_section = f"Default"
+
+            if not config.has_section(name_section):
+                return JsonResponse({"message": f"Error: El dispositivo '{name_section}' no existe"}, status=400)
+
+            config.set(name_section, "mode_read", str(data.get("typeComunication")))
+            config.set(name_section, "max_attempts", str(data.get("attempts")))
+            config.set(name_section, "timeout_attempts", str(data.get("timeout")))
+            
+            
+            config_section = f"Configuration"
+            
+            if not config.has_section(config_section):
+                return JsonResponse({"message": f"Error: El dispositivo '{config_section}' no existe"}, status=400)
+            
+            
+            config.set(config_section, "port", str(data.get("port")))
+            config.set(config_section, "host", str(data.get("host")))
+            config.set(config_section, "slave_id", str(data.get("idSlave")))
+            config.set(config_section, "modbus_function", str(data.get("modbus_function")))
+            config.set(config_section, "address_init", str(data.get("initial_address")))
+            config.set(config_section, "values",str(data.get("values")))
+
+
+            with open(list_path_menu[6], "w") as configfile:
+                config.write(configfile)
+                
+            menu=Menu()
+            menu.clear_log_single_device()
+          
+            device_read =  SingleDeviceRead(
+                                            name_config = list_path_menu[6]
+                                        )
+            device_read.main()
+
+            return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Error parciando los datos en el JSON"}, status=400)
+        except Exception as ex:
+            return JsonResponse({"message": f"Error actualizando los datos: {ex}"}, status=400)
     def put(self, request):
         try:
             config = configparser.ConfigParser(interpolation=None)

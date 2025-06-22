@@ -67,6 +67,7 @@ class SingleDeviceRead:
     modbus_function: int = field(init=False)
     address_init: int = field(init=False)
     total_registers: int = field(init=False)
+    values: list[int] = field(init=False)
 
     def __post_init__(self):
         self.config = configparser.ConfigParser()
@@ -83,6 +84,8 @@ class SingleDeviceRead:
         self.modbus_function = self.config.getint("Configuration", "modbus_function")
         self.address_init = self.config.getint("Configuration", "address_init")
         self.total_registers = self.config.getint("Configuration", "total_registers")
+        values_str = self.config.get("Configuration", "values", fallback="")
+        self.values = [int(v.strip()) for v in values_str.split(",") if v.strip().isdigit()]
 
     async def __start_connection(self) -> pymodbus.client:
         try:
@@ -170,7 +173,92 @@ class SingleDeviceRead:
         finally:
             self.__close_connection(client=client)
 
+    
+    async def write_registers_async(self) -> bool:
+        """
+        Escribe registros Modbus usando función 6 (único registro) o 16 (múltiples registros).
 
+        Parameters:
+        -----------
+        values : list[int]
+            Lista de valores enteros a escribir. Si se usa función 6, solo se tomará el primero.
+
+        Returns:
+        --------
+        bool
+            True si la escritura fue exitosa, False en caso contrario.
+        """
+        client = await self.__start_connection()
+
+        if client is None:
+            return False
+
+        try:
+            if self.modbus_function == 6:
+                value = self.values[0] if self.values else 0
+                self.logger.info(f"Writing single register at {self.address_init}: {value}")
+                result = await client.write_register(
+                    address=self.address_init,
+                    value=value,
+                    slave=self.slave_id,
+                )
+            elif self.modbus_function == 10:
+                self.logger.info(f"Writing multiple registers at {self.address_init}: {self.values}")
+                result = await client.write_registers(
+                    address=self.address_init,
+                    values=self.values,
+                    slave=self.slave_id,
+                )
+            else:
+                self.logger.error(f"Unsupported write function: {self.modbus_function}")
+                return False
+
+            if result.isError():
+                self.logger.error(f"Error writing registers: {result}")
+                return False
+
+            self.logger.info("Registers written successfully")
+            return True
+
+        except pymodbus.exceptions.ModbusException as e:
+            self.logger.error(f"Modbus write exception: {e}")
+            return False
+
+        finally:
+            self.__close_connection(client)
+    def mainWrite(self) -> None:
+        try:
+            # Crear logger
+            self.logger = logging.getLogger(__name__)
+            self.logger.setLevel(logging.INFO)
+            self.logger.propagate = False
+
+            for handler in list(self.logger.handlers):
+                self.logger.removeHandler(handler)
+
+            formatter = logging.Formatter(
+                "%(asctime)s.%(msecs)03d %(module)s %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S"
+            )
+
+            file_handler = logging.FileHandler("/var/log/enrg/modbus_write.log")
+            file_handler.setFormatter(formatter)
+            self.logger.addHandler(file_handler)
+
+         
+
+            success = asyncio.run(
+                self.write_registers_async(),
+                debug=False
+            )
+
+            if success:
+                self.logger.info("✅ Escritura Modbus completada correctamente")
+            else:
+                self.logger.error("❌ Falló la escritura Modbus")
+
+        except Exception as e:
+            self.logger.error(f"Excepción en main (escritura): {e}")
     def main(self) -> None:
         try:
             # Crear un logger

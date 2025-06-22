@@ -11,11 +11,18 @@
     <button class="button"
         onclick="loadContentModbus('modbusSetting',this)">Configuraciones</button>
     <button class="button"
-        onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu',this)">MODBUS
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readRtu',this)">Lectura modbus
         RTU</button>
     <button class="button"
-        onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp',this)">MODBUS
-        TCP</button>
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/readTcp',this)">Lectura modbus
+        TCP/IP</button>
+
+    <button class="button"
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/writeRtu',this)">Escritura modbus
+        RTU</button>
+    <button class="button"
+        onclick="loadContentSingleDevice('form/read_rtu_tcp/writeTCP',this)">Escritura modbus
+        TCP/IP</button>
 </div>
 <div class="container" id="content3" style="display: flex;"></div>
 
