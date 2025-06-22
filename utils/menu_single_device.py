@@ -253,12 +253,12 @@ class SingleDeviceRead:
             )
 
             if success:
-                self.logger.info("✅ Escritura Modbus completada correctamente")
+                self.logger.info("✅ Modbus write successfully completed")
             else:
-                self.logger.error("❌ Falló la escritura Modbus")
+                self.logger.error("❌ Modbus write failed")
 
         except Exception as e:
-            self.logger.error(f"Excepción en main (escritura): {e}")
+            self.logger.error(f"Exception in main (script): {e}")
     def main(self) -> None:
         try:
             # Crear un logger
