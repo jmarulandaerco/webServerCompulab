@@ -75,7 +75,7 @@ class FormModbusReadRtu(APIView):
             
             menu=Menu()
             menu.clear_log_single_device()
-            device_read.main()
+            device_read.mainWrite()
             return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
 
         except json.JSONDecodeError:
@@ -201,7 +201,7 @@ class FormModbusReadTCP(APIView):
             device_read =  SingleDeviceRead(
                                             name_config = list_path_menu[6]
                                         )
-            device_read.main()
+            device_read.mainWrite()
 
             return JsonResponse({"message": "Datos actualizados correctamente"}, status=200)
 
