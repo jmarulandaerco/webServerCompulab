@@ -177,3 +177,48 @@ input {
 .device-button:hover {
     background-color: #E4DD00;
 }
+
+/* Contenedor general del grupo */
+.form-group-row {
+    margin-bottom: 15px;
+}
+
+/* Label principal */
+.main-label {
+    display: block;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: 'Sora Light';
+    margin-bottom: 5px;
+}
+
+/* Contenedor de dos campos */
+.row-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Cada campo individual */
+.field-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label interno */
+.field-item label {
+    font-size: 10px;
+    font-family: 'Sora Light';
+    margin-bottom: 3px;
+}
+
+/* Input interno */
+.field-item input {
+    padding: 5px;
+    font-size: 10px;
+    font-family: 'Sora Light';
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 25px;
+}

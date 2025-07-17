@@ -1,0 +1,54 @@
+{% load static %}
+
+<div class="form-container">
+    <form id="myForm" method="post">
+        {% csrf_token %}
+
+        <!-- Grupo 1 -->
+        <div class="form-group-row">
+            <label class="main-label">Porcentaje de respaldo de energía a entregar</label>
+            <div class="row-fields">
+                <div class="field-item">
+                    <label for="respaldo_addr">Dirección</label>
+                    <input type="number" id="respaldo_addr" name="respaldo_addr" value="1" min="0" required>
+                </div>
+                <div class="field-item">
+                    <label for="respaldo_val">Valor</label>
+                    <input type="number" id="respaldo_val" name="respaldo_val" value="1.0" step="0.01" min="0" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grupo 2 -->
+        <div class="form-group-row">
+            <label class="main-label">Porcentaje mínimo de descarga de energía a entregar</label>
+            <div class="row-fields">
+                <div class="field-item">
+                    <label for="descarga_min_addr">Dirección</label>
+                    <input type="number" id="descarga_min_addr" name="descarga_min_addr" value="1" min="0" required>
+                </div>
+                <div class="field-item">
+                    <label for="descarga_min_val">Valor</label>
+                    <input type="number" id="descarga_min_val" name="descarga_min_val" value="1.0" step="0.01" min="0" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grupo 3 -->
+        <div class="form-group-row">
+            <label class="main-label">Porcentaje máximo de descarga de energía a entregar</label>
+            <div class="row-fields">
+                <div class="field-item">
+                    <label for="descarga_max_addr">Dirección</label>
+                    <input type="number" id="descarga_max_addr" name="descarga_max_addr" value="1" min="0" required>
+                </div>
+                <div class="field-item">
+                    <label for="descarga_max_val">Valor</label>
+                    <input type="number" id="descarga_max_val" name="descarga_max_val" value="1.0" step="0.01" min="0" required>
+                </div>
+            </div>
+        </div>
+
+        <button class="buttonClass" type="button" onclick="">Guardar</button>
+    </form>
+</div>
