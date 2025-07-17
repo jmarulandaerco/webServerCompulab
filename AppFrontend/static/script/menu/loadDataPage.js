@@ -16,12 +16,12 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu(option,clickedButton=null) {
+function loadContentMenu() {
 
     if(clickedButton!=null){
         activateButton(clickedButton);
     }
-    fetch(`/home/content/form/${option}/`)
+    fetch(`/home/content/form/sendBess/`)
         .then(response => {
             if (!response.ok) {
                 alert(`Error cargando contentenido: ${response.statusText}`);

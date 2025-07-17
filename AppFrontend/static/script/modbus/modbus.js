@@ -1183,7 +1183,26 @@ async function writeDeviceRtu() {
 }
 
 
+async function SaveDataWrite(){
+    if(clickedButton!=null){
+        activateButton(clickedButton);
+    }
+    fetch(`/home/content/form/${option}/`)
+        .then(response => {
+            if (!response.ok) {
+                alert(`Error cargando contentenido: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content2").innerHTML = data;
+            loadFunction(option);
 
+        })
+        .catch(error => {
+            document.getElementById("content2").innerHTML = "<h1>Error cargando contenido</h1>";
+        });
+}
 
 async function writeDeviceTcp() {
     try {
