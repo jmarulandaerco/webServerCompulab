@@ -1194,7 +1194,6 @@ async function SaveDataWrite(){
         })
         .then(data => {
             document.getElementById("content2").innerHTML = data;
-            loadFunction(option);
 
         })
         .catch(error => {
