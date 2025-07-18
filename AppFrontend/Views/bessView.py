@@ -9,7 +9,7 @@ from utils.configfiles import ConfigFilePaths
 
 cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
-INIT_PATH = list_path_menu[6]  # posición 7
+INIT_PATH = list_path_menu[7]  # posición 7
 
 @method_decorator(csrf_exempt, name="dispatch")
 class SaveInitView(View):
