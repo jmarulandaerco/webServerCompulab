@@ -106,6 +106,6 @@ urlpatterns = [
     path('api/memory/', chartRAM.as_view(), name='memory'),
     path('api/use/',TopCPUProcesses.as_view(),name='use'),
     
-    path('api/bess/',SaveInitView.as_view(),name="save_init")
+    path('api/bess/',SaveInitView.as_view(),name="save_init"),
 
 ]
