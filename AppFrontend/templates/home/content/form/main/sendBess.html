@@ -1,1 +1,22 @@
-<h1>Hola</h1>
+{% load static %}
+
+<div class="form-container-device">
+
+    <form id="deviceForm" >
+        {% csrf_token %}
+
+        <div style="text-align: center;"><h3>Seleccionar tipo de comunicación</h3></div>
+        <div id="deviceList" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+
+            <button type="button" class="device-button"
+                onclick="SaveDataWrite('writeRtuBESS')">
+                Modbus TCP/IP
+            </button>
+            <button type="button" class="device-button"
+                onclick="SaveDataWrite('writeTcpBESS')">
+                MODBUS RTU RS485
+            </button>
+        </div>
+
+    </form>
+</div>
