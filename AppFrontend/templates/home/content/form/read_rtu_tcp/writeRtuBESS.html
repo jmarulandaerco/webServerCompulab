@@ -1,1 +1,55 @@
-<h1>Hola write rtu</h1>
+{% load static %}
+
+<div class="container">
+    <div class="container-column form-wrapper-column">
+        <div class="form-container-column">
+            <form id="writeForm" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="port_rtu">Seleccionar puerto serial</label>
+                    <select id="port_rtu" name="port_rtu" required>
+                        <option value="/dev/ttymxc0">ttymxc0 IOT-GATE-iMX8 (Viejo)</option>
+                        <option value="/dev/ttymxc1">ttymxc1 IOT-GATE-iMX8 (Viejo)</option>
+                        <option value="/dev/ttyRS485">ttyRS485 IOT-DIN-IMX8PLUS (Nuevo)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="baudrate_rtu">Velocidad de transmisión</label>
+                    <select id="baudrate_rtu" name="baudrate_rtu" required>
+                        <option value="4800">4800 bps</option>
+                        <option value="9600" selected>9600 bps</option>
+                        <option value="19200">19200 bps</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="attempts_rtu">Máximo de intentos</label>
+                    <input type="text" id="attempts_rtu" name="attempts_rtu" value="3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="timeout_rtu">Tiempo de espera (segundos)</label>
+                    <input type="text" id="timeout_rtu" name="timeout_rtu" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="slave_rtu">ID de esclavo</label>
+                    <input type="text" id="slave_rtu" name="slave_rtu" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modbus_function_rtu">Función Modbus</label>
+                    <select id="modbus_function_rtu" name="modbus_function_rtu" required>
+                        <option value="6">Write single register (6)</option>
+                        <option value="10">Write multiple registers (10)</option>
+                    </select>
+                </div>
+                <div class="form-group button-container">
+                    <button class="buttonClassTwo" onclick="writeDeviceRtu()" type="button">Escribir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
