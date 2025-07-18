@@ -124,15 +124,17 @@
     const downloadLog = "{% url 'download_logs' %}";
     const viewList = "{% url 'view_list' %}";
     const modemManagerService ="{% url 'modem_manager' %}";
-    const awsSettings ="{% url 'get_aws_config' %}"
-    const plc ="{% url 'plc' %}" 
-    const ram ="{% url 'memory' %}"
-    const use = "{% url 'use' %}"
-    const save_init = "{% url 'save_init' %}"
+    const awsSettings ="{% url 'get_aws_config' %}";
+    const plc ="{% url 'plc' %}" ;
+    const ram ="{% url 'memory' %}";
+    const use = "{% url 'use' %}";
+    const save_init = "{% url 'save_init' %}";
+    const bess_tcp_write = "{% url 'bess_tcp_write' %}";
 
 </script>
 <script src="{% static 'script/menu/loadDataPage.js' %}"></script>
 <script src="{% static 'script/modbus/modbus.js' %}"></script>
+<script src="{% static 'script/modbus/helper.js' %}"></script>
 <script src="{% static 'script/menu/logs.js' %}"></script>
 <script src="{% static 'script/menu/settingSystem.js' %}"></script>
 <script src="{% static 'script/menu/sidebar.js' %}"></script>

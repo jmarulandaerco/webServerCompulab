@@ -1221,18 +1221,18 @@ function saveDataFormWriteBESS(actionTag) {
         },
         body: JSON.stringify(payload),
     })
-    .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-    })
-    .then(data => {
-        alert(data.message || "Guardado.");
-        console.log("Respuesta servidor:", data);
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("No se pudo guardar.");
-    });
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            alert(data.message || "Guardado.");
+            console.log("Respuesta servidor:", data);
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("No se pudo guardar.");
+        });
 }
 
 async function SaveDataWrite(option) {
@@ -1245,11 +1245,13 @@ async function SaveDataWrite(option) {
             return response.text();
         })
         .then(data => {
-            saveDataFormWriteBESS(null)
+            if (option == "sendBess") {
+                saveDataFormWriteBESS(null)
+            }
+
 
             document.getElementById("content2").innerHTML = data;
-            if (option == "sendBess") {
-            }
+
         })
         .catch(error => {
             document.getElementById("content2").innerHTML = "<h1>Error cargando contenido</h1>";
@@ -1303,4 +1305,98 @@ async function writeDeviceTcp() {
     } catch (error) {
         alert("❌ Error: " + error.message);
     }
+}
+
+
+function writeDeviceTcpBess() {
+    // 1. Capturar elementos
+    const hostEl = document.getElementById("ip_device_tcp");
+    const portEl = document.getElementById("port_device_tcp");
+    const attemptsEl = document.getElementById("attempts_tcp");
+    const timeoutEl = document.getElementById("timeout_tcp");
+    const slaveEl = document.getElementById("slave_tcp");
+    const funcEl = document.getElementById("modbus_function_tcp");
+
+    // 2. Validaciones básicas
+    const host = hostEl?.value.trim();
+    if (!host) {
+        showFieldError("ip_device_tcp", "Debe ingresar la dirección IP o nombre de host.");
+        return;
+    }
+
+    const port = Number(portEl?.value);
+    if (isNaN(port) || port < 1 || port > 65535) {
+        showFieldError("port_device_tcp", "Puerto inválido. Debe estar entre 1 y 65535.");
+        return;
+    }
+
+    const attempts = Number(attemptsEl?.value);
+    if (isNaN(attempts) || attempts < 1) {
+        showFieldError("attempts_tcp", "Número de intentos inválido. Debe ser entero ≥ 1.");
+        return;
+    }
+
+    const timeout = Number(timeoutEl?.value);
+    if (isNaN(timeout) || timeout <= 0) {
+        showFieldError("timeout_tcp", "Tiempo de espera inválido. Debe ser > 0.");
+        return;
+    }
+
+    const slave = Number(slaveEl?.value);
+    if (isNaN(slave) || slave < 0 || slave > 247) {
+        showFieldError("slave_tcp", "ID de esclavo inválido. Debe estar entre 0 y 247.");
+        return;
+    }
+
+    const func = Number(funcEl?.value);
+    if (![6, 10].includes(func)) {
+        showFieldError("modbus_function_tcp", "Función Modbus inválida. Use 6 (single) o 10 (multiple).");
+        return;
+    }
+
+    // 3. Construir payload
+    const payload = {
+        host,
+        port,
+        attempts,
+        timeout,
+        slave,
+        function: func,
+        send_init: true  // indica al backend que lea bess_battery.init y escriba
+    };
+
+    // 4. Enviar
+    fetch(bess_tcp_write, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+    })
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            // Se espera algo como:
+            // { ok: true, wrote: [{group:"respaldo", address:1, value:10.5, ok:true, error:null}, ...] }
+            if (!data.ok) {
+                alert(data.message || "La operación no se completó.");
+                console.error("Respuesta servidor:", data);
+                return;
+            }
+
+            // Construir resumen
+            const detalles = (data.wrote || []).map(rec => {
+                const estado = rec.ok ? "OK" : `ERROR: ${rec.error || "desconocido"}`;
+                return `${rec.group} (addr=${rec.address}, val=${rec.value}) → ${estado}`;
+            }).join("\n");
+
+            alert(`Escritura completada.\n\n${detalles}`);
+            console.log("Resultado escritura:", data);
+        })
+        .catch(err => {
+            console.error("Error en la escritura:", err);
+            alert("No se pudo completar la escritura Modbus.");
+        });
 }

@@ -25,10 +25,8 @@ function loadDataFormWriteBESS() {
                 }
             });
 
-            alert("Datos cargados correctamente.");
         })
         .catch(err => {
-            console.error("Error cargando datos:", err);
             alert("Ocurrió un error al cargar los datos. Por favor, intente nuevamente.");
         });
 }
