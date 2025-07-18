@@ -1400,3 +1400,41 @@ function writeDeviceTcpBess() {
             alert("No se pudo completar la escritura Modbus.");
         });
 }
+
+function writeDeviceRTUBess() {
+    const payload = {
+        port: document.getElementById("port_rtu").value,
+        baudrate: Number(document.getElementById("baudrate_rtu").value),
+        attempts: Number(document.getElementById("attempts_rtu").value),
+        timeout: Number(document.getElementById("timeout_rtu").value),
+        slave: Number(document.getElementById("slave_rtu").value),
+        modbus_function: Number(document.getElementById("modbus_function_rtu").value)
+    };
+
+    // Validación simple
+    if (!payload.port || isNaN(payload.baudrate) || isNaN(payload.slave)) {
+        alert("Por favor, completa todos los campos correctamente.");
+        return;
+    }
+
+    fetch(bess_rtu_write, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    })
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            if (data.ok) {
+                alert(`✅ Éxito: ${data.message}`);
+            } else {
+                alert(`⚠️ Error: ${data.message}`);
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("❌ No se pudo enviar la información.");
+        });
+}

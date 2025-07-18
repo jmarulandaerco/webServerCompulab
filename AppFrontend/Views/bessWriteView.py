@@ -6,6 +6,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from pymodbus.client import ModbusSerialClient
 
 from pymodbus.client import ModbusTcpClient
 from pymodbus.payload import BinaryPayloadBuilder
@@ -24,7 +25,6 @@ INIT_PATH = list_path_menu[7]   # Ajusta si cambia la posición
 class BessTcpWriteView(View):
     """
     POST  -> Recibe parámetros TCP y escribe los valores definidos en bess_battery.init al dispositivo Modbus.
-    GET   -> (Opcional) Devuelve vista previa: contenido del archivo .init (sin escribir).
 
     Espera JSON POST:
     {
@@ -37,24 +37,8 @@ class BessTcpWriteView(View):
       "preview": false     # si true, sólo lee y devuelve; no escribe
     }
     """
-    # -------- GET: sólo devuelve los datos del archivo .init --------
-    def get(self, request):
-        config = configparser.ConfigParser(interpolation=None)
-        config.optionxform = str
-        try:
-            config.read(INIT_PATH)
-        except Exception as exc:
-            return JsonResponse({"ok": False, "message": f"No se pudo leer {INIT_PATH}: {exc}", "fields": []}, status=500)
 
-        fields = []
-        for section in config.sections():
-            fields.append({
-                "group": section,
-                "address": config.get(section, "address", fallback=None),
-                "value": config.get(section, "value", fallback=None),
-            })
-
-        return JsonResponse({"ok": True, "fields": fields})
+   
 
     # -------- POST: escribir por Modbus TCP --------
     def post(self, request):
@@ -64,27 +48,37 @@ class BessTcpWriteView(View):
         except Exception as exc:
             return HttpResponseBadRequest(f"JSON inválido: {exc}")
 
-        host     = payload.get("host")
-        port     = payload.get("port", 502)
+        host = payload.get("host")
+        port = payload.get("port", 502)
         attempts = payload.get("attempts", 1)
-        timeout  = payload.get("timeout", 1)
-        slave    = payload.get("slave", 1)
-        func     = payload.get("function", 6)
-        preview  = payload.get("preview", False)
+        timeout = payload.get("timeout", 1)
+        slave = payload.get("slave", 1)
+        func = payload.get("function", 6)
+        preview = payload.get("preview", False)
 
         # Validaciones mínimas
         if not host:
             return HttpResponseBadRequest("Host requerido.")
-        try: port = int(port)
-        except Exception: return HttpResponseBadRequest("Puerto inválido.")
-        try: attempts = int(attempts)
-        except Exception: attempts = 1
-        try: timeout = float(timeout)
-        except Exception: timeout = 1.0
-        try: slave = int(slave)
-        except Exception: slave = 1
-        try: func = int(func)
-        except Exception: func = 6
+        try:
+            port = int(port)
+        except Exception:
+            return HttpResponseBadRequest("Puerto inválido.")
+        try:
+            attempts = int(attempts)
+        except Exception:
+            attempts = 1
+        try:
+            timeout = float(timeout)
+        except Exception:
+            timeout = 1.0
+        try:
+            slave = int(slave)
+        except Exception:
+            slave = 1
+        try:
+            func = int(func)
+        except Exception:
+            func = 6
 
         # Leer archivo init
         config = configparser.ConfigParser(interpolation=None)
@@ -98,7 +92,7 @@ class BessTcpWriteView(View):
         for section in config.sections():
             try:
                 addr = int(config.get(section, "address"))
-                val  = float(config.get(section, "value"))
+                val = float(config.get(section, "value"))
             except Exception:
                 continue
             regs.append((section, addr, val))
@@ -129,7 +123,8 @@ class BessTcpWriteView(View):
                 # Ordenamos por address
                 regs_sorted = sorted(regs, key=lambda r: r[1])
                 base_addr = regs_sorted[0][1]
-                builder = BinaryPayloadBuilder(byteorder=Endian.BIG, wordorder=Endian.BIG)
+                builder = BinaryPayloadBuilder(
+                    byteorder=Endian.BIG, wordorder=Endian.BIG)
                 last_addr = base_addr
 
                 # Para reporte:
@@ -146,7 +141,8 @@ class BessTcpWriteView(View):
 
                 payload_regs = builder.to_registers()
 
-                rr = client.write_registers(base_addr, payload_regs, slave=slave)
+                rr = client.write_registers(
+                    base_addr, payload_regs, slave=slave)
                 ok = not rr.isError()
                 err_str = None if ok else str(rr)
 
@@ -166,7 +162,8 @@ class BessTcpWriteView(View):
                     error_msg = None
 
                     for _ in range(attempts):
-                        rr = client.write_register(addr, write_val, slave=slave)
+                        rr = client.write_register(
+                            addr, write_val, slave=slave)
                         if not rr.isError():
                             success = True
                             break
@@ -185,5 +182,163 @@ class BessTcpWriteView(View):
         return JsonResponse({
             "ok": True,
             "message": f"Escritura Modbus completada a {host}:{port}.",
+            "wrote": results,
+        })
+
+
+# quítalo si quieres protección CSRF
+@method_decorator(csrf_exempt, name="dispatch")
+class BessRtuWriteView(View):
+    """
+    POST -> Recibe parámetros Modbus RTU, lee bess_battery.init y escribe valores.
+    """
+
+
+
+    # -------- POST: escribir por RTU --------
+    def post(self, request):
+        # Parse JSON
+        try:
+            payload = json.loads(request.body.decode("utf-8"))
+        except Exception as exc:
+            return HttpResponseBadRequest(f"JSON inválido: {exc}")
+
+        port = payload.get("port")          # ej: /dev/ttyRS485
+        baudrate = payload.get("baudrate", 9600)
+        attempts = payload.get("attempts", 1)
+        timeout = payload.get("timeout", 1)
+        slave = payload.get("slave", 1)
+        func = payload.get("function", 6)
+        preview = payload.get("preview", False)
+
+        # Opcionales (puedes exponerlos en el formulario más tarde)
+        parity = payload.get("parity", "N")
+        stopbits = payload.get("stopbits", 1)
+        bytesize = payload.get("bytesize", 8)
+        method = "rtu"
+
+        # Validaciones mínimas
+        if not port:
+            return HttpResponseBadRequest("Puerto serial requerido.")
+        try:
+            baudrate = int(baudrate)
+        except Exception:
+            return HttpResponseBadRequest("Baudrate inválido.")
+        try:
+            attempts = int(attempts)
+        except Exception:
+            attempts = 1
+        try:
+            timeout = float(timeout)
+        except Exception:
+            timeout = 1.0
+        try:
+            slave = int(slave)
+        except Exception:
+            slave = 1
+        try:
+            func = int(func)
+        except Exception:
+            func = 6
+
+        # Leer archivo init
+        config = configparser.ConfigParser(interpolation=None)
+        config.optionxform = str
+        try:
+            config.read(INIT_PATH)
+        except Exception as exc:
+            return HttpResponseBadRequest(f"No se pudo leer {INIT_PATH}: {exc}")
+
+        regs = []
+        for section in config.sections():
+            try:
+                addr = int(config.get(section, "address"))
+                val = float(config.get(section, "value"))
+            except Exception:
+                continue
+            regs.append((section, addr, val))
+
+        if not regs:
+            return HttpResponseBadRequest("No hay campos válidos en el archivo init.")
+
+        # Vista previa: no escribe, sólo devuelve
+        if preview:
+            return JsonResponse({
+                "ok": True,
+                "message": "Vista previa: no se envió nada por Modbus (preview=true).",
+                "wrote": [{"group": s, "address": a, "value": v} for (s, a, v) in regs],
+            })
+
+        # Conectar Modbus RTU
+        client = ModbusSerialClient(
+            method=method,
+            port=port,
+            baudrate=baudrate,
+            parity=parity,
+            stopbits=stopbits,
+            bytesize=bytesize,
+            timeout=timeout,
+        )
+        if not client.connect():
+            return HttpResponseBadRequest(f"No se pudo abrir {port} a {baudrate} bps.")
+
+        results = []
+        try:
+            if func == 10 and len(regs) > 1:
+                # ---------- FUNCIÓN 16 (0x10) MÚLTIPLES ----------
+                regs_sorted = sorted(regs, key=lambda r: r[1])
+                base_addr = regs_sorted[0][1]
+                builder = BinaryPayloadBuilder(
+                    byteorder=Endian.BIG, wordorder=Endian.BIG)
+                last_addr = base_addr
+                sec_report = []
+
+                for section, addr, val in regs_sorted:
+                    while last_addr < addr:
+                        builder.add_16bit_uint(0)
+                        last_addr += 1
+                    builder.add_16bit_uint(int(val))
+                    sec_report.append((section, addr, val))
+                    last_addr = addr + 1
+
+                payload_regs = builder.to_registers()
+                rr = client.write_registers(
+                    base_addr, payload_regs, slave=slave)
+                ok = not rr.isError()
+                err_str = None if ok else str(rr)
+                for section, addr, val in sec_report:
+                    results.append({
+                        "group": section,
+                        "address": addr,
+                        "value": val,
+                        "ok": ok,
+                        "error": err_str,
+                    })
+            else:
+                # ---------- FUNCIÓN 6 (0x06) UNO POR UNO ----------
+                for section, addr, val in regs:
+                    write_val = int(val)  # ajusta si necesitas escala
+                    success = False
+                    error_msg = None
+                    for _ in range(attempts):
+                        rr = client.write_register(
+                            addr, write_val, slave=slave)
+                        if not rr.isError():
+                            success = True
+                            break
+                        error_msg = str(rr)
+                    results.append({
+                        "group": section,
+                        "address": addr,
+                        "value": val,
+                        "ok": success,
+                        "error": error_msg,
+                    })
+        finally:
+            client.close()
+
+        return JsonResponse({
+            "ok": True,
+            "message": f"Escritura Modbus RTU completada en {port} @ {baudrate} bps.",
             "wrote": results,
         })

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from AppFrontend.Views.bessView import SaveInitView
-from AppFrontend.Views.bessWriteView import BessTcpWriteView
+from AppFrontend.Views.bessWriteView import BessRtuWriteView, BessTcpWriteView
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView) 
 from django.urls import path
 from AppFrontend.Views.chartView import TopCPUProcesses, chartRAM
@@ -109,6 +109,7 @@ urlpatterns = [
     
     path('api/bess/',SaveInitView.as_view(),name="save_init"),
     path("api/bess/tcp/write/", BessTcpWriteView.as_view(), name="bess_tcp_write"),
+    path("api/bess/rtu/write/", BessRtuWriteView.as_view(), name="bess_rtu_write"),
 
 
 ]
