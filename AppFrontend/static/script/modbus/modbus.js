@@ -1206,6 +1206,9 @@ function saveDataFormWriteBESS(actionTag) {
 
         const addr = Number(addrEl.value);
         const val = Number(valEl.value);
+        console.log("Hola")
+        console.log(addr)
+        console.log(val)
         if (isNaN(addr) || isNaN(val)) {
             console.warn(`Valor inválido en grupo ${g.name}`);
             return;
