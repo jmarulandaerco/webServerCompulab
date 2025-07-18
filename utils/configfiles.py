@@ -29,6 +29,7 @@ class ConfigFilePaths:
     active_limit_config_path: str = field(default="/etc/enrg/utilitymanager/activelimitation_config.ini")
     reactive_compensation_config_path: str = field(default="/etc/enrg/utilitymanager/compensationreactive_config.ini")
     single_device_config_path: str = field(default="/etc/enrg/utilitymanager/single_device_config.ini")
+    bess_batery_config_path: str = field(default="/etc/enrg/utilitymanager/bess_batery.ini")
 
     def to_list(self) -> List[str]:
         """
@@ -44,5 +45,6 @@ class ConfigFilePaths:
             self.http_data_config_path,
             self.active_limit_config_path,
             self.reactive_compensation_config_path,
-            self.single_device_config_path
+            self.single_device_config_path,
+            self.bess_batery_config_path
         ]

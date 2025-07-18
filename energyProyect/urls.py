@@ -1,4 +1,5 @@
 from django.contrib import admin
+from AppFrontend.Views.bessView import SaveInitView
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView) 
 from django.urls import path
 from AppFrontend.Views.chartView import TopCPUProcesses, chartRAM
@@ -103,7 +104,8 @@ urlpatterns = [
     path('api/ip/<str:interface>/', InterfaceIPView.as_view(), name='get_interface_ip'),
     
     path('api/memory/', chartRAM.as_view(), name='memory'),
-    path('api/use/',TopCPUProcesses.as_view(),name='use')
-
+    path('api/use/',TopCPUProcesses.as_view(),name='use'),
+    
+    path('api/bess/',SaveInitView.as_view(),name="save_init")
 
 ]

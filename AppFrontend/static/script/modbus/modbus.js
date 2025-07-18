@@ -1182,9 +1182,65 @@ async function writeDeviceRtu() {
     }
 }
 
+function getCsrfToken() {
+    const el = document.querySelector('#myForm input[name="csrfmiddlewaretoken"]');
+    return el ? el.value : '';
+}
 
-async function SaveDataWrite(option){
-   
+function saveDataFormWriteBESS(actionTag) {
+    const groups = [
+        { name: "respaldo", addrId: "respaldo_addr", valId: "respaldo_val" },
+        { name: "descarga_min", addrId: "descarga_min_addr", valId: "descarga_min_val" },
+        { name: "descarga_max", addrId: "descarga_max_addr", valId: "descarga_max_val" },
+    ];
+
+    const payload = {
+        action: actionTag || null,  // opcional, el server lo puede ignorar
+        fields: []
+    };
+
+    groups.forEach(g => {
+        const addrEl = document.getElementById(g.addrId);
+        const valEl = document.getElementById(g.valId);
+        if (!addrEl || !valEl) return;
+
+        const addr = Number(addrEl.value);
+        const val = Number(valEl.value);
+        if (isNaN(addr) || isNaN(val)) {
+            console.warn(`Valor inválido en grupo ${g.name}`);
+            return;
+        }
+
+        payload.fields.push({
+            group: g.name,
+            address: addr,
+            value: val,
+        });
+    });
+
+    fetch("{% url 'save_init' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCsrfToken(),
+        },
+        body: JSON.stringify(payload),
+    })
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            alert(data.message || "Guardado.");
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("No se pudo guardar.");
+        });
+}
+
+async function SaveDataWrite(option) {
+
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
@@ -1193,6 +1249,9 @@ async function SaveDataWrite(option){
             return response.text();
         })
         .then(data => {
+            if (option == sendBess) {
+                saveDataFormWriteBESS(null)
+            }
             document.getElementById("content2").innerHTML = data;
 
         })
