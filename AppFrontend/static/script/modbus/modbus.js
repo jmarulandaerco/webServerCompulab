@@ -1184,10 +1184,8 @@ async function writeDeviceRtu() {
 
 
 async function SaveDataWrite(){
-    if(clickedButton!=null){
-        activateButton(clickedButton);
-    }
-    fetch(`/home/content/form/${option}/`)
+   
+    fetch(`/home/content/form/sendBess/`)
         .then(response => {
             if (!response.ok) {
                 alert(`Error cargando contentenido: ${response.statusText}`);
