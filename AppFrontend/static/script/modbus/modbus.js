@@ -1245,10 +1245,10 @@ async function SaveDataWrite(option) {
             return response.text();
         })
         .then(data => {
+            saveDataFormWriteBESS(null)
 
             document.getElementById("content2").innerHTML = data;
             if (option == "sendBess") {
-                saveDataFormWriteBESS(null)
             }
         })
         .catch(error => {
