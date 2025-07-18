@@ -1,5 +1,37 @@
 let intervalId;
 
+function loadDataFormWriteBESS() {
+    fetch(save_init, { method: "GET" })
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            if (!data.ok || !data.fields || data.fields.length === 0) {
+                alert("No se encontraron datos para cargar.");
+                return;
+            }
+
+            data.fields.forEach(field => {
+                if (field.group === "respaldo") {
+                    document.getElementById("respaldo_addr").value = field.address || "";
+                    document.getElementById("respaldo_val").value = field.value || "";
+                } else if (field.group === "descarga_min") {
+                    document.getElementById("descarga_min_addr").value = field.address || "";
+                    document.getElementById("descarga_min_val").value = field.value || "";
+                } else if (field.group === "descarga_max") {
+                    document.getElementById("descarga_max_addr").value = field.address || "";
+                    document.getElementById("descarga_max_val").value = field.value || "";
+                }
+            });
+
+            alert("Datos cargados correctamente.");
+        })
+        .catch(err => {
+            console.error("Error cargando datos:", err);
+            alert("Ocurrió un error al cargar los datos. Por favor, intente nuevamente.");
+        });
+}
 
 /**
  * Loads content into a specified section of the page based on the selected option.
@@ -758,6 +790,9 @@ async function loadFunction(option) {
 
         case 'compensation':
             loadFormDataCompensation();
+            break;
+        case 'bess':
+            loadDataFormWriteBESS();
             break;
 
         default:

@@ -13,6 +13,26 @@ INIT_PATH = list_path_menu[7]  # posición 7
 
 @method_decorator(csrf_exempt, name="dispatch")
 class SaveInitView(View):
+    def get(self, request):
+        config = configparser.ConfigParser(interpolation=None)
+        try:
+            with open(INIT_PATH, "r") as fh:
+                config.read_file(fh)
+        except FileNotFoundError:
+            return JsonResponse({"ok": False, "message": "Archivo no encontrado", "fields": []})
+
+        fields = []
+        for section in config.sections():
+            fields.append({
+                "group": section,
+                "address": config.get(section, "address", fallback=None),
+                "value": config.get(section, "value", fallback=None)
+            })
+
+        return JsonResponse({
+            "ok": True,
+            "fields": fields
+        })
     def post(self, request):
         try:
             payload = json.loads(request.body.decode("utf-8"))
