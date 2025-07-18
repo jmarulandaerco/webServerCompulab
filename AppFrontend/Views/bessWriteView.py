@@ -17,7 +17,7 @@ from utils.configfiles import ConfigFilePaths
 # Localiza el archivo bess_battery.init
 cf = ConfigFilePaths()
 list_path_menu = cf.to_list()
-INIT_PATH = list_path_menu[6]   # Ajusta si cambia la posición
+INIT_PATH = list_path_menu[7]   # Ajusta si cambia la posición
 
 
 @method_decorator(csrf_exempt, name="dispatch")   # quítalo si quieres CSRF
