@@ -1182,11 +1182,6 @@ async function writeDeviceRtu() {
     }
 }
 
-function getCsrfToken() {
-    const el = document.querySelector('#myForm input[name="csrfmiddlewaretoken"]');
-    return el ? el.value : '';
-}
-
 function saveDataFormWriteBESS(actionTag) {
     const groups = [
         { name: "respaldo", addrId: "respaldo_addr", valId: "respaldo_val" },
@@ -1195,7 +1190,7 @@ function saveDataFormWriteBESS(actionTag) {
     ];
 
     const payload = {
-        action: actionTag || null,  // opcional, el server lo puede ignorar
+        action: actionTag || null,
         fields: []
     };
 
@@ -1206,9 +1201,7 @@ function saveDataFormWriteBESS(actionTag) {
 
         const addr = Number(addrEl.value);
         const val = Number(valEl.value);
-        console.log("Hola")
-        console.log(addr)
-        console.log(val)
+
         if (isNaN(addr) || isNaN(val)) {
             console.warn(`Valor inválido en grupo ${g.name}`);
             return;
@@ -1225,21 +1218,21 @@ function saveDataFormWriteBESS(actionTag) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": getCsrfToken(),
         },
         body: JSON.stringify(payload),
     })
-        .then(r => {
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            return r.json();
-        })
-        .then(data => {
-            alert(data.message || "Guardado.");
-        })
-        .catch(err => {
-            console.error("Error:", err);
-            alert("No se pudo guardar.");
-        });
+    .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+    })
+    .then(data => {
+        alert(data.message || "Guardado.");
+        console.log("Respuesta servidor:", data);
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("No se pudo guardar.");
+    });
 }
 
 async function SaveDataWrite(option) {
@@ -1252,7 +1245,7 @@ async function SaveDataWrite(option) {
             return response.text();
         })
         .then(data => {
-           
+
             document.getElementById("content2").innerHTML = data;
             if (option == "sendBess") {
                 saveDataFormWriteBESS(null)
