@@ -16,7 +16,7 @@ let intervalId;
  * loadContentMenu('databaseSetting'); // Loads the content for the 'databaseSetting' option and processes it.
  */
 
-function loadContentMenu() {
+function loadContentMenu(option,clickedButton=null) {
 
     if(clickedButton!=null){
         activateButton(clickedButton);
