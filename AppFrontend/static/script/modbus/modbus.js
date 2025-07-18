@@ -1249,11 +1249,11 @@ async function SaveDataWrite(option) {
             return response.text();
         })
         .then(data => {
-            if (option == sendBess) {
+           
+            document.getElementById("content2").innerHTML = data;
+            if (option == "sendBess") {
                 saveDataFormWriteBESS(null)
             }
-            document.getElementById("content2").innerHTML = data;
-
         })
         .catch(error => {
             document.getElementById("content2").innerHTML = "<h1>Error cargando contenido</h1>";
