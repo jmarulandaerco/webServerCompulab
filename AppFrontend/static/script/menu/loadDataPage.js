@@ -21,7 +21,7 @@ function loadContentMenu(option,clickedButton=null) {
     if(clickedButton!=null){
         activateButton(clickedButton);
     }
-    fetch(`/home/content/form/sendBess/`)
+    fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
                 alert(`Error cargando contentenido: ${response.statusText}`);
