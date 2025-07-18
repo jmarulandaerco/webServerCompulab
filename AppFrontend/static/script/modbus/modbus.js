@@ -1218,7 +1218,7 @@ function saveDataFormWriteBESS(actionTag) {
         });
     });
 
-    fetch("{% url 'save_init' %}", {
+    fetch(save_init, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
