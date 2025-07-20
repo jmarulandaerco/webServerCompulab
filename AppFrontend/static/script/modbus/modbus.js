@@ -1230,24 +1230,24 @@ function saveDataFormWriteBESS(actionTag) {
 
         // NaN / vacío / inválido numérico
         if (isNaN(addr) || isNaN(val)) {
-            console.warn(`Valor inválido en grupo ${g.name}`);
+            console.warn(`❌ Valor inválido en grupo ${g.name}`);
             invalidGroups.push(g.name);
             // marca visual ligera (ámbar)
             valEl.style.border = "2px solid orange";
             valEl.style.outline = "none";
-            valEl.title = "Valor numérico inválido";
+            valEl.title = "❌ Valor numérico inválido";
             if (!firstErrorEl) firstErrorEl = valEl;
             return;
         }
 
         // Sobre límite
         if (val > MAX_VAL) {
-            console.warn(`Valor sobrepasado en grupo ${g.name}: ${val} > ${MAX_VAL}`);
+            console.warn(`❌ Valor sobrepasado en grupo ${g.name}: ${val} > ${MAX_VAL}`);
             overLimitGroups.push(g.name);
             // marca visual fuerte (rojo)
             valEl.style.border = "2px solid red";
             valEl.style.outline = "none";
-            valEl.title = `Valor sobrepasado (máx ${MAX_VAL})`;
+            valEl.title = `❌ Valor sobrepasado (máx ${MAX_VAL})`;
             if (!firstErrorEl) firstErrorEl = valEl;
             // No hacemos push al payload porque no se enviará
             return;
