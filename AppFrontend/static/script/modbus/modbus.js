@@ -1469,8 +1469,8 @@ function writeDeviceTcpBess() {
             console.log("Resultado escritura:", data);
         })
         .catch(err => {
-            console.error("❌Error en la escritura:", err);
-            alert("No se pudo completar la escritura Modbus.");
+            console.error("Error en la escritura:", err);
+            alert("❌ No se pudo completar la escritura Modbus.");
         });
 }
 
