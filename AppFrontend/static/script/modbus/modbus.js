@@ -1183,33 +1183,77 @@ async function writeDeviceRtu() {
 }
 
 function saveDataFormWriteBESS(actionTag) {
+    // Constante del límite (según tu requerimiento, fija en 100)
+    const MAX_VAL = 100;
+
+    // Define los grupos (IDs de los inputs en el DOM)
     const groups = [
         { name: "respaldo", addrId: "respaldo_addr", valId: "respaldo_val" },
         { name: "descarga_min", addrId: "descarga_min_addr", valId: "descarga_min_val" },
         { name: "descarga_max", addrId: "descarga_max_addr", valId: "descarga_max_val" },
     ];
 
+    // Estructura del payload a enviar
     const payload = {
         action: actionTag || null,
         fields: []
     };
 
+    // Acumuladores de errores
+    const overLimitGroups = [];
+    const invalidGroups = [];
+
+    // Para enfocar el primer campo con error
+    let firstErrorEl = null;
+
+    // --- Limpia marcas visuales de ejecuciones previas ---
+    groups.forEach(g => {
+        const valEl = document.getElementById(g.valId);
+        if (valEl) {
+            valEl.style.outline = "";
+            valEl.style.border = "";
+            valEl.title = "";
+        }
+    });
+
+    // --- Recorre y valida cada grupo ---
     groups.forEach(g => {
         const addrEl = document.getElementById(g.addrId);
         const valEl = document.getElementById(g.valId);
-        if (!addrEl || !valEl) return;
+        if (!addrEl || !valEl) {
+            console.warn(`Elemento no encontrado para grupo ${g.name}`);
+            return;
+        }
 
         const addr = Number(addrEl.value);
         const val = Number(valEl.value);
 
-
-
-        if (isNaN(addr) || isNaN(val) || val > Number(100)) {
+        // NaN / vacío / inválido numérico
+        if (isNaN(addr) || isNaN(val)) {
             console.warn(`Valor inválido en grupo ${g.name}`);
-            alert("Un valor ingresado no es valido")
+            invalidGroups.push(g.name);
+            // marca visual ligera (ámbar)
+            valEl.style.border = "2px solid orange";
+            valEl.style.outline = "none";
+            valEl.title = "Valor numérico inválido";
+            if (!firstErrorEl) firstErrorEl = valEl;
             return;
         }
 
+        // Sobre límite
+        if (val > MAX_VAL) {
+            console.warn(`Valor sobrepasado en grupo ${g.name}: ${val} > ${MAX_VAL}`);
+            overLimitGroups.push(g.name);
+            // marca visual fuerte (rojo)
+            valEl.style.border = "2px solid red";
+            valEl.style.outline = "none";
+            valEl.title = `Valor sobrepasado (máx ${MAX_VAL})`;
+            if (!firstErrorEl) firstErrorEl = valEl;
+            // No hacemos push al payload porque no se enviará
+            return;
+        }
+
+        // Si todo OK, agregar al payload
         payload.fields.push({
             group: g.name,
             address: addr,
@@ -1217,6 +1261,31 @@ function saveDataFormWriteBESS(actionTag) {
         });
     });
 
+    // --- Manejo de errores antes de enviar ---
+    if (overLimitGroups.length > 0) {
+        alert(
+            `Valor sobrepasado (>${MAX_VAL}) en: ${overLimitGroups.join(", ")}.\n` +
+            `Corrige antes de guardar.`
+        );
+        if (firstErrorEl) firstErrorEl.focus();
+        return;
+    }
+
+    if (invalidGroups.length > 0 && payload.fields.length === 0) {
+        alert(
+            `Hay valores inválidos en: ${invalidGroups.join(", ")}.\n` +
+            `Corrige antes de guardar.`
+        );
+        if (firstErrorEl) firstErrorEl.focus();
+        return;
+    }
+
+    if (payload.fields.length === 0) {
+        alert("No hay datos válidos para enviar.");
+        return;
+    }
+
+    // --- Envío HTTP ---
     fetch(save_init, {
         method: "POST",
         headers: {
@@ -1237,6 +1306,7 @@ function saveDataFormWriteBESS(actionTag) {
             alert("No se pudo guardar.");
         });
 }
+
 
 async function SaveDataWrite(option) {
 
