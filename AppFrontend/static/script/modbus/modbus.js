@@ -1221,7 +1221,7 @@ function saveDataFormWriteBESS(actionTag) {
         const addrEl = document.getElementById(g.addrId);
         const valEl = document.getElementById(g.valId);
         if (!addrEl || !valEl) {
-            console.warn(`Elemento no encontrado para grupo ${g.name}`);
+            console.warn(`❌ Elemento no encontrado para grupo ${g.name}`);
             return;
         }
 
@@ -1264,7 +1264,7 @@ function saveDataFormWriteBESS(actionTag) {
     // --- Manejo de errores antes de enviar ---
     if (overLimitGroups.length > 0) {
         alert(
-            `Valor sobrepasado (>${MAX_VAL}) en: ${overLimitGroups.join(", ")}.\n` +
+            `❌ Valor sobrepasado (>${MAX_VAL}) en: ${overLimitGroups.join(", ")}.\n` +
             `Corrige antes de guardar.`
         );
         if (firstErrorEl) firstErrorEl.focus();
@@ -1273,7 +1273,7 @@ function saveDataFormWriteBESS(actionTag) {
 
     if (invalidGroups.length > 0 && payload.fields.length === 0) {
         alert(
-            `Hay valores inválidos en: ${invalidGroups.join(", ")}.\n` +
+            `❌ Hay valores inválidos en: ${invalidGroups.join(", ")}.\n` +
             `Corrige antes de guardar.`
         );
         if (firstErrorEl) firstErrorEl.focus();
@@ -1281,7 +1281,7 @@ function saveDataFormWriteBESS(actionTag) {
     }
 
     if (payload.fields.length === 0) {
-        alert("No hay datos válidos para enviar.");
+        alert("❌ No hay datos válidos para enviar.");
         return;
     }
 
@@ -1298,12 +1298,12 @@ function saveDataFormWriteBESS(actionTag) {
             return r.json();
         })
         .then(data => {
-            alert(data.message || "Guardado.");
+            alert("✅ " + data.message || "✅ Guardado.");
             console.log("Respuesta servidor:", data);
         })
         .catch(err => {
             console.error("Error:", err);
-            alert("No se pudo guardar.");
+            alert("❌No se pudo guardar.");
         });
 }
 
@@ -1313,7 +1313,7 @@ async function SaveDataWrite(option) {
     fetch(`/home/content/form/${option}/`)
         .then(response => {
             if (!response.ok) {
-                alert(`Error cargando contentenido: ${response.statusText}`);
+                alert(`❌ Error cargando contentenido: ${response.statusText}`);
             }
             return response.text();
         })
@@ -1393,37 +1393,37 @@ function writeDeviceTcpBess() {
     // 2. Validaciones básicas
     const host = hostEl?.value.trim();
     if (!host) {
-        showFieldError("ip_device_tcp", "Debe ingresar la dirección IP o nombre de host.");
+        showFieldError("ip_device_tcp", "❌ Debe ingresar la dirección IP o nombre de host.");
         return;
     }
 
     const port = Number(portEl?.value);
     if (isNaN(port) || port < 1 || port > 65535) {
-        showFieldError("port_device_tcp", "Puerto inválido. Debe estar entre 1 y 65535.");
+        showFieldError("port_device_tcp", "❌ Puerto inválido. Debe estar entre 1 y 65535.");
         return;
     }
 
     const attempts = Number(attemptsEl?.value);
     if (isNaN(attempts) || attempts < 1) {
-        showFieldError("attempts_tcp", "Número de intentos inválido. Debe ser entero ≥ 1.");
+        showFieldError("attempts_tcp", "❌ Número de intentos inválido. Debe ser entero ≥ 1.");
         return;
     }
 
     const timeout = Number(timeoutEl?.value);
     if (isNaN(timeout) || timeout <= 0) {
-        showFieldError("timeout_tcp", "Tiempo de espera inválido. Debe ser > 0.");
+        showFieldError("timeout_tcp", "❌ Tiempo de espera inválido. Debe ser > 0.");
         return;
     }
 
     const slave = Number(slaveEl?.value);
     if (isNaN(slave) || slave < 0 || slave > 247) {
-        showFieldError("slave_tcp", "ID de esclavo inválido. Debe estar entre 0 y 247.");
+        showFieldError("slave_tcp", "❌ID de esclavo inválido. Debe estar entre 0 y 247.");
         return;
     }
 
     const func = Number(funcEl?.value);
     if (![6, 10].includes(func)) {
-        showFieldError("modbus_function_tcp", "Función Modbus inválida. Use 6 (single) o 10 (multiple).");
+        showFieldError("modbus_function_tcp", "❌ Función Modbus inválida. Use 6 (single) o 10 (multiple).");
         return;
     }
 
@@ -1454,7 +1454,7 @@ function writeDeviceTcpBess() {
             // Se espera algo como:
             // { ok: true, wrote: [{group:"respaldo", address:1, value:10.5, ok:true, error:null}, ...] }
             if (!data.ok) {
-                alert(data.message || "La operación no se completó.");
+                alert("✅ " + data.message || "La operación no se completó.");
                 console.error("Respuesta servidor:", data);
                 return;
             }
@@ -1465,11 +1465,11 @@ function writeDeviceTcpBess() {
                 return `${rec.group} (addr=${rec.address}, val=${rec.value}) → ${estado}`;
             }).join("\n");
 
-            alert(`Escritura completada.\n\n${detalles}`);
+            alert(`✅ Escritura completada.\n\n${detalles}`);
             console.log("Resultado escritura:", data);
         })
         .catch(err => {
-            console.error("Error en la escritura:", err);
+            console.error("❌Error en la escritura:", err);
             alert("No se pudo completar la escritura Modbus.");
         });
 }
@@ -1486,7 +1486,7 @@ function writeDeviceRTUBess() {
 
     // Validación simple
     if (!payload.port || isNaN(payload.baudrate) || isNaN(payload.slave)) {
-        alert("Por favor, completa todos los campos correctamente.");
+        alert("❌ Por favor, completa todos los campos correctamente.");
         return;
     }
 
