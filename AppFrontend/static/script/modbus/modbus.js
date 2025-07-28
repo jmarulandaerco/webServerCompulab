@@ -507,6 +507,7 @@ async function loadFormDataModes() {
         document.getElementById("mode").value = data.mode;
         document.getElementById("device_type").value = data.type_device;
 
+
         const limitationRadio = document.querySelector(`input[name="limitation"][value="${data.limitation}"]`);
         if (limitationRadio) {
             limitationRadio.checked = true;
@@ -515,6 +516,11 @@ async function loadFormDataModes() {
         const compensationRadio = document.querySelector(`input[name="compensation"][value="${data.compensation}"]`);
         if (compensationRadio) {
             compensationRadio.checked = true;
+        }
+
+        const bess = document.querySelector(`input[name="bess"][value="${data.bess}"]`);
+        if (bess) {
+            bess.checked = true;
         }
 
         // // Llenar los campos de sampling
@@ -554,6 +560,7 @@ async function updateDataModes() {
     const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
     const sampling_limitation = document.getElementById("sampling_limitation").value;
     const sampling_compensation = document.getElementById("sampling_compensation").value;
+    const bess = document.querySelector('input[name="bess"]:checked')?.value;
     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // Obtiene el CSRF token
 
     try {
@@ -565,7 +572,7 @@ async function updateDataModes() {
             },
             body: JSON.stringify({
                 mode, device,
-                limitation, sampling_limitation, compensation, sampling_compensation
+                limitation, sampling_limitation, compensation, sampling_compensation, bess
             })
         });
 
@@ -1303,7 +1310,7 @@ function saveDataFormWriteBESS(actionTag) {
         })
         .catch(err => {
             console.error("Error:", err);
-            alert("❌No se pudo guardar.");
+            alert("❌ No se pudo guardar.");
         });
 }
 
