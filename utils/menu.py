@@ -333,9 +333,8 @@ class Menu:
 
     def get_ip_interface(self,interface):
         try:
-            resultado = subprocess.check_output(
-                ['ip', 'addr', 'show', interface], text=True)
-            # Buscar línea con 'inet' que contiene la IP
+            resultado = subprocess.check_output(['ip', '-4', 'addr', 'show', interface], text=True)
+        # Solo captura direcciones IPv4
             match = re.search(r'inet (\d+\.\d+\.\d+\.\d+)', resultado)
             if match:
                 return match.group(1)
