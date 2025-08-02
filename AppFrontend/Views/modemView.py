@@ -74,7 +74,7 @@ class InterfaceIPView(APIView):
                         result = subprocess.run(i, check=True, text=True, capture_output=True)
                     except:
                        return JsonResponse(
-                            {'message': f'No se pudo obtener la Ip {interface}. Verifica la conexión física o que la interfaz no tenga una IP sin configurar'},status=400
+                            {'message': f'No se pudo obtener la Ip {interface}.ip: {ip} gateway{gateway} Verifica la conexión física o que la interfaz no tenga una IP sin configurar'},status=400
                         
                         )
                             
