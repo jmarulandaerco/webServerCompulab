@@ -354,9 +354,9 @@ class Menu:
             if match:
                 return match.group(1)
             else:
-                return f""
+                return ""
         except subprocess.CalledProcessError:
-            return f""
+            return ""
         
     
 

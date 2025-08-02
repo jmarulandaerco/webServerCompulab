@@ -65,7 +65,7 @@ class InterfaceIPView(APIView):
         gateway=menu.get_gateway_interface(interface)
 
         if ip:
-            if not gateway:
+            if not "":
                 # Define el comando
                 cmd = [['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth0'],['sudo', 'ip', 'route', 'del', 'default', 'dev', 'eth1']]
 
